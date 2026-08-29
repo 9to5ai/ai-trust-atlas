@@ -1,21 +1,21 @@
 import type { Concept, ConceptDomain } from '../types'
 
 export const domains: ConceptDomain[] = [
-  { id: 'governance', name: 'Governance and accountability', shortName: 'Governance', question: 'Who owns the outcome and the decision?', definition: 'Decision rights, accountability, policy, oversight and organisational governance for AI.', color: '#f0a46b' },
-  { id: 'risk', name: 'Risk and impact', shortName: 'Risk', question: 'What could undermine trust, and for whom?', definition: 'Context, materiality, impact, risk assessment and treatment across affected people and systems.', color: '#df83a7' },
-  { id: 'lifecycle', name: 'Lifecycle and change', shortName: 'Lifecycle', question: 'How is risk governed as the system changes?', definition: 'Controls from use-case intake and design through deployment, monitoring, change and retirement.', color: '#c39af3' },
-  { id: 'data', name: 'Data and privacy', shortName: 'Data', question: 'Can the information foundation be trusted?', definition: 'Data quality, provenance, privacy, lawful use, retention and knowledge-source integrity.', color: '#7db9f5' },
-  { id: 'transparency', name: 'Transparency and contestability', shortName: 'Transparency', question: 'Can people understand, challenge and contest?', definition: 'Disclosure, explanation, traceability, documentation and routes to challenge outcomes.', color: '#8ad7d0' },
-  { id: 'fairness', name: 'Fairness and human impact', shortName: 'Fairness', question: 'Are people treated fairly and with agency?', definition: 'Bias, discrimination, accessibility, human rights, inclusion and meaningful human oversight.', color: '#e4c96f' },
-  { id: 'security', name: 'Security and adversarial resilience', shortName: 'Security', question: 'Can misuse and attack be prevented or contained?', definition: 'Cybersecurity, adversarial threats, identity, permissions, prompt security and system integrity.', color: '#ef7373' },
-  { id: 'resilience', name: 'Reliability and resilience', shortName: 'Resilience', question: 'Will the system behave and recover as intended?', definition: 'Validity, reliability, robustness, continuity, fallback, incident response and recovery.', color: '#76cf93' },
-  { id: 'third-party', name: 'Third-party and supply chain', shortName: 'Third party', question: 'Where do dependencies concentrate risk?', definition: 'Provider risk, supply-chain integrity, concentration, contracts, monitoring and exitability.', color: '#9eb6ca' },
-  { id: 'testing', name: 'Testing and evaluation', shortName: 'Testing', question: 'How are claims challenged?', definition: 'Evaluation, validation, red teaming, scenario testing, monitoring and limitations analysis.', color: '#74b9a2' },
-  { id: 'evidence', name: 'Evidence and assurance', shortName: 'Evidence', question: 'What evidence supports the claim?', definition: 'Provenance, evidence quality, auditability, control testing and independent assurance.', color: '#b8a8ff' },
-  { id: 'agentic', name: 'Agent authority and runtime control', shortName: 'Agentic AI', question: 'What can the system do, and who can stop it?', definition: 'Mandates, tool access, autonomy, runtime guardrails, human approval, intervention and traceability.', color: '#64c5e8' },
+  { id: 'governance', name: 'Governance and accountability', shortName: 'Governance', question: 'Who owns the outcome and the decision?', definition: 'Decision rights, accountability, policy, oversight and organisational governance for AI.', color: '#f0a46b', role: 'governance-capability', navigationFamily: 'decide-and-govern' },
+  { id: 'risk', name: 'Risk and impact', shortName: 'Risk', question: 'What could undermine trust, and for whom?', definition: 'Context, materiality, impact, risk assessment and treatment across affected people and systems.', color: '#df83a7', role: 'governance-capability', navigationFamily: 'decide-and-govern' },
+  { id: 'lifecycle', name: 'Lifecycle and change', shortName: 'Lifecycle', question: 'How is risk governed as the system changes?', definition: 'Controls from use-case intake and design through deployment, monitoring, change and retirement.', color: '#c39af3', role: 'governance-capability', navigationFamily: 'decide-and-govern' },
+  { id: 'data', name: 'Data and privacy', shortName: 'Data', question: 'Can the information foundation be trusted?', definition: 'Data quality, provenance, privacy, lawful use, retention and knowledge-source integrity.', color: '#7db9f5', role: 'trust-outcome', navigationFamily: 'protect-people-and-information' },
+  { id: 'transparency', name: 'Transparency and contestability', shortName: 'Transparency', question: 'Can people understand, challenge and contest?', definition: 'Disclosure, explanation, traceability, documentation and routes to challenge outcomes.', color: '#8ad7d0', role: 'trust-outcome', navigationFamily: 'protect-people-and-information' },
+  { id: 'fairness', name: 'Fairness and human impact', shortName: 'Fairness', question: 'Are people treated fairly and with agency?', definition: 'Bias, discrimination, accessibility, human rights, inclusion and meaningful human oversight.', color: '#e4c96f', role: 'trust-outcome', navigationFamily: 'protect-people-and-information' },
+  { id: 'security', name: 'Security and adversarial resilience', shortName: 'Security', question: 'Can misuse and attack be prevented or contained?', definition: 'Cybersecurity, adversarial threats, identity, permissions, prompt security and system integrity.', color: '#ef7373', role: 'trust-outcome', navigationFamily: 'build-and-operate-safely' },
+  { id: 'resilience', name: 'Reliability and resilience', shortName: 'Resilience', question: 'Will the system behave and recover as intended?', definition: 'Validity, reliability, robustness, continuity, fallback, incident response and recovery.', color: '#76cf93', role: 'trust-outcome', navigationFamily: 'build-and-operate-safely' },
+  { id: 'third-party', name: 'Third-party and supply chain', shortName: 'Third party', question: 'Where do dependencies concentrate risk?', definition: 'Provider risk, supply-chain integrity, concentration, contracts, monitoring and exitability.', color: '#9eb6ca', role: 'context-facet', navigationFamily: 'build-and-operate-safely' },
+  { id: 'testing', name: 'Testing and evaluation', shortName: 'Testing', question: 'How are claims challenged?', definition: 'Evaluation, validation, red teaming, scenario testing, monitoring and limitations analysis.', color: '#74b9a2', role: 'governance-capability', navigationFamily: 'verify-and-assure' },
+  { id: 'evidence', name: 'Evidence and assurance', shortName: 'Evidence', question: 'What evidence supports the claim?', definition: 'Provenance, evidence quality, auditability, control testing and independent assurance.', color: '#b8a8ff', role: 'governance-capability', navigationFamily: 'verify-and-assure' },
+  { id: 'agentic', name: 'Agent authority and runtime control', shortName: 'Agentic AI', question: 'What can the system do, and who can stop it?', definition: 'Mandates, tool access, autonomy, runtime guardrails, human approval, intervention and traceability.', color: '#64c5e8', role: 'context-facet', navigationFamily: 'build-and-operate-safely' },
 ]
 
-export const concepts: Concept[] = [
+const conceptDefinitions: Array<Omit<Concept, 'role'>> = [
   { id: 'accountability', name: 'Accountability', domainId: 'governance', definition: 'Named ownership for AI outcomes, controls and decisions.' },
   { id: 'decision-rights', name: 'Decision rights', domainId: 'governance', definition: 'Explicit authority for approval, exception, escalation and risk acceptance.' },
   { id: 'inventory', name: 'AI inventory', domainId: 'governance', definition: 'A current record of AI systems, purposes, owners, dependencies and status.' },
@@ -57,6 +57,29 @@ export const concepts: Concept[] = [
   { id: 'tool-use', name: 'Tool use and permissions', domainId: 'agentic', definition: 'Governance of tools, credentials, data access and external actions available to agents.' },
   { id: 'intervention', name: 'Intervention and safe stop', domainId: 'agentic', definition: 'Capability to pause, contain, roll back or transfer control safely.' },
 ]
+
+const assuranceConstructs = new Set(['evidence-quality', 'auditability', 'assurance', 'traceability'])
+const contextualConcepts = new Set(['systemic-risk', 'adversarial-risk', 'third-party-risk', 'exitability', 'agent-authority'])
+const controlFamilies = new Set(['access-control', 'supply-chain', 'runtime-guardrails', 'tool-use', 'intervention', 'incident-response'])
+const governanceCapabilities = new Set([
+  'accountability', 'decision-rights', 'inventory', 'competence', 'materiality', 'impact-assessment', 'risk-treatment',
+  'lifecycle-governance', 'change-management', 'documentation', 'data-governance', 'human-oversight', 'evaluation',
+  'red-teaming', 'continuous-monitoring',
+])
+
+export const concepts: Concept[] = conceptDefinitions.map((concept) => ({
+  ...concept,
+  role: assuranceConstructs.has(concept.id)
+    ? 'assurance-construct'
+    : contextualConcepts.has(concept.id)
+      ? 'context'
+      : controlFamilies.has(concept.id)
+        ? 'control-family'
+        : governanceCapabilities.has(concept.id)
+          ? 'governance-capability'
+          : 'trust-objective',
+  facets: domains.find((domain) => domain.id === concept.domainId)?.role === 'context-facet' ? [concept.domainId] : undefined,
+}))
 
 export const domainById = new Map(domains.map((domain) => [domain.id, domain]))
 export const conceptById = new Map(concepts.map((concept) => [concept.id, concept]))

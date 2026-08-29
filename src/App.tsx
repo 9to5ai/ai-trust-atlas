@@ -5,9 +5,10 @@ import { GraphCanvas } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
 import { concepts, domains } from './data/concepts'
+import { mappingAssertions } from './data/assertions'
+import { CONTROL_MODEL_VERIFIED, controlObjectives } from './data/controls'
 import { instruments } from './data/instruments'
 import { countForCausalLens, mappedRiskRecordCount, riskDomainById, riskSubdomains, type CausalLens } from './data/mitRiskTaxonomy'
-import { relations } from './data/relations'
 import { buildGraphModel, defaultFilters, type LayoutMode } from './lib/graphModel'
 import type { AuthorityClass, Instrument } from './types'
 
@@ -15,10 +16,11 @@ const initialHashSelection = () => {
   const hash = window.location.hash.replace('#/', '')
   if (!hash) return undefined
   const [kind, ...rest] = hash.split('/')
-  return ['instrument', 'concept', 'domain', 'clause', 'risk-domain', 'risk-subdomain'].includes(kind) && rest.length ? `${kind}:${rest.join('/')}` : undefined
+  const normalizedKind = kind === 'clause' ? 'provision' : kind
+  return ['instrument', 'concept', 'domain', 'provision', 'risk-domain', 'risk-subdomain', 'control-family', 'control-objective'].includes(normalizedKind) && rest.length ? `${normalizedKind}:${rest.join('/')}` : undefined
 }
 
-const initialLayout = (): LayoutMode => window.location.hash.includes('/risk-') ? 'risk' : 'ontology'
+const initialLayout = (): LayoutMode => window.location.hash.includes('/risk-') ? 'risk' : window.location.hash.includes('/control-') ? 'controls' : 'ontology'
 
 export default function App() {
   const [layout, setLayout] = useState<LayoutMode>(initialLayout)
@@ -49,20 +51,17 @@ export default function App() {
     })
   }, [causalLens, query])
 
-  const selectedInstrumentId = useMemo(() => {
-    if (!selectedNodeId) return undefined
-    const [kind, id] = selectedNodeId.split(':')
-    if (kind === 'instrument') return id
-    if (kind === 'clause') return instruments.find((instrument) => instrument.clauses.some((clause) => clause.id === id))?.id
-    return undefined
-  }, [selectedNodeId])
+  const filteredControls = useMemo(() => {
+    const normalized = query.toLowerCase().trim()
+    return controlObjectives.filter((control) => !normalized || [control.code, control.name, control.objective, control.purpose, ...control.conceptIds].join(' ').toLowerCase().includes(normalized))
+  }, [query])
 
-  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions }, selectedInstrumentId, causalLens), [authorityClasses, causalLens, layout, query, regions, selectedInstrumentId])
-  const selectedGraphNodeId = selectedNodeId?.startsWith('clause:') && selectedInstrumentId ? `instrument:${selectedInstrumentId}` : selectedNodeId
+  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions }, selectedNodeId, causalLens), [authorityClasses, causalLens, layout, query, regions, selectedNodeId])
 
   const selectNode = (nodeId?: string) => {
     if (nodeId?.startsWith('risk-')) setLayout('risk')
-    if (layout === 'risk' && (nodeId?.startsWith('instrument:') || nodeId?.startsWith('clause:'))) setLayout('ontology')
+    if (nodeId?.startsWith('control-')) setLayout('controls')
+    if ((layout === 'risk' || layout === 'controls') && (nodeId?.startsWith('instrument:') || nodeId?.startsWith('provision:') || nodeId?.startsWith('concept:') || nodeId?.startsWith('domain:'))) setLayout('ontology')
     setSelectedNodeId(nodeId)
   }
 
@@ -100,10 +99,11 @@ export default function App() {
     return [...current.slice(-1), instrumentId]
   })
 
-  const totalClauses = instruments.reduce((count, instrument) => count + instrument.clauses.length, 0)
+  const totalProvisions = instruments.reduce((count, instrument) => count + instrument.provisions.length, 0)
 
   return (
-    <main className="atlas-shell">
+    <main className="atlas-shell" id="main-content">
+      <a className="skip-link" href="#atlas-graph">Skip to the Atlas universe</a>
       <header className="atlas-header">
         <div className="brand-block">
           <div className="brand-mark" aria-hidden="true"><Network weight="duotone" /></div>
@@ -116,8 +116,8 @@ export default function App() {
           <div><strong>{instruments.length}</strong><span>instruments</span></div>
           <div><strong>{concepts.length}</strong><span>concepts</span></div>
           <div><strong>{riskSubdomains.length}</strong><span>risk types</span></div>
-          <div><strong>{relations.length}</strong><span>explained links</span></div>
-          <div><strong>{totalClauses}</strong><span>clause guides</span></div>
+          <div><strong>{controlObjectives.length}</strong><span>controls</span></div>
+          <div><strong>{totalProvisions}</strong><span>provisions</span></div>
         </div>
         <nav className="header-actions" aria-label="Atlas resources">
           <button type="button" onClick={() => setShowMethod(true)}><Info /> Method</button>
@@ -140,9 +140,11 @@ export default function App() {
             results={filteredInstruments}
             onSelectInstrument={(id) => { selectNode(`instrument:${id}`); setMobileControls(false) }}
             riskResults={filteredRiskSubdomains}
+            controlResults={filteredControls}
             causalLens={causalLens}
             onCausalLensChange={setCausalLens}
             onSelectRisk={(id) => { selectNode(`risk-subdomain:${id}`); setMobileControls(false) }}
+            onSelectControl={(id) => { selectNode(`control-objective:${id}`); setMobileControls(false) }}
             totalInstruments={instruments.length}
           />
         </div>
@@ -158,32 +160,39 @@ export default function App() {
           results={filteredInstruments}
           onSelectInstrument={(id) => selectNode(`instrument:${id}`)}
           riskResults={filteredRiskSubdomains}
+          controlResults={filteredControls}
           causalLens={causalLens}
           onCausalLensChange={setCausalLens}
           onSelectRisk={(id) => selectNode(`risk-subdomain:${id}`)}
+          onSelectControl={(id) => selectNode(`control-objective:${id}`)}
           totalInstruments={instruments.length}
         />
 
-        <section className="graph-region" aria-label="AI Trust ontology graph">
+        <section className="graph-region" id="atlas-graph" aria-label="AI Trust ontology graph">
           <div className="graph-title">
-            <span>{layout === 'risk' ? 'Risk universe' : layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
-            <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : `${filteredInstruments.length} instruments connected through ${domains.length} trust domains`}</strong>
+            <span>{layout === 'risk' ? 'Risk universe' : layout === 'controls' ? 'Control architecture' : layout === 'ontology' ? 'Requirements by meaning' : 'Requirements by authority'}</span>
+            <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : layout === 'controls' ? `${filteredControls.length} Atlas-normalised objectives · six control families` : `${filteredInstruments.length} instruments connected through ${domains.length} visual themes`}</strong>
           </div>
-          <GraphCanvas model={graphModel} selectedNodeId={selectedGraphNodeId} onSelect={selectNode} />
+          <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} />
           <div className="semantic-key" role="group" aria-label="Graph legend">
             {layout === 'risk' ? <>
               <span><i className="shape-domain" />Trust domain</span>
               <span><i className="shape-concept" />Trust concept</span>
               <span><i className="shape-risk-domain" />MIT domain</span>
               <span><i className="shape-risk-subdomain" />MIT risk type</span>
+            </> : layout === 'controls' ? <>
+              <span><i className="shape-control-family" />Control family</span>
+              <span><i className="shape-control" />Control objective</span>
+              <span><i className="shape-concept" />Trust concept</span>
+              <span><i className="shape-risk-subdomain" />Risk type</span>
             </> : <>
-              <span><i className="shape-domain" />Domain</span>
+              <span><i className="shape-domain" />Visual theme</span>
               <span><i className="shape-concept" />Concept</span>
               <span><i className="shape-instrument" />Instrument</span>
-              <span><i className="shape-clause" />Clause</span>
+              <span><i className="shape-provision" />Provision</span>
             </>}
           </div>
-          <div className="corpus-status"><span>{layout === 'risk' ? 'MIT source · CC BY 4.0' : 'Curated public corpus'}</span><strong>{layout === 'risk' ? 'Database updated 03 December 2025' : 'Verified 28 August 2026'}</strong></div>
+          <div className="corpus-status"><span>{layout === 'risk' ? 'MIT source · CC BY 4.0' : layout === 'controls' ? 'Atlas-normalised · public sources' : 'Curated public corpus'}</span><strong>{layout === 'risk' ? 'Database updated 03 December 2025' : layout === 'controls' ? `Verified ${CONTROL_MODEL_VERIFIED}` : 'Verified 28 August 2026'}</strong></div>
         </section>
 
         <Inspector
@@ -204,12 +213,14 @@ export default function App() {
             <button className="inspector-close" type="button" onClick={() => setShowMethod(false)} aria-label="Close methodology"><X /></button>
             <span className="method-label">How to read the atlas</span>
             <h2 id="method-title">Relationships, not equivalence.</h2>
-            <p>The atlas decomposes each instrument into shared concepts, then records how instruments require, guide, extend, operationalise or support one another.</p>
+            <p>The Atlas separates authority, source provisions, trust objectives, risks and candidate control responses. Every semantic line is represented as an inspectable assertion.</p>
             <div className="method-columns">
               <div><strong>Authority stays visible</strong><p>Law, prudential expectations, standards, frameworks, testing resources and threat knowledge remain distinct.</p></div>
               <div><strong>Synthesis is labelled</strong><p>Some links are explicit in source material. Others are cross-framework synthesis with a stated confidence and explanation.</p></div>
-              <div><strong>Risk is a separate lens</strong><p>MIT risk types describe what can go wrong. Atlas links show relevance to trust concepts; they do not claim that an instrument covers or mitigates a risk.</p></div>
-              <div><strong>Evidence has limits</strong><p>A framework, policy, certification or test result does not establish legal applicability, control effectiveness or an assurance conclusion.</p></div>
+              <div><strong>Risk paths are explainable</strong><p>Derived instrument–risk associations are shown through the exact shared concepts or source provisions, never as direct coverage.</p></div>
+              <div><strong>Controls are candidate responses</strong><p>The {controlObjectives.length} Atlas objectives are normalised from public sources. “May address” never means implemented, effective or compliant.</p></div>
+              <div><strong>Assertions carry provenance</strong><p>{mappingAssertions.length.toLocaleString()} typed assertions retain rationale, mapping basis, confidence, citations, version and verification date.</p></div>
+              <div><strong>Evidence has limits</strong><p>A policy, configuration, certification or test result can support assessment but cannot establish operating effectiveness or an assurance conclusion by itself.</p></div>
               <div><strong>Human authority remains</strong><p>Accountable people retain materiality, risk appetite, approval, exceptions, residual-risk and assurance decisions.</p></div>
             </div>
             <button className="method-primary" type="button" onClick={() => setShowMethod(false)}>Enter the atlas</button>

@@ -6,6 +6,7 @@ export type AuthorityClass =
   | 'international-treaty'
   | 'international-standard'
   | 'risk-framework'
+  | 'control-framework'
   | 'financial-sector-guidance'
   | 'analytical-report'
   | 'testing-framework'
@@ -45,6 +46,10 @@ export type RelationType =
 export type EvidenceBasis = 'explicit' | 'cross-framework-synthesis'
 export type Confidence = 'high' | 'medium'
 
+export type DomainRole = 'trust-outcome' | 'governance-capability' | 'context-facet'
+export type ConceptRole = 'trust-objective' | 'governance-capability' | 'control-family' | 'assurance-construct' | 'context'
+export type NavigationFamily = 'decide-and-govern' | 'protect-people-and-information' | 'build-and-operate-safely' | 'verify-and-assure'
+
 export type ConceptDomain = {
   id: string
   name: string
@@ -52,6 +57,8 @@ export type ConceptDomain = {
   question: string
   definition: string
   color: string
+  role: DomainRole
+  navigationFamily: NavigationFamily
 }
 
 export type Concept = {
@@ -59,6 +66,8 @@ export type Concept = {
   name: string
   domainId: string
   definition: string
+  role: ConceptRole
+  facets?: string[]
   aliases?: string[]
 }
 
@@ -92,12 +101,15 @@ export type RiskSubdomain = {
   mappingConfidence: Confidence
 }
 
-export type Clause = {
+export type SourceGranularity = 'article' | 'clause' | 'section' | 'principle' | 'outcome' | 'practice' | 'summary'
+
+export type SourceProvision = {
   id: string
   ref: string
   title: string
   summary: string
   conceptIds: string[]
+  granularity?: SourceGranularity
   sourceUrl?: string
   note?: string
 }
@@ -119,8 +131,84 @@ export type Instrument = {
   applicability: string
   sectors: string[]
   conceptIds: string[]
-  clauses: Clause[]
+  provisions: SourceProvision[]
   detailAvailability: 'full-public-text' | 'public-summary' | 'licensed-standard'
+}
+
+export type MappingBasis = 'source-authored' | 'published-crosswalk' | 'atlas-synthesis'
+export type MappingStatus = 'active' | 'provisional' | 'retired'
+export type MappingPredicate =
+  | 'contains'
+  | 'requires'
+  | 'addresses'
+  | 'threatens'
+  | 'relevant-to'
+  | 'supports'
+  | 'may-address'
+  | 'synthesised-from'
+  | 'implemented-by'
+  | 'tested-by'
+  | 'may-produce-evidence'
+  | 'aligns-with'
+  | 'operationalises'
+
+export type SourceCitation = {
+  sourceTitle: string
+  locator: string
+  url: string
+  accessedAt: string
+  sourceVersion?: string
+}
+
+export type MappingAssertion = {
+  id: string
+  sourceNodeId: string
+  predicate: MappingPredicate
+  targetNodeId: string
+  rationale: string
+  basis: MappingBasis
+  confidence: Confidence
+  citations: SourceCitation[]
+  createdBy: 'source' | 'AI Trust Atlas'
+  verifiedAt: string
+  status: MappingStatus
+  inferenceDepth: 0 | 1 | 2
+}
+
+export type ControlFamily = {
+  id: string
+  code: string
+  name: string
+  shortName: string
+  question: string
+  definition: string
+  color: string
+}
+
+export type ControlSourceReference = {
+  instrumentId: string
+  sourceTitle: string
+  locator: string
+  url: string
+  sourceKind: 'outcome' | 'suggested-action' | 'mitigation-pattern' | 'verification-requirement' | 'implementation-guidance' | 'crosswalk'
+}
+
+export type ControlObjective = {
+  id: string
+  code: string
+  name: string
+  shortName: string
+  familyId: string
+  objective: string
+  purpose: string
+  controlTypes: Array<'governance' | 'preventive' | 'detective' | 'corrective' | 'recovery'>
+  lifecycleStages: string[]
+  roleArchetypes: string[]
+  conceptIds: string[]
+  riskIds: string[]
+  implementationExamples: string[]
+  evidenceExamples: string[]
+  sourceRefs: ControlSourceReference[]
 }
 
 export type InstrumentRelation = {
@@ -134,7 +222,7 @@ export type InstrumentRelation = {
   sourceAnchors: string[]
 }
 
-export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'clause' | 'risk-domain' | 'risk-subdomain'
+export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'provision' | 'risk-domain' | 'risk-subdomain' | 'control-family' | 'control-objective'
 
 export type GraphNode = {
   id: string
@@ -146,6 +234,7 @@ export type GraphNode = {
   authorityClass?: AuthorityClass
   region?: Instrument['region']
   riskDomainId?: string
+  controlFamilyId?: string
   recordCount?: number
   x: number
   y: number
@@ -163,6 +252,7 @@ export type GraphEdge = {
   targetId: string
   label: string
   relationType?: RelationType
+  semanticFamily?: 'structure' | 'authority' | 'alignment' | 'implementation' | 'evidence' | 'risk' | 'control'
   basis?: EvidenceBasis
   confidence?: Confidence
   explanation?: string

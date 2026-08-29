@@ -19,7 +19,7 @@ const initialScale = 0.52
 const initialRotation: Rotation = { yaw: -0.16, pitch: -0.1 }
 
 const modelRadius = (model: GraphModel) => model.nodes.reduce((largest, node) => {
-  if (node.kind === 'clause') return largest
+  if (node.kind === 'provision') return largest
   return Math.max(largest, Math.hypot(node.targetX, node.targetY, node.targetZ) + node.radius * 2)
 }, 1)
 
@@ -188,7 +188,19 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
   const [hoveredNodeId, setHoveredNodeId] = useState<string>()
   const hoveredRef = useRef<string | undefined>(undefined)
   const selectedRef = useRef(selectedNodeId)
+  const keyboardIndexRef = useRef(0)
   const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
+  const selectedConnectionSummary = useMemo(() => {
+    if (!selectedNodeId) return 'No node selected. Use arrow keys to move through nodes and press Enter to open details.'
+    const selected = model.nodes.find((node) => node.id === selectedNodeId)
+    const adjacentIds = new Set<string>()
+    model.edges.forEach((edge) => {
+      if (edge.sourceId === selectedNodeId) adjacentIds.add(edge.targetId)
+      if (edge.targetId === selectedNodeId) adjacentIds.add(edge.sourceId)
+    })
+    const labels = [...adjacentIds].map((id) => model.nodes.find((node) => node.id === id)?.shortLabel).filter(Boolean).slice(0, 8)
+    return `${selected?.label ?? selectedNodeId}. ${adjacentIds.size} immediate connections${labels.length ? `: ${labels.join(', ')}` : ''}.`
+  }, [model, selectedNodeId])
 
   useEffect(() => {
     const previous = nodePositionsRef.current
@@ -196,9 +208,9 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
     model.nodes.forEach((node) => {
       const existing = previous.get(node.id)
       next.set(node.id, existing ?? {
-        x: node.kind === 'clause' ? node.targetX * 0.94 : node.targetX,
-        y: node.kind === 'clause' ? node.targetY * 0.94 : node.targetY,
-        z: node.kind === 'clause' ? node.targetZ * 0.94 : node.targetZ,
+        x: node.kind === 'provision' ? node.targetX * 0.94 : node.targetX,
+        y: node.kind === 'provision' ? node.targetY * 0.94 : node.targetY,
+        z: node.kind === 'provision' ? node.targetZ * 0.94 : node.targetZ,
       })
     })
     nodePositionsRef.current = next
@@ -317,19 +329,20 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
         if (!sourceNode || !targetNode || !source || !target) return
         const isActive = Boolean(activeId && (edge.sourceId === activeId || edge.targetId === activeId))
         const isRelation = Boolean(edge.relationType)
-        const isRiskMapping = edge.id.startsWith('risk-concept:')
+        const isRiskMapping = edge.semanticFamily === 'risk'
+        const isControlMapping = edge.semanticFamily === 'control'
         const averageDepth = (source.depth + target.depth) / 2
         const depthOpacity = clamp(0.52 + averageDepth / Math.max(sphereRadius * 2.1, 1), 0.26, 1)
-        const baseOpacity = isRelation ? 0.105 : isRiskMapping ? 0.075 : camera.scale > 1 ? 0.07 : 0.038
+        const baseOpacity = isRelation ? 0.105 : isRiskMapping || isControlMapping ? 0.075 : camera.scale > 1 ? 0.07 : 0.038
         context.strokeStyle = isActive ? `${sourceNode.color}dc` : `rgba(151, 169, 196, ${baseOpacity * depthOpacity})`
         context.lineWidth = (isActive ? 1.7 : isRelation ? 0.82 : 0.52) / camera.scale
-        context.setLineDash((isRelation || isRiskMapping) && !isActive ? [5 / camera.scale, 7 / camera.scale] : [])
+        context.setLineDash((isRelation || isRiskMapping || isControlMapping) && !isActive ? [5 / camera.scale, 7 / camera.scale] : [])
         context.beginPath()
         context.moveTo(source.x, source.y)
 
         let controlX = (source.x + target.x) / 2
         let controlY = (source.y + target.y) / 2
-        if (isRelation || isRiskMapping) {
+        if (isRelation || isRiskMapping || isControlMapping) {
           controlX *= 0.26
           controlY *= 0.26
         } else if (sourceNode.kind === 'instrument' || targetNode.kind === 'instrument') {
@@ -344,8 +357,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
         context.stroke()
         context.setLineDash([])
 
-        const isClauseEdge = sourceNode.kind === 'clause' || targetNode.kind === 'clause'
-        if (isActive && camera.scale > 1 && (isRelation || isClauseEdge)) {
+        const isProvisionEdge = sourceNode.kind === 'provision' || targetNode.kind === 'provision'
+        if (isActive && camera.scale > 0.9 && (isRelation || isProvisionEdge || isRiskMapping || isControlMapping)) {
           const labelX = (source.x + target.x) / 2
           const labelY = (source.y + target.y) / 2
           context.font = `${10 / camera.scale}px ui-monospace, SFMono-Regular, Menlo, monospace`
@@ -426,6 +439,25 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
           context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}ee`
           context.lineWidth = (isSelected || isHovered ? 2 : 0.75) / camera.scale
           context.stroke()
+        } else if (node.kind === 'control-family') {
+          polygonPath(context, point.x, point.y, radius, 8, Math.PI / 8)
+          context.fillStyle = `${node.color}24`
+          context.fill()
+          context.strokeStyle = `${node.color}${isSelected || isHovered ? 'ff' : 'b8'}`
+          context.lineWidth = (isSelected || isHovered ? 2.2 : 1.05) / camera.scale
+          context.stroke()
+          context.beginPath()
+          context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
+          context.strokeStyle = `${node.color}55`
+          context.lineWidth = 0.7 / camera.scale
+          context.stroke()
+        } else if (node.kind === 'control-objective') {
+          polygonPath(context, point.x, point.y, radius, 8, Math.PI / 8)
+          context.fillStyle = `${node.color}${isSelected || isHovered ? 'f2' : 'c4'}`
+          context.fill()
+          context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}e8`
+          context.lineWidth = (isSelected || isHovered ? 2 : 0.8) / camera.scale
+          context.stroke()
         } else {
           polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
           context.fillStyle = node.color
@@ -433,23 +465,26 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
         }
         context.shadowBlur = 0
 
-        const showAdjacentRiskLabel = Boolean(activeNode && ['risk-domain', 'risk-subdomain'].includes(activeNode.kind) && adjacent.has(node.id))
+        const showAdjacentRiskLabel = Boolean(activeNode && ['risk-domain', 'risk-subdomain', 'control-family', 'control-objective', 'concept'].includes(activeNode.kind) && adjacent.has(node.id))
         const showLabel = node.kind === 'domain'
           || node.kind === 'risk-domain'
+          || node.kind === 'control-family'
           || isSelected
           || isHovered
           || showAdjacentRiskLabel
           || (node.kind === 'concept' && camera.scale > 1.58)
           || (node.kind === 'instrument' && camera.scale > 2.05)
-          || (node.kind === 'clause' && camera.scale > 1.66)
+          || (node.kind === 'provision' && camera.scale > 1.66)
           || (node.kind === 'risk-subdomain' && camera.scale > 1.42)
+          || (node.kind === 'control-objective' && camera.scale > 1.36)
         if (showLabel) {
-          const size = node.kind === 'domain' || node.kind === 'risk-domain' ? 11 : node.kind === 'instrument' ? 9.5 : 8.5
-          context.font = `${node.kind === 'domain' || node.kind === 'risk-domain' ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
+          const isGroup = node.kind === 'domain' || node.kind === 'risk-domain' || node.kind === 'control-family'
+          const size = isGroup ? 11 : node.kind === 'instrument' ? 9.5 : 8.5
+          context.font = `${isGroup ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
           context.textAlign = 'center'
           context.textBaseline = 'top'
-          context.fillStyle = isSelected || isHovered ? '#f5f7fa' : node.kind === 'domain' || node.kind === 'risk-domain' ? node.color : 'rgba(218, 225, 235, 0.82)'
-          const maxWidth = node.kind === 'domain' || node.kind === 'risk-domain' ? 118 / camera.scale : 104 / camera.scale
+          context.fillStyle = isSelected || isHovered ? '#f5f7fa' : isGroup ? node.color : 'rgba(218, 225, 235, 0.82)'
+          const maxWidth = isGroup ? 118 / camera.scale : 104 / camera.scale
           drawWrappedLabel(context, node.shortLabel, point.x, point.y + radius + 7 / camera.scale, maxWidth, 10.5 / camera.scale)
         }
         context.globalAlpha = 1
@@ -519,12 +554,28 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
     onSelect(undefined)
   }
 
+  const navigateByKeyboard = (direction: number) => {
+    const nodes = modelRef.current.nodes
+    if (nodes.length === 0) return
+    const selectedIndex = selectedRef.current ? nodes.findIndex((node) => node.id === selectedRef.current) : keyboardIndexRef.current
+    keyboardIndexRef.current = (Math.max(0, selectedIndex) + direction + nodes.length) % nodes.length
+    onSelect(nodes[keyboardIndexRef.current]?.id)
+  }
+
   return (
     <div className="graph-stage" ref={wrapRef} data-hovered={hoveredNodeId ?? ''}>
       <canvas
         ref={canvasRef}
-        aria-label="Interactive orbital map of AI regulations, standards, frameworks, concepts and clauses"
+        aria-label="Interactive orbital map of AI requirements, risks, controls, concepts and source provisions"
+        aria-describedby="graph-accessible-description"
         tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); navigateByKeyboard(1) }
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); navigateByKeyboard(-1) }
+          if (event.key === 'Home') { event.preventDefault(); keyboardIndexRef.current = 0; onSelect(modelRef.current.nodes[0]?.id) }
+          if (event.key === 'End') { event.preventDefault(); keyboardIndexRef.current = Math.max(0, modelRef.current.nodes.length - 1); onSelect(modelRef.current.nodes.at(-1)?.id) }
+          if (event.key === 'Escape') { event.preventDefault(); onSelect(undefined) }
+        }}
         onPointerDown={(event) => {
           const rotation = rotationTargetRef.current
           dragRef.current = {
@@ -591,12 +642,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
           cameraTargetRef.current = { x: target.x + afterX - beforeX, y: target.y + afterY - beforeY, scale: nextScale }
         }}
       />
+      <p className="sr-only" id="graph-accessible-description" aria-live="polite">{selectedConnectionSummary}</p>
       <div className="graph-controls" role="toolbar" aria-label="Graph view controls">
         <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in"><Plus weight="bold" /></button>
         <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out"><Minus weight="bold" /></button>
         <button type="button" onClick={resetCamera} aria-label="Reset graph view"><ArrowsOut /></button>
       </div>
-      <p className="graph-hint" aria-hidden="true">Drag to orbit. Wheel to zoom. Select a node to reveal its structure.</p>
+      <p className="graph-hint" aria-hidden="true">Drag to orbit. Wheel to zoom. Arrow keys move through nodes. Select to reveal immediate connections.</p>
     </div>
   )
 }

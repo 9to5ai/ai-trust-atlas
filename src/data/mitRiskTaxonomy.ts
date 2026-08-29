@@ -4,6 +4,13 @@ export const MIT_RISK_SOURCE_URL = 'https://airisk.mit.edu/risks'
 export const MIT_RISK_DATABASE_URL = 'https://docs.google.com/spreadsheets/d/15LeHcpeuZC9txkvcaMoh3sUhkMvdMMry69xxXL46DT0/edit?usp=sharing'
 export const MIT_RISK_UPDATED = '2025-12-03'
 export const MIT_RISK_LICENSE = 'CC BY 4.0'
+export const MIT_RISK_PROVENANCE = {
+  dataset: 'AI Risk Database v4',
+  sourceUpdated: MIT_RISK_UPDATED,
+  retrievedAt: '2026-08-28',
+  licence: MIT_RISK_LICENSE,
+  transformation: 'The browser bundle retains the seven-domain and 24-subdomain taxonomy with aggregate causal profiles. Generic, uncoded and excluded category rows are not represented as risk nodes, and source-record text is not bundled.',
+} as const
 
 export type CausalLens =
   | 'all'
@@ -16,8 +23,8 @@ export type CausalLens =
 
 export const causalLensOptions: { id: CausalLens; label: string; group: 'All' | 'Entity' | 'Intent' | 'Timing' }[] = [
   { id: 'all', label: 'All records', group: 'All' },
-  { id: 'entity:AI', label: 'AI caused', group: 'Entity' },
-  { id: 'entity:Human', label: 'Human caused', group: 'Entity' },
+  { id: 'entity:AI', label: 'Entity: AI system', group: 'Entity' },
+  { id: 'entity:Human', label: 'Entity: human', group: 'Entity' },
   { id: 'intent:Intentional', label: 'Intentional', group: 'Intent' },
   { id: 'intent:Unintentional', label: 'Unintentional', group: 'Intent' },
   { id: 'timing:Pre-deployment', label: 'Pre-deployment', group: 'Timing' },

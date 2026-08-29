@@ -17,24 +17,27 @@ If one or more sources are `not reviewed`, label the entire run `INCOMPLETE`. Do
 ## Review sequence
 
 1. Review every `officialUrl` in the instrument corpus.
-2. Review the MIT AI Risk Repository page and public database for taxonomy, record-count, causal-coding, update-date or licence changes.
-3. Compare title, issuer, status, dates, scope and substantive source content with the current record.
-4. Record the review timestamp, result and supporting URL for every source.
-5. For changed sources, identify affected instruments, clause guides, concepts, risk types and relationships.
-6. Prepare a proposed corpus update with citations and a plain-language change summary.
-7. Run corpus integrity tests before publication.
+2. Review the MIT AI Risk Repository and AI Risk Mitigation pages for taxonomy, record-count, causal-coding, mitigation, update-date or licence changes.
+3. Review the NIST Playbook, Australian Essential AI Practices, OWASP AISVS and CSA AICM public metadata for control-model changes. A CSA licence-gated download is `not reviewed` unless accessed through an authorised path.
+4. Compare title, issuer, status, dates, scope and substantive source content with the current record.
+5. Record the review timestamp, result and supporting URL for every source.
+6. For changed sources, identify affected instruments, source provisions, concepts, risk types, control objectives and mapping assertions.
+7. Prepare a proposed corpus update with citations and a plain-language change summary.
+8. Run corpus and semantic-path integrity tests before publication.
 
 ## Relationship updates
 
-AI-authored relationships are allowed. Each new or changed relationship must still include a relation type, explanation, source anchors, evidence basis and confidence. Cross-framework synthesis must remain visibly distinct from explicit source mappings.
+AI-authored relationships are allowed. Each new or changed mapping assertion must include a predicate, rationale, structured citations, basis, confidence, mapping version, verification date and inference depth. Atlas synthesis must remain visibly distinct from source-authored mappings and published crosswalks.
 
 Never create `proves compliance`, `proves control effectiveness` or `is equivalent to` relationships.
 
-Risk-to-concept links must use `risk relevance` and remain labelled as Atlas synthesis. Never translate a source-record count into likelihood, impact, organisational exposure, coverage, mitigation or priority.
+Risk-to-concept links must use `threatens` or `relevant to` and remain labelled as Atlas synthesis. Instrument-to-risk associations must remain explainable two-hop paths through concepts or provisions. Never translate a source-record count into likelihood, impact, organisational exposure, coverage, mitigation or priority.
+
+Control mappings must use bounded predicates such as `supports`, `may address`, `synthesised from` and `may produce evidence`. Never create `implemented`, `effective`, `compliant`, `assured` or `risk mitigated` statuses in the public reference ontology.
 
 ## Standards access
 
-For licensed ISO, IEC or IEEE material, use only official public metadata and original summaries. Never ingest, reproduce or publish licensed clause text. An automated access restriction is `not reviewed` unless the official public metadata can be assessed through another authorised public path.
+For licensed ISO, IEC or IEEE material, use only official public metadata and original summaries. Never ingest, reproduce or publish licensed provision or control text. An automated access restriction is `not reviewed` unless the official public metadata can be assessed through another authorised public path.
 
 ## Human authority boundary
 

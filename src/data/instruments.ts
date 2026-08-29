@@ -12,7 +12,7 @@ const coreInstruments: Instrument[] = [
     summary: 'Australia\'s principal federal privacy law, including the Australian Privacy Principles governing personal information.',
     applicability: 'Applies according to the Act\'s coverage and exemptions. AI use does not displace existing privacy obligations.', sectors: ['Cross-sector', 'Financial services'],
     conceptIds: ['privacy', 'data-governance', 'transparency-disclosure', 'accountability', 'third-party-risk'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'au-privacy-app', ref: 'Schedule 1', title: 'Australian Privacy Principles', summary: 'Principles governing collection, use, disclosure, quality, security and access to personal information.', conceptIds: ['privacy', 'data-governance', 'transparency-disclosure'] },
       { id: 'au-privacy-app11', ref: 'APP 11', title: 'Security of personal information', summary: 'Requires reasonable steps to protect personal information and address information no longer needed.', conceptIds: ['privacy', 'ai-security', 'incident-response'] },
     ],
@@ -23,7 +23,7 @@ const coreInstruments: Instrument[] = [
     summary: 'Sets APRA\'s supervisory focus on safe AI adoption, governance, risk management, cyber security and operational resilience.',
     applicability: 'Relevant to APRA-regulated entities. It communicates supervisory expectations rather than creating a standalone AI prudential standard.', sectors: ['Banking', 'Insurance', 'Superannuation'],
     conceptIds: ['accountability', 'inventory', 'materiality', 'lifecycle-governance', 'ai-security', 'operational-resilience', 'third-party-risk', 'human-oversight', 'agent-authority'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'apra-ai-governance', ref: 'Governance', title: 'Business-owned AI governance', summary: 'Boards and senior management should understand material AI use and retain clear accountability.', conceptIds: ['accountability', 'inventory', 'decision-rights'] },
       { id: 'apra-ai-agentic', ref: 'Agentic AI', title: 'Autonomous and agentic workflows', summary: 'Agent authority, non-human identity, access and resilience require explicit control.', conceptIds: ['agent-authority', 'access-control', 'runtime-guardrails', 'operational-resilience'] },
     ],
@@ -33,7 +33,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://handbook.apra.gov.au/standard/cps-230',
     summary: 'Prudential standard for operational risk, business continuity and service-provider management.', applicability: 'Binding prudential standard for covered APRA-regulated entities.', sectors: ['Banking', 'Insurance', 'Superannuation'],
     conceptIds: ['accountability', 'operational-resilience', 'incident-response', 'third-party-risk', 'exitability', 'continuous-monitoring'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'cps230-operational-risk', ref: 'Operational risk management', title: 'Operational risk framework', summary: 'Requires an operational-risk framework supported by controls, monitoring and remediation.', conceptIds: ['risk-treatment', 'continuous-monitoring', 'accountability'] },
       { id: 'cps230-provider', ref: 'Service provider management', title: 'Material service providers', summary: 'Requires identification, agreements, monitoring and management of material service providers.', conceptIds: ['third-party-risk', 'exitability', 'operational-resilience'] },
     ],
@@ -43,7 +43,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://handbook.apra.gov.au/standard/cps-234',
     summary: 'Prudential standard requiring information-security capability, controls, incident notification and testing.', applicability: 'Binding prudential standard for covered APRA-regulated entities.', sectors: ['Banking', 'Insurance', 'Superannuation'],
     conceptIds: ['accountability', 'ai-security', 'access-control', 'third-party-risk', 'incident-response', 'evaluation', 'assurance'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'cps234-controls', ref: 'Information security controls', title: 'Controls and systematic testing', summary: 'Controls should be commensurate with threats and tested through a systematic program.', conceptIds: ['ai-security', 'evaluation', 'evidence-quality'] },
       { id: 'cps234-incidents', ref: 'Notification', title: 'Information-security incidents', summary: 'Material incidents and control weaknesses trigger notification requirements.', conceptIds: ['incident-response', 'accountability', 'traceability'] },
     ],
@@ -53,7 +53,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',
     summary: 'Risk-based legal framework for AI systems and general-purpose AI models, with phased obligations and enforcement.', applicability: 'Applies based on provider, deployer, product, location and market criteria. Legal advice is needed for specific scope.', sectors: ['Cross-sector', 'Financial services'],
     conceptIds: ['materiality', 'inventory', 'lifecycle-governance', 'documentation', 'data-governance', 'transparency-disclosure', 'human-oversight', 'evaluation', 'continuous-monitoring', 'incident-response'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'eu-ai-act-9', ref: 'Article 9', title: 'Risk management system', summary: 'Requires an iterative lifecycle risk-management system for high-risk AI systems.', conceptIds: ['lifecycle-governance', 'impact-assessment', 'risk-treatment', 'continuous-monitoring'] },
       { id: 'eu-ai-act-14', ref: 'Article 14', title: 'Human oversight', summary: 'High-risk systems must support effective oversight by appropriately competent people.', conceptIds: ['human-oversight', 'intervention', 'competence'] },
       { id: 'eu-ai-act-15', ref: 'Article 15', title: 'Accuracy, robustness and cybersecurity', summary: 'High-risk systems must achieve appropriate accuracy, robustness and cybersecurity throughout the lifecycle.', conceptIds: ['reliability', 'ai-security', 'operational-resilience'] },
@@ -64,7 +64,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://www.nist.gov/itl/ai-risk-management-framework',
     summary: 'Voluntary framework organising AI risk work through Govern, Map, Measure and Manage.', applicability: 'Voluntary and non-sector-specific. It does not certify compliance or operating effectiveness.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'materiality', 'impact-assessment', 'lifecycle-governance', 'evaluation', 'continuous-monitoring', 'risk-treatment', 'human-oversight'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'nist-rmf-govern', ref: 'GOVERN', title: 'Govern', summary: 'Cultivates risk culture, accountability, policies and lifecycle governance.', conceptIds: ['accountability', 'decision-rights', 'competence', 'lifecycle-governance'] },
       { id: 'nist-rmf-map', ref: 'MAP', title: 'Map', summary: 'Establishes context and identifies impacts and risks for affected people and systems.', conceptIds: ['materiality', 'impact-assessment', 'human-rights'] },
       { id: 'nist-rmf-measure', ref: 'MEASURE', title: 'Measure', summary: 'Assesses, analyses and tracks AI risk using appropriate methods and metrics.', conceptIds: ['evaluation', 'fairness-bias', 'reliability', 'continuous-monitoring'] },
@@ -76,7 +76,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence',
     summary: 'Companion profile describing generative-AI risks and actions aligned to the NIST AI RMF.', applicability: 'Voluntary profile for generative-AI risk management.', sectors: ['Cross-sector'],
     conceptIds: ['provenance', 'transparency-disclosure', 'adversarial-risk', 'evaluation', 'human-oversight', 'third-party-risk', 'incident-response'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'nist-genai-risks', ref: 'Section 2', title: 'Generative-AI risk profile', summary: 'Describes risks including confabulation, information integrity, privacy, bias, security and ecosystem effects.', conceptIds: ['reliability', 'provenance', 'privacy', 'fairness-bias', 'adversarial-risk', 'systemic-risk'] },
     ],
   },
@@ -85,7 +85,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://www.iso.org/standard/42001',
     summary: 'Requirements for establishing, implementing, maintaining and continually improving an AI management system.', applicability: 'Voluntary international management-system standard unless adopted by contract, policy or law. Full text is licensed.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'inventory', 'materiality', 'lifecycle-governance', 'risk-treatment', 'competence', 'continuous-monitoring', 'assurance'], detailAvailability: 'licensed-standard',
-    clauses: [
+    provisions: [
       { id: 'iso42001-context', ref: 'Clause 4', title: 'Context of the organisation', summary: 'Defines organisational context, interested parties and the management-system scope.', conceptIds: ['materiality', 'accountability'] },
       { id: 'iso42001-planning', ref: 'Clause 6', title: 'Planning', summary: 'Addresses risks, opportunities, objectives and planning for the AI management system.', conceptIds: ['impact-assessment', 'risk-treatment', 'decision-rights'] },
       { id: 'iso42001-operation', ref: 'Clause 8', title: 'Operation', summary: 'Covers operational planning and controls, including AI system impact assessment and treatment.', conceptIds: ['lifecycle-governance', 'impact-assessment', 'risk-treatment'] },
@@ -97,7 +97,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://www.iso.org/standard/77304.html',
     summary: 'Guidance for integrating AI-specific risk management into organisational activities and functions.', applicability: 'Voluntary guidance standard. Full text is licensed.', sectors: ['Cross-sector'],
     conceptIds: ['materiality', 'impact-assessment', 'risk-treatment', 'lifecycle-governance', 'continuous-monitoring'], detailAvailability: 'licensed-standard',
-    clauses: [
+    provisions: [
       { id: 'iso23894-process', ref: 'Risk-management process', title: 'AI risk-management process', summary: 'Adapts identification, analysis, evaluation, treatment, monitoring and communication to AI.', conceptIds: ['impact-assessment', 'risk-treatment', 'continuous-monitoring'] },
     ],
   },
@@ -106,7 +106,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://oecd.ai/en/ai-principles',
     summary: 'Intergovernmental principles for trustworthy AI and national policy, updated to address general-purpose and generative AI.', applicability: 'Non-binding intergovernmental recommendation that influences national policy and frameworks.', sectors: ['Cross-sector'],
     conceptIds: ['human-rights', 'fairness-bias', 'transparency-disclosure', 'reliability', 'ai-security', 'accountability', 'incident-response'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'oecd-human-centred', ref: 'Principle 1.2', title: 'Human-centred values and fairness', summary: 'Calls for respect for law, human rights, democratic values, diversity and safeguards.', conceptIds: ['human-rights', 'fairness-bias', 'human-oversight'] },
       { id: 'oecd-robustness', ref: 'Principle 1.4', title: 'Robustness, security and safety', summary: 'Calls for robust, secure and safe operation throughout the lifecycle and traceability where appropriate.', conceptIds: ['reliability', 'ai-security', 'operational-resilience', 'traceability'] },
     ],
@@ -116,7 +116,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://www.imda.gov.sg/how-we-can-help/ai-verify',
     summary: 'Testing framework and toolkit combining governance-process checks with technical tests for AI systems.', applicability: 'Voluntary testing resource. Test outputs are evidence inputs, not certification or an assurance opinion.', sectors: ['Cross-sector'],
     conceptIds: ['evaluation', 'fairness-bias', 'transparency-disclosure', 'human-oversight', 'reliability', 'evidence-quality'], detailAvailability: 'public-summary',
-    clauses: [
+    provisions: [
       { id: 'ai-verify-principles', ref: 'Testing framework', title: 'Governance and technical testing', summary: 'Maps governance principles to process checks and measurable technical tests.', conceptIds: ['evaluation', 'evidence-quality', 'fairness-bias', 'reliability'] },
     ],
   },
@@ -125,7 +125,7 @@ const coreInstruments: Instrument[] = [
     officialUrl: 'https://atlas.mitre.org/',
     summary: 'Knowledge base of adversary tactics and techniques for machine-learning, generative-AI and AI-enabled systems.', applicability: 'Threat knowledge for security analysis and testing. It is not law, a control framework or proof of exposure.', sectors: ['Cross-sector'],
     conceptIds: ['adversarial-risk', 'ai-security', 'supply-chain', 'red-teaming', 'incident-response', 'agent-authority'], detailAvailability: 'full-public-text',
-    clauses: [
+    provisions: [
       { id: 'atlas-tactics', ref: 'Tactics and techniques', title: 'AI adversary behaviours', summary: 'Structures adversary objectives and techniques to support threat modelling and testing.', conceptIds: ['adversarial-risk', 'red-teaming', 'ai-security'] },
     ],
   },

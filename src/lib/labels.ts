@@ -10,6 +10,7 @@ export const authorityOrder: AuthorityClass[] = [
   'analytical-report',
   'international-standard',
   'risk-framework',
+  'control-framework',
   'testing-framework',
   'threat-knowledge',
 ]
@@ -22,10 +23,21 @@ export const authorityLabels: Record<AuthorityClass, string> = {
   'international-treaty': 'International treaty',
   'international-standard': 'International standard',
   'risk-framework': 'Risk framework',
+  'control-framework': 'Control framework',
   'financial-sector-guidance': 'Financial-sector guidance',
   'analytical-report': 'Analytical report',
   'testing-framework': 'Testing framework',
   'threat-knowledge': 'Threat knowledge',
+}
+
+export type RelationFamily = 'Authority' | 'Alignment' | 'Implementation' | 'Testing and evidence' | 'Evolution'
+
+export const relationFamilyFor = (type: RelationType): RelationFamily => {
+  if (['requires', 'applies-to', 'interprets', 'co-applies-with'].includes(type)) return 'Authority'
+  if (['aligns-with', 'complements', 'maps-to'].includes(type)) return 'Alignment'
+  if (['operationalises', 'guides-implementation-of', 'implements', 'profiles'].includes(type)) return 'Implementation'
+  if (['provides-testing-for', 'provides-threat-knowledge-for', 'supports-evidence-for', 'evidence-base-for'].includes(type)) return 'Testing and evidence'
+  return 'Evolution'
 }
 
 export const relationLabels: Record<RelationType, string> = {
