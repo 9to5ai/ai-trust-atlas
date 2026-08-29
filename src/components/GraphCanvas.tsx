@@ -211,26 +211,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
 
   useEffect(() => {
     selectedRef.current = selectedNodeId
-    if (!selectedNodeId) {
-      const bounds = wrapRef.current?.getBoundingClientRect()
-      if (bounds) cameraTargetRef.current = { x: 0, y: 0, scale: fitScaleForModel(model, bounds.width, bounds.height) }
-      return
-    }
-    const node = model.nodes.find((candidate) => candidate.id === selectedNodeId)
-    if (!node) return
-    const horizontalDepth = Math.hypot(node.targetX, node.targetZ)
-    const desiredYaw = Math.atan2(-node.targetX, node.targetZ || 0.0001)
-    const desiredPitch = clamp(Math.atan2(node.targetY, Math.max(horizontalDepth, 1)), -0.92, 0.92)
-    const currentRotation = rotationTargetRef.current
-    rotationTargetRef.current = {
-      yaw: lerp(currentRotation.yaw, desiredYaw, 0.16),
-      pitch: lerp(currentRotation.pitch, desiredPitch, 0.16),
-    }
-    cameraTargetRef.current = {
-      x: node.kind === 'domain' ? 0 : -108,
-      y: 0,
-      scale: node.kind === 'clause' ? 1.72 : node.kind === 'instrument' ? 1.08 : node.kind === 'concept' ? 0.96 : 0.86,
-    }
+    const bounds = wrapRef.current?.getBoundingClientRect()
+    if (bounds) cameraTargetRef.current = { x: 0, y: 0, scale: fitScaleForModel(model, bounds.width, bounds.height) }
   }, [model, selectedNodeId])
 
   useEffect(() => {
@@ -312,16 +294,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
       })
       projectedPositionsRef.current = projected
 
-      const focused = selectedRef.current ? projected.get(selectedRef.current) : undefined
-      if (focused && selectedRef.current) {
-        cameraTargetRef.current.x = -focused.x - 108
-        cameraTargetRef.current.y = -focused.y
-      }
-
       drawOrbitalGrid(context, rotation, sphereRadius, camera.scale)
 
       const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
-      const activeId = hoveredRef.current ?? selectedRef.current
+      const activeId = hoveredRef.current
       const adjacent = new Set<string>()
       if (activeId) {
         adjacent.add(activeId)
