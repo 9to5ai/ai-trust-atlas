@@ -270,7 +270,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
       context.fillStyle = gradient
       context.fillRect(0, 0, width, height)
 
-      const screenCenterY = width <= 860 && selectedRef.current ? height * 0.24 : height / 2
+      const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? height * 0.24 : height / 2
       context.save()
       context.translate(width / 2, screenCenterY)
       context.scale(camera.scale, camera.scale)
@@ -472,7 +472,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
     const bounds = canvas.getBoundingClientRect()
     const camera = cameraRef.current
     const worldX = (clientX - bounds.left - bounds.width / 2) / camera.scale - camera.x
-    const screenCenterY = bounds.width <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+    const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
     const worldY = (clientY - bounds.top - screenCenterY) / camera.scale - camera.y
     let nearest: GraphNode | undefined
     let distance = Number.POSITIVE_INFINITY
@@ -583,7 +583,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
           const bounds = canvas.getBoundingClientRect()
           const target = cameraTargetRef.current
           const beforeX = (event.clientX - bounds.left - bounds.width / 2) / target.scale - target.x
-          const screenCenterY = bounds.width <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+          const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
           const beforeY = (event.clientY - bounds.top - screenCenterY) / target.scale - target.y
           const nextScale = clamp(target.scale * Math.exp(-event.deltaY * 0.0012), 0.26, 3.8)
           const afterX = (event.clientX - bounds.left - bounds.width / 2) / nextScale - target.x
