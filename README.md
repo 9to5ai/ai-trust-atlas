@@ -16,6 +16,7 @@ The Controls lens adds 24 Atlas-normalised control objectives across six familie
 - A comparison tool that preserves differences in authority, scope and applicability.
 - A progressive risk universe with causal lenses for entity, intent and timing.
 - A bounded control architecture with implementation patterns, possible evidence and source foundations.
+- A reversible Focus List that ranks connected instruments through explicit shared concepts and keeps the selected node's inspector visible.
 
 ## What the atlas is not
 
@@ -45,6 +46,12 @@ Each semantic mapping records:
 - mapping version, verification date and inference depth.
 
 The 12 familiar themes are explicitly typed as five trust outcomes, five governance capabilities and two context facets. Agentic AI and third-party are therefore cross-cutting contexts rather than peer trust outcomes.
+
+## Atlas and Focus List projections
+
+Selecting a node first reveals its immediate graph connections. The Atlas then transitions into a Focus List while retaining the universe as a subdued spatial backdrop. Concepts, domains, risks and controls produce ranked lists of connected instruments. Selecting an instrument opens its source provisions by default, with related instruments available as a second tab. Every row states the concepts or source-foundation relationship used for ranking; the list does not imply legal applicability, coverage or control effectiveness.
+
+The Atlas / Focus list switch reverses the transition without losing the selected-node context. Both projections support keyboard focus, responsive layouts and reduced-motion preferences.
 
 ## Control layer
 

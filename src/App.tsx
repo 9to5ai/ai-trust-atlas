@@ -1,6 +1,8 @@
 import { GithubLogo, Info, List, Network, X } from '@phosphor-icons/react'
-import { useEffect, useMemo, useState } from 'react'
+import { AnimatePresence } from 'motion/react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ComparePanel } from './components/ComparePanel'
+import { FocusList } from './components/FocusList'
 import { GraphCanvas } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
@@ -32,6 +34,9 @@ export default function App() {
   const [compareIds, setCompareIds] = useState<string[]>([])
   const [mobileControls, setMobileControls] = useState(false)
   const [showMethod, setShowMethod] = useState(false)
+  const [projection, setProjection] = useState<'atlas' | 'focus'>('atlas')
+  const [focusAnchorId, setFocusAnchorId] = useState<string>()
+  const focusTimerRef = useRef<number | undefined>(undefined)
 
   const filteredInstruments = useMemo(() => {
     const normalized = query.toLowerCase().trim()
@@ -42,6 +47,12 @@ export default function App() {
       return matchesQuery && matchesAuthority && matchesRegion
     })
   }, [authorityClasses, query, regions])
+
+  const focusEligibleInstruments = useMemo(() => instruments.filter((instrument) => {
+    const matchesAuthority = authorityClasses.size === 0 || authorityClasses.has(instrument.authorityClass)
+    const matchesRegion = regions.size === 0 || regions.has(instrument.region)
+    return matchesAuthority && matchesRegion
+  }), [authorityClasses, regions])
 
   const filteredRiskSubdomains = useMemo(() => {
     const normalized = query.toLowerCase().trim()
@@ -58,18 +69,43 @@ export default function App() {
 
   const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions }, selectedNodeId, causalLens), [authorityClasses, causalLens, layout, query, regions, selectedNodeId])
 
+  const clearFocusTimer = () => {
+    if (focusTimerRef.current) window.clearTimeout(focusTimerRef.current)
+    focusTimerRef.current = undefined
+  }
+
   const selectNode = (nodeId?: string) => {
+    clearFocusTimer()
+    if (!nodeId) {
+      setSelectedNodeId(undefined)
+      setFocusAnchorId(undefined)
+      setProjection('atlas')
+      return
+    }
     if (nodeId?.startsWith('risk-')) setLayout('risk')
     if (nodeId?.startsWith('control-')) setLayout('controls')
     if ((layout === 'risk' || layout === 'controls') && (nodeId?.startsWith('instrument:') || nodeId?.startsWith('provision:') || nodeId?.startsWith('concept:') || nodeId?.startsWith('domain:'))) setLayout('ontology')
     setSelectedNodeId(nodeId)
+    setFocusAnchorId(nodeId)
+    setProjection('atlas')
+    focusTimerRef.current = window.setTimeout(() => setProjection('focus'), 520)
+  }
+
+  const selectFocusItem = (nodeId: string) => {
+    if (nodeId.startsWith('instrument:') || nodeId.startsWith('provision:')) setLayout('ontology')
+    setSelectedNodeId(nodeId)
   }
 
   const changeLayout = (nextLayout: LayoutMode) => {
+    clearFocusTimer()
     setLayout(nextLayout)
     setQuery('')
     setSelectedNodeId(undefined)
+    setFocusAnchorId(undefined)
+    setProjection('atlas')
   }
+
+  useEffect(() => () => clearFocusTimer(), [])
 
   useEffect(() => {
     if (!selectedNodeId) {
@@ -168,12 +204,28 @@ export default function App() {
           totalInstruments={instruments.length}
         />
 
-        <section className="graph-region" id="atlas-graph" aria-label="AI Trust ontology graph">
+        <section className={projection === 'focus' ? 'graph-region is-focus-list' : 'graph-region'} id="atlas-graph" aria-label="AI Trust ontology graph">
           <div className="graph-title">
             <span>{layout === 'risk' ? 'Risk universe' : layout === 'controls' ? 'Control architecture' : layout === 'ontology' ? 'Requirements by meaning' : 'Requirements by authority'}</span>
             <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : layout === 'controls' ? `${filteredControls.length} Atlas-normalised objectives · six control families` : `${filteredInstruments.length} instruments connected through ${domains.length} visual themes`}</strong>
           </div>
-          <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} />
+          <div className="projection-switch" role="group" aria-label="Atlas projection">
+            <button type="button" aria-pressed={projection === 'atlas'} onClick={() => { clearFocusTimer(); setProjection('atlas') }}><Network /> Atlas</button>
+            <button type="button" aria-pressed={projection === 'focus'} disabled={!focusAnchorId} onClick={() => focusAnchorId && setProjection('focus')}><List /> Focus list</button>
+          </div>
+          <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection === 'focus'} />
+          <AnimatePresence mode="wait">
+            {projection === 'focus' && focusAnchorId && (
+              <FocusList
+                key={focusAnchorId}
+                anchorId={focusAnchorId}
+                instruments={focusEligibleInstruments}
+                selectedNodeId={selectedNodeId}
+                onSelectNode={selectFocusItem}
+                onReturnToAtlas={() => setProjection('atlas')}
+              />
+            )}
+          </AnimatePresence>
           <div className="semantic-key" role="group" aria-label="Graph legend">
             {layout === 'risk' ? <>
               <span><i className="shape-domain" />Trust domain</span>
@@ -197,7 +249,7 @@ export default function App() {
 
         <Inspector
           selectedNodeId={selectedNodeId}
-          onClose={() => setSelectedNodeId(undefined)}
+          onClose={() => selectNode(undefined)}
           onSelectNode={selectNode}
           onAddCompare={addCompare}
           compareIds={compareIds}

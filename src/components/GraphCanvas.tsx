@@ -11,6 +11,7 @@ type Props = {
   model: GraphModel
   selectedNodeId?: string
   onSelect: (nodeId?: string) => void
+  inactive?: boolean
 }
 
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value))
@@ -163,7 +164,7 @@ function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, e
   context.restore()
 }
 
-export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
+export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const modelRef = useRef(model)
@@ -563,12 +564,12 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
   }
 
   return (
-    <div className="graph-stage" ref={wrapRef} data-hovered={hoveredNodeId ?? ''}>
+    <div className="graph-stage" ref={wrapRef} data-hovered={hoveredNodeId ?? ''} inert={inactive || undefined} aria-hidden={inactive || undefined}>
       <canvas
         ref={canvasRef}
         aria-label="Interactive orbital map of AI requirements, risks, controls, concepts and source provisions"
         aria-describedby="graph-accessible-description"
-        tabIndex={0}
+        tabIndex={inactive ? -1 : 0}
         onKeyDown={(event) => {
           if (event.key === 'ArrowRight' || event.key === 'ArrowDown') { event.preventDefault(); navigateByKeyboard(1) }
           if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); navigateByKeyboard(-1) }
