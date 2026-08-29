@@ -25,7 +25,7 @@ const authorityOrder: AuthorityClass[] = [
   'threat-knowledge',
 ]
 
-const authorityRadius = new Map(authorityOrder.map((authority, index) => [authority, 520 + index * 50]))
+const authorityRadius = new Map(authorityOrder.map((authority, index) => [authority, 430 + index * 24]))
 
 const hash = (value: string) => {
   let output = 0
@@ -34,6 +34,24 @@ const hash = (value: string) => {
 }
 
 const polar = (angle: number, radius: number) => ({ x: Math.cos(angle) * radius, y: Math.sin(angle) * radius })
+
+const primaryDomainFor = (instrument: Instrument) => {
+  const scores = new Map<string, number>()
+  for (const conceptId of instrument.conceptIds) {
+    const domainId = concepts.find((concept) => concept.id === conceptId)?.domainId
+    if (domainId) scores.set(domainId, (scores.get(domainId) ?? 0) + 1)
+  }
+  const highest = Math.max(...scores.values(), 0)
+  const candidates = domains.filter((domain) => scores.get(domain.id) === highest)
+  return candidates[hash(instrument.id) % Math.max(candidates.length, 1)]?.id ?? 'governance'
+}
+
+const instrumentDepth = (instrument: Instrument) => {
+  const authorityDepth = (authorityOrder.indexOf(instrument.authorityClass) - (authorityOrder.length - 1) / 2) * 14
+  const regionalDepth = instrument.region === 'Australia' ? 118 : instrument.region === 'Global' ? -62 : -18
+  const stableOffset = (hash(instrument.id) % 41) - 20
+  return Math.max(-150, Math.min(160, authorityDepth + regionalDepth + stableOffset))
+}
 
 const includesQuery = (instrument: Instrument, query: string) => {
   if (!query.trim()) return true
@@ -61,7 +79,7 @@ export function buildGraphModel(
 
   for (const domain of domains) {
     const angle = domainAngles.get(domain.id) ?? 0
-    const point = polar(angle, mode === 'ontology' ? 245 : 220)
+    const point = polar(angle, mode === 'ontology' ? 205 : 192)
     nodes.push({
       id: `domain:${domain.id}`,
       label: domain.name,
@@ -70,8 +88,10 @@ export function buildGraphModel(
       domainId: domain.id,
       x: point.x,
       y: point.y,
+      z: 36,
       targetX: point.x,
       targetY: point.y,
+      targetZ: 36,
       radius: 17,
       color: domain.color,
     })
@@ -87,9 +107,10 @@ export function buildGraphModel(
   for (const [domainId, group] of conceptsByDomain) {
     const domainAngle = domainAngles.get(domainId) ?? 0
     group.forEach((concept, index) => {
-      const spread = (index - (group.length - 1) / 2) * 0.055
-      const radius = 365 + (index % 2) * 38
+      const spread = (index - (group.length - 1) / 2) * 0.048
+      const radius = 315 + (index % 2) * 30
       const point = polar(domainAngle + spread, radius)
+      const depth = ((hash(concept.id) % 61) - 30) * 0.8
       const color = domainById.get(domainId)?.color ?? '#aab3c0'
       nodes.push({
         id: `concept:${concept.id}`,
@@ -99,8 +120,10 @@ export function buildGraphModel(
         domainId,
         x: point.x,
         y: point.y,
+        z: depth,
         targetX: point.x,
         targetY: point.y,
+        targetZ: depth,
         radius: 6.5,
         color,
       })
@@ -111,7 +134,7 @@ export function buildGraphModel(
   const visibleInstruments = instruments.filter((instrument) => instrumentVisible(instrument, filters))
   const instrumentsByPrimaryDomain = new Map<string, Instrument[]>()
   for (const instrument of visibleInstruments) {
-    const primaryDomain = concepts.find((concept) => instrument.conceptIds.includes(concept.id))?.domainId ?? 'governance'
+    const primaryDomain = primaryDomainFor(instrument)
     const group = instrumentsByPrimaryDomain.get(primaryDomain) ?? []
     group.push(instrument)
     instrumentsByPrimaryDomain.set(primaryDomain, group)
@@ -119,12 +142,21 @@ export function buildGraphModel(
 
   for (const [domainId, group] of instrumentsByPrimaryDomain) {
     group.sort((a, b) => authorityOrder.indexOf(a.authorityClass) - authorityOrder.indexOf(b.authorityClass) || a.shortTitle.localeCompare(b.shortTitle))
+    const columns = Math.max(2, Math.ceil(Math.sqrt(group.length * 1.35)))
+    const rows = Math.ceil(group.length / columns)
+    const sectorWidth = (Math.PI * 2 / domains.length) * 0.7
     group.forEach((instrument, index) => {
       const domainAngle = domainAngles.get(domainId) ?? 0
-      const jitter = ((hash(instrument.id) % 100) / 100 - 0.5) * 0.06
-      const spread = (index - (group.length - 1) / 2) * Math.min(0.075, 0.58 / Math.max(group.length, 1))
-      const baseRadius = mode === 'authority' ? (authorityRadius.get(instrument.authorityClass) ?? 620) : 560 + authorityOrder.indexOf(instrument.authorityClass) * 26
-      const point = polar(domainAngle + spread + jitter, baseRadius)
+      const column = index % columns
+      const row = Math.floor(index / columns)
+      const angularOffset = columns === 1 ? 0 : ((column / (columns - 1)) - 0.5) * sectorWidth
+      const rowOffset = row - (rows - 1) / 2
+      const stableOffset = ((hash(instrument.id) % 101) / 100 - 0.5) * 0.018
+      const baseRadius = mode === 'authority'
+        ? (authorityRadius.get(instrument.authorityClass) ?? 540)
+        : 465 + rowOffset * 42
+      const point = polar(domainAngle + angularOffset + stableOffset, baseRadius)
+      const depth = instrumentDepth(instrument)
       const color = domainById.get(domainId)?.color ?? '#aab3c0'
       nodes.push({
         id: `instrument:${instrument.id}`,
@@ -137,8 +169,10 @@ export function buildGraphModel(
         region: instrument.region,
         x: point.x,
         y: point.y,
+        z: depth,
         targetX: point.x,
         targetY: point.y,
+        targetZ: depth,
         radius: instrument.region === 'Australia' ? 10.5 : 8.5,
         color,
       })
@@ -186,8 +220,10 @@ export function buildGraphModel(
         instrumentId: selectedInstrument.id,
         x: point.x,
         y: point.y,
+        z: selectedNode.targetZ + 18,
         targetX: point.x,
         targetY: point.y,
+        targetZ: selectedNode.targetZ + 18,
         radius: 5.5,
         color: selectedNode.color,
       })

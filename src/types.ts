@@ -117,8 +117,10 @@ export type GraphNode = {
   region?: Instrument['region']
   x: number
   y: number
+  z: number
   targetX: number
   targetY: number
+  targetZ: number
   radius: number
   color: string
 }

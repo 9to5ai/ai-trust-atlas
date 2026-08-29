@@ -40,4 +40,26 @@ describe('graph model', () => {
     expect(authorityNode).toBeDefined()
     expect(authorityNode?.targetX).not.toBe(ontologyNode?.targetX)
   })
+
+  it('keeps the ontology inside a bounded orbital shell', () => {
+    const graph = buildGraphModel('ontology', defaultFilters())
+    const instrumentNodes = graph.nodes.filter((node) => node.kind === 'instrument')
+    const radii = instrumentNodes.map((node) => Math.hypot(node.targetX, node.targetY))
+
+    expect(Math.min(...radii)).toBeGreaterThan(350)
+    expect(Math.max(...radii)).toBeLessThan(600)
+    expect(graph.nodes.every((node) => Number.isFinite(node.targetZ))).toBe(true)
+    expect(instrumentNodes.some((node) => node.targetX < 0 && node.targetY < 0)).toBe(true)
+    expect(instrumentNodes.some((node) => node.targetX > 0 && node.targetY > 0)).toBe(true)
+  })
+
+  it('uses depth to bring the Australian regulatory centre forward', () => {
+    const graph = buildGraphModel('ontology', defaultFilters())
+    const instrumentNodes = graph.nodes.filter((node) => node.kind === 'instrument')
+    const australian = instrumentNodes.filter((node) => node.region === 'Australia')
+    const global = instrumentNodes.filter((node) => node.region === 'Global')
+    const averageDepth = (nodes: typeof instrumentNodes) => nodes.reduce((sum, node) => sum + node.targetZ, 0) / nodes.length
+
+    expect(averageDepth(australian)).toBeGreaterThan(averageDepth(global))
+  })
 })

@@ -132,7 +132,7 @@ export default function App() {
 
         <section className="graph-region" aria-label="AI Trust ontology graph">
           <div className="graph-title">
-            <span>{layout === 'ontology' ? 'Concept ontology' : 'Authority architecture'}</span>
+            <span>{layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
             <strong>{filteredInstruments.length} instruments connected through {domains.length} trust domains</strong>
           </div>
           <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={setSelectedNodeId} />
