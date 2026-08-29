@@ -6,6 +6,7 @@ import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
 import { concepts, domains } from './data/concepts'
 import { instruments } from './data/instruments'
+import { countForCausalLens, mappedRiskRecordCount, riskDomainById, riskSubdomains, type CausalLens } from './data/mitRiskTaxonomy'
 import { relations } from './data/relations'
 import { buildGraphModel, defaultFilters, type LayoutMode } from './lib/graphModel'
 import type { AuthorityClass, Instrument } from './types'
@@ -14,11 +15,14 @@ const initialHashSelection = () => {
   const hash = window.location.hash.replace('#/', '')
   if (!hash) return undefined
   const [kind, ...rest] = hash.split('/')
-  return ['instrument', 'concept', 'domain', 'clause'].includes(kind) && rest.length ? `${kind}:${rest.join('/')}` : undefined
+  return ['instrument', 'concept', 'domain', 'clause', 'risk-domain', 'risk-subdomain'].includes(kind) && rest.length ? `${kind}:${rest.join('/')}` : undefined
 }
 
+const initialLayout = (): LayoutMode => window.location.hash.includes('/risk-') ? 'risk' : 'ontology'
+
 export default function App() {
-  const [layout, setLayout] = useState<LayoutMode>('ontology')
+  const [layout, setLayout] = useState<LayoutMode>(initialLayout)
+  const [causalLens, setCausalLens] = useState<CausalLens>('all')
   const [query, setQuery] = useState('')
   const [authorityClasses, setAuthorityClasses] = useState<Set<AuthorityClass>>(() => defaultFilters().authorityClasses)
   const [regions, setRegions] = useState<Set<Instrument['region']>>(() => defaultFilters().regions)
@@ -37,6 +41,14 @@ export default function App() {
     })
   }, [authorityClasses, query, regions])
 
+  const filteredRiskSubdomains = useMemo(() => {
+    const normalized = query.toLowerCase().trim()
+    return riskSubdomains.filter((risk) => {
+      const matchesQuery = !normalized || [risk.ref, risk.name, risk.definition, riskDomainById.get(risk.riskDomainId)?.name ?? ''].join(' ').toLowerCase().includes(normalized)
+      return matchesQuery && countForCausalLens(risk, causalLens) > 0
+    })
+  }, [causalLens, query])
+
   const selectedInstrumentId = useMemo(() => {
     if (!selectedNodeId) return undefined
     const [kind, id] = selectedNodeId.split(':')
@@ -45,8 +57,20 @@ export default function App() {
     return undefined
   }, [selectedNodeId])
 
-  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions }), [authorityClasses, layout, query, regions])
+  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions }, selectedInstrumentId, causalLens), [authorityClasses, causalLens, layout, query, regions, selectedInstrumentId])
   const selectedGraphNodeId = selectedNodeId?.startsWith('clause:') && selectedInstrumentId ? `instrument:${selectedInstrumentId}` : selectedNodeId
+
+  const selectNode = (nodeId?: string) => {
+    if (nodeId?.startsWith('risk-')) setLayout('risk')
+    if (layout === 'risk' && (nodeId?.startsWith('instrument:') || nodeId?.startsWith('clause:'))) setLayout('ontology')
+    setSelectedNodeId(nodeId)
+  }
+
+  const changeLayout = (nextLayout: LayoutMode) => {
+    setLayout(nextLayout)
+    setQuery('')
+    setSelectedNodeId(undefined)
+  }
 
   useEffect(() => {
     if (!selectedNodeId) {
@@ -91,6 +115,7 @@ export default function App() {
         <div className="corpus-stats" role="group" aria-label="Corpus statistics">
           <div><strong>{instruments.length}</strong><span>instruments</span></div>
           <div><strong>{concepts.length}</strong><span>concepts</span></div>
+          <div><strong>{riskSubdomains.length}</strong><span>risk types</span></div>
           <div><strong>{relations.length}</strong><span>explained links</span></div>
           <div><strong>{totalClauses}</strong><span>clause guides</span></div>
         </div>
@@ -107,13 +132,17 @@ export default function App() {
             query={query}
             onQueryChange={setQuery}
             layout={layout}
-            onLayoutChange={setLayout}
+            onLayoutChange={changeLayout}
             authorityClasses={authorityClasses}
             onToggleAuthority={toggleAuthority}
             regions={regions}
             onToggleRegion={toggleRegion}
             results={filteredInstruments}
-            onSelectInstrument={(id) => { setSelectedNodeId(`instrument:${id}`); setMobileControls(false) }}
+            onSelectInstrument={(id) => { selectNode(`instrument:${id}`); setMobileControls(false) }}
+            riskResults={filteredRiskSubdomains}
+            causalLens={causalLens}
+            onCausalLensChange={setCausalLens}
+            onSelectRisk={(id) => { selectNode(`risk-subdomain:${id}`); setMobileControls(false) }}
             totalInstruments={instruments.length}
           />
         </div>
@@ -121,37 +150,49 @@ export default function App() {
           query={query}
           onQueryChange={setQuery}
           layout={layout}
-          onLayoutChange={setLayout}
+          onLayoutChange={changeLayout}
           authorityClasses={authorityClasses}
           onToggleAuthority={toggleAuthority}
           regions={regions}
           onToggleRegion={toggleRegion}
           results={filteredInstruments}
-          onSelectInstrument={(id) => setSelectedNodeId(`instrument:${id}`)}
+          onSelectInstrument={(id) => selectNode(`instrument:${id}`)}
+          riskResults={filteredRiskSubdomains}
+          causalLens={causalLens}
+          onCausalLensChange={setCausalLens}
+          onSelectRisk={(id) => selectNode(`risk-subdomain:${id}`)}
           totalInstruments={instruments.length}
         />
 
         <section className="graph-region" aria-label="AI Trust ontology graph">
           <div className="graph-title">
-            <span>{layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
-            <strong>{filteredInstruments.length} instruments connected through {domains.length} trust domains</strong>
+            <span>{layout === 'risk' ? 'Risk universe' : layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
+            <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : `${filteredInstruments.length} instruments connected through ${domains.length} trust domains`}</strong>
           </div>
-          <GraphCanvas model={graphModel} selectedNodeId={selectedGraphNodeId} onSelect={setSelectedNodeId} />
+          <GraphCanvas model={graphModel} selectedNodeId={selectedGraphNodeId} onSelect={selectNode} />
           <div className="semantic-key" role="group" aria-label="Graph legend">
-            <span><i className="shape-domain" />Domain</span>
-            <span><i className="shape-concept" />Concept</span>
-            <span><i className="shape-instrument" />Instrument</span>
-            <span><i className="shape-clause" />Clause</span>
+            {layout === 'risk' ? <>
+              <span><i className="shape-domain" />Trust domain</span>
+              <span><i className="shape-concept" />Trust concept</span>
+              <span><i className="shape-risk-domain" />MIT domain</span>
+              <span><i className="shape-risk-subdomain" />MIT risk type</span>
+            </> : <>
+              <span><i className="shape-domain" />Domain</span>
+              <span><i className="shape-concept" />Concept</span>
+              <span><i className="shape-instrument" />Instrument</span>
+              <span><i className="shape-clause" />Clause</span>
+            </>}
           </div>
-          <div className="corpus-status"><span>Curated public corpus</span><strong>Verified 28 August 2026</strong></div>
+          <div className="corpus-status"><span>{layout === 'risk' ? 'MIT source · CC BY 4.0' : 'Curated public corpus'}</span><strong>{layout === 'risk' ? 'Database updated 03 December 2025' : 'Verified 28 August 2026'}</strong></div>
         </section>
 
         <Inspector
           selectedNodeId={selectedNodeId}
           onClose={() => setSelectedNodeId(undefined)}
-          onSelectNode={setSelectedNodeId}
+          onSelectNode={selectNode}
           onAddCompare={addCompare}
           compareIds={compareIds}
+          causalLens={causalLens}
         />
       </div>
 
@@ -167,6 +208,7 @@ export default function App() {
             <div className="method-columns">
               <div><strong>Authority stays visible</strong><p>Law, prudential expectations, standards, frameworks, testing resources and threat knowledge remain distinct.</p></div>
               <div><strong>Synthesis is labelled</strong><p>Some links are explicit in source material. Others are cross-framework synthesis with a stated confidence and explanation.</p></div>
+              <div><strong>Risk is a separate lens</strong><p>MIT risk types describe what can go wrong. Atlas links show relevance to trust concepts; they do not claim that an instrument covers or mitigates a risk.</p></div>
               <div><strong>Evidence has limits</strong><p>A framework, policy, certification or test result does not establish legal applicability, control effectiveness or an assurance conclusion.</p></div>
               <div><strong>Human authority remains</strong><p>Accountable people retain materiality, risk appetite, approval, exceptions, residual-risk and assurance decisions.</p></div>
             </div>

@@ -41,6 +41,25 @@ describe('graph model', () => {
     expect(authorityNode?.targetX).not.toBe(ontologyNode?.targetX)
   })
 
+  it('renders the MIT taxonomy as a separate progressive risk universe', () => {
+    const graph = buildGraphModel('risk', defaultFilters())
+    expect(graph.nodes.filter((node) => node.kind === 'risk-domain')).toHaveLength(7)
+    expect(graph.nodes.filter((node) => node.kind === 'risk-subdomain')).toHaveLength(24)
+    expect(graph.nodes.filter((node) => node.kind === 'instrument')).toHaveLength(0)
+    expect(graph.edges.some((edge) => edge.id.startsWith('risk-concept:'))).toBe(true)
+    expect(graph.edges.filter((edge) => edge.id.startsWith('risk-concept:')).every((edge) => edge.basis === 'cross-framework-synthesis')).toBe(true)
+  })
+
+  it('applies a causal lens to risk record counts without changing the source taxonomy', () => {
+    const all = buildGraphModel('risk', defaultFilters())
+    const intentional = buildGraphModel('risk', defaultFilters(), undefined, 'intent:Intentional')
+    const allRisk = all.nodes.find((node) => node.id === 'risk-subdomain:mit-risk-4-3')
+    const intentionalRisk = intentional.nodes.find((node) => node.id === 'risk-subdomain:mit-risk-4-3')
+    expect(allRisk?.recordCount).toBe(77)
+    expect(intentionalRisk?.recordCount).toBe(63)
+    expect(intentional.nodes.filter((node) => node.kind === 'risk-domain')).toHaveLength(7)
+  })
+
   it('keeps the ontology inside a bounded orbital shell', () => {
     const graph = buildGraphModel('ontology', defaultFilters())
     const instrumentNodes = graph.nodes.filter((node) => node.kind === 'instrument')

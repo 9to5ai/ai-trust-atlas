@@ -62,6 +62,36 @@ export type Concept = {
   aliases?: string[]
 }
 
+export type RiskDomain = {
+  id: string
+  ref: string
+  name: string
+  shortName: string
+  definition: string
+  color: string
+}
+
+export type CausalDimension = 'entity' | 'intent' | 'timing'
+
+export type CausalProfile = {
+  entity: Record<string, number>
+  intent: Record<string, number>
+  timing: Record<string, number>
+}
+
+export type RiskSubdomain = {
+  id: string
+  ref: string
+  name: string
+  riskDomainId: string
+  definition: string
+  conceptIds: string[]
+  recordCount: number
+  causalProfile: CausalProfile
+  mappingBasis: 'atlas-synthesis'
+  mappingConfidence: Confidence
+}
+
 export type Clause = {
   id: string
   ref: string
@@ -104,7 +134,7 @@ export type InstrumentRelation = {
   sourceAnchors: string[]
 }
 
-export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'clause'
+export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'clause' | 'risk-domain' | 'risk-subdomain'
 
 export type GraphNode = {
   id: string
@@ -115,6 +145,8 @@ export type GraphNode = {
   instrumentId?: string
   authorityClass?: AuthorityClass
   region?: Instrument['region']
+  riskDomainId?: string
+  recordCount?: number
   x: number
   y: number
   z: number

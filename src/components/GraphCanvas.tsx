@@ -270,8 +270,9 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
       context.fillStyle = gradient
       context.fillRect(0, 0, width, height)
 
+      const screenCenterY = width <= 860 && selectedRef.current ? height * 0.24 : height / 2
       context.save()
-      context.translate(width / 2, height / 2)
+      context.translate(width / 2, screenCenterY)
       context.scale(camera.scale, camera.scale)
       context.translate(camera.x, camera.y)
 
@@ -298,6 +299,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
 
       const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
       const activeId = hoveredRef.current ?? selectedRef.current
+      const activeNode = activeId ? nodeMap.get(activeId) : undefined
       const adjacent = new Set<string>()
       if (activeId) {
         adjacent.add(activeId)
@@ -315,18 +317,19 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
         if (!sourceNode || !targetNode || !source || !target) return
         const isActive = Boolean(activeId && (edge.sourceId === activeId || edge.targetId === activeId))
         const isRelation = Boolean(edge.relationType)
+        const isRiskMapping = edge.id.startsWith('risk-concept:')
         const averageDepth = (source.depth + target.depth) / 2
         const depthOpacity = clamp(0.52 + averageDepth / Math.max(sphereRadius * 2.1, 1), 0.26, 1)
-        const baseOpacity = isRelation ? 0.105 : camera.scale > 1 ? 0.07 : 0.038
+        const baseOpacity = isRelation ? 0.105 : isRiskMapping ? 0.075 : camera.scale > 1 ? 0.07 : 0.038
         context.strokeStyle = isActive ? `${sourceNode.color}dc` : `rgba(151, 169, 196, ${baseOpacity * depthOpacity})`
         context.lineWidth = (isActive ? 1.7 : isRelation ? 0.82 : 0.52) / camera.scale
-        context.setLineDash(isRelation && !isActive ? [5 / camera.scale, 7 / camera.scale] : [])
+        context.setLineDash((isRelation || isRiskMapping) && !isActive ? [5 / camera.scale, 7 / camera.scale] : [])
         context.beginPath()
         context.moveTo(source.x, source.y)
 
         let controlX = (source.x + target.x) / 2
         let controlY = (source.y + target.y) / 2
-        if (isRelation) {
+        if (isRelation || isRiskMapping) {
           controlX *= 0.26
           controlY *= 0.26
         } else if (sourceNode.kind === 'instrument' || targetNode.kind === 'instrument') {
@@ -404,6 +407,25 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
             context.lineWidth = 0.75 / camera.scale
             context.stroke()
           }
+        } else if (node.kind === 'risk-domain') {
+          polygonPath(context, point.x, point.y, radius, 6, Math.PI / 6)
+          context.fillStyle = `${node.color}22`
+          context.fill()
+          context.strokeStyle = `${node.color}${isSelected || isHovered ? 'ff' : 'b8'}`
+          context.lineWidth = (isSelected || isHovered ? 2.2 : 1.05) / camera.scale
+          context.stroke()
+          context.beginPath()
+          context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
+          context.strokeStyle = `${node.color}55`
+          context.lineWidth = 0.7 / camera.scale
+          context.stroke()
+        } else if (node.kind === 'risk-subdomain') {
+          polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
+          context.fillStyle = `${node.color}${isSelected || isHovered ? 'f5' : 'cc'}`
+          context.fill()
+          context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}ee`
+          context.lineWidth = (isSelected || isHovered ? 2 : 0.75) / camera.scale
+          context.stroke()
         } else {
           polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
           context.fillStyle = node.color
@@ -411,19 +433,23 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
         }
         context.shadowBlur = 0
 
+        const showAdjacentRiskLabel = Boolean(activeNode && ['risk-domain', 'risk-subdomain'].includes(activeNode.kind) && adjacent.has(node.id))
         const showLabel = node.kind === 'domain'
+          || node.kind === 'risk-domain'
           || isSelected
           || isHovered
+          || showAdjacentRiskLabel
           || (node.kind === 'concept' && camera.scale > 1.58)
           || (node.kind === 'instrument' && camera.scale > 2.05)
           || (node.kind === 'clause' && camera.scale > 1.66)
+          || (node.kind === 'risk-subdomain' && camera.scale > 1.42)
         if (showLabel) {
-          const size = node.kind === 'domain' ? 11 : node.kind === 'instrument' ? 9.5 : 8.5
-          context.font = `${node.kind === 'domain' ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
+          const size = node.kind === 'domain' || node.kind === 'risk-domain' ? 11 : node.kind === 'instrument' ? 9.5 : 8.5
+          context.font = `${node.kind === 'domain' || node.kind === 'risk-domain' ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
           context.textAlign = 'center'
           context.textBaseline = 'top'
-          context.fillStyle = isSelected || isHovered ? '#f5f7fa' : node.kind === 'domain' ? node.color : 'rgba(218, 225, 235, 0.82)'
-          const maxWidth = node.kind === 'domain' ? 118 / camera.scale : 104 / camera.scale
+          context.fillStyle = isSelected || isHovered ? '#f5f7fa' : node.kind === 'domain' || node.kind === 'risk-domain' ? node.color : 'rgba(218, 225, 235, 0.82)'
+          const maxWidth = node.kind === 'domain' || node.kind === 'risk-domain' ? 118 / camera.scale : 104 / camera.scale
           drawWrappedLabel(context, node.shortLabel, point.x, point.y + radius + 7 / camera.scale, maxWidth, 10.5 / camera.scale)
         }
         context.globalAlpha = 1
@@ -446,7 +472,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
     const bounds = canvas.getBoundingClientRect()
     const camera = cameraRef.current
     const worldX = (clientX - bounds.left - bounds.width / 2) / camera.scale - camera.x
-    const worldY = (clientY - bounds.top - bounds.height / 2) / camera.scale - camera.y
+    const screenCenterY = bounds.width <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+    const worldY = (clientY - bounds.top - screenCenterY) / camera.scale - camera.y
     let nearest: GraphNode | undefined
     let distance = Number.POSITIVE_INFINITY
     for (const node of modelRef.current.nodes) {
@@ -556,10 +583,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
           const bounds = canvas.getBoundingClientRect()
           const target = cameraTargetRef.current
           const beforeX = (event.clientX - bounds.left - bounds.width / 2) / target.scale - target.x
-          const beforeY = (event.clientY - bounds.top - bounds.height / 2) / target.scale - target.y
+          const screenCenterY = bounds.width <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+          const beforeY = (event.clientY - bounds.top - screenCenterY) / target.scale - target.y
           const nextScale = clamp(target.scale * Math.exp(-event.deltaY * 0.0012), 0.26, 3.8)
           const afterX = (event.clientX - bounds.left - bounds.width / 2) / nextScale - target.x
-          const afterY = (event.clientY - bounds.top - bounds.height / 2) / nextScale - target.y
+          const afterY = (event.clientY - bounds.top - screenCenterY) / nextScale - target.y
           cameraTargetRef.current = { x: target.x + afterX - beforeX, y: target.y + afterY - beforeY, scale: nextScale }
         }}
       />

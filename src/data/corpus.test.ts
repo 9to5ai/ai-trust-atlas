@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { concepts, domains } from './concepts'
 import { instruments } from './instruments'
+import { mappedRiskRecordCount, riskDomains, riskSubdomains } from './mitRiskTaxonomy'
 import { relations } from './relations'
 
 const duplicates = (values: string[]) => values.filter((value, index) => values.indexOf(value) !== index)
@@ -54,6 +55,24 @@ describe('AI Trust Atlas corpus', () => {
       expect(relation.sourceAnchors.length, relation.id).toBeGreaterThan(0)
       expect(['explicit', 'cross-framework-synthesis']).toContain(relation.basis)
       expect(['high', 'medium']).toContain(relation.confidence)
+    }
+  })
+
+  it('keeps the MIT risk taxonomy complete, traceable and distinct from Atlas synthesis', () => {
+    expect(riskDomains).toHaveLength(7)
+    expect(riskSubdomains).toHaveLength(24)
+    expect(mappedRiskRecordCount).toBe(1511)
+    expect(duplicates(riskDomains.map((domain) => domain.id))).toEqual([])
+    expect(duplicates(riskSubdomains.map((subdomain) => subdomain.id))).toEqual([])
+
+    const domainIds = new Set(riskDomains.map((domain) => domain.id))
+    const conceptIds = new Set(concepts.map((concept) => concept.id))
+    for (const risk of riskSubdomains) {
+      expect(domainIds.has(risk.riskDomainId), risk.id).toBe(true)
+      expect(risk.recordCount, risk.id).toBeGreaterThan(0)
+      expect(risk.mappingBasis, risk.id).toBe('atlas-synthesis')
+      expect(risk.conceptIds.length, risk.id).toBeGreaterThan(0)
+      for (const conceptId of risk.conceptIds) expect(conceptIds.has(conceptId), `${risk.id}:${conceptId}`).toBe(true)
     }
   })
 })

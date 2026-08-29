@@ -1,7 +1,8 @@
-import { ArrowSquareOut, CheckCircle, GitBranch, Plus, X } from '@phosphor-icons/react'
+import { ArrowSquareOut, CheckCircle, GitBranch, Plus, WarningDiamond, X } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { concepts, domainById, domains } from '../data/concepts'
 import { instrumentById, instruments } from '../data/instruments'
+import { MIT_RISK_DATABASE_URL, MIT_RISK_LICENSE, MIT_RISK_SOURCE_URL, MIT_RISK_UPDATED, causalLensOptions, countForCausalLens, riskDomainById, riskDomains, riskSubdomainById, riskSubdomains, type CausalLens } from '../data/mitRiskTaxonomy'
 import { relations } from '../data/relations'
 import { authorityLabels, relationLabels } from '../lib/labels'
 
@@ -11,13 +12,27 @@ type Props = {
   onSelectNode: (nodeId: string) => void
   onAddCompare: (instrumentId: string) => void
   compareIds: string[]
+  causalLens: CausalLens
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare, compareIds }: Props) {
+function CausalProfileBars({ values, total }: { values: Record<string, number>; total: number }) {
+  return <div className="causal-profile">
+    {Object.entries(values).filter(([, value]) => value > 0).sort((left, right) => right[1] - left[1]).map(([label, value]) => (
+      <div className="causal-profile-row" key={label}>
+        <div><span>{label}</span><strong>{value}</strong></div>
+        <i><b style={{ width: `${Math.max(3, (value / total) * 100)}%` }} /></i>
+      </div>
+    ))}
+  </div>
+}
+
+export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare, compareIds, causalLens }: Props) {
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const instrument = kind === 'instrument' ? instrumentById.get(rawId) : kind === 'clause' ? instruments.find((candidate) => candidate.clauses.some((clause) => clause.id === rawId)) : undefined
   const clause = kind === 'clause' ? instrument?.clauses.find((candidate) => candidate.id === rawId) : undefined
   const concept = kind === 'concept' ? concepts.find((candidate) => candidate.id === rawId) : undefined
+  const riskDomain = kind === 'risk-domain' ? riskDomainById.get(rawId) : kind === 'risk-subdomain' ? riskDomainById.get(riskSubdomainById.get(rawId)?.riskDomainId ?? '') : undefined
+  const riskSubdomain = kind === 'risk-subdomain' ? riskSubdomainById.get(rawId) : undefined
   const domain = kind === 'domain' ? domains.find((candidate) => candidate.id === rawId) : concept ? domainById.get(concept.domainId) : instrument ? domainById.get(concepts.find((candidate) => instrument.conceptIds.includes(candidate.id))?.domainId ?? '') : undefined
 
   const instrumentRelations = instrument
@@ -29,6 +44,10 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
   }).filter((entry) => entry.instrument)
 
   const conceptInstruments = concept ? instruments.filter((candidate) => candidate.conceptIds.includes(concept.id)) : []
+  const conceptRisks = concept ? riskSubdomains.filter((risk) => risk.conceptIds.includes(concept.id)) : []
+  const relevantInstrumentRisks = instrument ? riskSubdomains.filter((risk) => risk.conceptIds.some((conceptId) => instrument.conceptIds.includes(conceptId))) : []
+  const relevantClauseRisks = clause ? riskSubdomains.filter((risk) => risk.conceptIds.some((conceptId) => clause.conceptIds.includes(conceptId))) : []
+  const activeCausalLabel = causalLensOptions.find((option) => option.id === causalLens)?.label ?? 'All records'
 
   return (
     <AnimatePresence mode="wait">
@@ -90,6 +109,14 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
               </section>
 
               <section className="inspector-section">
+                <h3>Relevant MIT risk types <small>{relevantInstrumentRisks.length}</small></h3>
+                <p className="section-boundary">Atlas synthesis based on shared trust concepts. Relevance does not mean the instrument covers or mitigates the risk.</p>
+                <div className="instrument-link-list">
+                  {relevantInstrumentRisks.map((risk) => <button type="button" key={risk.id} onClick={() => onSelectNode(`risk-subdomain:${risk.id}`)}><strong>{risk.ref} · {risk.name}</strong><span>{risk.recordCount} source records</span></button>)}
+                </div>
+              </section>
+
+              <section className="inspector-section">
                 <h3>Clause-level detail <small>{instrument.clauses.length}</small></h3>
                 <div className="clause-list">
                   {instrument.clauses.map((item) => (
@@ -121,6 +148,13 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
                   })}
                 </div>
               </section>
+              <section className="inspector-section">
+                <h3>Relevant MIT risk types <small>{relevantClauseRisks.length}</small></h3>
+                <p className="section-boundary">Concept-level Atlas synthesis, not a clause-level claim of risk coverage.</p>
+                <div className="instrument-link-list">
+                  {relevantClauseRisks.map((risk) => <button type="button" key={risk.id} onClick={() => onSelectNode(`risk-subdomain:${risk.id}`)}><strong>{risk.ref} · {risk.name}</strong><span>{risk.recordCount} source records</span></button>)}
+                </div>
+              </section>
               <a className="source-button" href={clause.sourceUrl ?? instrument.officialUrl} target="_blank" rel="noreferrer">Open source text <ArrowSquareOut /></a>
             </>
           )}
@@ -135,6 +169,13 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
                 <h3>Connected instruments <small>{conceptInstruments.length}</small></h3>
                 <div className="instrument-link-list">
                   {conceptInstruments.map((item) => <button type="button" key={item.id} onClick={() => onSelectNode(`instrument:${item.id}`)}><strong>{item.shortTitle}</strong><span>{authorityLabels[item.authorityClass]}</span></button>)}
+                </div>
+              </section>
+              <section className="inspector-section">
+                <h3>Relevant MIT risk types <small>{conceptRisks.length}</small></h3>
+                <p className="section-boundary">These links are Atlas synthesis. They express relevance, not coverage, mitigation or control effectiveness.</p>
+                <div className="instrument-link-list">
+                  {conceptRisks.map((risk) => <button type="button" key={risk.id} onClick={() => onSelectNode(`risk-subdomain:${risk.id}`)}><strong>{risk.ref} · {risk.name}</strong><span>{risk.mappingConfidence} confidence</span></button>)}
                 </div>
               </section>
             </>
@@ -152,6 +193,63 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
                   {concepts.filter((item) => item.domainId === domain.id).map((item) => <button type="button" key={item.id} onClick={() => onSelectNode(`concept:${item.id}`)}><strong>{item.name}</strong><span>{instruments.filter((candidate) => candidate.conceptIds.includes(item.id)).length} instruments</span></button>)}
                 </div>
               </section>
+            </>
+          )}
+
+          {riskDomain && kind === 'risk-domain' && (
+            <>
+              <div className="inspector-kicker">MIT domain taxonomy</div>
+              <h2>{riskDomain.name}</h2>
+              <p className="inspector-summary">{riskDomain.definition}</p>
+              <div className="metadata-grid">
+                <div><span>Source</span><strong>MIT AI Risk Initiative</strong></div>
+                <div><span>Last updated</span><strong>{MIT_RISK_UPDATED}</strong></div>
+                <div><span>Licence</span><strong>{MIT_RISK_LICENSE}</strong></div>
+                <div><span>Atlas relation</span><strong>Relevance synthesis</strong></div>
+              </div>
+              <div className="boundary-note"><WarningDiamond /><span>This domain describes documented risk—not likelihood, impact, organisational exposure, mitigation or an assurance conclusion.</span></div>
+              <section className="inspector-section">
+                <h3>Constituent risk types <small>{riskSubdomains.filter((risk) => risk.riskDomainId === riskDomain.id).length}</small></h3>
+                <div className="instrument-link-list">
+                  {riskSubdomains.filter((risk) => risk.riskDomainId === riskDomain.id).map((risk) => <button type="button" key={risk.id} onClick={() => onSelectNode(`risk-subdomain:${risk.id}`)}><strong>{risk.ref} · {risk.name}</strong><span>{countForCausalLens(risk, causalLens)} {activeCausalLabel.toLowerCase()}</span></button>)}
+                </div>
+              </section>
+              <a className="source-button" href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">Open MIT taxonomy <ArrowSquareOut /></a>
+            </>
+          )}
+
+          {riskSubdomain && riskDomain && (
+            <>
+              <button className="breadcrumb-button" type="button" onClick={() => onSelectNode(`risk-domain:${riskDomain.id}`)}>{riskDomain.name}</button>
+              <div className="inspector-kicker">MIT risk type · {riskSubdomain.ref}</div>
+              <h2>{riskSubdomain.name}</h2>
+              <p className="inspector-summary">{riskSubdomain.definition}</p>
+              <div className="risk-record-callout">
+                <strong>{countForCausalLens(riskSubdomain, causalLens).toLocaleString()}</strong>
+                <span>{activeCausalLabel.toLowerCase()} in this risk type</span>
+                {causalLens !== 'all' && <small>{riskSubdomain.recordCount} total mapped source records</small>}
+              </div>
+              <div className="boundary-note"><WarningDiamond /><span>MIT classifies documented risks; it does not determine likelihood, impact or applicability. Atlas concept links are synthesis and do not imply coverage or mitigation.</span></div>
+              <section className="inspector-section">
+                <h3>Relevant trust concepts <small>{riskSubdomain.conceptIds.length}</small></h3>
+                <div className="concept-chips">
+                  {riskSubdomain.conceptIds.map((conceptId) => {
+                    const item = concepts.find((candidate) => candidate.id === conceptId)
+                    return item ? <button type="button" key={conceptId} onClick={() => onSelectNode(`concept:${conceptId}`)}>{item.name}</button> : null
+                  })}
+                </div>
+                <p className="mapping-meta">Atlas synthesis · {riskSubdomain.mappingConfidence} confidence · source taxonomy retained separately</p>
+              </section>
+              <section className="inspector-section causal-breakdown">
+                <h3>Causal profile <small>{riskSubdomain.recordCount} records</small></h3>
+                <h4>Entity</h4><CausalProfileBars values={riskSubdomain.causalProfile.entity} total={riskSubdomain.recordCount} />
+                <h4>Intent</h4><CausalProfileBars values={riskSubdomain.causalProfile.intent} total={riskSubdomain.recordCount} />
+                <h4>Timing</h4><CausalProfileBars values={riskSubdomain.causalProfile.timing} total={riskSubdomain.recordCount} />
+              </section>
+              <div className="inspector-actions">
+                <a href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">MIT taxonomy <ArrowSquareOut /></a>
+                <a href={MIT_RISK_DATABASE_URL} target="_blank" rel="noreferrer">Source database <ArrowSquareOut /></a>
+              </div>
             </>
           )}
         </motion.aside>

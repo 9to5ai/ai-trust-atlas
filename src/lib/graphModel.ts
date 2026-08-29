@@ -1,9 +1,10 @@
 import { concepts, domainById, domains } from '../data/concepts'
 import { instruments } from '../data/instruments'
+import { countForCausalLens, riskDomainById, riskDomains, riskSubdomains, type CausalLens } from '../data/mitRiskTaxonomy'
 import { relations } from '../data/relations'
 import type { AuthorityClass, GraphEdge, GraphModel, GraphNode, Instrument } from '../types'
 
-export type LayoutMode = 'ontology' | 'authority'
+export type LayoutMode = 'ontology' | 'authority' | 'risk'
 
 export type GraphFilters = {
   query: string
@@ -72,6 +73,7 @@ export function buildGraphModel(
   mode: LayoutMode,
   filters: GraphFilters,
   selectedInstrumentId?: string,
+  causalLens: CausalLens = 'all',
 ): GraphModel {
   const nodes: GraphNode[] = []
   const edges: GraphEdge[] = []
@@ -79,7 +81,7 @@ export function buildGraphModel(
 
   for (const domain of domains) {
     const angle = domainAngles.get(domain.id) ?? 0
-    const point = polar(angle, mode === 'ontology' ? 205 : 192)
+    const point = polar(angle, mode === 'risk' ? 168 : mode === 'ontology' ? 205 : 192)
     nodes.push({
       id: `domain:${domain.id}`,
       label: domain.name,
@@ -108,7 +110,7 @@ export function buildGraphModel(
     const domainAngle = domainAngles.get(domainId) ?? 0
     group.forEach((concept, index) => {
       const spread = (index - (group.length - 1) / 2) * 0.048
-      const radius = 315 + (index % 2) * 30
+      const radius = mode === 'risk' ? 270 + (index % 2) * 24 : 315 + (index % 2) * 30
       const point = polar(domainAngle + spread, radius)
       const depth = ((hash(concept.id) % 61) - 30) * 0.8
       const color = domainById.get(domainId)?.color ?? '#aab3c0'
@@ -131,7 +133,7 @@ export function buildGraphModel(
     })
   }
 
-  const visibleInstruments = instruments.filter((instrument) => instrumentVisible(instrument, filters))
+  const visibleInstruments = mode === 'risk' ? [] : instruments.filter((instrument) => instrumentVisible(instrument, filters))
   const instrumentsByPrimaryDomain = new Map<string, Instrument[]>()
   for (const instrument of visibleInstruments) {
     const primaryDomain = primaryDomainFor(instrument)
@@ -204,7 +206,86 @@ export function buildGraphModel(
     })
   }
 
-  const selectedInstrument = selectedInstrumentId ? instruments.find((instrument) => instrument.id === selectedInstrumentId) : undefined
+  if (mode === 'risk') {
+    const normalizedQuery = filters.query.toLowerCase().trim()
+    const visibleRiskSubdomains = riskSubdomains.filter((subdomain) => {
+      const domain = riskDomainById.get(subdomain.riskDomainId)
+      const matchesQuery = !normalizedQuery || [subdomain.ref, subdomain.name, subdomain.definition, domain?.name ?? ''].join(' ').toLowerCase().includes(normalizedQuery)
+      return matchesQuery && countForCausalLens(subdomain, causalLens) > 0
+    })
+    const visibleRiskDomainIds = new Set(visibleRiskSubdomains.map((subdomain) => subdomain.riskDomainId))
+    const riskDomainAngles = new Map(riskDomains.map((domain, index) => [domain.id, (index / riskDomains.length) * Math.PI * 2 - Math.PI / 2]))
+
+    for (const riskDomain of riskDomains) {
+      if (!visibleRiskDomainIds.has(riskDomain.id)) continue
+      const angle = riskDomainAngles.get(riskDomain.id) ?? 0
+      const point = polar(angle, 398)
+      const domainSubdomains = visibleRiskSubdomains.filter((subdomain) => subdomain.riskDomainId === riskDomain.id)
+      nodes.push({
+        id: `risk-domain:${riskDomain.id}`,
+        label: riskDomain.name,
+        shortLabel: riskDomain.shortName,
+        kind: 'risk-domain',
+        domainId: 'mit-risk',
+        riskDomainId: riskDomain.id,
+        recordCount: domainSubdomains.reduce((sum, subdomain) => sum + countForCausalLens(subdomain, causalLens), 0),
+        x: point.x,
+        y: point.y,
+        z: -28,
+        targetX: point.x,
+        targetY: point.y,
+        targetZ: -28,
+        radius: 16,
+        color: riskDomain.color,
+      })
+
+      const sectorWidth = (Math.PI * 2 / riskDomains.length) * 0.72
+      domainSubdomains.forEach((subdomain, index) => {
+        const domainAngle = riskDomainAngles.get(riskDomain.id) ?? 0
+        const spread = domainSubdomains.length === 1 ? 0 : ((index / (domainSubdomains.length - 1)) - 0.5) * sectorWidth
+        const shell = 508 + (index % 2) * 32
+        const point = polar(domainAngle + spread, shell)
+        const recordCount = countForCausalLens(subdomain, causalLens)
+        const radius = 5.8 + Math.sqrt(recordCount) * 0.42
+        nodes.push({
+          id: `risk-subdomain:${subdomain.id}`,
+          label: `${subdomain.ref} ${subdomain.name}`,
+          shortLabel: `${subdomain.ref} ${subdomain.name}`,
+          kind: 'risk-subdomain',
+          domainId: 'mit-risk',
+          riskDomainId: riskDomain.id,
+          recordCount,
+          x: point.x,
+          y: point.y,
+          z: ((hash(subdomain.id) % 101) - 50) * 1.4,
+          targetX: point.x,
+          targetY: point.y,
+          targetZ: ((hash(subdomain.id) % 101) - 50) * 1.4,
+          radius,
+          color: riskDomain.color,
+        })
+        edges.push({
+          id: `risk-domain-subdomain:${subdomain.id}`,
+          sourceId: `risk-domain:${riskDomain.id}`,
+          targetId: `risk-subdomain:${subdomain.id}`,
+          label: 'contains risk type',
+        })
+        subdomain.conceptIds.forEach((conceptId) => {
+          edges.push({
+            id: `risk-concept:${subdomain.id}:${conceptId}`,
+            sourceId: `risk-subdomain:${subdomain.id}`,
+            targetId: `concept:${conceptId}`,
+            label: 'risk relevance',
+            basis: 'cross-framework-synthesis',
+            confidence: subdomain.mappingConfidence,
+            explanation: 'AI Trust Atlas synthesis connecting the MIT risk type to a concept relevant to identifying, governing, evaluating or responding to that risk.',
+          })
+        })
+      })
+    }
+  }
+
+  const selectedInstrument = mode !== 'risk' && selectedInstrumentId ? instruments.find((instrument) => instrument.id === selectedInstrumentId) : undefined
   const selectedNode = selectedInstrument ? nodes.find((node) => node.id === `instrument:${selectedInstrument.id}`) : undefined
   if (selectedInstrument && selectedNode) {
     selectedInstrument.clauses.forEach((clause, index) => {
