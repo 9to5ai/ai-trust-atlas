@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowSquareOut, CheckCircle, GitBranch, Plus, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
+import { ArrowRight, ArrowSquareOut, CaretDown, CaretUp, CheckCircle, GitBranch, Plus, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { assertionsForNode, inferProvisionGranularity, riskPathsForInstrument, riskPathsForProvision } from '../data/assertions'
 import { concepts, domainById, domains } from '../data/concepts'
@@ -16,6 +16,8 @@ type Props = {
   onAddCompare: (instrumentId: string) => void
   compareIds: string[]
   causalLens: CausalLens
+  mobileExpanded?: boolean
+  onMobileExpandedChange?: (expanded: boolean) => void
 }
 
 const domainRoleLabels = {
@@ -62,7 +64,7 @@ function ControlCards({ controls, onSelectNode, note }: { controls: ControlObjec
   </>
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare, compareIds, causalLens }: Props) {
+export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare, compareIds, causalLens, mobileExpanded = false, onMobileExpandedChange }: Props) {
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const instrument = kind === 'instrument' ? instrumentById.get(rawId) : kind === 'provision' ? instruments.find((candidate) => candidate.provisions.some((provision) => provision.id === rawId)) : undefined
   const provision = kind === 'provision' ? instrument?.provisions.find((candidate) => candidate.id === rawId) : undefined
@@ -82,9 +84,16 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
   const instrumentControls = instrument ? controlObjectives.map((candidate) => ({ control: candidate, shared: candidate.conceptIds.filter((conceptId) => instrument.conceptIds.includes(conceptId)) })).filter((entry) => entry.shared.length > 0).sort((left, right) => right.shared.length - left.shared.length || left.control.code.localeCompare(right.control.code)).slice(0, 5) : []
   const nodeAssertions = selectedNodeId ? assertionsForNode(selectedNodeId).filter((assertion) => assertion.predicate !== 'contains').slice(0, 4) : []
   const activeCausalLabel = causalLensOptions.find((option) => option.id === causalLens)?.label ?? 'All records'
+  const mobileTitle = provision?.title ?? instrument?.shortTitle ?? concept?.name ?? riskSubdomain?.name ?? riskDomain?.name ?? control?.name ?? controlFamily?.name ?? domain?.name ?? 'Selected node'
+  const mobileKind = provision ? `Source ${inferProvisionGranularity(provision)}` : instrument ? authorityLabels[instrument.authorityClass] : concept ? conceptRoleLabels[concept.role] : riskSubdomain ? 'MIT risk type' : riskDomain ? 'MIT risk domain' : control ? 'Control objective' : controlFamily ? 'Control family' : domain ? domainRoleLabels[domain.role] : 'Atlas detail'
 
   return <AnimatePresence mode="wait">
-    {selectedNodeId && <motion.aside className="inspector" key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} aria-label="Selected node details">
+    {selectedNodeId && <motion.aside className={mobileExpanded ? 'inspector mobile-expanded' : 'inspector'} key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} aria-label="Selected node details">
+      <button className="mobile-inspector-peek" type="button" aria-expanded={mobileExpanded} onClick={() => onMobileExpandedChange?.(!mobileExpanded)}>
+        <i aria-hidden="true" />
+        <span><small>{mobileKind}</small><strong>{mobileTitle}</strong></span>
+        <b>{mobileExpanded ? 'Hide' : 'Details'} {mobileExpanded ? <CaretDown /> : <CaretUp />}</b>
+      </button>
       <button className="inspector-close" type="button" onClick={onClose} aria-label="Close details"><X /></button>
 
       {instrument && !provision && <>

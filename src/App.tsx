@@ -36,6 +36,7 @@ export default function App() {
   const [showMethod, setShowMethod] = useState(false)
   const [projection, setProjection] = useState<'atlas' | 'focus'>('atlas')
   const [focusAnchorId, setFocusAnchorId] = useState<string>()
+  const [mobileInspectorExpanded, setMobileInspectorExpanded] = useState(false)
   const focusTimerRef = useRef<number | undefined>(undefined)
 
   const filteredInstruments = useMemo(() => {
@@ -80,6 +81,7 @@ export default function App() {
       setSelectedNodeId(undefined)
       setFocusAnchorId(undefined)
       setProjection('atlas')
+      setMobileInspectorExpanded(false)
       return
     }
     if (nodeId?.startsWith('risk-')) setLayout('risk')
@@ -103,9 +105,12 @@ export default function App() {
     setSelectedNodeId(undefined)
     setFocusAnchorId(undefined)
     setProjection('atlas')
+    setMobileInspectorExpanded(false)
   }
 
   useEffect(() => () => clearFocusTimer(), [])
+
+  useEffect(() => setMobileInspectorExpanded(false), [selectedNodeId])
 
   useEffect(() => {
     if (!selectedNodeId) {
@@ -162,7 +167,7 @@ export default function App() {
         </nav>
       </header>
 
-      <div className={selectedNodeId ? 'atlas-workspace has-selection' : 'atlas-workspace'}>
+      <div className={selectedNodeId ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
         <div className={mobileControls ? 'sidebar-mobile open' : 'sidebar-mobile'} inert={!mobileControls} aria-hidden={!mobileControls}>
           <Sidebar
             query={query}
@@ -223,6 +228,7 @@ export default function App() {
                 selectedNodeId={selectedNodeId}
                 onSelectNode={selectFocusItem}
                 onReturnToAtlas={() => setProjection('atlas')}
+                inactive={mobileInspectorExpanded}
               />
             )}
           </AnimatePresence>
@@ -254,6 +260,8 @@ export default function App() {
           onAddCompare={addCompare}
           compareIds={compareIds}
           causalLens={causalLens}
+          mobileExpanded={mobileInspectorExpanded}
+          onMobileExpandedChange={setMobileInspectorExpanded}
         />
       </div>
 

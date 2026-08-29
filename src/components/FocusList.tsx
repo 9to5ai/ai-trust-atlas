@@ -11,9 +11,10 @@ type Props = {
   selectedNodeId?: string
   onSelectNode: (nodeId: string) => void
   onReturnToAtlas: () => void
+  inactive?: boolean
 }
 
-export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode, onReturnToAtlas }: Props) {
+export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode, onReturnToAtlas, inactive = false }: Props) {
   const model = useMemo(() => buildFocusListModel(anchorId, instruments), [anchorId, instruments])
   const [mode, setMode] = useState<FocusListMode>(model?.defaultMode ?? 'instruments')
   const reducedMotion = useReducedMotion()
@@ -32,6 +33,8 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
       animate={{ opacity: 1, scale: 1 }}
       exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
       transition={spring}
+      inert={inactive || undefined}
+      aria-hidden={inactive || undefined}
     >
       <div className="focus-list-ambient" aria-hidden="true"><span /><span /><span /></div>
       <header className="focus-list-header">
