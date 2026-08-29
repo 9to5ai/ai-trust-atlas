@@ -297,7 +297,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
       drawOrbitalGrid(context, rotation, sphereRadius, camera.scale)
 
       const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
-      const activeId = hoveredRef.current
+      const activeId = hoveredRef.current ?? selectedRef.current
       const adjacent = new Set<string>()
       if (activeId) {
         adjacent.add(activeId)
