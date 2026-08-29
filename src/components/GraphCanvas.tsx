@@ -106,6 +106,63 @@ function drawOrbitalGrid(context: CanvasRenderingContext2D, rotation: Rotation, 
   }
 }
 
+function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, elapsed: number, reducedMotion: boolean) {
+  const pulse = reducedMotion ? 0.28 : (Math.sin(elapsed * 0.0022) + 1) / 2
+  const coreRadius = 34
+  const haloRadius = 53 + pulse * 10
+
+  context.save()
+  context.globalCompositeOperation = 'screen'
+
+  const halo = context.createRadialGradient(0, 0, 0, 0, 0, haloRadius)
+  halo.addColorStop(0, `rgba(138, 215, 208, ${0.28 + pulse * 0.1})`)
+  halo.addColorStop(0.34, `rgba(72, 147, 144, ${0.18 + pulse * 0.08})`)
+  halo.addColorStop(1, 'rgba(31, 81, 82, 0)')
+  context.fillStyle = halo
+  context.beginPath()
+  context.arc(0, 0, haloRadius, 0, Math.PI * 2)
+  context.fill()
+
+  for (let ring = 0; ring < 2; ring += 1) {
+    const radius = coreRadius + 8 + ring * 12 + pulse * (ring + 1) * 2.6
+    context.beginPath()
+    context.arc(0, 0, radius, 0, Math.PI * 2)
+    context.strokeStyle = `rgba(138, 215, 208, ${0.2 - ring * 0.07})`
+    context.lineWidth = 0.85 / cameraScale
+    context.stroke()
+  }
+
+  context.shadowColor = 'rgba(138, 215, 208, 0.72)'
+  context.shadowBlur = (16 + pulse * 8) / cameraScale
+  const core = context.createRadialGradient(-9, -11, 1, 0, 0, coreRadius)
+  core.addColorStop(0, '#d9fbf7')
+  core.addColorStop(0.18, '#8ad7d0')
+  core.addColorStop(0.56, '#1d6765')
+  core.addColorStop(1, '#0a2022')
+  context.fillStyle = core
+  context.beginPath()
+  context.arc(0, 0, coreRadius + pulse * 1.6, 0, Math.PI * 2)
+  context.fill()
+  context.shadowBlur = 0
+
+  context.globalCompositeOperation = 'source-over'
+  context.strokeStyle = 'rgba(213, 247, 243, 0.7)'
+  context.lineWidth = 0.8 / cameraScale
+  context.beginPath()
+  context.arc(0, 0, coreRadius, 0, Math.PI * 2)
+  context.stroke()
+
+  context.fillStyle = '#f2fffd'
+  context.font = `650 ${10.5 / cameraScale}px "Arial Narrow", "Helvetica Neue", sans-serif`
+  context.textAlign = 'center'
+  context.textBaseline = 'middle'
+  context.fillText('AI TRUST', 0, -1 / cameraScale)
+  context.fillStyle = 'rgba(214, 246, 242, 0.64)'
+  context.font = `${6.5 / cameraScale}px ui-monospace, "SFMono-Regular", Menlo, monospace`
+  context.fillText('CENTRE', 0, 11 / cameraScale)
+  context.restore()
+}
+
 export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -206,7 +263,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
     observer.observe(wrap)
     resize()
 
-    const render = () => {
+    const render = (elapsed = 0) => {
       const context = canvas.getContext('2d')
       if (!context) return
       const camera = cameraRef.current
@@ -323,6 +380,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect }: Props) {
           context.fillText(label, labelX, labelY)
         }
       })
+
+      drawTrustCore(context, camera.scale, elapsed, reducedMotion)
 
       const orderedNodes = [...currentModel.nodes].sort((left, right) => (projected.get(left.id)?.depth ?? 0) - (projected.get(right.id)?.depth ?? 0))
       orderedNodes.forEach((node) => {

@@ -1,6 +1,7 @@
 import { GithubLogo, Info, List, Network, X } from '@phosphor-icons/react'
 import { useEffect, useMemo, useState } from 'react'
 import { ComparePanel } from './components/ComparePanel'
+import { FocusView } from './components/FocusView'
 import { GraphCanvas } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
@@ -130,28 +131,36 @@ export default function App() {
           totalInstruments={instruments.length}
         />
 
-        <section className="graph-region" aria-label="AI Trust ontology graph">
-          <div className="graph-title">
-            <span>{layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
-            <strong>{filteredInstruments.length} instruments connected through {domains.length} trust domains</strong>
-          </div>
-          <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={setSelectedNodeId} />
-          <div className="semantic-key" role="group" aria-label="Graph legend">
-            <span><i className="shape-domain" />Domain</span>
-            <span><i className="shape-concept" />Concept</span>
-            <span><i className="shape-instrument" />Instrument</span>
-            <span><i className="shape-clause" />Clause</span>
-          </div>
-          <div className="corpus-status"><span>Curated public corpus</span><strong>Verified 28 August 2026</strong></div>
+        <section className={selectedNodeId ? 'graph-region focus-mode' : 'graph-region'} aria-label="AI Trust ontology graph">
+          {selectedNodeId ? (
+            <div className="focus-layout">
+              <FocusView selectedNodeId={selectedNodeId} onSelectNode={setSelectedNodeId} onBack={() => setSelectedNodeId(undefined)} />
+              <Inspector
+                inline
+                selectedNodeId={selectedNodeId}
+                onClose={() => setSelectedNodeId(undefined)}
+                onSelectNode={setSelectedNodeId}
+                onAddCompare={addCompare}
+                compareIds={compareIds}
+              />
+            </div>
+          ) : (
+            <>
+              <div className="graph-title">
+                <span>{layout === 'ontology' ? 'Orbital ontology' : 'Authority architecture'}</span>
+                <strong>{filteredInstruments.length} instruments connected through {domains.length} trust domains</strong>
+              </div>
+              <GraphCanvas model={graphModel} onSelect={setSelectedNodeId} />
+              <div className="semantic-key" role="group" aria-label="Graph legend">
+                <span><i className="shape-domain" />Domain</span>
+                <span><i className="shape-concept" />Concept</span>
+                <span><i className="shape-instrument" />Instrument</span>
+                <span><i className="shape-clause" />Clause</span>
+              </div>
+              <div className="corpus-status"><span>Curated public corpus</span><strong>Verified 28 August 2026</strong></div>
+            </>
+          )}
         </section>
-
-        <Inspector
-          selectedNodeId={selectedNodeId}
-          onClose={() => setSelectedNodeId(undefined)}
-          onSelectNode={setSelectedNodeId}
-          onAddCompare={addCompare}
-          compareIds={compareIds}
-        />
       </div>
 
       <ComparePanel compareIds={compareIds} onRemove={(id) => setCompareIds((current) => current.filter((candidate) => candidate !== id))} onClear={() => setCompareIds([])} />

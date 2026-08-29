@@ -7,13 +7,14 @@ import { authorityLabels, relationLabels } from '../lib/labels'
 
 type Props = {
   selectedNodeId?: string
+  inline?: boolean
   onClose: () => void
   onSelectNode: (nodeId: string) => void
   onAddCompare: (instrumentId: string) => void
   compareIds: string[]
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare, compareIds }: Props) {
+export function Inspector({ selectedNodeId, inline = false, onClose, onSelectNode, onAddCompare, compareIds }: Props) {
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const instrument = kind === 'instrument' ? instrumentById.get(rawId) : kind === 'clause' ? instruments.find((candidate) => candidate.clauses.some((clause) => clause.id === rawId)) : undefined
   const clause = kind === 'clause' ? instrument?.clauses.find((candidate) => candidate.id === rawId) : undefined
@@ -34,7 +35,7 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
     <AnimatePresence mode="wait">
       {selectedNodeId && (
         <motion.aside
-          className="inspector"
+          className={inline ? 'inspector inspector-inline' : 'inspector'}
           key={selectedNodeId}
           initial={{ opacity: 0, x: 28 }}
           animate={{ opacity: 1, x: 0 }}
