@@ -116,82 +116,20 @@ canvas:focus-visible {
   gap: 12px;
 }
 
-.liquid-surface {
-  position: absolute;
-  isolation: isolate;
-}
-
-.liquid-surface-engine,
-.liquid-surface-engine > .glass,
-.liquid-surface-engine > .glass > div:last-child {
-  width: 100%;
-  height: 100%;
-}
-
-.liquid-surface-engine > .glass {
-  border: 1px solid rgba(196, 240, 235, 0.18);
-  background:
-    radial-gradient(circle at 24% 0%, rgba(218, 255, 250, 0.13), transparent 44%),
-    rgba(10, 21, 27, 0.48);
-  box-shadow:
-    inset 0 1px 0 rgba(236, 255, 253, 0.16),
-    inset 0 -1px 0 rgba(74, 142, 144, 0.1),
-    0 12px 36px rgba(0, 8, 14, 0.32) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(118%);
-}
-
-.liquid-surface-engine > .glass > div:last-child {
-  font: inherit !important;
-  text-shadow: none !important;
-}
-
-.sidebar-search-liquid,
-.sidebar-lens-liquid,
-.sidebar-projection-liquid,
-.focus-switch-liquid {
+.brand-mark {
   position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.sidebar-search-liquid {
-  height: 42px;
-  border-radius: 11px;
-}
-
-.sidebar-lens-liquid {
-  height: 48px;
-  border-radius: 11px;
-}
-
-.sidebar-projection-liquid {
-  height: 36px;
-  border-radius: 10px;
-}
-
-.sidebar-search-liquid:focus-within .glass {
-  border-color: rgba(138, 215, 208, 0.48);
-  box-shadow:
-    inset 0 1px 0 rgba(236, 255, 253, 0.2),
-    0 0 0 3px rgba(138, 215, 208, 0.07),
-    0 14px 36px rgba(0, 8, 14, 0.35) !important;
-}
-
-.brand-liquid {
-  position: relative;
+  display: grid;
   width: 42px;
   height: 42px;
-  flex: 0 0 42px;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.brand-mark {
-  display: grid;
-  width: 100%;
-  height: 100%;
   place-items: center;
+  border: 1px solid rgba(138, 215, 208, 0.35);
+  border-radius: 12px;
   color: var(--accent);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(138, 215, 208, 0.14), transparent 58%),
+    rgba(138, 215, 208, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(213, 247, 243, 0.035), 0 8px 24px rgba(4, 22, 24, 0.2);
+  overflow: hidden;
 }
 
 .brand-mark::after {
@@ -373,10 +311,7 @@ canvas:focus-visible {
   overflow: auto;
   padding: 18px 16px 20px;
   border-right: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 15% 4%, rgba(138, 215, 208, 0.055), transparent 24%),
-    rgba(8, 11, 17, 0.93);
-  backdrop-filter: blur(22px) saturate(112%);
+  background: rgba(8, 11, 17, 0.97);
   scrollbar-width: thin;
   scrollbar-color: var(--line-strong) transparent;
 }
@@ -384,11 +319,11 @@ canvas:focus-visible {
 .search-wrap {
   position: relative;
   display: flex;
-  width: 100%;
-  height: 100%;
   align-items: center;
+  height: 42px;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: transparent;
+  background: #0d121b;
 }
 
 .search-wrap > svg {
@@ -497,12 +432,11 @@ canvas:focus-visible {
 
 .segment-control {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template-columns: 1fr 1fr;
   padding: 3px;
+  border: 1px solid var(--line);
   border-radius: 10px;
-  background: transparent;
+  background: #090d14;
 }
 
 .segment-control-three {
@@ -543,17 +477,12 @@ canvas:focus-visible {
   background: transparent;
   font-size: 10px;
   cursor: pointer;
-  transition: color 180ms ease, background 180ms ease, transform 160ms ease, box-shadow 180ms ease;
 }
 
 .segment-control button.active {
   color: var(--text);
-  background: linear-gradient(180deg, rgba(138, 215, 208, 0.15), rgba(138, 215, 208, 0.075));
-  box-shadow: inset 0 0 0 1px rgba(178, 230, 225, 0.16), inset 0 1px rgba(240, 255, 253, 0.09);
-}
-
-.segment-control button:active {
-  transform: scale(0.975);
+  background: #19212e;
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .segment-control svg {
@@ -785,23 +714,18 @@ canvas:focus-visible {
   touch-action: none;
 }
 
-.graph-controls-liquid {
+.graph-controls {
   position: absolute;
   z-index: 8;
   right: 18px;
   bottom: 22px;
-  width: 104px;
-  height: 36px;
-  border-radius: 10px;
-}
-
-.graph-controls {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template-columns: repeat(3, 34px);
   overflow: hidden;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
+  background: rgba(12, 17, 25, 0.88);
+  backdrop-filter: blur(12px);
 }
 
 .graph-controls button {
@@ -925,24 +849,20 @@ canvas:focus-visible {
   transition: opacity 220ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.projection-liquid {
+.projection-switch {
   position: absolute;
   z-index: 16;
   top: 16px;
   left: 50%;
-  width: 192px;
-  height: 39px;
-  border-radius: 11px;
-  transform: translateX(-50%);
-}
-
-.projection-switch {
   display: grid;
-  width: 100%;
-  height: 100%;
   grid-template-columns: 1fr 1fr;
   padding: 3px;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
+  background: rgba(10, 14, 21, 0.78);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 14px 38px rgba(1, 7, 13, 0.24);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
 }
 
 .projection-switch button {
@@ -1133,22 +1053,8 @@ canvas:focus-visible {
 
 .focus-mode-switch {
   display: flex;
-  width: 100%;
-  height: 100%;
   align-items: center;
   gap: 3px;
-  padding: 3px;
-}
-
-.focus-switch-liquid {
-  width: 132px;
-  height: 38px;
-  flex: 0 0 auto;
-  border-radius: 10px;
-}
-
-.focus-switch-liquid.has-provisions {
-  width: 264px;
 }
 
 .focus-mode-switch button {
@@ -1344,8 +1250,7 @@ canvas:focus-visible {
   padding: 26px 25px 36px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  isolation: isolate;
-  background: rgba(12, 17, 25, 0.74);
+  background: rgba(12, 17, 25, 0.96);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.46);
   backdrop-filter: blur(24px);
   scrollbar-width: thin;
@@ -1359,7 +1264,7 @@ canvas:focus-visible {
   height: 100%;
   border-width: 0 0 0 1px;
   border-radius: 0;
-  background: rgba(10, 14, 21, 0.8);
+  background: rgba(10, 14, 21, 0.985);
   box-shadow: -24px 0 70px rgba(2, 5, 10, 0.22);
 }
 
@@ -2034,8 +1939,7 @@ canvas:focus-visible {
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  isolation: isolate;
-  background: rgba(12, 17, 25, 0.72);
+  background: rgba(12, 17, 25, 0.97);
   box-shadow: 0 26px 70px rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(22px);
 }
@@ -2180,36 +2084,8 @@ canvas:focus-visible {
   padding: 36px;
   border: 1px solid var(--line-strong);
   border-radius: 14px;
-  isolation: isolate;
-  background: rgba(10, 16, 23, 0.72);
+  background: #0d121a;
   box-shadow: 0 40px 110px rgba(0, 0, 0, 0.58);
-}
-
-.inspector-liquid-layer,
-.compare-liquid-layer,
-.method-liquid-layer {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.inspector-liquid-layer *,
-.compare-liquid-layer *,
-.method-liquid-layer * {
-  pointer-events: none !important;
-}
-
-.inspector-liquid-layer .glass,
-.compare-liquid-layer .glass,
-.method-liquid-layer .glass {
-  background:
-    radial-gradient(circle at 18% 0%, rgba(188, 244, 238, 0.1), transparent 34%),
-    radial-gradient(circle at 100% 78%, rgba(55, 113, 124, 0.08), transparent 36%),
-    rgba(7, 14, 21, 0.48);
 }
 
 .method-dialog h2 {
@@ -2369,11 +2245,10 @@ canvas:focus-visible {
     left: 14px;
   }
 
-  .projection-liquid {
+  .projection-switch {
     top: 10px;
     right: 12px;
     left: auto;
-    width: 164px;
     transform: none;
   }
 
@@ -2422,7 +2297,7 @@ canvas:focus-visible {
     display: none;
   }
 
-  .graph-controls-liquid {
+  .graph-controls {
     right: 12px;
     bottom: 14px;
   }
@@ -2526,7 +2401,7 @@ canvas:focus-visible {
     color: var(--accent);
   }
 
-  .inspector:not(.mobile-expanded) > :not(.mobile-inspector-peek):not(.inspector-liquid-layer) {
+  .inspector:not(.mobile-expanded) > :not(.mobile-inspector-peek) {
     display: none !important;
   }
 
@@ -2589,10 +2464,9 @@ canvas:focus-visible {
     display: none;
   }
 
-  .brand-liquid {
+  .brand-mark {
     width: 38px;
     height: 38px;
-    flex-basis: 38px;
   }
 
   .brand-block h1 {
@@ -2607,10 +2481,6 @@ canvas:focus-visible {
     min-width: 38px;
     padding: 0 9px;
     font-size: 0;
-  }
-
-  .projection-liquid {
-    width: 84px;
   }
 
   .projection-switch svg {
@@ -2642,11 +2512,6 @@ canvas:focus-visible {
   }
 
   .focus-mode-switch {
-    width: 100%;
-  }
-
-  .focus-switch-liquid,
-  .focus-switch-liquid.has-provisions {
     width: 100%;
   }
 

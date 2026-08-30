@@ -4,7 +4,6 @@ import { causalLensOptions, mappedRiskRecordCount, type CausalLens } from '../da
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
 import type { LayoutMode } from '../lib/graphModel'
 import type { AuthorityClass, ControlObjective, Instrument, RiskSubdomain } from '../types'
-import { LiquidSurface } from './LiquidSurface'
 
 type Props = {
   query: string
@@ -34,13 +33,11 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
 
   return (
     <aside className="sidebar" aria-label="Atlas controls">
-      <LiquidSurface className="sidebar-search-liquid" cornerRadius={11} displacementScale={22} blurAmount={0.11} elasticity={0.035}>
-        <div className="search-wrap">
-          <MagnifyingGlass aria-hidden="true" />
-          <input type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder={placeholder} aria-label="Search the atlas" />
-          {query && <kbd>{resultCount}</kbd>}
-        </div>
-      </LiquidSurface>
+      <div className="search-wrap">
+        <MagnifyingGlass aria-hidden="true" />
+        <input type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder={placeholder} aria-label="Search the atlas" />
+        {query && <kbd>{resultCount}</kbd>}
+      </div>
 
       {query && (
         <div className="search-results" aria-label="Search results">
@@ -57,21 +54,17 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
 
       <section className="control-section">
         <div className="control-title"><Atom /> <span>Explore by</span></div>
-        <LiquidSurface className="sidebar-lens-liquid" cornerRadius={11} displacementScale={24} blurAmount={0.12} elasticity={0.035}>
-          <div className="segment-control segment-control-three lens-control">
-            <button type="button" className={layout === 'ontology' || layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Requirements</button>
-            <button type="button" className={layout === 'risk' ? 'active' : ''} onClick={() => onLayoutChange('risk')}><WarningDiamond /> Risks</button>
-            <button type="button" className={layout === 'controls' ? 'active' : ''} onClick={() => onLayoutChange('controls')}><ShieldCheck /> Controls</button>
-          </div>
-        </LiquidSurface>
+        <div className="segment-control segment-control-three lens-control">
+          <button type="button" className={layout === 'ontology' || layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Requirements</button>
+          <button type="button" className={layout === 'risk' ? 'active' : ''} onClick={() => onLayoutChange('risk')}><WarningDiamond /> Risks</button>
+          <button type="button" className={layout === 'controls' ? 'active' : ''} onClick={() => onLayoutChange('controls')}><ShieldCheck /> Controls</button>
+        </div>
         {(layout === 'ontology' || layout === 'authority') && <>
           <div className="projection-label">Group requirements by</div>
-          <LiquidSurface className="sidebar-projection-liquid" cornerRadius={10} displacementScale={20} blurAmount={0.1} elasticity={0.03}>
-            <div className="segment-control projection-control">
-              <button type="button" className={layout === 'ontology' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Meaning</button>
-              <button type="button" className={layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('authority')}><Rows /> Authority</button>
-            </div>
-          </LiquidSurface>
+          <div className="segment-control projection-control">
+            <button type="button" className={layout === 'ontology' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Meaning</button>
+            <button type="button" className={layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('authority')}><Rows /> Authority</button>
+          </div>
         </>}
         <p className="control-note">{isRiskView ? 'MIT describes what can go wrong. Select a risk to reveal candidate controls.' : isControlView ? 'Atlas-normalised objectives show what an organisation might do—never whether it has done it effectively.' : 'Requirements are source instruments and provisions. Meaning and authority are alternate projections of the same corpus.'}</p>
       </section>
