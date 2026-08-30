@@ -116,20 +116,50 @@ canvas:focus-visible {
   gap: 12px;
 }
 
-.brand-mark {
+.liquid-surface {
+  position: absolute;
+  isolation: isolate;
+}
+
+.liquid-surface-engine,
+.liquid-surface-engine > .glass,
+.liquid-surface-engine > .glass > div:last-child {
+  width: 100%;
+  height: 100%;
+}
+
+.liquid-surface-engine > .glass {
+  border: 1px solid rgba(196, 240, 235, 0.18);
+  background:
+    radial-gradient(circle at 24% 0%, rgba(218, 255, 250, 0.13), transparent 44%),
+    rgba(10, 21, 27, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(236, 255, 253, 0.16),
+    inset 0 -1px 0 rgba(74, 142, 144, 0.1),
+    0 12px 36px rgba(0, 8, 14, 0.32) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(118%);
+}
+
+.liquid-surface-engine > .glass > div:last-child {
+  font: inherit !important;
+  text-shadow: none !important;
+}
+
+.brand-liquid {
   position: relative;
-  display: grid;
   width: 42px;
   height: 42px;
-  place-items: center;
-  border: 1px solid rgba(138, 215, 208, 0.35);
-  border-radius: 12px;
-  color: var(--accent);
-  background:
-    radial-gradient(circle at 50% 45%, rgba(138, 215, 208, 0.14), transparent 58%),
-    rgba(138, 215, 208, 0.035);
-  box-shadow: inset 0 0 0 1px rgba(213, 247, 243, 0.035), 0 8px 24px rgba(4, 22, 24, 0.2);
+  flex: 0 0 42px;
   overflow: hidden;
+  border-radius: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: var(--accent);
 }
 
 .brand-mark::after {
@@ -714,18 +744,23 @@ canvas:focus-visible {
   touch-action: none;
 }
 
-.graph-controls {
+.graph-controls-liquid {
   position: absolute;
   z-index: 8;
   right: 18px;
   bottom: 22px;
+  width: 104px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+.graph-controls {
   display: grid;
+  width: 100%;
+  height: 100%;
   grid-template-columns: repeat(3, 34px);
   overflow: hidden;
-  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(12, 17, 25, 0.88);
-  backdrop-filter: blur(12px);
 }
 
 .graph-controls button {
@@ -849,20 +884,24 @@ canvas:focus-visible {
   transition: opacity 220ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.projection-switch {
+.projection-liquid {
   position: absolute;
   z-index: 16;
   top: 16px;
   left: 50%;
+  width: 192px;
+  height: 39px;
+  border-radius: 11px;
+  transform: translateX(-50%);
+}
+
+.projection-switch {
   display: grid;
+  width: 100%;
+  height: 100%;
   grid-template-columns: 1fr 1fr;
   padding: 3px;
-  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(10, 14, 21, 0.78);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 14px 38px rgba(1, 7, 13, 0.24);
-  backdrop-filter: blur(14px);
-  transform: translateX(-50%);
 }
 
 .projection-switch button {
@@ -2240,10 +2279,11 @@ canvas:focus-visible {
     left: 14px;
   }
 
-  .projection-switch {
+  .projection-liquid {
     top: 10px;
     right: 12px;
     left: auto;
+    width: 164px;
     transform: none;
   }
 
@@ -2292,7 +2332,7 @@ canvas:focus-visible {
     display: none;
   }
 
-  .graph-controls {
+  .graph-controls-liquid {
     right: 12px;
     bottom: 14px;
   }
@@ -2459,9 +2499,10 @@ canvas:focus-visible {
     display: none;
   }
 
-  .brand-mark {
+  .brand-liquid {
     width: 38px;
     height: 38px;
+    flex-basis: 38px;
   }
 
   .brand-block h1 {
@@ -2476,6 +2517,10 @@ canvas:focus-visible {
     min-width: 38px;
     padding: 0 9px;
     font-size: 0;
+  }
+
+  .projection-liquid {
+    width: 84px;
   }
 
   .projection-switch svg {

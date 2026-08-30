@@ -1,6 +1,7 @@
 import { ArrowsOut, Minus, Plus } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphModel, GraphNode } from '../types'
+import { LiquidSurface } from './LiquidSurface'
 
 type Camera = { x: number; y: number; scale: number }
 type Point3D = { x: number; y: number; z: number }
@@ -641,11 +642,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
         }}
       />
       <p className="sr-only" id="graph-accessible-description" aria-live="polite">{selectedConnectionSummary}</p>
-      <div className="graph-controls" role="toolbar" aria-label="Graph view controls">
-        <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in"><Plus weight="bold" /></button>
-        <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out"><Minus weight="bold" /></button>
-        <button type="button" onClick={resetCamera} aria-label="Reset graph view"><ArrowsOut /></button>
-      </div>
+      <LiquidSurface className="graph-controls-liquid" cornerRadius={10} displacementScale={30} blurAmount={0.14}>
+        <div className="graph-controls" role="toolbar" aria-label="Graph view controls">
+          <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in"><Plus weight="bold" /></button>
+          <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out"><Minus weight="bold" /></button>
+          <button type="button" onClick={resetCamera} aria-label="Reset graph view"><ArrowsOut /></button>
+        </div>
+      </LiquidSurface>
       <p className="graph-hint" aria-hidden="true">Drag to orbit. Wheel to zoom. Arrow keys move through nodes. Select to reveal immediate connections.</p>
     </div>
   )

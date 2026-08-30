@@ -6,6 +6,7 @@ import { ComparePanel } from './components/ComparePanel'
 import { FocusList } from './components/FocusList'
 import { GraphCanvas } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
+import { LiquidSurface } from './components/LiquidSurface'
 import { Sidebar } from './components/Sidebar'
 import { concepts, domains } from './data/concepts'
 import { mappingAssertions } from './data/assertions'
@@ -148,7 +149,9 @@ export default function App() {
       <a className="skip-link" href="#atlas-graph">Skip to the Atlas universe</a>
       <header className="atlas-header">
         <div className="brand-block">
-          <div className="brand-mark" aria-hidden="true"><AtlasMark /></div>
+          <LiquidSurface className="brand-liquid" cornerRadius={12} displacementScale={24} blurAmount={0.08} elasticity={0.04}>
+            <div className="brand-mark" aria-hidden="true"><AtlasMark /></div>
+          </LiquidSurface>
           <div>
             <h1>AI Trust Atlas</h1>
             <p>Australia first. Global by design.</p>
@@ -215,10 +218,12 @@ export default function App() {
             <span>{layout === 'risk' ? 'Risk universe' : layout === 'controls' ? 'Control architecture' : layout === 'ontology' ? 'Requirements by meaning' : 'Requirements by authority'}</span>
             <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : layout === 'controls' ? `${filteredControls.length} Atlas-normalised objectives · six control families` : `${filteredInstruments.length} instruments connected through ${domains.length} visual themes`}</strong>
           </div>
-          <div className="projection-switch" role="group" aria-label="Atlas projection">
-            <button type="button" aria-pressed={projection === 'atlas'} onClick={() => { clearFocusTimer(); setProjection('atlas') }}><Network /> Atlas</button>
-            <button type="button" aria-pressed={projection === 'focus'} disabled={!focusAnchorId} onClick={() => focusAnchorId && setProjection('focus')}><List /> Focus list</button>
-          </div>
+          <LiquidSurface className="projection-liquid" cornerRadius={11} displacementScale={38} blurAmount={0.16}>
+            <div className="projection-switch" role="group" aria-label="Atlas projection">
+              <button type="button" aria-pressed={projection === 'atlas'} onClick={() => { clearFocusTimer(); setProjection('atlas') }}><Network /> Atlas</button>
+              <button type="button" aria-pressed={projection === 'focus'} disabled={!focusAnchorId} onClick={() => focusAnchorId && setProjection('focus')}><List /> Focus list</button>
+            </div>
+          </LiquidSurface>
           <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection === 'focus'} />
           <AnimatePresence mode="wait">
             {projection === 'focus' && focusAnchorId && (
