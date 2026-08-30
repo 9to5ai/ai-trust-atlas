@@ -1,6 +1,7 @@
 import { GithubLogo, Info, List, Network, X } from '@phosphor-icons/react'
 import { AnimatePresence } from 'motion/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { AtlasMark } from './components/AtlasMark'
 import { ComparePanel } from './components/ComparePanel'
 import { FocusList } from './components/FocusList'
 import { GraphCanvas } from './components/GraphCanvas'
@@ -147,7 +148,7 @@ export default function App() {
       <a className="skip-link" href="#atlas-graph">Skip to the Atlas universe</a>
       <header className="atlas-header">
         <div className="brand-block">
-          <div className="brand-mark" aria-hidden="true"><Network weight="duotone" /></div>
+          <div className="brand-mark" aria-hidden="true"><AtlasMark /></div>
           <div>
             <h1>AI Trust Atlas</h1>
             <p>Australia first. Global by design.</p>
