@@ -158,9 +158,6 @@ function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, e
   context.textAlign = 'center'
   context.textBaseline = 'middle'
   context.fillText('AI TRUST', 0, -1 / cameraScale)
-  context.fillStyle = 'rgba(214, 246, 242, 0.64)'
-  context.font = `${6.5 / cameraScale}px ui-monospace, "SFMono-Regular", Menlo, monospace`
-  context.fillText('CENTRE', 0, 11 / cameraScale)
   context.restore()
 }
 
