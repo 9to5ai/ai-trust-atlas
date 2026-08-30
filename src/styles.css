@@ -145,6 +145,38 @@ canvas:focus-visible {
   text-shadow: none !important;
 }
 
+.sidebar-search-liquid,
+.sidebar-lens-liquid,
+.sidebar-projection-liquid,
+.focus-switch-liquid {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar-search-liquid {
+  height: 42px;
+  border-radius: 11px;
+}
+
+.sidebar-lens-liquid {
+  height: 48px;
+  border-radius: 11px;
+}
+
+.sidebar-projection-liquid {
+  height: 36px;
+  border-radius: 10px;
+}
+
+.sidebar-search-liquid:focus-within .glass {
+  border-color: rgba(138, 215, 208, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(236, 255, 253, 0.2),
+    0 0 0 3px rgba(138, 215, 208, 0.07),
+    0 14px 36px rgba(0, 8, 14, 0.35) !important;
+}
+
 .brand-liquid {
   position: relative;
   width: 42px;
@@ -339,9 +371,12 @@ canvas:focus-visible {
   z-index: 14;
   height: 100%;
   overflow: auto;
-  padding: 18px 16px 72px;
+  padding: 18px 16px 20px;
   border-right: 1px solid var(--line);
-  background: rgba(8, 11, 17, 0.97);
+  background:
+    radial-gradient(circle at 15% 4%, rgba(138, 215, 208, 0.055), transparent 24%),
+    rgba(8, 11, 17, 0.93);
+  backdrop-filter: blur(22px) saturate(112%);
   scrollbar-width: thin;
   scrollbar-color: var(--line-strong) transparent;
 }
@@ -349,11 +384,11 @@ canvas:focus-visible {
 .search-wrap {
   position: relative;
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  height: 42px;
-  border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: #0d121b;
+  background: transparent;
 }
 
 .search-wrap > svg {
@@ -462,11 +497,12 @@ canvas:focus-visible {
 
 .segment-control {
   display: grid;
+  width: 100%;
+  height: 100%;
   grid-template-columns: 1fr 1fr;
   padding: 3px;
-  border: 1px solid var(--line);
   border-radius: 10px;
-  background: #090d14;
+  background: transparent;
 }
 
 .segment-control-three {
@@ -507,12 +543,17 @@ canvas:focus-visible {
   background: transparent;
   font-size: 10px;
   cursor: pointer;
+  transition: color 180ms ease, background 180ms ease, transform 160ms ease, box-shadow 180ms ease;
 }
 
 .segment-control button.active {
   color: var(--text);
-  background: #19212e;
-  box-shadow: inset 0 0 0 1px var(--line);
+  background: linear-gradient(180deg, rgba(138, 215, 208, 0.15), rgba(138, 215, 208, 0.075));
+  box-shadow: inset 0 0 0 1px rgba(178, 230, 225, 0.16), inset 0 1px rgba(240, 255, 253, 0.09);
+}
+
+.segment-control button:active {
+  transform: scale(0.975);
 }
 
 .segment-control svg {
@@ -639,13 +680,13 @@ canvas:focus-visible {
 }
 
 .sidebar-foot {
-  position: absolute;
-  right: 16px;
-  bottom: 18px;
-  left: 16px;
   display: flex;
+  min-height: 38px;
   align-items: baseline;
   gap: 7px;
+  margin-top: 14px;
+  padding: 13px 2px 0;
+  border-top: 1px solid var(--line);
   color: var(--text-faint);
 }
 
@@ -1092,8 +1133,22 @@ canvas:focus-visible {
 
 .focus-mode-switch {
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   gap: 3px;
+  padding: 3px;
+}
+
+.focus-switch-liquid {
+  width: 132px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+}
+
+.focus-switch-liquid.has-provisions {
+  width: 264px;
 }
 
 .focus-mode-switch button {
@@ -1289,7 +1344,8 @@ canvas:focus-visible {
   padding: 26px 25px 36px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: rgba(12, 17, 25, 0.96);
+  isolation: isolate;
+  background: rgba(12, 17, 25, 0.74);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.46);
   backdrop-filter: blur(24px);
   scrollbar-width: thin;
@@ -1303,7 +1359,7 @@ canvas:focus-visible {
   height: 100%;
   border-width: 0 0 0 1px;
   border-radius: 0;
-  background: rgba(10, 14, 21, 0.985);
+  background: rgba(10, 14, 21, 0.8);
   box-shadow: -24px 0 70px rgba(2, 5, 10, 0.22);
 }
 
@@ -1978,7 +2034,8 @@ canvas:focus-visible {
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: rgba(12, 17, 25, 0.97);
+  isolation: isolate;
+  background: rgba(12, 17, 25, 0.72);
   box-shadow: 0 26px 70px rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(22px);
 }
@@ -2123,8 +2180,36 @@ canvas:focus-visible {
   padding: 36px;
   border: 1px solid var(--line-strong);
   border-radius: 14px;
-  background: #0d121a;
+  isolation: isolate;
+  background: rgba(10, 16, 23, 0.72);
   box-shadow: 0 40px 110px rgba(0, 0, 0, 0.58);
+}
+
+.inspector-liquid-layer,
+.compare-liquid-layer,
+.method-liquid-layer {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.inspector-liquid-layer *,
+.compare-liquid-layer *,
+.method-liquid-layer * {
+  pointer-events: none !important;
+}
+
+.inspector-liquid-layer .glass,
+.compare-liquid-layer .glass,
+.method-liquid-layer .glass {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(188, 244, 238, 0.1), transparent 34%),
+    radial-gradient(circle at 100% 78%, rgba(55, 113, 124, 0.08), transparent 36%),
+    rgba(7, 14, 21, 0.48);
 }
 
 .method-dialog h2 {
@@ -2159,6 +2244,11 @@ canvas:focus-visible {
   min-height: 136px;
   padding: 17px;
   background: #0b1017;
+}
+
+.method-columns div:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  min-height: 108px;
 }
 
 .method-columns strong {
@@ -2436,7 +2526,7 @@ canvas:focus-visible {
     color: var(--accent);
   }
 
-  .inspector:not(.mobile-expanded) > :not(.mobile-inspector-peek) {
+  .inspector:not(.mobile-expanded) > :not(.mobile-inspector-peek):not(.inspector-liquid-layer) {
     display: none !important;
   }
 
@@ -2552,6 +2642,11 @@ canvas:focus-visible {
   }
 
   .focus-mode-switch {
+    width: 100%;
+  }
+
+  .focus-switch-liquid,
+  .focus-switch-liquid.has-provisions {
     width: 100%;
   }
 

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { buildFocusListModel, type FocusListMode } from '../lib/focusList'
 import { authorityLabels } from '../lib/labels'
 import type { Instrument } from '../types'
+import { LiquidSurface } from './LiquidSurface'
 
 type Props = {
   anchorId: string
@@ -51,10 +52,12 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
       </header>
 
       <div className="focus-list-toolbar">
-        <div className="focus-mode-switch" role="tablist" aria-label="Focus list contents">
-          {model.provisions.length > 0 && <button type="button" role="tab" aria-selected={mode === 'provisions'} onClick={() => setMode('provisions')}><FileText /> Provisions <small>{model.provisions.length}</small></button>}
-          <button type="button" role="tab" aria-selected={mode === 'instruments'} onClick={() => setMode('instruments')}><Rows /> {model.provisions.length ? 'Related instruments' : 'Instruments'} <small>{model.instruments.length}</small></button>
-        </div>
+        <LiquidSurface className={model.provisions.length > 0 ? 'focus-switch-liquid has-provisions' : 'focus-switch-liquid'} cornerRadius={10} displacementScale={24} blurAmount={0.12} elasticity={0.035}>
+          <div className="focus-mode-switch" role="tablist" aria-label="Focus list contents">
+            {model.provisions.length > 0 && <button type="button" role="tab" aria-selected={mode === 'provisions'} onClick={() => setMode('provisions')}><FileText /> Provisions <small>{model.provisions.length}</small></button>}
+            <button type="button" role="tab" aria-selected={mode === 'instruments'} onClick={() => setMode('instruments')}><Rows /> {model.provisions.length ? 'Related instruments' : 'Instruments'} <small>{model.instruments.length}</small></button>
+          </div>
+        </LiquidSurface>
         <p><CirclesThreePlus /> Ranked by explicit shared concepts and source foundations.</p>
       </div>
 

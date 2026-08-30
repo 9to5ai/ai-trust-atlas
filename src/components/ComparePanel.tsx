@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { concepts } from '../data/concepts'
 import { instrumentById } from '../data/instruments'
 import { authorityLabels } from '../lib/labels'
+import { LiquidSurface } from './LiquidSurface'
 
 type Props = {
   compareIds: string[]
@@ -18,6 +19,7 @@ export function ComparePanel({ compareIds, onRemove, onClear }: Props) {
   return (
     <AnimatePresence>
       <motion.section className="compare-panel" initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 34 }} aria-label="Instrument comparison">
+        <LiquidSurface className="compare-liquid-layer" cornerRadius={12} displacementScale={18} blurAmount={0.18} saturation={112} aberrationIntensity={0.35} elasticity={0.02}><span aria-hidden="true" /></LiquidSurface>
         <div className="compare-head">
           <div><ArrowsLeftRight /><strong>Concept comparison</strong><span>{selected.length === 1 ? 'Select one more instrument' : `${shared.length} shared concepts`}</span></div>
           <button type="button" onClick={onClear} aria-label="Close comparison"><X /></button>

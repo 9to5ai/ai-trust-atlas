@@ -276,6 +276,7 @@ export default function App() {
       {showMethod && (
         <div className="method-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowMethod(false) }}>
           <section className="method-dialog" role="dialog" aria-modal="true" aria-labelledby="method-title">
+            <LiquidSurface className="method-liquid-layer" cornerRadius={14} displacementScale={16} blurAmount={0.2} saturation={110} aberrationIntensity={0.3} elasticity={0.015}><span aria-hidden="true" /></LiquidSurface>
             <button className="inspector-close" type="button" onClick={() => setShowMethod(false)} aria-label="Close methodology"><X /></button>
             <span className="method-label">How to read the atlas</span>
             <h2 id="method-title">Relationships, not equivalence.</h2>

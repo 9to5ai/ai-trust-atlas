@@ -8,6 +8,7 @@ import { MIT_RISK_DATABASE_URL, MIT_RISK_LICENSE, MIT_RISK_PROVENANCE, MIT_RISK_
 import { relations } from '../data/relations'
 import { authorityLabels, relationFamilyFor, relationLabels } from '../lib/labels'
 import type { ControlObjective, MappingAssertion } from '../types'
+import { LiquidSurface } from './LiquidSurface'
 
 type Props = {
   selectedNodeId?: string
@@ -89,6 +90,7 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, onAddCompare,
 
   return <AnimatePresence mode="wait">
     {selectedNodeId && <motion.aside className={mobileExpanded ? 'inspector mobile-expanded' : 'inspector'} key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} aria-label="Selected node details">
+      <LiquidSurface key={mobileExpanded ? 'expanded-glass' : 'compact-glass'} className="inspector-liquid-layer" cornerRadius={16} displacementScale={18} blurAmount={0.18} saturation={112} aberrationIntensity={0.35} elasticity={0.02}><span aria-hidden="true" /></LiquidSurface>
       <button className="mobile-inspector-peek" type="button" aria-expanded={mobileExpanded} onClick={() => onMobileExpandedChange?.(!mobileExpanded)}>
         <i aria-hidden="true" />
         <span><small>{mobileKind}</small><strong>{mobileTitle}</strong></span>
