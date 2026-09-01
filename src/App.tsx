@@ -7,6 +7,7 @@ import { FocusList } from './components/FocusList'
 import { GraphCanvas } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
+import { UniverseRail } from './components/UniverseRail'
 import { concepts, domains } from './data/concepts'
 import { mappingAssertions } from './data/assertions'
 import { CONTROL_MODEL_VERIFIED, controlObjectives } from './data/controls'
@@ -211,6 +212,7 @@ export default function App() {
         />
 
         <section className={projection === 'focus' ? 'graph-region is-focus-list' : 'graph-region'} id="atlas-graph" aria-label="AI Trust ontology graph">
+          <div className="observatory-frame" aria-hidden="true"><i /><i /><i /></div>
           <div className="graph-title">
             <span>{layout === 'risk' ? 'Risk universe' : layout === 'controls' ? 'Control architecture' : layout === 'ontology' ? 'Requirements by meaning' : 'Requirements by authority'}</span>
             <strong>{layout === 'risk' ? `${filteredRiskSubdomains.length} MIT risk types · ${causalLens === 'all' ? `${mappedRiskRecordCount.toLocaleString()} mapped` : `${filteredRiskSubdomains.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0).toLocaleString()} matching`} records` : layout === 'controls' ? `${filteredControls.length} Atlas-normalised objectives · six control families` : `${filteredInstruments.length} instruments connected through ${domains.length} visual themes`}</strong>
@@ -219,6 +221,7 @@ export default function App() {
             <button type="button" aria-pressed={projection === 'atlas'} onClick={() => { clearFocusTimer(); setProjection('atlas') }}><Network /> Atlas</button>
             <button type="button" aria-pressed={projection === 'focus'} disabled={!focusAnchorId} onClick={() => focusAnchorId && setProjection('focus')}><List /> Focus list</button>
           </div>
+          <UniverseRail layout={layout} onLayoutChange={changeLayout} />
           <GraphCanvas model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection === 'focus'} />
           <AnimatePresence mode="wait">
             {projection === 'focus' && focusAnchorId && (

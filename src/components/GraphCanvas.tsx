@@ -6,6 +6,7 @@ type Camera = { x: number; y: number; scale: number }
 type Point3D = { x: number; y: number; z: number }
 type Rotation = { yaw: number; pitch: number }
 type ProjectedPoint = { x: number; y: number; depth: number; scale: number }
+type AmbientParticle = Point3D & { opacity: number; phase: number; size: number; tone: number; speed: number }
 
 type Props = {
   model: GraphModel
@@ -25,9 +26,62 @@ const modelRadius = (model: GraphModel) => model.nodes.reduce((largest, node) =>
 }, 1)
 
 const fitScaleForModel = (model: GraphModel, width: number, height: number) => {
-  const extent = modelRadius(model) * 1.18
-  return clamp((Math.min(width, height) * 0.9) / (extent * 2), 0.28, 0.92)
+  const extent = modelRadius(model) * 1.12
+  return clamp((Math.min(width, height) * 1.02) / (extent * 2), 0.28, 1.02)
 }
+
+const seededRandom = (seed: number) => {
+  const value = Math.sin(seed * 12.9898 + 78.233) * 43758.5453
+  return value - Math.floor(value)
+}
+
+const ambientParticles: AmbientParticle[] = Array.from({ length: 260 }, (_, index) => {
+  const azimuth = seededRandom(index + 1) * Math.PI * 2
+  const elevation = Math.acos(seededRandom(index + 401) * 2 - 1)
+  const radius = 0.54 + seededRandom(index + 821) * 0.54
+  return {
+    x: Math.sin(elevation) * Math.cos(azimuth) * radius,
+    y: Math.cos(elevation) * radius,
+    z: Math.sin(elevation) * Math.sin(azimuth) * radius,
+    opacity: 0.12 + seededRandom(index + 1241) * 0.42,
+    phase: seededRandom(index + 1661) * Math.PI * 2,
+    size: 0.52 + seededRandom(index + 2081) * 1.2,
+    tone: Math.floor(seededRandom(index + 2501) * 7),
+    speed: 0.32 + seededRandom(index + 2921) * 0.68,
+  }
+})
+
+const coreParticles: AmbientParticle[] = Array.from({ length: 190 }, (_, index) => {
+  const azimuth = seededRandom(index + 3501) * Math.PI * 2
+  const elevation = Math.acos(seededRandom(index + 3921) * 2 - 1)
+  const radius = Math.pow(seededRandom(index + 4341), 1.45) * 0.37
+  return {
+    x: Math.sin(elevation) * Math.cos(azimuth) * radius,
+    y: Math.cos(elevation) * radius,
+    z: Math.sin(elevation) * Math.sin(azimuth) * radius,
+    opacity: 0.22 + seededRandom(index + 4761) * 0.54,
+    phase: seededRandom(index + 5181) * Math.PI * 2,
+    size: 0.72 + seededRandom(index + 5601) * 1.65,
+    tone: Math.floor(seededRandom(index + 6021) * 4),
+    speed: 0.55 + seededRandom(index + 6441) * 0.9,
+  }
+})
+
+const meshPoints: Point3D[] = Array.from({ length: 44 }, (_, index) => {
+  const y = 1 - (index / 43) * 2
+  const radius = Math.sqrt(1 - y * y)
+  const theta = Math.PI * (3 - Math.sqrt(5)) * index
+  return { x: Math.cos(theta) * radius, y, z: Math.sin(theta) * radius }
+})
+
+const meshEdges: [number, number][] = meshPoints.flatMap((point, index) => {
+  const neighbours = meshPoints
+    .map((candidate, candidateIndex) => ({ candidateIndex, distance: candidateIndex === index ? Number.POSITIVE_INFINITY : Math.hypot(point.x - candidate.x, point.y - candidate.y, point.z - candidate.z) }))
+    .sort((left, right) => left.distance - right.distance)
+    .slice(0, 3)
+    .map(({ candidateIndex }) => candidateIndex)
+  return neighbours.filter((candidateIndex) => candidateIndex > index).map((candidateIndex) => [index, candidateIndex] as [number, number])
+})
 
 const projectPoint = (point: Point3D, rotation: Rotation, radius: number): ProjectedPoint => {
   const cosYaw = Math.cos(rotation.yaw)
@@ -105,6 +159,94 @@ function drawOrbitalGrid(context: CanvasRenderingContext2D, rotation: Rotation, 
       z: Math.cos(angle) * radius * Math.sin(longitude),
     })), rotation, radius, cameraScale, 0.052)
   }
+}
+
+function drawHexBackdrop(context: CanvasRenderingContext2D, width: number, height: number) {
+  const radius = 34
+  const columnWidth = radius * 1.5
+  const rowHeight = Math.sqrt(3) * radius
+  context.save()
+  context.beginPath()
+  for (let column = -1; column < width / columnWidth + 2; column += 1) {
+    for (let row = -1; row < height / rowHeight + 2; row += 1) {
+      const x = column * columnWidth
+      const y = row * rowHeight + (column % 2 ? rowHeight / 2 : 0)
+      for (let side = 0; side < 6; side += 1) {
+        const angle = (Math.PI / 3) * side
+        const px = x + Math.cos(angle) * radius
+        const py = y + Math.sin(angle) * radius
+        if (side === 0) context.moveTo(px, py)
+        else context.lineTo(px, py)
+      }
+      context.closePath()
+    }
+  }
+  const meshFade = context.createRadialGradient(width * 0.52, height * 0.48, Math.min(width, height) * 0.2, width * 0.52, height * 0.48, Math.max(width, height) * 0.72)
+  meshFade.addColorStop(0, 'rgba(126, 155, 153, 0.105)')
+  meshFade.addColorStop(0.58, 'rgba(126, 155, 153, 0.055)')
+  meshFade.addColorStop(1, 'rgba(126, 155, 153, 0.01)')
+  context.strokeStyle = meshFade
+  context.lineWidth = 0.55
+  context.stroke()
+  context.restore()
+}
+
+function drawGeodesicMesh(context: CanvasRenderingContext2D, rotation: Rotation, radius: number, cameraScale: number) {
+  const projected = meshPoints.map((point) => projectPoint({ x: point.x * radius, y: point.y * radius, z: point.z * radius }, rotation, radius))
+  context.save()
+  meshEdges.forEach(([sourceIndex, targetIndex]) => {
+    const source = projected[sourceIndex]
+    const target = projected[targetIndex]
+    const depth = ((source.depth + target.depth) / 2 + radius) / (radius * 2)
+    context.beginPath()
+    context.moveTo(source.x, source.y)
+    context.lineTo(target.x, target.y)
+    context.strokeStyle = `rgba(210, 218, 207, ${0.022 + depth * 0.047})`
+    context.lineWidth = 0.55 / cameraScale
+    context.stroke()
+  })
+  context.restore()
+}
+
+function drawParticleField(
+  context: CanvasRenderingContext2D,
+  particles: AmbientParticle[],
+  rotation: Rotation,
+  radius: number,
+  cameraScale: number,
+  elapsed: number,
+  core: boolean,
+  reducedMotion: boolean,
+) {
+  const outerTones = ['226, 232, 225', '201, 214, 209', '138, 215, 208', '226, 232, 225', '218, 132, 121', '226, 232, 225', '220, 159, 104']
+  const coreTones = ['138, 215, 208', '224, 140, 158', '185, 166, 224', '225, 166, 105']
+  const time = reducedMotion ? 0 : elapsed * 0.00006
+  context.save()
+  context.globalCompositeOperation = 'screen'
+  particles.forEach((particle) => {
+    const angle = time * particle.speed + particle.phase * 0.025
+    const cos = Math.cos(angle)
+    const sin = Math.sin(angle)
+    const sourceX = particle.x * cos - particle.z * sin
+    const sourceZ = particle.x * sin + particle.z * cos
+    const point = projectPoint({ x: sourceX * radius, y: particle.y * radius, z: sourceZ * radius }, rotation, radius)
+    const depth = clamp(0.46 + point.depth / Math.max(radius * 2.05, 1), 0.16, 0.98)
+    const shimmer = reducedMotion ? 0.78 : 0.64 + Math.sin(elapsed * 0.0014 * particle.speed + particle.phase) * 0.26
+    const alpha = particle.opacity * depth * shimmer
+    const tone = (core ? coreTones : outerTones)[particle.tone % (core ? coreTones.length : outerTones.length)]
+    const particleRadius = particle.size * point.scale / cameraScale
+    context.fillStyle = `rgba(${tone}, ${alpha})`
+    context.beginPath()
+    context.arc(point.x, point.y, particleRadius, 0, Math.PI * 2)
+    context.fill()
+    if (core && particle.size > 1.72) {
+      context.fillStyle = `rgba(244, 255, 252, ${alpha * 0.38})`
+      context.beginPath()
+      context.arc(point.x, point.y, particleRadius * 2.35, 0, Math.PI * 2)
+      context.fill()
+    }
+  })
+  context.restore()
 }
 
 function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, elapsed: number, reducedMotion: boolean) {
@@ -206,9 +348,9 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     model.nodes.forEach((node) => {
       const existing = previous.get(node.id)
       next.set(node.id, existing ?? {
-        x: node.kind === 'provision' ? node.targetX * 0.94 : node.targetX,
-        y: node.kind === 'provision' ? node.targetY * 0.94 : node.targetY,
-        z: node.kind === 'provision' ? node.targetZ * 0.94 : node.targetZ,
+        x: node.targetX * 0.16,
+        y: node.targetY * 0.16,
+        z: node.targetZ * 0.16,
       })
     })
     nodePositionsRef.current = next
@@ -255,6 +397,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     observer.observe(wrap)
     resize()
 
+    let previousElapsed = 0
+
     const render = (elapsed = 0) => {
       const context = canvas.getContext('2d')
       if (!context) return
@@ -262,6 +406,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       const targetCamera = cameraTargetRef.current
       const rotation = rotationRef.current
       const targetRotation = rotationTargetRef.current
+      const frameFactor = previousElapsed ? Math.min(2, (elapsed - previousElapsed) / 16.67) : 1
+      previousElapsed = elapsed
+      if (!reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) {
+        targetRotation.yaw += 0.00034 * frameFactor
+      }
       const cameraEase = reducedMotion ? 1 : 0.09
       const rotationEase = reducedMotion ? 1 : 0.075
       camera.x = lerp(camera.x, targetCamera.x, cameraEase)
@@ -279,6 +428,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       gradient.addColorStop(1, 'rgba(5, 7, 11, 1)')
       context.fillStyle = gradient
       context.fillRect(0, 0, width, height)
+      drawHexBackdrop(context, width, height)
 
       const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? height * 0.24 : height / 2
       context.save()
@@ -305,7 +455,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       })
       projectedPositionsRef.current = projected
 
+      drawParticleField(context, ambientParticles, rotation, sphereRadius, camera.scale, elapsed, false, reducedMotion)
+      drawGeodesicMesh(context, rotation, sphereRadius * 1.015, camera.scale)
       drawOrbitalGrid(context, rotation, sphereRadius, camera.scale)
+      drawParticleField(context, coreParticles, rotation, sphereRadius, camera.scale, elapsed, true, reducedMotion)
 
       const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
       const activeId = hoveredRef.current ?? selectedRef.current

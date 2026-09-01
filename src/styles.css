@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family: "Aptos", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Avenir Next", "Aptos", "Helvetica Neue", Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   --bg: #07090d;
@@ -177,21 +177,39 @@ canvas:focus-visible {
 
 .atlas-mark-orbit-a {
   transform: rotate(-25deg);
+  animation: atlas-orbit-a 13s linear infinite;
 }
 
 .atlas-mark-orbit-b {
   transform: rotate(38deg);
+  animation: atlas-orbit-b 17s linear infinite reverse;
 }
 
 .atlas-mark-core {
   fill: #bdf3ed;
   filter: drop-shadow(0 0 4px rgba(138, 215, 208, 0.72));
+  animation: atlas-core-pulse 3.4s ease-in-out infinite;
 }
 
 .atlas-mark-centre {
   fill: #0c2d2f;
   stroke: #edfffd;
   stroke-width: 0.85;
+}
+
+@keyframes atlas-orbit-a {
+  from { transform: rotate(-25deg); }
+  to { transform: rotate(335deg); }
+}
+
+@keyframes atlas-orbit-b {
+  from { transform: rotate(38deg); }
+  to { transform: rotate(398deg); }
+}
+
+@keyframes atlas-core-pulse {
+  0%, 100% { opacity: 0.72; transform: scale(0.92); transform-origin: center; }
+  50% { opacity: 1; transform: scale(1.13); transform-origin: center; }
 }
 
 .brand-block h1 {
@@ -653,6 +671,60 @@ canvas:focus-visible {
     linear-gradient(180deg, rgba(7, 9, 13, 0.2), transparent 18%, transparent 80%, rgba(7, 9, 13, 0.45));
 }
 
+.observatory-frame {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.observatory-frame::before,
+.observatory-frame::after,
+.observatory-frame i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(162, 197, 194, 0.075);
+  border-radius: 50%;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.observatory-frame::before {
+  width: min(88cqw, 88vh);
+  box-shadow:
+    0 0 0 12px rgba(0, 0, 0, 0.26),
+    0 0 0 13px rgba(157, 189, 187, 0.055),
+    inset 0 0 70px rgba(2, 5, 8, 0.7);
+}
+
+.observatory-frame::after {
+  width: min(106cqw, 106vh);
+  border-color: rgba(164, 187, 199, 0.055);
+  box-shadow: 0 0 0 22px rgba(0, 0, 0, 0.18);
+}
+
+.observatory-frame i:nth-child(1) {
+  width: min(72cqw, 72vh);
+  border-color: rgba(138, 215, 208, 0.07);
+}
+
+.observatory-frame i:nth-child(2) {
+  width: min(90cqw, 90vh);
+  height: min(34cqw, 34vh);
+  border-color: rgba(138, 215, 208, 0.06);
+  transform: translate(-50%, -50%) rotate(9deg);
+}
+
+.observatory-frame i:nth-child(3) {
+  width: min(82cqw, 82vh);
+  height: min(38cqw, 38vh);
+  border-color: rgba(196, 171, 217, 0.055);
+  transform: translate(-50%, -50%) rotate(-48deg);
+}
+
 .graph-title {
   position: absolute;
   z-index: 6;
@@ -680,6 +752,7 @@ canvas:focus-visible {
 
 .graph-stage {
   position: absolute;
+  z-index: 1;
   inset: 0;
   cursor: grab;
   transform-origin: 50% 48%;
@@ -720,33 +793,32 @@ canvas:focus-visible {
   right: 18px;
   bottom: 22px;
   display: grid;
-  grid-template-columns: repeat(3, 34px);
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
-  background: rgba(12, 17, 25, 0.88);
-  backdrop-filter: blur(12px);
+  grid-template-columns: repeat(3, 36px);
+  gap: 7px;
 }
 
 .graph-controls button {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   place-items: center;
-  border: 0;
-  border-right: 1px solid var(--line);
+  border: 1px solid rgba(165, 180, 197, 0.26);
+  border-radius: 50%;
   color: var(--text-muted);
-  background: transparent;
+  background: #0a0e14;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.36), inset 0 0 0 1px rgba(255, 255, 255, 0.018);
   cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
 
 .graph-controls button:last-child {
-  border-right: 0;
+  border-right: 1px solid rgba(165, 180, 197, 0.26);
 }
 
 .graph-controls button:hover {
-  color: var(--text);
-  background: #1a2230;
+  border-color: rgba(138, 215, 208, 0.58);
+  color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .graph-controls svg {
@@ -859,9 +931,8 @@ canvas:focus-visible {
   padding: 3px;
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  background: rgba(10, 14, 21, 0.78);
+  background: #0a0e14;
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.025), 0 14px 38px rgba(1, 7, 13, 0.24);
-  backdrop-filter: blur(14px);
   transform: translateX(-50%);
 }
 
@@ -904,6 +975,132 @@ canvas:focus-visible {
 .projection-switch svg {
   width: 14px;
   height: 14px;
+}
+
+.universe-rail {
+  position: absolute;
+  z-index: 15;
+  top: 50%;
+  right: 20px;
+  display: grid;
+  width: 76px;
+  justify-items: center;
+  gap: 12px;
+  transform: translateY(-50%);
+  transition: opacity 260ms ease, transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.universe-rail-line {
+  position: absolute;
+  z-index: -1;
+  top: 23px;
+  bottom: 29px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(178, 194, 211, 0.24) 14%, rgba(178, 194, 211, 0.24) 86%, transparent);
+  transform: translateX(-50%);
+}
+
+.universe-rail button {
+  display: grid;
+  width: 76px;
+  justify-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  color: var(--text-faint);
+  background: transparent;
+  cursor: pointer;
+}
+
+.universe-rail button > span {
+  position: relative;
+  display: grid;
+  width: 47px;
+  height: 47px;
+  margin-bottom: 1px;
+  place-items: center;
+  border: 1px solid rgba(171, 184, 200, 0.38);
+  border-radius: 50%;
+  color: #b5beca;
+  background: #0a0d12;
+  box-shadow: 0 9px 26px rgba(0, 0, 0, 0.42), inset 0 0 0 5px rgba(255, 255, 255, 0.012);
+  transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.universe-rail button > span::after {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: inherit;
+  content: "";
+}
+
+.universe-rail svg {
+  width: 19px;
+  height: 19px;
+}
+
+.universe-rail strong {
+  color: inherit;
+  font-size: 8.5px;
+  font-weight: 610;
+  letter-spacing: 0.02em;
+}
+
+.universe-rail small {
+  min-width: 38px;
+  padding: 2px 5px;
+  border: 1px solid rgba(171, 184, 200, 0.2);
+  border-radius: 7px;
+  color: rgba(156, 168, 184, 0.75);
+  background: #090c11;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 7px;
+  letter-spacing: 0.025em;
+}
+
+.universe-rail button:hover > span {
+  border-color: rgba(138, 215, 208, 0.6);
+  color: var(--accent);
+  transform: scale(1.06);
+}
+
+.universe-rail button:focus-visible {
+  outline: none;
+}
+
+.universe-rail button:focus-visible > span {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.universe-rail button.active {
+  color: #f0f6f5;
+}
+
+.universe-rail button.active > span {
+  border-color: rgba(138, 215, 208, 0.78);
+  color: var(--accent);
+  box-shadow:
+    0 0 0 4px rgba(138, 215, 208, 0.07),
+    0 0 28px rgba(73, 190, 181, 0.18),
+    0 9px 26px rgba(0, 0, 0, 0.44);
+}
+
+.universe-rail button.active small {
+  border-color: rgba(138, 215, 208, 0.32);
+  color: var(--accent);
+}
+
+.graph-region.is-focus-list .universe-rail,
+.atlas-workspace.has-selection .universe-rail {
+  opacity: 0.24;
+  transform: translate(8px, -50%) scale(0.94);
+}
+
+.graph-region.is-focus-list .universe-rail {
+  pointer-events: none;
 }
 
 .focus-list {
@@ -2182,6 +2379,16 @@ canvas:focus-visible {
   .focus-row-copy {
     display: none;
   }
+
+  .universe-rail {
+    right: 8px;
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  .atlas-workspace.has-selection .universe-rail {
+    opacity: 0.12;
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 860px) {
@@ -2243,6 +2450,27 @@ canvas:focus-visible {
   .graph-title {
     top: 14px;
     left: 14px;
+  }
+
+  .universe-rail {
+    display: none;
+  }
+
+  .observatory-frame::before {
+    width: min(118cqw, 78vh);
+  }
+
+  .observatory-frame::after {
+    width: min(138cqw, 94vh);
+  }
+
+  .observatory-frame i:nth-child(1) {
+    width: min(94cqw, 64vh);
+  }
+
+  .observatory-frame i:nth-child(2),
+  .observatory-frame i:nth-child(3) {
+    opacity: 0.55;
   }
 
   .projection-switch {
