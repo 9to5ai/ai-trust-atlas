@@ -42,7 +42,7 @@ At the September 2026 documentation snapshot, the corpus contains 78 sources and
 ## Architecture at a glance
 
 ```mermaid
-flowchart LR
+flowchart TD
   Official[Official publications and original evidence] --> Review[Human or agent research review]
   Policy[Editorial policy and discovery register] --> Review
   Review --> Ledger[Review runs and candidate decisions]
@@ -300,7 +300,7 @@ Keep publication, effective/event, review and addition dates separate. Deduplica
 
 ## Prompts, schedules and cron jobs
 
-There are three different mechanisms. Keeping them separate is essential when reproducing this app.
+Research scheduling, application AI and deployment checks are separate mechanisms. Keeping them separate is essential when reproducing this app.
 
 | Mechanism | Current implementation | What it actually does |
 |---|---|---|
@@ -319,7 +319,7 @@ The [prompt catalogue](docs/PROMPTS.md) identifies every maintained prompt famil
 ## GitHub and Vercel deployment
 
 ```mermaid
-flowchart LR
+flowchart TD
   Edit[Local code or reviewed corpus edit] --> Push[GitHub commit]
   Push --> CI[GitHub CI: ledger, tests, build]
   Push --> Vercel[Vercel Git integration]
