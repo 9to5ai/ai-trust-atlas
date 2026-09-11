@@ -1,0 +1,159 @@
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen, within, waitFor } from '@testing-library/react'
+import App from './App'
+
+beforeEach(() => {
+  vi.spyOn(Date.prototype, 'toISOString').mockReturnValue('2026-09-08T12:00:00.000Z')
+  localStorage.clear()
+  window.history.replaceState(null, '', '/')
+  HTMLDialogElement.prototype.close = function () { this.removeAttribute('open') }
+  HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', '') }
+  Element.prototype.scrollIntoView = vi.fn()
+  vi.stubGlobal('ResizeObserver', class { observe() {} disconnect() {} })
+  vi.stubGlobal('requestAnimationFrame', vi.fn(() => 1))
+  vi.stubGlobal('cancelAnimationFrame', vi.fn())
+  vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: false, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} })))
+})
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals() })
+
+const selectOversight = () => {
+  fireEvent.click(screen.getByRole('button', { name: 'Search everything' }))
+  fireEvent.change(screen.getByLabelText('Search all Atlas objects'), { target: { value: 'human oversight' } })
+  fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: /^Concept Human oversight/ }))
+}
+
+describe('clean universe interface', () => {
+  it('keeps the map primary and opens related items from selected details', async () => {
+    const { container } = render(<App />)
+    expect(screen.getByLabelText(/Interactive orbital map/)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Related items' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Saved items/ })).not.toBeInTheDocument()
+    selectOversight()
+    await new Promise(resolve => setTimeout(resolve, 600))
+    expect(container.querySelector('.is-focus-list')).toBeNull()
+    fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button', { name: 'Related items' }))
+    expect(container.querySelector('.is-focus-list')).not.toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Return to map' }))
+    expect(container.querySelector('.is-focus-list')).toBeNull()
+  })
+
+  it('collapses and expands the left panel without discarding selected details', () => {
+    const { container } = render(<App />)
+    selectOversight()
+    fireEvent.click(screen.getByRole('button', { name: 'Collapse left panel' }))
+    expect(container.querySelector('main')).toHaveClass('sidebar-collapsed')
+    expect(screen.getByLabelText('Selected node details')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Expand left panel' })).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(screen.getByRole('button', { name: 'Expand left panel' }))
+    expect(container.querySelector('main')).not.toHaveClass('sidebar-collapsed')
+    expect(window.location.hash).toBe('#/concept/human-oversight')
+  })
+
+  it('opens deep links directly into the map and retains motion controls', () => {
+    window.history.replaceState(null, '', '/#/concept/privacy')
+    render(<App />)
+    expect(screen.getByRole('button', { name: 'Focus selected object' })).toBeEnabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Pause ambient motion' }))
+    expect(screen.getByRole('button', { name: 'Resume ambient motion' })).toHaveAttribute('aria-pressed', 'true')
+  })
+})
+
+describe('source type navigation', () => {
+  it('offers seven types and keeps binding standards distinct from guidance', () => {
+    window.history.replaceState(null, '', '/#/instrument/apra-cps-234')
+    render(<App />)
+    const types = ['Laws & regulations', 'Treaties', 'Policy & guidance', 'Standards', 'Frameworks', 'Testing & tools', 'Research & databases']
+    for (const name of types) expect(screen.getByRole('checkbox', { name })).toBeInTheDocument()
+    expect(screen.queryByRole('checkbox', { name: 'Regulatory expectation' })).not.toBeInTheDocument()
+    const detail = within(screen.getByLabelText('Selected node details'))
+    expect(detail.getByText('Legally binding prudential standard within its scope')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Laws & regulations' }))
+    expect(screen.getByRole('checkbox', { name: 'Laws & regulations' })).toBeChecked()
+    expect(detail.getByRole('heading', { name: 'APRA CPS 234' })).toBeInTheDocument()
+  })
+})
+
+describe('legal foundation navigation', () => {
+  it('opens an enabling Act and reverses the relationship label correctly', async () => {
+    window.history.replaceState(null, '', '/#/instrument/apra-cps-220')
+    render(<App />)
+    fireEvent.click(screen.getByText('Legal foundations', { selector: 'summary' }))
+    const legal = within(screen.getByLabelText('Legal foundations', { selector: 'details' }))
+    expect(legal.getAllByText('Made under')).toHaveLength(4)
+    expect(legal.queryByText('SIS Act')).not.toBeInTheDocument()
+    expect(legal.getByText('APRA’s governing legislation')).toBeInTheDocument()
+    fireEvent.click(legal.getByRole('button', { name: /Made under Banking Act/ }))
+    expect(window.location.hash).toBe('#/instrument/au-banking-act')
+    await waitFor(() => {
+      const reverse = within(screen.getByLabelText('Legal foundations', { selector: 'details' }))
+      expect(reverse.getAllByText('Authorises')).toHaveLength(3)
+      expect(reverse.queryByText('Made under')).not.toBeInTheDocument()
+    })
+  })
+})
+
+describe('universe outline', () => {
+  it('unfolds the selected source, opens its sections and returns without losing selection', async () => {
+    window.history.replaceState(null, '', '/#/instrument/apra-cps-234')
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'List' }))
+    const tree = within(screen.getByRole('tree', { name: 'Atlas hierarchy' }))
+    expect(tree.getByRole('button', { name: 'APRA CPS 234' })).toBeInTheDocument()
+    fireEvent.click(tree.getByRole('button', { name: 'Expand APRA CPS 234' }))
+    expect(tree.getByRole('button', { name: 'Legal foundations' })).toBeInTheDocument()
+    fireEvent.click(tree.getByRole('button', { name: 'Expand Legal foundations' }))
+    fireEvent.click(tree.getAllByRole('button', { name: 'Banking Act' })[0])
+    expect(window.location.hash).toBe('#/instrument/au-banking-act')
+    expect(screen.getByRole('button', { name: 'List' })).toHaveAttribute('aria-pressed', 'true')
+    fireEvent.click(screen.getByRole('button', { name: 'Universe' }))
+    expect(screen.queryByRole('tree')).not.toBeInTheDocument()
+    expect(window.location.hash).toBe('#/instrument/au-banking-act')
+    fireEvent.click(screen.getByRole('button', { name: 'List' }))
+    expect(screen.getByRole('tree')).toBeInTheDocument()
+  })
+  it('supports keyboard expansion and retains List when changing lenses', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'List' }))
+    const tree = screen.getByRole('tree')
+    const first = within(tree).getAllByRole('treeitem')[0]
+    expect(first).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.keyDown(first, { key: 'ArrowRight' })
+    expect(first).toHaveAttribute('aria-expanded', 'true')
+    fireEvent.keyDown(first, { key: 'ArrowLeft' })
+    expect(first).toHaveAttribute('aria-expanded', 'false')
+    fireEvent.click(screen.getByRole('button', { name: 'Risks' }))
+    expect(screen.getByRole('heading', { name: 'Explore risks' })).toBeInTheDocument()
+    expect(within(tree).getAllByRole('treeitem')).toHaveLength(7)
+    fireEvent.click(screen.getByRole('button', { name: 'Controls' }))
+    expect(within(tree).getAllByRole('treeitem')).toHaveLength(6)
+  })
+})
+
+describe('focused reference workflow', () => {
+  it('filters a direct source directory and keeps the selected source overview', async () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'List' }))
+    fireEvent.click(screen.getByRole('button', { name: /^All sources/ }))
+    fireEvent.change(screen.getAllByLabelText('Search the atlas')[0], { target: { value: 'CPS 234' } })
+    const tree = screen.getByRole('tree')
+    expect(within(tree).getAllByRole('button', { name: 'APRA CPS 234' })).toHaveLength(1)
+    fireEvent.click(within(tree).getByRole('button', { name: 'APRA CPS 234' }))
+    await waitFor(() => expect(screen.getByText('What this says')).toBeInTheDocument())
+    expect(screen.getByRole('navigation', { name: 'Selected item location' })).toHaveTextContent('APRA CPS 234')
+    expect(screen.queryByRole('button', { name: /Compare/ })).not.toBeInTheDocument()
+  })
+  it('shows developments only, switches periods and opens APRA with its background source', () => {
+    render(<App />)
+    fireEvent.click(screen.getAllByRole('button', { name: 'What’s new' })[0])
+    const history = screen.getByRole('dialog', { name: 'What’s new' })
+    expect(within(history).queryByRole('button', { name: 'Corrections' })).not.toBeInTheDocument()
+    expect(within(history).queryByRole('button', { name: 'Atlas additions & updates' })).not.toBeInTheDocument()
+    const apra = within(history).getByRole('heading', { name: 'Frontier AI: move from awareness to tested resilience' }).closest('article')!
+    expect(within(apra).getByRole('button', { name: /Background: APRA AI Letter/ })).toBeInTheDocument()
+    expect(within(history).queryByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).not.toBeInTheDocument()
+    fireEvent.click(within(history).getByRole('button', { name: 'Last 120 days' }))
+    expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
+    fireEvent.click(within(apra).getByRole('button', { name: 'Explore in Atlas' }))
+    expect(window.location.hash).toBe('#/instrument/apra-asic-frontier-roundtables-2026')
+  })
+})

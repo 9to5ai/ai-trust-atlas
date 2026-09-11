@@ -64,7 +64,7 @@ describe('graph model', () => {
   it('keeps the ontology inside a bounded orbital shell', () => {
     const graph = buildGraphModel('ontology', defaultFilters())
     const instrumentNodes = graph.nodes.filter((node) => node.kind === 'instrument')
-    const radii = instrumentNodes.map((node) => Math.hypot(node.targetX, node.targetY))
+    const radii = instrumentNodes.map((node) => Math.hypot(node.targetX, node.targetY, node.targetZ))
 
     expect(Math.min(...radii)).toBeGreaterThan(350)
     expect(Math.max(...radii)).toBeLessThan(600)
@@ -73,14 +73,14 @@ describe('graph model', () => {
     expect(instrumentNodes.some((node) => node.targetX > 0 && node.targetY > 0)).toBe(true)
   })
 
-  it('uses depth to bring the Australian regulatory centre forward', () => {
-    const graph = buildGraphModel('ontology', defaultFilters())
-    const instrumentNodes = graph.nodes.filter((node) => node.kind === 'instrument')
-    const australian = instrumentNodes.filter((node) => node.region === 'Australia')
-    const global = instrumentNodes.filter((node) => node.region === 'Global')
-    const averageDepth = (nodes: typeof instrumentNodes) => nodes.reduce((sum, node) => sum + node.targetZ, 0) / nodes.length
-
-    expect(averageDepth(australian)).toBeGreaterThan(averageDepth(global))
+  it('retains organised topic sectors and brings Australian sources forward', () => {
+    const nodes = buildGraphModel('ontology', defaultFilters()).nodes.filter(node => node.kind === 'instrument')
+    const averageDepth = (region: string) => {
+      const group = nodes.filter(node => node.region === region)
+      return group.reduce((sum, node) => sum + node.targetZ, 0) / group.length
+    }
+    expect(averageDepth('Australia')).toBeGreaterThan(averageDepth('Global'))
+    expect(Math.min(...nodes.map(node => Math.hypot(node.targetX, node.targetY)))).toBeGreaterThan(350)
   })
 
   it('uses uniform risk sizes so source frequency is not encoded as magnitude', () => {
@@ -108,5 +108,24 @@ describe('graph model', () => {
     expect(graph.nodes.some((node) => node.kind === 'concept')).toBe(true)
     expect(graph.nodes.some((node) => node.kind === 'risk-subdomain')).toBe(true)
     expect(graph.edges.some((edge) => edge.id === 'map:control:agent-runtime-constraints:risk:mit-risk-7-6')).toBe(true)
+  })
+})
+
+describe('rationalised source filters', () => {
+  it('includes binding prudential standards with laws and excludes supervisory letters', () => {
+    const filters = defaultFilters()
+    filters.authorityClasses.add('law')
+    const ids = buildGraphModel('ontology', filters).nodes.filter(n => n.kind === 'instrument').map(n => n.instrumentId)
+    expect(ids).toEqual(expect.arrayContaining(['apra-cps-220', 'apra-cps-230', 'apra-cps-234', 'eu-ai-act']))
+    expect(ids).not.toContain('apra-ai-letter-2026')
+    expect(ids).not.toContain('iso-42001')
+  })
+  it('unifies research catalogues and crosswalks and supports combining types', () => {
+    const filters = defaultFilters()
+    filters.authorityClasses.add('research-database')
+    filters.authorityClasses.add('framework')
+    const nodes = buildGraphModel('ontology', filters).nodes.filter(n => n.kind === 'instrument')
+    expect(nodes.map(n => n.instrumentId)).toEqual(expect.arrayContaining(['mit-ai-risk-mitigations', 'mitre-atlas', 'owasp-genai-crosswalk', 'nist-ai-rmf', 'csa-aicm-1-1']))
+    expect(nodes.every(n => filters.authorityClasses.has(n.authorityClass!))).toBe(true)
   })
 })

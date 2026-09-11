@@ -6,16 +6,17 @@ type Props = {
   onLayoutChange: (layout: LayoutMode) => void
 }
 
-const views: { id: LayoutMode; label: string; detail: string; icon: typeof Atom }[] = [
-  { id: 'ontology', label: 'Meaning', detail: '12 themes', icon: Atom },
-  { id: 'authority', label: 'Authority', detail: '12 classes', icon: Rows },
-  { id: 'risk', label: 'Risks', detail: '24 types', icon: WarningDiamond },
-  { id: 'controls', label: 'Controls', detail: '24 objectives', icon: ShieldCheck },
+const views: { id: LayoutMode; index: string; label: string; detail: string; icon: typeof Atom }[] = [
+  { id: 'ontology', index: '01', label: 'By topic', detail: '', icon: Atom },
+  { id: 'authority', index: '02', label: 'By source type', detail: '', icon: Rows },
+  { id: 'risk', index: '03', label: 'Risks', detail: '24 risk types', icon: WarningDiamond },
+  { id: 'controls', index: '04', label: 'Controls', detail: '24 objectives', icon: ShieldCheck },
 ]
 
 export function UniverseRail({ layout, onLayoutChange }: Props) {
   return (
-    <nav className="universe-rail" aria-label="Universe views">
+    <nav className="universe-rail" aria-label="Map views">
+      <span className="universe-rail-label">Explore the map</span>
       <span className="universe-rail-line" aria-hidden="true" />
       {views.map((view) => {
         const Icon = view.icon
@@ -26,12 +27,12 @@ export function UniverseRail({ layout, onLayoutChange }: Props) {
             key={view.id}
             className={active ? 'active' : ''}
             aria-current={active ? 'page' : undefined}
-            aria-label={`${view.label}: ${view.detail}`}
+            aria-label={view.detail ? `${view.label}: ${view.detail}` : view.label}
             onClick={() => onLayoutChange(view.id)}
           >
+            <small className="plate-index">{view.index}</small>
             <span><Icon weight={active ? 'fill' : 'regular'} /></span>
-            <strong>{view.label}</strong>
-            <small>{view.detail}</small>
+            <span className="plate-copy"><strong>{view.label}</strong>{view.detail && <small>{view.detail}</small>}</span>
           </button>
         )
       })}

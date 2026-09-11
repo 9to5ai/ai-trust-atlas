@@ -1,0 +1,67 @@
+/* Midnight counterpart to Arctic. Node accents retain their topic identity. */
+:root[data-theme=dark] { color-scheme:dark; --bg:#0b1422; --surface:#101d2e; --surface-raised:#192b41; --surface-soft:#142438; --line:#283e55; --line-strong:#496784; --text:#e5edf6; --text-muted:#b1c2d4; --text-faint:#96aec6; --accent:#91bcff; --accent-deep:#b4d3ff; --warning:#e8bc71; }
+.header-actions > button.theme-toggle { display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; padding:7px; }
+:root[data-theme=dark] .atlas-shell { --text-muted:#b1c2d4; --text-faint:#96aec6; --accent:#91bcff; background:#0b1422; color:#e5edf6; }
+:root[data-theme=dark] :is(.atlas-header,.sidebar,.sidebar-mobile,.inspector,.atlas-workspace.has-selection .inspector,.atlas-workspace.has-selection .inspector.mobile-expanded,.method-dialog,.dossier-panel,.atlas-search-dialog) { background:#101d2e; border-color:#2c4158; color:#e5edf6; box-shadow:none; }
+:root[data-theme=dark] :is(.brand-block h1,.brand-block h1 i,.corpus-stats strong,.corpus-stats .edition-cell strong,.graph-title strong,.inspector h2,.method-dialog h2,.focus-list-title h2,.dossier-panel h2,.outline-heading h2,.news-heading h2,.brief-heading h2) { color:#edf4fc; }
+:root[data-theme=dark] :is(.corpus-stats span,.brand-block p,.sidebar .control-title,.sidebar .filter-list label,.sidebar .control-note,.graph-title span,.graph-title p,.graph-hint,.semantic-key,.corpus-status,.corpus-status strong,.header-actions button,.header-actions a) { color:#adbed1; }
+:root[data-theme=dark] :is(.brand-mark,.sidebar .search-wrap,.projection-switch,.graph-controls,.outline-expand,.outline-tools button,.outline-browse button,.sidebar-collapse,.mobile-atlas-tools button,.news-period,.news-topic select,.question-audiences,.brief-launcher) { background:#15273d; border-color:#344c68; color:#c4d6ea; box-shadow:none; }
+:root[data-theme=dark] .brand-mark { color:#a2c7ff; }
+:root[data-theme=dark] .atlas-mark-frame { fill:#14253d; stroke:#719bcc; }
+:root[data-theme=dark] .atlas-mark-river { stroke:#91bcff; }
+:root[data-theme=dark] .atlas-mark-node { fill:#a2c7ff; stroke:#14253d; }
+:root[data-theme=dark] :is(.sidebar .search-wrap input,.atlas-search-dialog input,.brief-purpose input) { color:#e5edf6; background:#132338; border-color:#344b64; }
+:root[data-theme=dark] input::placeholder { color:#8ea6bd; }
+:root[data-theme=dark] :is(.graph-region,.graph-stage) { background:#0d1c2e; }
+:root[data-theme=dark] :is(.projection-switch button,.graph-controls button,.question-audiences button,.news-period button) { background:transparent; color:#b6c8dc; }
+:root[data-theme=dark] :is(.header-actions button:hover,.header-actions a:hover,.header-actions .header-active,.sidebar button[aria-pressed=true],.sidebar button.active,.projection-switch button[aria-pressed=true],.graph-controls button[aria-pressed=true],.graph-controls button:hover,.question-audiences button[aria-pressed=true],.news-period button[aria-pressed=true],.outline-browse button[aria-pressed=true]) { background:#233e61; color:#bbd8ff; border-color:#496b97; }
+:root[data-theme=dark] :is(.graph-controls .source-lens-control,.semantic-key,.path-narrative,.universe-hover-card) { background:#14273ced; border-color:#3c628a; color:#a8c6e9; box-shadow:none; }
+:root[data-theme=dark] :is(.path-narrative strong,.universe-hover-card strong) { color:#e6f0ff; }
+:root[data-theme=dark] :is(.path-narrative small,.path-narrative span,.universe-hover-card small,.universe-hover-card span) { color:#aac2de; }
+:root[data-theme=dark] :is(.mobile-inspector-peek,.inspector.mobile-expanded .mobile-inspector-peek,.evidence-spine-head) { background:#122236; color:#bccfe3; border-color:#30475f; }
+:root[data-theme=dark] :is(.mobile-inspector-peek strong,.mobile-inspector-peek>b,.evidence-spine-head span,.evidence-spine-head strong) { color:#c6ddf7; }
+:root[data-theme=dark] :is(.inspector-close,.inspector-related,.inspector-actions a,.source-button,.breadcrumb-button,.news-explore,.brief-actions button,.brief-item-actions button,.brief-empty button,.news-empty button,.news-publication button,.news-heading>button,.brief-heading>button) { color:#b4d4ff; background:#1a304b; border-color:#3a5575; }
+:root[data-theme=dark] :is(.inspector p,.inspector .inspector-summary,.inspector-full-title,.domain-question,.metadata-grid span,.boundary-note,.section-boundary,.inspector-kicker,.role-band,.role-band small,.source-ref-list p,.provenance-manifest,.inspector-section small) { color:#aebfd3; }
+:root[data-theme=dark] :is(.inspector h3,.inspector h4,.metadata-grid strong,.role-band strong,.instrument-link-list strong,.control-card-list strong,.path-list strong,.source-ref-list strong) { color:#dce9f8; }
+:root[data-theme=dark] :is(.role-band,.boundary-note,.inspector .boundary-card,.inspector .source-card,.inspector .control-card,.instrument-link-list button,.control-card-list button,.path-list button,.assertion-meta,.source-ref-list>a,.concept-chips button,.concept-chips span) { background:#14263b; border-color:#304760; }
+:root[data-theme=dark] :is(.inspector a,.inspector-section summary,.inspector .section-label,.instrument-link-list span,.control-card-list small,.path-list small,.concept-chips button,.concept-chips span,.assertion-meta span,.assertion-meta strong,.source-ref-list span) { color:#a6c9f7; }
+:root[data-theme=dark] :is(.inspector-section,.source-overview,.evidence-spine-head,.control-section,.filter-section,.control-group,.corpus-stats>div) { border-color:#2b4159; }
+:root[data-theme=dark] :is(.universe-outline,.focus-list) { background:radial-gradient(ellipse at 80% 0%,#172b43,#0e1b2c 70%); color:#e1eaf6; }
+:root[data-theme=dark] :is(.outline-row,.focus-row) { background:transparent; border-color:#293f56; color:#dfebf9; }
+:root[data-theme=dark] .outline-row.depth-0 { background:#15273b; border-color:#344b63; }
+:root[data-theme=dark] :is(.outline-row:hover,.focus-row:hover,.outline-row.selected) { background:#213c5b; }
+:root[data-theme=dark] :is(.outline-heading,.outline-row::before) { border-color:#2d435a; }
+:root[data-theme=dark] :is(.outline-copy>span,.outline-heading p,.outline-eyebrow,.outline-child-count,.outline-copy small,.relation-group .outline-copy strong,.outline-empty,.focus-row-subtitle,.focus-connection) { color:#a5bad1; }
+:root[data-theme=dark] .focus-row-title strong { color:#e2edfb; }
+:root[data-theme=dark] :is(.kind-domain,.kind-risk-domain,.kind-control-family) { background:color-mix(in srgb,currentColor 15%,#132338); }
+:root[data-theme=dark] :is(.whats-new,.meeting-brief) { background:#0f1c2d; color:#e1ebf8; border-color:#314a65; }
+:root[data-theme=dark] :is(.news-card,.leadership-question,.brief-questions>li) { background:linear-gradient(140deg,#17293f,#122236); border-color:#314a65; box-shadow:none; }
+:root[data-theme=dark] :is(.news-card h3,.news-meaning h4,.question-text,.leadership-panel header h3,.brief-questions h3,.question-detail h4) { color:#e2edfb; }
+:root[data-theme=dark] :is(.news-card p,.news-heading p,.news-card .news-issuer,.news-review,.news-coverage p,.news-empty p,.news-publication p,.questions-note,.question-detail p,.brief-heading p,.brief-purpose,.brief-empty p) { color:#b1c4d9!important; }
+:root[data-theme=dark] :is(.news-meta,.news-meta>span,.news-results,.news-topic,.news-eyebrow,.questions-eyebrow,.question-context,.question-expand,.question-detail a,.questions-recent>summary,.questions-recent>div>a,.questions-recent>div>small,.news-card a,.news-background,.question-add,.questions-view-brief,.news-question-audience>span,.brief-heading span,.news-meaning h4 small) { color:#9ebfe9; }
+:root[data-theme=dark] :is(.question-add[aria-pressed=true],.question-notice,.brief-status) { color:#8fd9c4; }
+:root[data-theme=dark] .news-tags button { background:#1c3350; border-color:#355373; color:#bed6f6; }
+:root[data-theme=dark] :is(.news-meaning,.news-coverage,.news-question-audience,.leadership-panel,.brief-item-actions) { border-color:#2e4761; }
+:root[data-theme=dark] .brief-launcher span { background:#28486d; color:#c2ddff; }
+:root[data-theme=dark] .brief-copy-fallback { background:#14263b; color:#dfebf9; border-color:#35506c; }
+:root[data-theme=dark] :is(.method-backdrop,.whats-new::backdrop,.meeting-brief::backdrop,.atlas-search-dialog::backdrop) { background:#020814aa; }
+:root[data-theme=dark] .atlas-search-dialog :is(button,p,small,span) { color:#b5c9df; }
+:root[data-theme=dark] .atlas-search-dialog button { background:#14263c; border-color:#324961; }
+:root[data-theme=dark] .atlas-search-dialog button:hover { background:#244160; }
+:root[data-theme=dark] .atlas-search-dialog strong { color:#e3edfa; }
+:root[data-theme=dark] .method-dialog :is(p,li,small,span) { color:#b5c7dc; }
+:root[data-theme=dark] .method-dialog :is(h3,strong,a) { color:#d3e4fb; }
+@media(max-width:860px) { .header-actions > button.theme-toggle { display:inline-flex!important; width:30px; min-width:30px; padding:5px; } }
+/* Meeting briefs remain ink-friendly regardless of the on-screen theme. */
+@media print {
+  :root[data-theme=dark] .meeting-brief[open] { background:white!important; color:#172b40!important; }
+  :root[data-theme=dark] .meeting-brief :is(h2,h3,h4,p,span,a,small) { color:#263d54!important; }
+  :root[data-theme=dark] .brief-questions>li { background:white!important; border-color:#bbcbd9!important; }
+}
+:root[data-theme=dark] :is(.outline-browse,.outline-breadcrumb,.command-input,.atlas-search-dialog footer) { border-color:#2d435b; }
+:root[data-theme=dark] :is(.outline-browse>span,.outline-breadcrumb,.outline-breadcrumb button,.command-caption,.atlas-search-dialog footer) { color:#b0c6df; }
+:root[data-theme=dark] .command-results button.active { background:#244160; border-color:#597ba1; }
+:root[data-theme=dark] .method-columns>div { background:#15283e; border-color:#304b68; }
+:root[data-theme=dark] .method-primary { background:#274d7b; color:#e7f1ff; border-color:#597fae; }
+:root[data-theme=dark] .universe-rail { background:#112337ed; border-color:#324b66; }
+:root[data-theme=dark] .universe-rail :is(.plate-copy strong,.plate-copy small,.universe-rail-label) { color:#b3c9e3; }

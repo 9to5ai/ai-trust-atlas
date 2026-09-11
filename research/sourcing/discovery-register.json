@@ -1,0 +1,204 @@
+{
+  "version": "2026-09-10",
+  "note": "Discovery starting points, not endorsements or evidence of a completed review. Validate endpoints on each run. Existing corpus URLs are added automatically to the run checklist.",
+  "publishers": [
+    {
+      "id": "apra",
+      "name": "APRA",
+      "url": "https://www.apra.gov.au/news-and-publications",
+      "region": "Australia",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "asic",
+      "name": "ASIC",
+      "url": "https://www.asic.gov.au/about-asic/news-centre/",
+      "region": "Australia",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "asd",
+      "name": "ASD / ACSC",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/news",
+      "region": "Australia",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "dta",
+      "name": "Digital Transformation Agency",
+      "url": "https://www.digital.gov.au/",
+      "region": "Australia",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "nist",
+      "name": "NIST",
+      "url": "https://www.nist.gov/artificial-intelligence",
+      "region": "United States",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "ec",
+      "name": "European Commission AI policy",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/artificial-intelligence",
+      "region": "Europe",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "edpb",
+      "name": "European Data Protection Board",
+      "url": "https://www.edpb.europa.eu/news/news_en",
+      "region": "Europe",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "fsb",
+      "name": "Financial Stability Board",
+      "url": "https://www.fsb.org/",
+      "region": "Global",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "owasp",
+      "name": "OWASP GenAI",
+      "url": "https://genai.owasp.org/",
+      "region": "Global",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "mit",
+      "name": "MIT AI Risk Repository",
+      "url": "https://airisk.mit.edu/",
+      "region": "Global",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "csa",
+      "name": "Cloud Security Alliance",
+      "url": "https://cloudsecurityalliance.org/artifacts",
+      "region": "Global",
+      "cadence": "weekly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "iso",
+      "name": "ISO AI standards",
+      "url": "https://www.iso.org/artificial-intelligence",
+      "region": "Global",
+      "cadence": "monthly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "imda",
+      "name": "IMDA",
+      "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches",
+      "region": "Singapore",
+      "cadence": "monthly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    },
+    {
+      "id": "mas",
+      "name": "Monetary Authority of Singapore",
+      "url": "https://www.mas.gov.sg/news",
+      "region": "Singapore",
+      "cadence": "monthly",
+      "expectedScope": "public releases and linked primary documents",
+      "lastReviewed": null
+    }
+  ],
+  "topicSearches": [
+    {
+      "id": "1",
+      "topic": "Governance and accountability",
+      "query": "AI governance accountability regulator board new guidance consultation",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "2",
+      "topic": "Risk and impact",
+      "query": "AI systemic risk impact assessment incident original research",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "3",
+      "topic": "Lifecycle and change",
+      "query": "AI model lifecycle change management new standard evaluation",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "4",
+      "topic": "Data and privacy",
+      "query": "AI data privacy provenance regulator new guidance",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "5",
+      "topic": "Transparency",
+      "query": "AI transparency explainability documentation new research guidance",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "6",
+      "topic": "Fairness",
+      "query": "AI discrimination fairness accessibility evaluation original research",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "7",
+      "topic": "Security",
+      "query": "AI agent security vulnerabilities incident technical report",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "8",
+      "topic": "Testing and evidence",
+      "query": "AI evaluation assurance reproducibility benchmark limitations research",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "9",
+      "topic": "Third-party and resilience",
+      "query": "AI supplier concentration operational resilience regulator incident",
+      "cadence": "weekly",
+      "lastReviewed": null
+    },
+    {
+      "id": "10",
+      "topic": "Agentic AI",
+      "query": "AI agent autonomy oversight deployment evaluation technical report",
+      "cadence": "weekly",
+      "lastReviewed": null
+    }
+  ]
+}

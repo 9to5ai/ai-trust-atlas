@@ -1,11 +1,11 @@
-import type { CausalDimension, RiskDomain, RiskSubdomain } from '../types'
+import type { CausalDimension, RiskDomain, RiskSubdomain } from '../types.js'
 
 export const MIT_RISK_SOURCE_URL = 'https://airisk.mit.edu/risks'
 export const MIT_RISK_DATABASE_URL = 'https://docs.google.com/spreadsheets/d/15LeHcpeuZC9txkvcaMoh3sUhkMvdMMry69xxXL46DT0/edit?usp=sharing'
 export const MIT_RISK_UPDATED = '2025-12-03'
 export const MIT_RISK_LICENSE = 'CC BY 4.0'
 export const MIT_RISK_PROVENANCE = {
-  dataset: 'AI Risk Database v4',
+  dataset: 'AI Risk Database v4 (bundled snapshot)',
   sourceUpdated: MIT_RISK_UPDATED,
   retrievedAt: '2026-08-28',
   licence: MIT_RISK_LICENSE,

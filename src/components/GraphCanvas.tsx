@@ -1,5 +1,7 @@
-import { ArrowsOut, Minus, Plus } from '@phosphor-icons/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { arcticAccents } from '../lib/nodeStyle'
+import type { NodeSnapshot } from './UniverseOutline'
+import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
+import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import type { GraphModel, GraphNode } from '../types'
 
 type Camera = { x: number; y: number; scale: number }
@@ -12,11 +14,15 @@ type Props = {
   model: GraphModel
   selectedNodeId?: string
   onSelect: (nodeId?: string) => void
+  showSourceLabels?: boolean
+  snapshotRef?: RefObject<(() => NodeSnapshot) | null>
   inactive?: boolean
+  focusRequest?: number
 }
 
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value))
 const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount
+// Preserve category identity with mineral accents tuned for the pale Arctic canvas.
 const initialScale = 0.52
 const initialRotation: Rotation = { yaw: -0.16, pitch: -0.1 }
 
@@ -137,7 +143,7 @@ function drawProjectedPath(
     if (index === 0) context.moveTo(projected.x, projected.y)
     else context.lineTo(projected.x, projected.y)
   })
-  context.strokeStyle = `rgba(142, 158, 184, ${opacity})`
+  context.strokeStyle = `rgba(71, 108, 150, ${opacity * 1.7})`
   context.lineWidth = 0.72 / cameraScale
   context.stroke()
 }
@@ -182,9 +188,9 @@ function drawHexBackdrop(context: CanvasRenderingContext2D, width: number, heigh
     }
   }
   const meshFade = context.createRadialGradient(width * 0.52, height * 0.48, Math.min(width, height) * 0.2, width * 0.52, height * 0.48, Math.max(width, height) * 0.72)
-  meshFade.addColorStop(0, 'rgba(126, 155, 153, 0.105)')
-  meshFade.addColorStop(0.58, 'rgba(126, 155, 153, 0.055)')
-  meshFade.addColorStop(1, 'rgba(126, 155, 153, 0.01)')
+  meshFade.addColorStop(0, 'rgba(64, 99, 140, 0.105)')
+  meshFade.addColorStop(0.58, 'rgba(64, 99, 140, 0.055)')
+  meshFade.addColorStop(1, 'rgba(64, 99, 140, 0.01)')
   context.strokeStyle = meshFade
   context.lineWidth = 0.55
   context.stroke()
@@ -201,7 +207,7 @@ function drawGeodesicMesh(context: CanvasRenderingContext2D, rotation: Rotation,
     context.beginPath()
     context.moveTo(source.x, source.y)
     context.lineTo(target.x, target.y)
-    context.strokeStyle = `rgba(210, 218, 207, ${0.022 + depth * 0.047})`
+    context.strokeStyle = `rgba(68, 104, 145, ${0.022 + depth * 0.047})`
     context.lineWidth = 0.55 / cameraScale
     context.stroke()
   })
@@ -218,11 +224,11 @@ function drawParticleField(
   core: boolean,
   reducedMotion: boolean,
 ) {
-  const outerTones = ['226, 232, 225', '201, 214, 209', '138, 215, 208', '226, 232, 225', '218, 132, 121', '226, 232, 225', '220, 159, 104']
-  const coreTones = ['138, 215, 208', '224, 140, 158', '185, 166, 224', '225, 166, 105']
+  const outerTones = ['72, 103, 137', '98, 130, 161', '70, 106, 158']
+  const coreTones = ['74, 115, 179', '67, 113, 160']
   const time = reducedMotion ? 0 : elapsed * 0.00006
   context.save()
-  context.globalCompositeOperation = 'screen'
+  context.globalCompositeOperation = 'source-over'
   particles.forEach((particle) => {
     const angle = time * particle.speed + particle.phase * 0.025
     const cos = Math.cos(angle)
@@ -232,7 +238,7 @@ function drawParticleField(
     const point = projectPoint({ x: sourceX * radius, y: particle.y * radius, z: sourceZ * radius }, rotation, radius)
     const depth = clamp(0.46 + point.depth / Math.max(radius * 2.05, 1), 0.16, 0.98)
     const shimmer = reducedMotion ? 0.78 : 0.64 + Math.sin(elapsed * 0.0014 * particle.speed + particle.phase) * 0.26
-    const alpha = particle.opacity * depth * shimmer
+    const alpha = particle.opacity * depth * shimmer * 0.3
     const tone = (core ? coreTones : outerTones)[particle.tone % (core ? coreTones.length : outerTones.length)]
     const particleRadius = particle.size * point.scale / cameraScale
     context.fillStyle = `rgba(${tone}, ${alpha})`
@@ -249,63 +255,28 @@ function drawParticleField(
   context.restore()
 }
 
-function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, elapsed: number, reducedMotion: boolean) {
-  const pulse = reducedMotion ? 0.28 : (Math.sin(elapsed * 0.0022) + 1) / 2
-  const coreRadius = 34
-  const haloRadius = 53 + pulse * 10
-
+function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, _elapsed: number, _reducedMotion: boolean, dark: boolean) {
   context.save()
-  context.globalCompositeOperation = 'screen'
-
-  const halo = context.createRadialGradient(0, 0, 0, 0, 0, haloRadius)
-  halo.addColorStop(0, `rgba(138, 215, 208, ${0.28 + pulse * 0.1})`)
-  halo.addColorStop(0.34, `rgba(72, 147, 144, ${0.18 + pulse * 0.08})`)
-  halo.addColorStop(1, 'rgba(31, 81, 82, 0)')
-  context.fillStyle = halo
-  context.beginPath()
-  context.arc(0, 0, haloRadius, 0, Math.PI * 2)
-  context.fill()
-
-  for (let ring = 0; ring < 2; ring += 1) {
-    const radius = coreRadius + 8 + ring * 12 + pulse * (ring + 1) * 2.6
-    context.beginPath()
-    context.arc(0, 0, radius, 0, Math.PI * 2)
-    context.strokeStyle = `rgba(138, 215, 208, ${0.2 - ring * 0.07})`
-    context.lineWidth = 0.85 / cameraScale
-    context.stroke()
-  }
-
-  context.shadowColor = 'rgba(138, 215, 208, 0.72)'
-  context.shadowBlur = (16 + pulse * 8) / cameraScale
-  const core = context.createRadialGradient(-9, -11, 1, 0, 0, coreRadius)
-  core.addColorStop(0, '#d9fbf7')
-  core.addColorStop(0.18, '#8ad7d0')
-  core.addColorStop(0.56, '#1d6765')
-  core.addColorStop(1, '#0a2022')
-  context.fillStyle = core
-  context.beginPath()
-  context.arc(0, 0, coreRadius + pulse * 1.6, 0, Math.PI * 2)
-  context.fill()
+  const radius = 30 / cameraScale
+  context.shadowColor = 'rgba(62, 99, 153, 0.14)'
+  context.shadowBlur = 22 / cameraScale
+  context.fillStyle = dark ? '#142a43' : '#ffffff'
+  context.beginPath(); context.arc(0, 0, radius, 0, Math.PI * 2); context.fill()
   context.shadowBlur = 0
-
-  context.globalCompositeOperation = 'source-over'
-  context.strokeStyle = 'rgba(213, 247, 243, 0.7)'
-  context.lineWidth = 0.8 / cameraScale
-  context.beginPath()
-  context.arc(0, 0, coreRadius, 0, Math.PI * 2)
-  context.stroke()
-
-  context.fillStyle = '#f2fffd'
-  context.font = `650 ${10.5 / cameraScale}px "Arial Narrow", "Helvetica Neue", sans-serif`
-  context.textAlign = 'center'
-  context.textBaseline = 'middle'
-  context.fillText('AI TRUST', 0, -1 / cameraScale)
+  context.strokeStyle = dark ? '#619be3' : '#b9ccec'; context.lineWidth = 1 / cameraScale; context.stroke()
+  context.beginPath(); context.arc(0, 0, radius + 8 / cameraScale, 0, Math.PI * 2)
+  context.strokeStyle = 'rgba(36, 94, 232, 0.09)'; context.stroke()
+  context.fillStyle = dark ? '#b0d4ff' : '#245ee8'
+  context.font = `600 ${10 / cameraScale}px "Helvetica Neue", Arial, sans-serif`
+  context.textAlign = 'center'; context.textBaseline = 'middle'
+  context.fillText('AI TRUST', 0, 0)
   context.restore()
 }
 
-export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false }: Props) {
+export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, snapshotRef, focusRequest = 0 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const lastSize = useRef({ width: 0, height: 0 })
   const modelRef = useRef(model)
   const nodePositionsRef = useRef(new Map<string, Point3D>())
   const projectedPositionsRef = useRef(new Map<string, ProjectedPoint>())
@@ -326,12 +297,18 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     velocityPitch: 0,
   })
   const [hoveredNodeId, setHoveredNodeId] = useState<string>()
+  const [showSynthesis, setShowSynthesis] = useState(true)
+  const showSynthesisRef = useRef(true)
+  const [paused, setPaused] = useState(false)
+  const pausedRef = useRef(false)
   const hoveredRef = useRef<string | undefined>(undefined)
+  const sourceLabelsRef = useRef(showSourceLabels)
+  sourceLabelsRef.current = showSourceLabels
   const selectedRef = useRef(selectedNodeId)
   const keyboardIndexRef = useRef(0)
   const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
   const selectedConnectionSummary = useMemo(() => {
-    if (!selectedNodeId) return 'No node selected. Use arrow keys to move through nodes and press Enter to open details.'
+    if (!selectedNodeId) return 'No node selected. Use arrow keys to select nodes, plus and minus to zoom, or 0 to reset the universe.'
     const selected = model.nodes.find((node) => node.id === selectedNodeId)
     const adjacentIds = new Set<string>()
     model.edges.forEach((edge) => {
@@ -363,11 +340,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
 
   useEffect(() => {
     selectedRef.current = selectedNodeId
-    const bounds = wrapRef.current?.getBoundingClientRect()
-    if (bounds) cameraTargetRef.current = { x: 0, y: 0, scale: fitScaleForModel(model, bounds.width, bounds.height) }
-  }, [model, selectedNodeId])
+  }, [selectedNodeId])
 
   useEffect(() => {
+    if (inactive) return
     const canvas = canvasRef.current
     const wrap = wrapRef.current
     if (!canvas || !wrap) return
@@ -386,10 +362,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       canvas.height = Math.round(height * dpr)
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
-      if (!selectedRef.current) {
-        const scale = fitScaleForModel(modelRef.current, width, height)
+      const scale = fitScaleForModel(modelRef.current, width, height)
+      if (lastSize.current.width !== width || lastSize.current.height !== height) {
         cameraRef.current = { x: 0, y: 0, scale }
         cameraTargetRef.current = { x: 0, y: 0, scale }
+        lastSize.current = { width, height }
       }
     }
 
@@ -398,6 +375,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     resize()
 
     let previousElapsed = 0
+    let animationTime = 0
+    let ambientYaw = 0
 
     const render = (elapsed = 0) => {
       const context = canvas.getContext('2d')
@@ -407,9 +386,14 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       const rotation = rotationRef.current
       const targetRotation = rotationTargetRef.current
       const frameFactor = previousElapsed ? Math.min(2, (elapsed - previousElapsed) / 16.67) : 1
+      const delta = previousElapsed ? elapsed - previousElapsed : 0
       previousElapsed = elapsed
-      if (!reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) {
-        targetRotation.yaw += 0.00034 * frameFactor
+      if (!pausedRef.current && !reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) animationTime += Math.min(delta, 50)
+      elapsed = animationTime
+      if (!pausedRef.current && !reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) {
+        const nextAmbientYaw = Math.sin(elapsed * 0.00008) * 0.18
+        targetRotation.yaw += nextAmbientYaw - ambientYaw
+        ambientYaw = nextAmbientYaw
       }
       const cameraEase = reducedMotion ? 1 : 0.09
       const rotationEase = reducedMotion ? 1 : 0.075
@@ -422,15 +406,16 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
       context.clearRect(0, 0, width, height)
 
+      const dark = document.documentElement.dataset.theme === 'dark'
       const gradient = context.createRadialGradient(width * 0.5, height * 0.48, 0, width * 0.5, height * 0.48, Math.max(width, height) * 0.66)
-      gradient.addColorStop(0, 'rgba(29, 36, 51, 0.78)')
-      gradient.addColorStop(0.46, 'rgba(11, 16, 24, 0.91)')
-      gradient.addColorStop(1, 'rgba(5, 7, 11, 1)')
+      gradient.addColorStop(0, dark ? '#152941' : '#f9fbfe')
+      gradient.addColorStop(0.46, dark ? '#0d1c2e' : '#edf3f9')
+      gradient.addColorStop(1, dark ? '#080f1b' : '#e7eff7')
       context.fillStyle = gradient
       context.fillRect(0, 0, width, height)
-      drawHexBackdrop(context, width, height)
+      // Keep the orbital field clean; the universe supplies its own structure.
 
-      const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? height * 0.24 : height / 2
+      const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? height * 0.4 : height / 2
       context.save()
       context.translate(width / 2, screenCenterY)
       context.scale(camera.scale, camera.scale)
@@ -456,8 +441,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       projectedPositionsRef.current = projected
 
       drawParticleField(context, ambientParticles, rotation, sphereRadius, camera.scale, elapsed, false, reducedMotion)
+      context.globalAlpha = 0.35
       drawGeodesicMesh(context, rotation, sphereRadius * 1.015, camera.scale)
       drawOrbitalGrid(context, rotation, sphereRadius, camera.scale)
+      context.globalAlpha = 1
       drawParticleField(context, coreParticles, rotation, sphereRadius, camera.scale, elapsed, true, reducedMotion)
 
       const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
@@ -473,21 +460,25 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       }
 
       currentModel.edges.forEach((edge) => {
+        if (!showSynthesisRef.current && edge.basis === 'cross-framework-synthesis') return
         const sourceNode = nodeMap.get(edge.sourceId)
         const targetNode = nodeMap.get(edge.targetId)
         const source = projected.get(edge.sourceId)
         const target = projected.get(edge.targetId)
         if (!sourceNode || !targetNode || !source || !target) return
         const isActive = Boolean(activeId && (edge.sourceId === activeId || edge.targetId === activeId))
+        // Overview retains the structural skeleton; focused paths reveal the detail.
+        if (activeId ? !isActive : !['root', 'domain', 'risk-domain', 'control-family'].includes(sourceNode.kind)) return
         const isRelation = Boolean(edge.relationType)
         const isRiskMapping = edge.semanticFamily === 'risk'
         const isControlMapping = edge.semanticFamily === 'control'
         const averageDepth = (source.depth + target.depth) / 2
         const depthOpacity = clamp(0.52 + averageDepth / Math.max(sphereRadius * 2.1, 1), 0.26, 1)
         const baseOpacity = isRelation ? 0.105 : isRiskMapping || isControlMapping ? 0.075 : camera.scale > 1 ? 0.07 : 0.038
-        context.strokeStyle = isActive ? `${sourceNode.color}dc` : `rgba(151, 169, 196, ${baseOpacity * depthOpacity})`
-        context.lineWidth = (isActive ? 1.7 : isRelation ? 0.82 : 0.52) / camera.scale
-        context.setLineDash((isRelation || isRiskMapping || isControlMapping) && !isActive ? [5 / camera.scale, 7 / camera.scale] : [])
+        context.strokeStyle = isActive ? (dark ? 'rgba(139, 185, 255, 0.95)' : 'rgba(36, 94, 232, 0.86)') : `rgba(70, 101, 143, ${baseOpacity * depthOpacity * 1.5})`
+        context.lineWidth = (isActive ? 2.1 : isRelation ? 0.82 : 0.52) / camera.scale
+        context.setLineDash(isActive && !reducedMotion ? [8 / camera.scale, 5 / camera.scale] : (isRelation || isRiskMapping || isControlMapping) ? [5 / camera.scale, 7 / camera.scale] : [])
+        context.lineDashOffset = isActive && !reducedMotion ? -(elapsed * 0.018) / camera.scale : 0
         context.beginPath()
         context.moveTo(source.x, source.y)
 
@@ -507,6 +498,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
         context.quadraticCurveTo(controlX, controlY, target.x, target.y)
         context.stroke()
         context.setLineDash([])
+        context.lineDashOffset = 0
 
         const isProvisionEdge = sourceNode.kind === 'provision' || targetNode.kind === 'provision'
         if (isActive && camera.scale > 0.9 && (isRelation || isProvisionEdge || isRiskMapping || isControlMapping)) {
@@ -517,126 +509,165 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
           context.textBaseline = 'middle'
           const label = edge.label.replaceAll('-', ' ')
           const labelWidth = context.measureText(label).width + 14 / camera.scale
-          context.fillStyle = 'rgba(6, 9, 14, 0.93)'
+          context.fillStyle = dark ? 'rgba(13, 28, 46, 0.95)' : 'rgba(255, 255, 255, 0.95)'
           context.fillRect(labelX - labelWidth / 2, labelY - 9 / camera.scale, labelWidth, 18 / camera.scale)
-          context.fillStyle = 'rgba(228, 234, 243, 0.92)'
+          context.fillStyle = dark ? '#dcecff' : '#29465f'
           context.fillText(label, labelX, labelY)
         }
       })
 
-      drawTrustCore(context, camera.scale, elapsed, reducedMotion)
+      drawTrustCore(context, camera.scale, elapsed, reducedMotion, dark)
 
       const orderedNodes = [...currentModel.nodes].sort((left, right) => (projected.get(left.id)?.depth ?? 0) - (projected.get(right.id)?.depth ?? 0))
+      const labelBoxes: { x: number; y: number; w: number; h: number }[] = []
       orderedNodes.forEach((node) => {
         const point = projected.get(node.id)
         if (!point) return
         const isSelected = selectedRef.current === node.id
         const isHovered = hoveredRef.current === node.id
+        const nodeColor = dark ? node.color : arcticAccents[node.color.toLowerCase()] ?? '#68869e'
         const muted = Boolean(activeId && !adjacent.has(node.id))
         const depthOpacity = clamp(0.62 + point.depth / Math.max(sphereRadius * 2.2, 1), 0.42, 1)
-        context.globalAlpha = muted ? 0.12 : depthOpacity
+        context.globalAlpha = muted ? 0.18 : Math.max(.7, depthOpacity)
         const radius = node.radius * point.scale * (isSelected ? 1.34 : isHovered ? 1.2 : 1)
 
+        if (isSelected) {
+          const prismRadius = radius + 11 / camera.scale
+          const prismColors = [`${nodeColor}d8`, 'rgba(36, 94, 232, 0.25)', 'rgba(36, 94, 232, 0.13)']
+          prismColors.forEach((color, index) => {
+            context.beginPath()
+            context.arc(point.x, point.y, prismRadius + index * 4.2 / camera.scale, elapsed * 0.00018 + index * 2.1, elapsed * 0.00018 + index * 2.1 + Math.PI * 0.92)
+            context.strokeStyle = color
+            context.lineWidth = 0.8 / camera.scale
+            context.stroke()
+          })
+        }
+
         if (isSelected || isHovered) {
-          context.shadowColor = `${node.color}8a`
+          context.shadowColor = `${nodeColor}8a`
           context.shadowBlur = 12 / camera.scale
         }
 
         if (node.kind === 'domain') {
-          context.strokeStyle = `${node.color}${isSelected || isHovered ? 'ff' : '9c'}`
+          context.strokeStyle = `${nodeColor}${isSelected || isHovered ? 'ff' : '9c'}`
           context.lineWidth = (isSelected || isHovered ? 2.2 : 1.05) / camera.scale
           context.beginPath()
           context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
           context.stroke()
-          context.fillStyle = `${node.color}26`
+          context.fillStyle = `${nodeColor}26`
           context.beginPath()
           context.arc(point.x, point.y, radius, 0, Math.PI * 2)
           context.fill()
         } else if (node.kind === 'concept') {
-          context.fillStyle = node.color
+          context.fillStyle = nodeColor
           context.beginPath()
           context.arc(point.x, point.y, radius, 0, Math.PI * 2)
           context.fill()
         } else if (node.kind === 'instrument') {
           polygonPath(context, point.x, point.y, radius, 6, Math.PI / 6)
-          context.fillStyle = `${node.color}${node.region === 'Australia' ? 'f4' : 'b8'}`
+          context.fillStyle = `${nodeColor}${node.region === 'Australia' ? 'f4' : 'b8'}`
           context.fill()
-          context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}e8`
+          context.strokeStyle = isSelected || isHovered ? (dark ? '#d7e9ff' : '#143ba4') : `${nodeColor}e8`
           context.lineWidth = (isSelected || isHovered ? 2.1 : 0.9) / camera.scale
           context.stroke()
           if (node.region === 'Australia') {
             context.beginPath()
             context.arc(point.x, point.y, radius + 4.5, 0, Math.PI * 2)
-            context.strokeStyle = `${node.color}88`
+            context.strokeStyle = `${nodeColor}88`
             context.lineWidth = 0.75 / camera.scale
             context.stroke()
           }
         } else if (node.kind === 'risk-domain') {
           polygonPath(context, point.x, point.y, radius, 6, Math.PI / 6)
-          context.fillStyle = `${node.color}22`
+          context.fillStyle = `${nodeColor}22`
           context.fill()
-          context.strokeStyle = `${node.color}${isSelected || isHovered ? 'ff' : 'b8'}`
+          context.strokeStyle = `${nodeColor}${isSelected || isHovered ? 'ff' : 'b8'}`
           context.lineWidth = (isSelected || isHovered ? 2.2 : 1.05) / camera.scale
           context.stroke()
           context.beginPath()
           context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
-          context.strokeStyle = `${node.color}55`
+          context.strokeStyle = `${nodeColor}55`
           context.lineWidth = 0.7 / camera.scale
           context.stroke()
         } else if (node.kind === 'risk-subdomain') {
           polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
-          context.fillStyle = `${node.color}${isSelected || isHovered ? 'f5' : 'cc'}`
+          context.fillStyle = `${nodeColor}${isSelected || isHovered ? 'f5' : 'cc'}`
           context.fill()
-          context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}ee`
+          context.strokeStyle = isSelected || isHovered ? (dark ? '#d7e9ff' : '#143ba4') : `${nodeColor}ee`
           context.lineWidth = (isSelected || isHovered ? 2 : 0.75) / camera.scale
           context.stroke()
         } else if (node.kind === 'control-family') {
           polygonPath(context, point.x, point.y, radius, 8, Math.PI / 8)
-          context.fillStyle = `${node.color}24`
+          context.fillStyle = `${nodeColor}24`
           context.fill()
-          context.strokeStyle = `${node.color}${isSelected || isHovered ? 'ff' : 'b8'}`
+          context.strokeStyle = `${nodeColor}${isSelected || isHovered ? 'ff' : 'b8'}`
           context.lineWidth = (isSelected || isHovered ? 2.2 : 1.05) / camera.scale
           context.stroke()
           context.beginPath()
           context.arc(point.x, point.y, radius + 6, 0, Math.PI * 2)
-          context.strokeStyle = `${node.color}55`
+          context.strokeStyle = `${nodeColor}55`
           context.lineWidth = 0.7 / camera.scale
           context.stroke()
         } else if (node.kind === 'control-objective') {
           polygonPath(context, point.x, point.y, radius, 8, Math.PI / 8)
-          context.fillStyle = `${node.color}${isSelected || isHovered ? 'f2' : 'c4'}`
+          context.fillStyle = `${nodeColor}${isSelected || isHovered ? 'f2' : 'c4'}`
           context.fill()
-          context.strokeStyle = isSelected || isHovered ? '#f2f5f8' : `${node.color}e8`
+          context.strokeStyle = isSelected || isHovered ? (dark ? '#d7e9ff' : '#143ba4') : `${nodeColor}e8`
           context.lineWidth = (isSelected || isHovered ? 2 : 0.8) / camera.scale
           context.stroke()
         } else {
           polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
-          context.fillStyle = node.color
+          context.fillStyle = nodeColor
           context.fill()
         }
         context.shadowBlur = 0
 
-        const showAdjacentRiskLabel = Boolean(activeNode && ['risk-domain', 'risk-subdomain', 'control-family', 'control-objective', 'concept'].includes(activeNode.kind) && adjacent.has(node.id))
-        const showLabel = node.kind === 'domain'
-          || node.kind === 'risk-domain'
-          || node.kind === 'control-family'
-          || isSelected
+        const compactCanvas = width <= 560
+        const showAdjacentRiskLabel = Boolean(!compactCanvas && activeNode && ['instrument', 'provision', 'domain', 'risk-domain', 'risk-subdomain', 'control-family', 'control-objective', 'concept'].includes(activeNode.kind) && adjacent.has(node.id))
+        const filteredSourceLabel = sourceLabelsRef.current && node.kind === 'instrument'
+        const showLabel = filteredSourceLabel || !muted && (isSelected
           || isHovered
-          || showAdjacentRiskLabel
-          || (node.kind === 'concept' && camera.scale > 1.58)
-          || (node.kind === 'instrument' && camera.scale > 2.05)
-          || (node.kind === 'provision' && camera.scale > 1.66)
-          || (node.kind === 'risk-subdomain' && camera.scale > 1.42)
-          || (node.kind === 'control-objective' && camera.scale > 1.36)
+          || (!compactCanvas && (
+            node.kind === 'domain'
+            || node.kind === 'risk-domain'
+            || node.kind === 'control-family'
+            || showAdjacentRiskLabel
+            || (node.kind === 'concept' && camera.scale > 1.58)
+            || (node.kind === 'instrument' && camera.scale > 2.05)
+            || (node.kind === 'provision' && camera.scale > 1.66)
+            || (node.kind === 'risk-subdomain' && camera.scale > 1.42)
+            || (node.kind === 'control-objective' && camera.scale > 1.36)
+          )))
         if (showLabel) {
           const isGroup = node.kind === 'domain' || node.kind === 'risk-domain' || node.kind === 'control-family'
-          const size = isGroup ? 11 : node.kind === 'instrument' ? 9.5 : 8.5
+          const size = isSelected || isHovered ? 15 : isGroup ? 14 : 12
           context.font = `${isGroup ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
           context.textAlign = 'center'
           context.textBaseline = 'top'
-          context.fillStyle = isSelected || isHovered ? '#f5f7fa' : isGroup ? node.color : 'rgba(218, 225, 235, 0.82)'
-          const maxWidth = isGroup ? 118 / camera.scale : 104 / camera.scale
-          drawWrappedLabel(context, node.shortLabel, point.x, point.y + radius + 7 / camera.scale, maxWidth, 10.5 / camera.scale)
+          context.globalAlpha = 1
+          context.fillStyle = dark ? (isSelected || isHovered ? '#ffffff' : '#c2d5ea') : isSelected || isHovered ? '#17396a' : '#344f6b'
+          const maxWidth = 140 / camera.scale
+          const labelWidth = Math.min(maxWidth, context.measureText(node.shortLabel).width + 10 / camera.scale)
+          const box = { x: point.x - labelWidth / 2, y: point.y + radius + 7 / camera.scale, w: labelWidth, h: (size + 2) * (labelWidth < maxWidth ? 1 : 2) / camera.scale }
+          const collides = () => labelBoxes.some(b => box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y)
+          if (filteredSourceLabel) {
+            context.globalAlpha = 1
+            let attempts = 0
+            while (collides() && attempts++ < 12) box.y += (size + 5) / camera.scale
+            if (attempts > 0) {
+              context.beginPath()
+              context.moveTo(point.x, point.y + radius + 3 / camera.scale)
+              context.lineTo(point.x, box.y - 3 / camera.scale)
+              context.strokeStyle = `${nodeColor}70`
+              context.lineWidth = 0.6 / camera.scale
+              context.stroke()
+            }
+          }
+          const overlaps = collides()
+          if (filteredSourceLabel || isSelected || isHovered || !overlaps) {
+            drawWrappedLabel(context, node.shortLabel, point.x, box.y, maxWidth, (size + 2) / camera.scale)
+            labelBoxes.push(box)
+          }
         }
         context.globalAlpha = 1
       })
@@ -650,7 +681,20 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
       cancelAnimationFrame(frame)
       observer.disconnect()
     }
-  }, [reducedMotion])
+  }, [reducedMotion, inactive])
+
+  if (snapshotRef) snapshotRef.current = () => {
+    const result: NodeSnapshot = new Map()
+    const bounds = wrapRef.current?.getBoundingClientRect()
+    if (!bounds) return result
+    const camera = cameraRef.current
+    const cy = window.innerWidth <= 860 && selectedRef.current ? bounds.height * .4 : bounds.height / 2
+    modelRef.current.nodes.forEach(node => {
+      const point = projectedPositionsRef.current.get(node.id)
+      if (point) result.set(node.id, { x: bounds.left + bounds.width / 2 + (point.x + camera.x) * camera.scale, y: bounds.top + cy + (point.y + camera.y) * camera.scale, color: node.color, kind: node.kind, label: node.shortLabel })
+    })
+    return result
+  }
 
   const nodeAt = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current
@@ -658,7 +702,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     const bounds = canvas.getBoundingClientRect()
     const camera = cameraRef.current
     const worldX = (clientX - bounds.left - bounds.width / 2) / camera.scale - camera.x
-    const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+    const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.4 : bounds.height / 2
     const worldY = (clientY - bounds.top - screenCenterY) / camera.scale - camera.y
     let nearest: GraphNode | undefined
     let distance = Number.POSITIVE_INFINITY
@@ -697,6 +741,19 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     }
   }
 
+  const focusSelected = () => {
+    const point = selectedRef.current ? projectedPositionsRef.current.get(selectedRef.current) : undefined
+    if (!point) return
+    cameraTargetRef.current = { x: -point.x, y: -point.y, scale: Math.max(cameraTargetRef.current.scale, 1.1) }
+  }
+
+  useEffect(() => {
+    if (!focusRequest) return
+    // Allow the selected source's layout and projected position to settle before focusing.
+    const timer = window.setTimeout(focusSelected, 350)
+    return () => window.clearTimeout(timer)
+  }, [focusRequest])
+
   const resetCamera = () => {
     const bounds = wrapRef.current?.getBoundingClientRect()
     const scale = bounds ? fitScaleForModel(modelRef.current, bounds.width, bounds.height) : initialScale
@@ -717,7 +774,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
     <div className="graph-stage" ref={wrapRef} data-hovered={hoveredNodeId ?? ''} inert={inactive || undefined} aria-hidden={inactive || undefined}>
       <canvas
         ref={canvasRef}
-        aria-label="Interactive orbital map of AI requirements, risks, controls, concepts and source provisions"
+        aria-label="Interactive orbital map of AI requirements, risks, controls, concepts and specific sections"
         aria-describedby="graph-accessible-description"
         tabIndex={inactive ? -1 : 0}
         onKeyDown={(event) => {
@@ -725,6 +782,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
           if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') { event.preventDefault(); navigateByKeyboard(-1) }
           if (event.key === 'Home') { event.preventDefault(); keyboardIndexRef.current = 0; onSelect(modelRef.current.nodes[0]?.id) }
           if (event.key === 'End') { event.preventDefault(); keyboardIndexRef.current = Math.max(0, modelRef.current.nodes.length - 1); onSelect(modelRef.current.nodes.at(-1)?.id) }
+          if (event.key === '+' || event.key === '=') { event.preventDefault(); zoomBy(1.25) }
+          if (event.key === '-') { event.preventDefault(); zoomBy(0.8) }
+          if (event.key === '0') { event.preventDefault(); resetCamera() }
+          if (event.key === 'Enter') { event.preventDefault(); focusSelected() }
           if (event.key === 'Escape') { event.preventDefault(); onSelect(undefined) }
         }}
         onPointerDown={(event) => {
@@ -769,6 +830,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
           event.currentTarget.releasePointerCapture(event.pointerId)
           if (!moved) onSelect(nodeAt(event.clientX, event.clientY)?.id)
         }}
+        onPointerCancel={() => { finishOrbit(); updateHover(undefined) }}
         onPointerLeave={() => {
           finishOrbit()
           updateHover(undefined)
@@ -785,7 +847,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
           const bounds = canvas.getBoundingClientRect()
           const target = cameraTargetRef.current
           const beforeX = (event.clientX - bounds.left - bounds.width / 2) / target.scale - target.x
-          const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.24 : bounds.height / 2
+          const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.4 : bounds.height / 2
           const beforeY = (event.clientY - bounds.top - screenCenterY) / target.scale - target.y
           const nextScale = clamp(target.scale * Math.exp(-event.deltaY * 0.0012), 0.26, 3.8)
           const afterX = (event.clientX - bounds.left - bounds.width / 2) / nextScale - target.x
@@ -794,12 +856,16 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, inactive = false 
         }}
       />
       <p className="sr-only" id="graph-accessible-description" aria-live="polite">{selectedConnectionSummary}</p>
+      {hoveredNodeId && model.nodes.find(n => n.id === hoveredNodeId) && <div className="universe-hover-card" role="status"><span>{model.nodes.find(n => n.id === hoveredNodeId)!.kind.replaceAll('-', ' ')}</span><strong>{model.nodes.find(n => n.id === hoveredNodeId)!.label}</strong><small>Click to inspect sources and connections</small></div>}
       <div className="graph-controls" role="toolbar" aria-label="Graph view controls">
+        <button type="button" disabled={!selectedNodeId} onClick={focusSelected} aria-label="Focus selected object" title="Focus selected object (Enter)"><Target /></button>
+        <button type="button" aria-pressed={paused} onClick={() => { pausedRef.current = !paused; setPaused(!paused) }} aria-label={paused ? 'Resume ambient motion' : 'Pause ambient motion'} title={paused ? 'Resume ambient motion' : 'Pause ambient motion'}>{paused ? <Play /> : <Pause />}</button>
+        <button className="source-lens-control" type="button" aria-pressed={!showSynthesis} onClick={() => { const next = !showSynthesis; setShowSynthesis(next); showSynthesisRef.current = next }} aria-label={showSynthesis ? 'Show source-explicit relationships only' : 'Show Atlas interpretation relationships'}>{showSynthesis ? <Eye /> : <EyeSlash />}</button>
         <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in"><Plus weight="bold" /></button>
         <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out"><Minus weight="bold" /></button>
         <button type="button" onClick={resetCamera} aria-label="Reset graph view"><ArrowsOut /></button>
       </div>
-      <p className="graph-hint" aria-hidden="true">Drag to orbit. Wheel to zoom. Arrow keys move through nodes. Select to reveal immediate connections.</p>
+      <p className="graph-hint" aria-hidden="true">Drag to orbit · scroll to zoom · select to inspect · Enter to focus</p>
     </div>
   )
 }

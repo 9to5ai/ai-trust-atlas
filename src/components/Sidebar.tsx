@@ -1,6 +1,4 @@
-import { Atom, Funnel, MagnifyingGlass, Rows, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
-import { controlFamilies } from '../data/controls'
-import { causalLensOptions, mappedRiskRecordCount, type CausalLens } from '../data/mitRiskTaxonomy'
+import { Atom, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
 import type { LayoutMode } from '../lib/graphModel'
 import type { AuthorityClass, ControlObjective, Instrument, RiskSubdomain } from '../types'
@@ -18,18 +16,15 @@ type Props = {
   onSelectInstrument: (instrumentId: string) => void
   riskResults: RiskSubdomain[]
   controlResults: ControlObjective[]
-  causalLens: CausalLens
-  onCausalLensChange: (lens: CausalLens) => void
   onSelectRisk: (riskSubdomainId: string) => void
   onSelectControl: (controlId: string) => void
-  totalInstruments: number
 }
 
-export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, results, onSelectInstrument, riskResults, controlResults, causalLens, onCausalLensChange, onSelectRisk, onSelectControl, totalInstruments }: Props) {
+export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl }: Props) {
   const isRiskView = layout === 'risk'
   const isControlView = layout === 'controls'
   const resultCount = isRiskView ? riskResults.length : isControlView ? controlResults.length : results.length
-  const placeholder = isRiskView ? 'Find a risk type or domain' : isControlView ? 'Find a control objective' : 'Find an instrument or issuer'
+  const placeholder = isRiskView ? 'Search risks' : isControlView ? 'Search controls' : 'Search sources'
 
   return (
     <aside className="sidebar" aria-label="Atlas controls">
@@ -55,41 +50,16 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       <section className="control-section">
         <div className="control-title"><Atom /> <span>Explore by</span></div>
         <div className="segment-control segment-control-three lens-control">
-          <button type="button" className={layout === 'ontology' || layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Requirements</button>
+          <button type="button" className={layout === 'ontology' || layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Sources</button>
           <button type="button" className={layout === 'risk' ? 'active' : ''} onClick={() => onLayoutChange('risk')}><WarningDiamond /> Risks</button>
           <button type="button" className={layout === 'controls' ? 'active' : ''} onClick={() => onLayoutChange('controls')}><ShieldCheck /> Controls</button>
         </div>
-        {(layout === 'ontology' || layout === 'authority') && <>
-          <div className="projection-label">Group requirements by</div>
-          <div className="segment-control projection-control">
-            <button type="button" className={layout === 'ontology' ? 'active' : ''} onClick={() => onLayoutChange('ontology')}><Atom /> Meaning</button>
-            <button type="button" className={layout === 'authority' ? 'active' : ''} onClick={() => onLayoutChange('authority')}><Rows /> Authority</button>
-          </div>
-        </>}
-        <p className="control-note">{isRiskView ? 'MIT describes what can go wrong. Select a risk to reveal candidate controls.' : isControlView ? 'Atlas-normalised objectives show what an organisation might do—never whether it has done it effectively.' : 'Requirements are source instruments and provisions. Meaning and authority are alternate projections of the same corpus.'}</p>
+        {(isRiskView || isControlView) && <p className="control-note">{isRiskView ? 'MIT describes what can go wrong. Select a risk to reveal candidate controls.' : 'Explore safeguards that could help manage risk. Select a control to see examples and supporting sources.'}</p>}
       </section>
 
-      {isRiskView ? (
-        <section className="control-section causal-section">
-          <div className="control-title"><Funnel /> <span>Causal lens</span></div>
-          <p className="control-note causal-note">Filter source-record counts by one MIT causal dimension. Counts describe the literature, not severity or exposure.</p>
-          <div className="causal-list">
-            {causalLensOptions.map((option) => (
-              <button type="button" key={option.id} className={causalLens === option.id ? 'active' : ''} onClick={() => onCausalLensChange(option.id)}><span>{option.label}</span><small>{option.group}</small></button>
-            ))}
-          </div>
-        </section>
-      ) : isControlView ? (
-        <section className="control-section control-family-key">
-          <div className="control-title"><ShieldCheck /> <span>Six control families</span></div>
-          <div className="family-key-list">
-            {controlFamilies.map((family) => <div key={family.id}><i style={{ backgroundColor: family.color }} /><span>{family.name}</span><small>4</small></div>)}
-          </div>
-          <p className="control-note">Detailed source catalogues remain in the inspector and search. Only the neutral control spine appears in the universe.</p>
-        </section>
-      ) : (
+      {!isRiskView && !isControlView && (
         <section className="control-section filter-section">
-          <div className="control-title"><Funnel /> <span>Authority class</span><small>{authorityClasses.size || 'all'}</small></div>
+          <div className="control-title"><Funnel /> <span>Source type</span><small>{authorityClasses.size || 'all'}</small></div>
           <div className="filter-list">
             {authorityOrder.map((authority) => (
               <label key={authority}><input type="checkbox" checked={authorityClasses.has(authority)} onChange={() => onToggleAuthority(authority)} /><span>{authorityLabels[authority]}</span></label>
@@ -99,7 +69,7 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       )}
 
       {!isRiskView && !isControlView && <section className="control-section filter-section region-filters">
-        <div className="control-title"><span>Jurisdiction</span><small>{regions.size || 'all'}</small></div>
+        <div className="control-title"><span>Country or region</span><small>{regions.size || 'all'}</small></div>
         <div className="filter-list">
           {regionOrder.map((region) => (
             <label key={region}><input type="checkbox" checked={regions.has(region)} onChange={() => onToggleRegion(region)} /><span>{region}</span></label>
@@ -107,10 +77,7 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
         </div>
       </section>}
 
-      <div className="sidebar-foot">
-        <strong>{resultCount}</strong>
-        <span>{isRiskView ? `of 24 types · ${mappedRiskRecordCount.toLocaleString()} mapped records` : isControlView ? 'of 24 neutral control objectives' : `of ${totalInstruments} instruments visible`}</span>
-      </div>
+
     </aside>
   )
 }

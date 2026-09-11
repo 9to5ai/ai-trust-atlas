@@ -1,16 +1,11 @@
 export type AuthorityClass =
   | 'law'
-  | 'regulatory-expectation'
-  | 'government-guidance'
-  | 'government-policy'
-  | 'international-treaty'
-  | 'international-standard'
-  | 'risk-framework'
-  | 'control-framework'
-  | 'financial-sector-guidance'
-  | 'analytical-report'
-  | 'testing-framework'
-  | 'threat-knowledge'
+  | 'treaty'
+  | 'policy-guidance'
+  | 'standard'
+  | 'framework'
+  | 'testing-tool'
+  | 'research-database'
 
 export type InstrumentStatus =
   | 'in-force'
@@ -25,6 +20,8 @@ export type InstrumentStatus =
   | 'living'
 
 export type RelationType =
+  | 'made-under'
+  | 'issuer-governed-by'
   | 'requires'
   | 'operationalises'
   | 'guides-implementation-of'
@@ -111,6 +108,7 @@ export type SourceProvision = {
   conceptIds: string[]
   granularity?: SourceGranularity
   sourceUrl?: string
+  reviewedAt?: string
   note?: string
 }
 
@@ -122,6 +120,7 @@ export type Instrument = {
   jurisdiction: string
   region: 'Australia' | 'Global' | 'Europe' | 'United States' | 'United Kingdom' | 'Singapore' | 'Canada'
   authorityClass: AuthorityClass
+  authorityNote: string
   status: InstrumentStatus
   published: string
   effective?: string
@@ -138,6 +137,8 @@ export type Instrument = {
 export type MappingBasis = 'source-authored' | 'published-crosswalk' | 'atlas-synthesis'
 export type MappingStatus = 'active' | 'provisional' | 'retired'
 export type MappingPredicate =
+  | 'made-under'
+  | 'issuer-governed-by'
   | 'contains'
   | 'requires'
   | 'addresses'
@@ -220,6 +221,7 @@ export type InstrumentRelation = {
   basis: EvidenceBasis
   confidence: Confidence
   sourceAnchors: string[]
+  citations?: SourceCitation[]
 }
 
 export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'provision' | 'risk-domain' | 'risk-subdomain' | 'control-family' | 'control-objective'

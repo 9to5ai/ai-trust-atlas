@@ -1,5 +1,5 @@
-import type { ControlFamily, ControlObjective, ControlSourceReference } from '../types'
-import { instrumentById } from './instruments'
+import type { ControlFamily, ControlObjective, ControlSourceReference } from '../types.js'
+import { instrumentById } from './instruments.js'
 
 export const CONTROL_MODEL_VERSION = '2026.08'
 export const CONTROL_MODEL_VERIFIED = '2026-08-29'

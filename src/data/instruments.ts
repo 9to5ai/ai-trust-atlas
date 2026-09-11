@@ -1,13 +1,18 @@
-import type { Instrument } from '../types'
-import { australianInstruments } from './australia'
-import { globalInstruments } from './global'
-import { standardsAndTestingInstruments } from './standards'
+import { methodologySources, methodologyCorrections } from './methodologyRefresh.js'
+import { frontierSources } from './frontierRefresh.js'
+import { legalFoundationInstruments } from './legalFoundations.js'
+import { septemberSources, septemberSections } from './septemberRefresh.js'
+import type { Instrument } from '../types.js'
+import { deepenedProvisions } from './deepenedProvisions.js'
+import { australianInstruments } from './australia.js'
+import { globalInstruments } from './global.js'
+import { standardsAndTestingInstruments } from './standards.js'
 
 const verified = '2026-08-28'
 
 const coreInstruments: Instrument[] = [
   {
-    id: 'au-privacy-act', title: 'Privacy Act 1988', shortTitle: 'Privacy Act', issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law', status: 'in-force', published: '1988', lastVerified: verified,
+    id: 'au-privacy-act', title: 'Privacy Act 1988', shortTitle: 'Privacy Act', issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law', authorityNote: "Legally binding within its scope", status: 'in-force', published: '1988', lastVerified: verified,
     officialUrl: 'https://www.legislation.gov.au/C2004A03712/latest/text',
     summary: 'Australia\'s principal federal privacy law, including the Australian Privacy Principles governing personal information.',
     applicability: 'Applies according to the Act\'s coverage and exemptions. AI use does not displace existing privacy obligations.', sectors: ['Cross-sector', 'Financial services'],
@@ -18,7 +23,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'apra-ai-letter-2026', title: 'Letter to Industry on Artificial Intelligence', shortTitle: 'APRA AI Letter', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'regulatory-expectation', status: 'active', published: '2026-04-30', lastVerified: verified,
+    id: 'apra-ai-letter-2026', title: 'Letter to Industry on Artificial Intelligence', shortTitle: 'APRA AI Letter', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: "Supervisory expectations; see scope below", status: 'active', published: '2026-04-30', lastVerified: verified,
     officialUrl: 'https://www.apra.gov.au/news-and-publications/apra-letter-industry-artificial-intelligence-ai',
     summary: 'Sets APRA\'s supervisory focus on safe AI adoption, governance, risk management, cyber security and operational resilience.',
     applicability: 'Relevant to APRA-regulated entities. It communicates supervisory expectations rather than creating a standalone AI prudential standard.', sectors: ['Banking', 'Insurance', 'Superannuation'],
@@ -29,9 +34,9 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'apra-cps-230', title: 'CPS 230 Operational Risk Management', shortTitle: 'APRA CPS 230', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'regulatory-expectation', status: 'in-force', published: '2023-07', effective: '2025-07-01', lastVerified: verified,
-    officialUrl: 'https://handbook.apra.gov.au/standard/cps-230',
-    summary: 'Prudential standard for operational risk, business continuity and service-provider management.', applicability: 'Binding prudential standard for covered APRA-regulated entities.', sectors: ['Banking', 'Insurance', 'Superannuation'],
+    id: 'apra-cps-230', title: 'CPS 230 Operational Risk Management', shortTitle: 'APRA CPS 230', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'law', authorityNote: "Legally binding prudential standard within its scope", status: 'in-force', published: '2023-07', effective: '2026-07-01', lastVerified: verified,
+    officialUrl: 'https://www.apra.gov.au/standards/cps-230',
+    summary: 'Prudential standard for operational risk, business continuity and service-provider management.', applicability: 'Binding prudential standard for covered APRA-regulated entities. Current determination effective 1 July 2026; original standard commenced 1 July 2025. Authority and version metadata checked 7 September 2026; selected substantive summaries retain their earlier review date.', sectors: ['Banking', 'Insurance', 'Superannuation'],
     conceptIds: ['accountability', 'operational-resilience', 'incident-response', 'third-party-risk', 'exitability', 'continuous-monitoring'], detailAvailability: 'full-public-text',
     provisions: [
       { id: 'cps230-operational-risk', ref: 'Operational risk management', title: 'Operational risk framework', summary: 'Requires an operational-risk framework supported by controls, monitoring and remediation.', conceptIds: ['risk-treatment', 'continuous-monitoring', 'accountability'] },
@@ -39,9 +44,9 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'apra-cps-234', title: 'CPS 234 Information Security', shortTitle: 'APRA CPS 234', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'regulatory-expectation', status: 'in-force', published: '2019', lastVerified: verified,
-    officialUrl: 'https://handbook.apra.gov.au/standard/cps-234',
-    summary: 'Prudential standard requiring information-security capability, controls, incident notification and testing.', applicability: 'Binding prudential standard for covered APRA-regulated entities.', sectors: ['Banking', 'Insurance', 'Superannuation'],
+    id: 'apra-cps-234', title: 'CPS 234 Information Security', shortTitle: 'APRA CPS 234', issuer: 'Australian Prudential Regulation Authority', jurisdiction: 'Australia - APRA-regulated entities', region: 'Australia', authorityClass: 'law', authorityNote: "Legally binding prudential standard within its scope", status: 'in-force', published: '2018-11-30', effective: '2019-07-01', lastVerified: verified,
+    officialUrl: 'https://www.apra.gov.au/standards/cps-234',
+    summary: 'Prudential standard requiring information-security capability, controls, incident notification and testing.', applicability: 'Binding prudential standard for covered APRA-regulated entities. Commenced 1 July 2019. For third-party-managed information assets, the transition ended by 1 July 2020. Commencement and determination checked 8 September 2026; substantive summaries retain their earlier review date.', sectors: ['Banking', 'Insurance', 'Superannuation'],
     conceptIds: ['accountability', 'ai-security', 'access-control', 'third-party-risk', 'incident-response', 'evaluation', 'assurance'], detailAvailability: 'full-public-text',
     provisions: [
       { id: 'cps234-controls', ref: 'Information security controls', title: 'Controls and systematic testing', summary: 'Controls should be commensurate with threats and tested through a systematic program.', conceptIds: ['ai-security', 'evaluation', 'evidence-quality'] },
@@ -49,7 +54,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'eu-ai-act', title: 'Regulation (EU) 2024/1689 - Artificial Intelligence Act', shortTitle: 'EU AI Act', issuer: 'European Union', jurisdiction: 'European Union', region: 'Europe', authorityClass: 'law', status: 'phased', published: '2024-07-12', effective: '2024-08-01', lastVerified: verified,
+    id: 'eu-ai-act', title: 'Regulation (EU) 2024/1689 - Artificial Intelligence Act', shortTitle: 'EU AI Act', issuer: 'European Union', jurisdiction: 'European Union', region: 'Europe', authorityClass: 'law', authorityNote: "Legally binding within its scope", status: 'phased', published: '2024-07-12', effective: '2024-08-01', lastVerified: verified,
     officialUrl: 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng',
     summary: 'Risk-based legal framework for AI systems and general-purpose AI models, with phased obligations and enforcement.', applicability: 'Applies based on provider, deployer, product, location and market criteria. Legal advice is needed for specific scope.', sectors: ['Cross-sector', 'Financial services'],
     conceptIds: ['materiality', 'inventory', 'lifecycle-governance', 'documentation', 'data-governance', 'transparency-disclosure', 'human-oversight', 'evaluation', 'continuous-monitoring', 'incident-response'], detailAvailability: 'full-public-text',
@@ -60,7 +65,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'risk-framework', status: 'voluntary', published: '2023-01', lastVerified: verified,
+    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'voluntary', published: '2023-01', lastVerified: verified,
     officialUrl: 'https://www.nist.gov/itl/ai-risk-management-framework',
     summary: 'Voluntary framework organising AI risk work through Govern, Map, Measure and Manage.', applicability: 'Voluntary and non-sector-specific. It does not certify compliance or operating effectiveness.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'materiality', 'impact-assessment', 'lifecycle-governance', 'evaluation', 'continuous-monitoring', 'risk-treatment', 'human-oversight'], detailAvailability: 'full-public-text',
@@ -72,7 +77,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'nist-genai-profile', title: 'Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile', shortTitle: 'NIST GenAI Profile', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'risk-framework', status: 'voluntary', published: '2024-07', lastVerified: verified,
+    id: 'nist-genai-profile', title: 'Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile', shortTitle: 'NIST GenAI Profile', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'voluntary', published: '2024-07', lastVerified: verified,
     officialUrl: 'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence',
     summary: 'Companion profile describing generative-AI risks and actions aligned to the NIST AI RMF.', applicability: 'Voluntary profile for generative-AI risk management.', sectors: ['Cross-sector'],
     conceptIds: ['provenance', 'transparency-disclosure', 'adversarial-risk', 'evaluation', 'human-oversight', 'third-party-risk', 'incident-response'], detailAvailability: 'full-public-text',
@@ -81,7 +86,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'iso-42001', title: 'ISO/IEC 42001:2023 Artificial intelligence management system', shortTitle: 'ISO/IEC 42001', issuer: 'ISO and IEC', jurisdiction: 'International', region: 'Global', authorityClass: 'international-standard', status: 'active', published: '2023-12', lastVerified: verified,
+    id: 'iso-42001', title: 'ISO/IEC 42001:2023 Artificial intelligence management system', shortTitle: 'ISO/IEC 42001', issuer: 'ISO and IEC', jurisdiction: 'International', region: 'Global', authorityClass: 'standard', authorityNote: "Voluntary unless adopted through law, policy or contract", status: 'active', published: '2023-12', lastVerified: verified,
     officialUrl: 'https://www.iso.org/standard/42001',
     summary: 'Requirements for establishing, implementing, maintaining and continually improving an AI management system.', applicability: 'Voluntary international management-system standard unless adopted by contract, policy or law. Full text is licensed.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'inventory', 'materiality', 'lifecycle-governance', 'risk-treatment', 'competence', 'continuous-monitoring', 'assurance'], detailAvailability: 'licensed-standard',
@@ -93,7 +98,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'iso-23894', title: 'ISO/IEC 23894:2023 Artificial intelligence - Guidance on risk management', shortTitle: 'ISO/IEC 23894', issuer: 'ISO and IEC', jurisdiction: 'International', region: 'Global', authorityClass: 'international-standard', status: 'active', published: '2023-02', lastVerified: verified,
+    id: 'iso-23894', title: 'ISO/IEC 23894:2023 Artificial intelligence - Guidance on risk management', shortTitle: 'ISO/IEC 23894', issuer: 'ISO and IEC', jurisdiction: 'International', region: 'Global', authorityClass: 'standard', authorityNote: "Voluntary unless adopted through law, policy or contract", status: 'active', published: '2023-02', lastVerified: verified,
     officialUrl: 'https://www.iso.org/standard/77304.html',
     summary: 'Guidance for integrating AI-specific risk management into organisational activities and functions.', applicability: 'Voluntary guidance standard. Full text is licensed.', sectors: ['Cross-sector'],
     conceptIds: ['materiality', 'impact-assessment', 'risk-treatment', 'lifecycle-governance', 'continuous-monitoring'], detailAvailability: 'licensed-standard',
@@ -102,7 +107,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'oecd-ai-principles', title: 'OECD Principles on Artificial Intelligence', shortTitle: 'OECD AI Principles', issuer: 'Organisation for Economic Co-operation and Development', jurisdiction: 'International', region: 'Global', authorityClass: 'government-guidance', status: 'active', published: '2019', effective: 'Updated 2024', lastVerified: verified,
+    id: 'oecd-ai-principles', title: 'OECD Principles on Artificial Intelligence', shortTitle: 'OECD AI Principles', issuer: 'Organisation for Economic Co-operation and Development', jurisdiction: 'International', region: 'Global', authorityClass: 'policy-guidance', authorityNote: "Guidance; see scope below", status: 'active', published: '2019', effective: 'Updated 2024', lastVerified: verified,
     officialUrl: 'https://oecd.ai/en/ai-principles',
     summary: 'Intergovernmental principles for trustworthy AI and national policy, updated to address general-purpose and generative AI.', applicability: 'Non-binding intergovernmental recommendation that influences national policy and frameworks.', sectors: ['Cross-sector'],
     conceptIds: ['human-rights', 'fairness-bias', 'transparency-disclosure', 'reliability', 'ai-security', 'accountability', 'incident-response'], detailAvailability: 'full-public-text',
@@ -112,16 +117,16 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'singapore-ai-verify', title: 'AI Verify Testing Framework and Toolkit', shortTitle: 'AI Verify', issuer: 'Infocomm Media Development Authority and AI Verify Foundation', jurisdiction: 'Singapore - voluntary global reference', region: 'Singapore', authorityClass: 'testing-framework', status: 'living', published: '2022', lastVerified: verified,
-    officialUrl: 'https://www.imda.gov.sg/how-we-can-help/ai-verify',
-    summary: 'Testing framework and toolkit combining governance-process checks with technical tests for AI systems.', applicability: 'Voluntary testing resource. Test outputs are evidence inputs, not certification or an assurance opinion.', sectors: ['Cross-sector'],
+    id: 'singapore-ai-verify', title: 'AI Verify Testing Framework and Toolkit', shortTitle: 'AI Verify', issuer: 'Infocomm Media Development Authority and AI Verify Foundation', jurisdiction: 'Singapore - voluntary global reference', region: 'Singapore', authorityClass: 'testing-tool', authorityNote: "Voluntary technical reference", status: 'living', published: '2022', lastVerified: '2026-08-31',
+    officialUrl: 'https://www.imda.gov.sg/about-imda/emerging-technologies-and-research/artificial-intelligence',
+    summary: 'Testing framework and open-source toolkit combining governance-process checks with technical tests for traditional and generative AI systems.', applicability: 'Voluntary testing resource. Test outputs are evidence inputs, not certification or an assurance opinion.', sectors: ['Cross-sector'],
     conceptIds: ['evaluation', 'fairness-bias', 'transparency-disclosure', 'human-oversight', 'reliability', 'evidence-quality'], detailAvailability: 'public-summary',
     provisions: [
       { id: 'ai-verify-principles', ref: 'Testing framework', title: 'Governance and technical testing', summary: 'Maps governance principles to process checks and measurable technical tests.', conceptIds: ['evaluation', 'evidence-quality', 'fairness-bias', 'reliability'] },
     ],
   },
   {
-    id: 'mitre-atlas', title: 'Adversarial Threat Landscape for Artificial-Intelligence Systems', shortTitle: 'MITRE ATLAS', issuer: 'MITRE', jurisdiction: 'Global knowledge base', region: 'Global', authorityClass: 'threat-knowledge', status: 'living', published: '2020', lastVerified: verified,
+    id: 'mitre-atlas', title: 'Adversarial Threat Landscape for Artificial-Intelligence Systems', shortTitle: 'MITRE ATLAS', issuer: 'MITRE', jurisdiction: 'Global knowledge base', region: 'Global', authorityClass: 'research-database', authorityNote: "Informational reference", status: 'living', published: '2020', lastVerified: verified,
     officialUrl: 'https://atlas.mitre.org/',
     summary: 'Knowledge base of adversary tactics and techniques for machine-learning, generative-AI and AI-enabled systems.', applicability: 'Threat knowledge for security analysis and testing. It is not law, a control framework or proof of exposure.', sectors: ['Cross-sector'],
     conceptIds: ['adversarial-risk', 'ai-security', 'supply-chain', 'red-teaming', 'incident-response', 'agent-authority'], detailAvailability: 'full-public-text',
@@ -132,10 +137,14 @@ const coreInstruments: Instrument[] = [
 ]
 
 export const instruments: Instrument[] = [
+  ...methodologySources,
   ...coreInstruments,
+  ...legalFoundationInstruments,
+  ...septemberSources,
+  ...frontierSources,
   ...australianInstruments,
   ...globalInstruments,
   ...standardsAndTestingInstruments,
-]
+].map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
 
 export const instrumentById = new Map(instruments.map((instrument) => [instrument.id, instrument]))

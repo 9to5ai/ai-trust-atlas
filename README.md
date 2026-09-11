@@ -1,110 +1,399 @@
 # AI Trust Atlas
 
-AI Trust Atlas is a public, interactive knowledge graph showing how AI laws, regulatory expectations, standards, risk frameworks, controls, testing resources and threat knowledge relate at the ontological level.
+**A source-linked knowledge map that turns a complex topic into something people can explore, question and use.**
 
-The atlas is Australia first, with regulated financial services at its centre and global instruments as comparative layers. It supports semantic zoom from visual themes to concepts, instruments and source provisions, while preserving the granularity of articles, clauses, sections, principles, outcomes, practices and summaries.
+[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
 
-The Risk lens incorporates the MIT AI Risk Repository's seven domains and 24 subdomains as a separate descriptive layer. It connects documented risk types to the Atlas trust ontology while retaining the distinction between MIT source taxonomy and Atlas synthesis.
+AI Trust Atlas connects AI governance concepts with laws, guidance, standards, research, risks and candidate controls. Its Universe makes the landscape explorable; its hierarchical List makes it readable. Source cards explain the material, role-specific questions help prepare conversations, and an organisation workspace helps assemble a proposed AI risk management framework.
 
-The Controls lens adds 24 Atlas-normalised control objectives across six families. They are grounded in public NIST, MIT, Australian Government and OWASP material, with CSA AICM represented as a public-metadata crosswalk source. Controls are candidate responses—not findings about implementation, effectiveness or compliance.
+The initial audience is regulators, boards and executive leaders, with particular attention to Australia and financial services. The implementation is also a blueprint for a reference application on another topic: keep the rendering and evidence model, then replace the taxonomy, source corpus, editorial rules and audience questions.
 
-## What the atlas is
+> This is a reference and planning tool. Connections do not establish legal applicability, compliance, implemented controls, operating effectiveness, residual risk or assurance. Those judgments belong to accountable people.
 
-- A navigable ontology of shared AI Trust concepts.
-- A source-linked corpus of public, authoritative instruments.
-- A canonical store of typed mapping assertions with rationale, basis, confidence, citations, version and verification date.
-- A comparison tool that preserves differences in authority, scope and applicability.
-- A progressive risk universe with causal lenses for entity, intent and timing.
-- A bounded control architecture with implementation patterns, possible evidence and source foundations.
-- A reversible Focus List that ranks connected instruments through explicit shared concepts and keeps the selected node's inspector visible.
+## Contents
 
-## What the atlas is not
+1. [What you can do](#what-you-can-do)
+2. [Architecture at a glance](#architecture-at-a-glance)
+3. [Run it locally](#run-it-locally)
+4. [The knowledge model](#the-knowledge-model)
+5. [How the interface works](#how-the-interface-works)
+6. [Organisation frameworks and Gemini](#organisation-frameworks-and-gemini)
+7. [Source selection and authority](#source-selection-and-authority)
+8. [How new material enters the Atlas](#how-new-material-enters-the-atlas)
+9. [Prompts, schedules and cron jobs](#prompts-schedules-and-cron-jobs)
+10. [GitHub and Vercel deployment](#github-and-vercel-deployment)
+11. [Build an Atlas on another topic](#build-an-atlas-on-another-topic)
+12. [Verification, limits and next steps](#verification-limits-and-next-steps)
 
-It does not determine legal applicability, materiality, compliance, control effectiveness, evidence sufficiency, residual risk or an assurance opinion. Those decisions remain with appropriately accountable people.
+## What you can do
 
-A risk-to-concept connection means `threatens` or `relevant to`, not `covered by`, `mitigated by` or `controlled by`. Instrument-to-risk associations are displayed as ranked two-hop paths through shared concepts and provisions. MIT risk record counts are descriptive source classifications; they are not likelihood, impact, exposure or priority scores.
+| Experience | Purpose | Implementation |
+|---|---|---|
+| Universe | Explore sources, concepts, risks and controls spatially, with selection emphasis and source provenance | Custom Canvas 2D renderer with projected 3D positions |
+| List | Browse the same objects hierarchically or go directly to an alphabetical source directory | Accessible React tree with canonical node IDs and appearance-specific paths |
+| Source inspector | Read summaries, scope, source links, legal foundations and related material | Components backed by the compiled source corpus |
+| Questions to ask | Prepare Board, Executive or Regulator conversations and collect a meeting brief | Authored question banks and deterministic composition, not live model generation |
+| What’s new | Review developments within 30, 90 or 120 days | Editorially curated event records filtered by publication date |
+| Build framework | Define context, edit risks/practices, assign owners, record review decisions and export | Browser-local workspace; optional server-side Gemini drafting |
+| Light / dark | Preserve topic colours in either theme | CSS variables, saved preference and theme-aware Canvas rendering |
 
-Source-provision guides for licensed standards are original paraphrases based on public metadata. They do not reproduce the licensed text and do not replace the official standard.
+At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 293 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
 
-A control objective may be `intended to support` a trust concept or `may address` a risk. The Atlas does not determine whether a control applies, has been implemented, is appropriately designed, operates effectively, produces sufficient evidence or supports an assurance conclusion.
+## Architecture at a glance
 
-## Ontology and assertion model
+```mermaid
+flowchart LR
+  Official[Official publications and original evidence] --> Review[Human or agent research review]
+  Policy[Editorial policy and discovery register] --> Review
+  Review --> Ledger[Review runs and candidate decisions]
+  Ledger --> Corpus[Reviewed TypeScript corpus]
+  Corpus --> Assertions[Typed mapping assertions]
+  Corpus --> UI[React application]
+  Assertions --> UI
+  UI --> Universe[Canvas Universe]
+  UI --> List[Hierarchical List]
+  UI --> Inspector[Source details and questions]
+  UI --> News[Recent developments]
+  UI --> Workspace[Organisation framework]
+  Workspace --> Local[Browser storage and exports]
+  Workspace -->|Explicit consent and access code| API[Vercel server function]
+  API -->|Server-held key| Gemini[Google Gemini]
+  Gemini --> Validation[Validate draft and references]
+  Validation -->|Suggestions for review| Workspace
+```
 
-The user-facing model separates:
+**The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not call an LLM or query a graph database. The graph is assembled from arrays and maps in the browser.
 
-`Source → Source provision → Trust objective ← Risk ← Control objective ← Control practice`
+The one application API is an optional Gemini drafting endpoint. There is no crawler running inside the web app, vector database, retrieval-augmented chat service, shared organisation database or automatic legal decision engine.
 
-Tests and possible evidence sit beneath control practices. Accountable humans retain approval, risk acceptance, residual-risk and assurance decisions.
+### Main layers and files
 
-Each semantic mapping records:
+| Layer | Key files | Responsibility |
+|---|---|---|
+| Contracts | [`src/types.ts`](src/types.ts) | Instruments, concepts, provisions, risks, controls, citations, assertions and graph nodes |
+| Source corpus | [`src/data/instruments.ts`](src/data/instruments.ts), regional/source modules and dated refresh modules | Compose the canonical source array; apply targeted corrections and section additions |
+| Ontology | [`src/data/concepts.ts`](src/data/concepts.ts), [`controls.ts`](src/data/controls.ts), [`mitRiskTaxonomy.ts`](src/data/mitRiskTaxonomy.ts) | Topics, shared concepts, risk taxonomy and candidate control objectives |
+| Relationships | [`src/data/relations.ts`](src/data/relations.ts), [`assertions.ts`](src/data/assertions.ts) | Source-to-source links, typed assertions, explanations and ranked risk paths |
+| Navigation models | [`src/lib/graphModel.ts`](src/lib/graphModel.ts), [`outlineModel.ts`](src/lib/outlineModel.ts), [`workspace.ts`](src/lib/workspace.ts) | Filtered graph, deterministic coordinates, tree appearances, search and bounded path exploration |
+| App state | [`src/App.tsx`](src/App.tsx) | Selection, filters, view transitions, dialogs and URL navigation |
+| Rendering | [`GraphCanvas.tsx`](src/components/GraphCanvas.tsx), [`UniverseOutline.tsx`](src/components/UniverseOutline.tsx), [`Inspector.tsx`](src/components/Inspector.tsx) | Universe, List and source-detail experiences |
+| Questions | [`leadershipQuestions.ts`](src/data/leadershipQuestions.ts), [`nodeQuestionPrompts.ts`](src/data/nodeQuestionPrompts.ts), [`nodeQuestions.ts`](src/data/nodeQuestions.ts) | Authored prompts and audience-specific composition |
+| Developments | [`src/data/developments.ts`](src/data/developments.ts), [`TemporalLens.tsx`](src/components/TemporalLens.tsx) | Event metadata and recent-development feed |
+| Framework workspace | [`src/framework/`](src/framework/) | Local register, approval snapshots, exports, AI proposal review |
+| AI service | [`api/framework-draft.ts`](api/framework-draft.ts), [`server/framework-ai.ts`](server/framework-ai.ts) | Request gates, trusted grounding, model call and response validation |
+| Editorial operations | [`research/sourcing/`](research/sourcing/), [`scripts/source-review.ts`](scripts/source-review.ts) | Discovery register, candidate decisions and review completeness checks |
 
-- a typed direction, such as `implements`, `extends`, `maps-to` or `provides-testing-for`;
-- an explanation;
-- whether the basis is explicit in source material or cross-framework synthesis;
-- a confidence level;
-- structured source citations;
-- mapping version, verification date and inference depth.
+## Run it locally
 
-The 12 familiar themes are explicitly typed as five trust outcomes, five governance capabilities and two context facets. Agentic AI and third-party are therefore cross-cutting contexts rather than peer trust outcomes.
-
-## Atlas and Focus List projections
-
-Selecting a node first reveals its immediate graph connections. The Atlas then transitions into a Focus List while retaining the universe as a subdued spatial backdrop. Concepts, domains, risks and controls produce ranked lists of connected instruments. Selecting an instrument opens its source provisions by default, with related instruments available as a second tab. Every row states the concepts or source-foundation relationship used for ranking; the list does not imply legal applicability, coverage or control effectiveness.
-
-The Atlas / Focus list switch reverses the transition without losing the selected-node context. Both projections support keyboard focus, responsive layouts and reduced-motion preferences.
-
-## Control layer
-
-- Six families: Govern and own; Understand and assess; Protect and constrain; Inform and enable recourse; Test and monitor; Respond, recover and retire.
-- 24 neutral control objectives.
-- Three implementation patterns and three possible evidence examples per objective.
-- Explicit mappings to trust concepts, MIT risk types and public source foundations.
-- Immediate controls appear only around a selected risk or concept; detailed catalogues remain in search and the inspector.
-
-Primary public foundations:
-
-- [NIST AI RMF Playbook](https://airc.nist.gov/airmf-resources/playbook/)
-- [MIT AI Risk Mitigation Taxonomy](https://airisk.mit.edu/ai-risk-mitigations)
-- [Australian Government Guidance for AI Adoption](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance)
-- [OWASP AISVS](https://owasp.org/www-project-artificial-intelligence-security-verification-standard-aisvs-docs/)
-- [CSA AICM v1.1 public metadata](https://cloudsecurityalliance.org/artifacts/ai-controls-matrix-v1-1)
-
-CSA's detailed catalogue is not republished pending appropriate public-display and derivative-use rights. Licensed ISO content remains a normative reference and crosswalk target, not an ingested control source.
-
-## MIT risk layer
-
-- Source: [MIT AI Risk Repository](https://airisk.mit.edu/risks)
-- Taxonomy: 7 domains and 24 subdomains
-- Included aggregate: 1,511 source records mapped to those 24 subdomains in AI Risk Database v4
-- Source data updated: 3 December 2025
-- Licence: CC BY 4.0
-- Atlas mappings: cross-framework synthesis with a visible confidence level
-
-The browser bundle contains the stable taxonomy spine and aggregate causal profiles, not the full source-record text. Users can open the official MIT database from every risk detail panel.
-
-## Local use
+Use a supported Node.js release compatible with Vite. The deployed Vercel project uses Node 24; Node 22 was also used for local validation. Dependency versions are locked in `package-lock.json`.
 
 ```bash
-npm install
+git clone https://github.com/9to5ai/ai-trust-atlas.git
+cd ai-trust-atlas
+npm ci
 npm run dev
 ```
 
-Quality checks:
+Open the local URL printed by Vite. No API key is required to browse or create a framework manually.
 
 ```bash
-npm run typecheck
+npm run typecheck          # TypeScript checks, including the server code
+npm test                   # Vitest: data, model, UI and endpoint tests
+npm run questions:check    # All required cards and audiences have complete questions
+npm run build              # Question gate, TypeScript and Vite output
+npm run preview            # Serve the built static app locally
+npm run sources:review     # Validate the ledger and report due checks; no research occurs
+```
+
+The normal Vite server does **not** serve Vercel functions. Use `vercel dev` or a Vercel preview with server environment variables for an end-to-end Gemini check. Keep credentials in the server environment; `.env.example` contains names only. Never put keys in a `VITE_` variable: those variables can be bundled into browser code.
+
+## The knowledge model
+
+```mermaid
+flowchart TD
+  Topic[Topic or visual domain] -->|organises| Concept[Trust concept]
+  Source[Source instrument] -->|contains| Section[Selected source section]
+  Source -->|addresses| Concept
+  Section -->|addresses| Concept
+  Risk[Risk type] -->|threatens or relevant to| Concept
+  Control[Candidate control objective] -->|supports| Concept
+  Control -->|may address| Risk
+  Control -->|synthesised from| Source
+  Source -->|typed legal or other relation| Other[Another source]
+  Event[Development] -->|references| Source
+  Event -->|tagged with| Topic
+```
+
+### Objects have stable identities
+
+Canonical navigation IDs include `instrument:apra-cps-230`, `concept:accountability`, `provision:<id>`, `risk-subdomain:<id>` and `control-objective:<id>`. A source can appear under several concepts in the List while still opening the same source record. Its tree appearance has a separate path key, so expanding one branch does not redefine its identity.
+
+A source record separates:
+
+- **Identity and origin:** title, issuer, official URL and stable ID.
+- **Authority and scope:** source type, authority note, jurisdiction, sectors and applicability description.
+- **Time and status:** publication date, effective date where known, status and last verification date.
+- **Review depth:** full public text, public summary or licensed-standard metadata.
+- **Content:** original synopsis, concept IDs and selected sections with their own locators and review notes.
+
+[`instruments.ts`](src/data/instruments.ts) composes base records, regional sources, dated additions and explicit correction overlays. These overlays do not automatically reverify the rest of a source. Section-level review dates can differ from the parent record.
+
+### Connections carry reasons and evidence
+
+A `MappingAssertion` stores source and target IDs, predicate, rationale, basis, confidence, citations, author, verification date, status and inference depth. The three provenance bases are:
+
+| Basis | Meaning |
+|---|---|
+| `source-authored` | The relationship is attributed to the source itself |
+| `published-crosswalk` | A published mapping connects the materials |
+| `atlas-synthesis` | The Atlas authors interpret the relationship |
+
+Assertions are partly generated deterministically from curated concept IDs, source references and relationship records. This generation expands editorial input into a navigable model; it is **not** independent verification. High confidence is an editorial label, not a measured probability. Default or inherited verification dates must not be confused with a fresh review of every assertion.
+
+The navigation layer adds explicit containment edges for source sections and risk taxonomy structure. Graph position, topic colour and visual proximity carry no legal force. Paths may navigate in either direction for exploration, but retain each assertion’s original direction and meaning.
+
+A source-to-risk path often travels through a concept or section. Path ranking is a navigation heuristic; it is not a risk score, control coverage calculation or finding that the source mitigates the risk. The bounded path search avoids using topic groupings as shortcuts between unrelated records.
+
+## How the interface works
+
+### Universe and List are two projections of one corpus
+
+1. `App.tsx` holds filters, the active lens and canonical selected ID.
+2. `buildGraphModel()` selects relevant records and creates deterministic target coordinates and edges. Stable hashing helps preserve layout between renders.
+3. `GraphCanvas` projects x/y/z coordinates onto Canvas 2D, applies camera scale and rotation, draws depth-aware nodes and labels, and handles hit testing and keyboard navigation. This is custom projected geometry, not a Three.js scene or a force-directed graph database.
+4. `buildOutline()` makes the corresponding topic, risk or control hierarchy. Source browsing can instead use a flat alphabetical source directory with expandable sections.
+5. Universe and List capture visible node screen positions. A Motion overlay animates matching canonical IDs between views; remaining rows and nodes transition into place. Selected objects continue to use the same inspector.
+6. Reduced-motion preferences, tree keyboard controls and mobile sheet dismissal support different ways of navigating.
+
+Search indexes the compiled objects and uses text matching, not embeddings. The List ranks sources within a concept partly by the number of supporting sections; direct source browsing is alphabetical. Neither ranking should be read as an authority assessment.
+
+### Questions and developments
+
+The question bank is maintained in source files. `questionsForNode()` composes role-specific prompts from authored concept, risk, control and source material. Each question carries context, the question, why it matters, evidence to ask for, a follow-up and references. The build enforces coverage and distinct wording for Board, Executive and Regulator audiences.
+
+“What’s new” reads curated development records rather than scraping the internet when opened. It filters publication dates into 30/90/120-day windows, with topic filters and links back to sources. A new source node, a newly reviewed old publication and a new real-world event are different things; old material must not become “news” merely because it was added to Git.
+
+### State and styling
+
+Ordinary navigation is React state with URL-based selection. Theme and audience preferences use browser storage. Meeting preparation and other UI state should be treated as local rather than a shared service. The organisation framework explicitly persists a single workspace in `localStorage`, with JSON backup/restore.
+
+The visual design combines base styles with feature styles and an Arctic/light and dark colour system. Canvas colours are coordinated with CSS through theme-aware rendering. For a new topic, preserve accessible contrast and stable category colours rather than giving every node a new decorative style.
+
+## Organisation frameworks and Gemini
+
+Manual framework creation is deterministic. The organisation supplies context, AI use cases, risk appetite and accountable sponsor. [`model.ts`](src/framework/model.ts) selects editorial starting risks and related practices, preserves exclusions, and assembles source suggestions. These starting rules are deliberately simple; they do not perform a sector-wide applicability analysis.
+
+Users can edit or add risks and practices, assign owners, specify actions and evidence, set escalation and review dates, and record development-review decisions. Exports include Markdown, a CSV control register and a JSON backup. CSV output escapes formula-like cells. Recorded approvals preserve a snapshot of a revision; subsequent edits remain distinguishable from that snapshot. An approval record is not an authenticated signature.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Browser as Framework workspace
+  participant API as Vercel function
+  participant Model as Google Gemini
+  User->>Browser: Edit scope and select practices
+  User->>Browser: Consent and enter owner access code
+  Browser->>API: POST bounded workspace
+  API->>API: Check configuration, origin, code and schema
+  API->>API: Reconstruct selected references from server corpus
+  API->>Model: System prompt and grounded context
+  Model-->>API: Structured JSON draft
+  API->>API: Validate IDs, fields and exact policy excerpts
+  API-->>Browser: Suggestions or an error
+  Browser-->>User: Review proposed text and references
+  User->>Browser: Apply selected suggestions
+  Browser->>Browser: Revise draft; preserve approval snapshot
+```
+
+### Configuration and API contract
+
+| Variable | Purpose | Browser exposure |
+|---|---|---|
+| `GEMINI_API_KEY` | Google API credential | Never intentionally sent to the browser |
+| `FRAMEWORK_AI_ACCESS_CODE` | Private pilot access gate for drafting | Entered by the tester; not persisted by the workspace |
+| `GEMINI_MODEL` | Optional model selection; default `gemini-2.5-flash` | Model name is not a credential |
+
+`GET /api/framework-draft` reports only whether the two required variables are configured. `POST` validates consent, the access code and the bounded workspace; a supplied cross-origin header is rejected. No anonymous key-funded model call is allowed. An unconfigured deployment returns an intentional setup-required response while manual editing continues to work.
+
+The server reconstructs reference summaries from the trusted corpus rather than trusting client-provided source text. Organisation descriptions, existing actions and policy excerpts remain untrusted input. The response must name selected practice/source IDs; quoted policy excerpts must occur in the supplied text. Incomplete model responses fail validation. The browser requires review before application and rejects stale suggestions after the framework changes.
+
+**Limits:** this is summary-grounded drafting, not full-document retrieval. Structural validation cannot establish the semantic correctness of a suggestion or make prompt injection impossible. Human review remains necessary. There is no shared account system, persistent per-user quota or database. Before a broad client rollout, add organisational authentication, tenant isolation, audit records, quotas and approved data-processing arrangements. Configure provider spending controls. Credentials were not configured at the documentation snapshot; the live GET endpoint reports the current state.
+
+## Source selection and authority
+
+**Source type describes form; authority depends on the claim, remit and scope.** A regulator’s binding instrument, its speech and a research paper should not inherit the same legal status because they come from a prestigious publisher.
+
+The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
+
+[`sourcingPolicy.ts`](src/data/sourcingPolicy.ts) supplies one rubric to the Methodology UI and candidate assessor:
+
+| Factor | Weight | Question |
+|---|---:|---|
+| Authority for the claim | 30% | Is this the responsible institution or strong original evidence for this claim? |
+| Audience relevance | 30% | Does it matter to the target readers and jurisdictions? |
+| Decision impact | 25% | Could it change a question, assessment or action? |
+| Distinct contribution | 15% | Does it add substantive value beyond existing coverage? |
+
+Each factor is scored 0–4 with a written reason. The total is `sum(score × weight / 4)`, producing 0–100. This prioritises review effort; it is not an admission threshold or certification. Relevant binding changes receive mandatory review priority regardless of novelty, but cannot bypass the evidence gates.
+
+Before inclusion, the candidate must pass **provenance, evidence, rights, and scope/status** gates and have a recorded reviewer, date and review depth. The assessor rejects include/development-only decisions without those prerequisites.
+
+| Disposition | Use it when |
+|---|---|
+| Include | There is supported, distinct and lasting reference value |
+| Development only | The event is useful news but can link to an existing source node |
+| Defer | Access, evidence, date, scope or status remains unresolved |
+| Exclude | It is duplicative, out of scope, promotional without useful evidence, or lacks decision value |
+
+Official publication is a provenance advantage, not automatic admission. Original technical research can be valuable without legal force. Licensed ISO/IEC/IEEE material is represented at permitted public-metadata/summary depth; do not reproduce licensed clauses. Search snippets and secondary reporting can identify leads but do not substitute for the required source review.
+
+The full rubric anchors, review depths and examples are in [the sourcing guide](research/sourcing/README.md). [Candidate decisions](research/sourcing/candidate-decisions.json) preserve reasons and reassessments; `supersedesId` records a new decision rather than silently rewriting its predecessor.
+
+## How new material enters the Atlas
+
+```mermaid
+flowchart TD
+  Trigger[Scheduled or requested review] --> Checklist[Initialise a fresh checklist]
+  Checklist --> Existing[Existing source URLs]
+  Checklist --> Publishers[Due publisher release pages]
+  Checklist --> Topics[Due cross-publisher topic searches]
+  Existing --> Evidence[Read and compare at the declared depth]
+  Publishers --> Evidence
+  Topics --> Evidence
+  Evidence --> Results[Changed / unchanged / not reviewed]
+  Results --> Candidate[Candidate gates, scores and reasons]
+  Candidate --> Decision{Editorial disposition}
+  Decision -->|Include or development only| Draft[Proposed content and mapping edits]
+  Decision -->|Defer or exclude| Ledger[Retain decision and reason]
+  Draft --> Gate{Required checks complete?}
+  Gate -->|No| Incomplete[INCOMPLETE: block publication of run]
+  Gate -->|Yes| Validate[Questions, integrity tests and build]
+  Validate --> Git[Reviewed commit and deployment]
+```
+
+The [discovery register](research/sourcing/discovery-register.json) defines publisher endpoints and cross-publisher topic searches. Existing corpus URLs are added to each checklist automatically. Weekly items become due after seven days; the current script treats monthly discovery as a rolling 28-day interval, not calendar-month scheduling. Entries without a review date are due immediately.
+
+```bash
+# 1. Report due work and validate candidate decisions; no sources are fetched.
+npm run sources:review
+
+# 2. Create a unique run. This refuses to overwrite an existing file.
+npm run sources:review -- init research/sourcing/run-YYYY-MM-DD.json
+
+# 3. Perform actual research; record evidence and decisions in the JSON files.
+#    The CLI does not perform this step for you.
+
+# 4. Check the completed run. Any unreviewed/missing required check fails.
+npm run sources:review -- check research/sourcing/run-YYYY-MM-DD.json
+
+# 5. Validate supported edits before publishing.
+npm run questions:check
 npm test
 npm run build
 ```
 
-## Corpus maintenance
+Every required check is `changed`, `unchanged` or `not reviewed`. Non-empty evidence URLs, a review timestamp, a reviewer and a note are required for reviewed entries. Missing checks or any `not reviewed` entry make the run **INCOMPLETE**, regardless of its manually entered status label. Opening a page, checking a checksum or running tests does not establish that the content was assessed.
 
-The public-source monitoring protocol is documented in [MONITORING.md](./MONITORING.md). Every configured source must receive one of three states on each run: `changed`, `unchanged` or `not reviewed`. Any `not reviewed` source makes the run incomplete.
+Keep publication, effective/event, review and addition dates separate. Deduplicate events using issuer/document/version/event identity. After a substantive change, review affected sources, selected sections, concepts, assertions, risks, controls and audience questions. Update discovery review dates only after the corresponding checks and run validation, retaining the original checklist.
 
-## Technology
+**Current evidence limitation:** the committed 10 September 2026 run records 17 completed checks out of 102 and remains incomplete. A separately documented, individually supported subset was published; that exception does not certify the full scan or authorise future incomplete runs. See [the dated review](research/sourcing/2026-09-10-review.md). A later checklist may contain more entries as the corpus or due discovery scope grows.
 
-React, TypeScript, Vite, Motion and a custom high-performance canvas renderer. The canvas supports pointer orbiting, zoom and keyboard node navigation. No analytics, cookies, accounts or private data are used.
+## Prompts, schedules and cron jobs
 
-## Licence
+There are three different mechanisms. Keeping them separate is essential when reproducing this app.
 
-Application code is released under the MIT License. Source instruments remain subject to the rights and terms of their respective publishers.
+| Mechanism | Current implementation | What it actually does |
+|---|---|---|
+| Research monitor | Active **local Codex heartbeat**, Monday 07:00 Australia/Sydney in the owner’s setup | Starts an agent review using the monitoring prompt; depends on that external host/tool environment |
+| Vercel cron | **None**; `vercel.json` has no cron schedule and the app has no refresh API | Nothing is fetched or updated on a Vercel timer |
+| GitHub Actions | Push / pull-request / manual CI in [`.github/workflows/ci.yml`](.github/workflows/ci.yml); **no schedule trigger** | Checks code, data and build; does not research or ingest publications |
+| Gemini draft | On explicit user request through the framework API | Drafts selected framework content; does not maintain the public corpus |
+| Audience questions | TypeScript content and composition | Displays authored questions; does not call Gemini |
+
+Cloning this repository or connecting it to Vercel does **not** install the owner’s Codex automation. To reproduce it, configure your own scheduler for Monday 07:00 in your intended timezone, point it at your checkout and supply the [portable monitor prompt](docs/prompts/source-monitor.md). Its execution environment needs browsing, file access and the ability to run the documented checks. Keep publisher credentials and deployment credentials outside the prompt.
+
+For UTC-only schedulers, Monday 07:00 Sydney is Sunday 21:00 UTC during standard time or Sunday 20:00 UTC during daylight saving. A timezone-aware scheduler avoids this seasonal conversion. These are scheduling translations, not cron jobs installed by this repository.
+
+The [prompt catalogue](docs/PROMPTS.md) identifies every maintained prompt family and the exact executable Gemini prompt location. The monitor prompt is copied from the configured task with its machine path replaced by a checkout placeholder. There is no hidden automated “generate the whole graph” prompt: past interactive research and design conversations produced curated files; those conversations are not a runtime dependency or a reproducible ingestion pipeline.
+
+## GitHub and Vercel deployment
+
+```mermaid
+flowchart LR
+  Edit[Local code or reviewed corpus edit] --> Push[GitHub commit]
+  Push --> CI[GitHub CI: ledger, tests, build]
+  Push --> Vercel[Vercel Git integration]
+  Vercel --> Build[Tests and production build]
+  Build --> Branch{Branch}
+  Branch -->|main| Production[Production Atlas]
+  Branch -->|Other branch| Preview[Preview deployment]
+  Secrets[Vercel server environment] --> Build
+```
+
+The repository is [`9to5ai/ai-trust-atlas`](https://github.com/9to5ai/ai-trust-atlas), the Vercel project is `ai-trust-atlas`, and the production branch is `main`. The root is the repository root, the framework preset is Vite and the output is `dist`.
+
+Vercel’s Git integration builds branch pushes and production-branch changes. See the official [Git integration guide](https://vercel.com/docs/git/vercel-for-github) and [`vercel git` reference](https://vercel.com/docs/cli/git). For a new fork, import **your** repository into **your** Vercel account, or link the local project and connect its remote:
+
+```bash
+vercel link
+vercel git connect https://github.com/YOUR-ACCOUNT/YOUR-ATLAS.git
+```
+
+Configure server variables in Vercel Settings → Environment Variables, scoped separately to Production and Preview as appropriate. Redeploy after changing environment variables. Do not commit `.vercel`, `.env`, build output, browser framework backups or real keys. `.env.example` is intentionally safe to publish.
+
+`vercel.json` configures security headers and SPA rewrites that leave `/api/` endpoints alone. The Vercel build runs tests and the normal build so production does not rely solely on a separate GitHub check finishing first. GitHub branch protection or Vercel deployment checks are separate account settings; this README does not imply they have been enabled. The source-review completeness gate is an editorial publication step, not a global code-deployment gate: unrelated UI fixes can ship without pretending a research run completed.
+
+## Build an Atlas on another topic
+
+The most reusable components are the **evidence-aware data model**, **two visual projections**, **typed connections**, **editorial review ledger**, and **audience-specific questions**. Start with those before adding generative AI.
+
+### Example: a climate-adaptation Atlas
+
+| AI Trust component | Climate-adaptation equivalent | Files to adapt |
+|---|---|---|
+| Trust topics | Flooding, heat, water, infrastructure, finance | `src/data/concepts.ts` |
+| Concepts | Exposure, vulnerability, adaptation pathways, resilience | Concepts and their role/definitions |
+| Instruments | Planning rules, climate assessments, engineering standards | Source modules composed in `instruments.ts` |
+| Source sections | A public report section, planning provision or standard overview | `SourceProvision` records |
+| Risks | Flood disruption, heat stress, service interruption | Replace the MIT-specific taxonomy; do not merely rename it |
+| Controls | Adaptation measures and monitoring practices | `controls.ts` and its source references |
+| Audiences | Local government, asset owners, communities | Question types, authored banks and coverage gates |
+| Developments | New assessments, policy changes, major findings | Development records and topic IDs |
+| Organisation framework | Local adaptation plan | Workspace profile, starting rules, language and AI schema |
+
+### A practical build sequence
+
+1. **Define the reader and decisions.** Write ten questions the application should help answer. Set jurisdiction and coverage boundaries before collecting sources.
+2. **Create a small taxonomy.** Start with a handful of topics and shared concepts. Separate navigation categories from claims about the world. Give each object a stable ID and a plain-language definition.
+3. **Select a bounded seed corpus.** Review a manageable set of primary sources. Store original URLs, authority, status, dates and review depth. Keep uncertainty visible rather than filling missing fields with invented precision.
+4. **Author a few useful connections.** Use meaningful predicates and locators. Distinguish source-authored relationships, published crosswalks and your own synthesis. Do not create an edge merely because two documents use the same word.
+5. **Connect the views.** Adapt graph filters, `primaryDomainFor`, colours, tree builders, inspectors and search. Reuse canonical IDs across Universe and List. If your topic needs a new node kind or region, update types and all associated renderers/tests.
+6. **Write audience questions.** Define the evidence or action a reader should ask for. Preserve the question schema and coverage checker while replacing all AI-specific examples and role assumptions.
+7. **Configure the review operation.** Replace publisher URLs, topic searches, cadence and rubric rationales. Install your own external scheduler if desired; retain incomplete runs and excluded candidates.
+8. **Add an organisation workspace only if it solves a real task.** Replace AI use cases, initial risk mappings, control rules and source suggestions. Generic labels alone do not make the current AI-specific framework builder topic-independent.
+9. **Add AI last.** Adapt the executable system prompt, grounding payload and output validator together. Keep secrets server-side and retain review-before-apply. Introduce document retrieval only with an explicit citation, access and licensing design.
+10. **Test, deploy and evaluate usefulness.** Confirm users can answer concrete questions, trace a link to evidence and recognise uncertainty. Measure useful decisions and review latency rather than node count or animation activity.
+
+Some topic-specific assumptions are spread across the code: Australian source suggestions in the framework model, MIT risk identifiers, source-type labels, role question rules, fixed region unions and styling. This is a reusable application pattern, not yet a generic schema-driven Atlas platform.
+
+## Verification, limits and next steps
+
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior, sheet dismissal, framework persistence/exports/approvals and API validation. At this documentation snapshot, 96 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+
+Known operational limits:
+
+- Public content is a curated snapshot, not a live feed. Monitoring coverage can be incomplete.
+- Review dates and confidence labels partly inherit editorial defaults; inspect actual citations and recorded depth.
+- Graph and List are built in memory; larger corpora may need indexed search, list virtualisation and incremental rendering.
+- Organisation data is local to one browser. Clearing it removes the workspace unless a backup exists.
+- Gemini uses selected summaries, not full source retrieval, and has a shared pilot access code rather than tenant accounts.
+- A checklist validator enforces recorded completeness, not the quality of research performed. The current checker also derives required discovery items from the current due register; archive the original checklist and avoid changing review dates before validation.
+- Existing question banks and UI contain AI-specific assumptions. Porting requires editorial and code changes, not only replacing a JSON file.
+
+Useful next steps are authenticated organisation workspaces, source-version snapshots and meaningful diffs, review queues, richer source locators, and measurement of missed developments and reader usefulness. Each should preserve the distinction between public reference content, generated suggestions and human decisions.
+
+## Licence and attribution
+
+Application code is provided under the [MIT licence](LICENSE). Third-party publications, taxonomies, standards, brands and source material retain their own terms. The app licence does not grant rights to reproduce licensed standards or redistribute an entire external dataset. Follow each source’s permissions, retain attribution and prefer links plus original summaries.
+
+The diagrams above use Mermaid, which [GitHub renders in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams). Their source remains editable with the documentation.

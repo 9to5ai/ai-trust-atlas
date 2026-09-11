@@ -1,0 +1,1446 @@
+[
+  {
+    "sourceId": "au-privacy-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Australia reference for Cross-sector, Financial services.",
+      "impact": "Australia's principal federal privacy law, including the Australian Privacy Principles governing personal information.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "apra-ai-letter-2026",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory expectations; see scope below",
+      "relevance": "Australia reference for Banking, Insurance, Superannuation.",
+      "impact": "Sets APRA's supervisory focus on safe AI adoption, governance, risk management, cyber security and operational resilience.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "apra-cps-230",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding prudential standard within its scope",
+      "relevance": "Australia reference for Banking, Insurance, Superannuation.",
+      "impact": "Prudential standard for operational risk, business continuity and service-provider management.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "apra-cps-234",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding prudential standard within its scope",
+      "relevance": "Australia reference for Banking, Insurance, Superannuation.",
+      "impact": "Prudential standard requiring information-security capability, controls, incident notification and testing.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "eu-ai-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Europe reference for Cross-sector, Financial services.",
+      "impact": "Risk-based legal framework for AI systems and general-purpose AI models, with phased obligations and enforcement.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-ai-rmf",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary reference",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "Voluntary framework organising AI risk work through Govern, Map, Measure and Manage.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-genai-profile",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary reference",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "Companion profile describing generative-AI risks and actions aligned to the NIST AI RMF.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-42001",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Requirements for establishing, implementing, maintaining and continually improving an AI management system.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-23894",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Guidance for integrating AI-specific risk management into organisational activities and functions.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "oecd-ai-principles",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Intergovernmental principles for trustworthy AI and national policy, updated to address general-purpose and generative AI.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "singapore-ai-verify",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary technical reference",
+      "relevance": "Singapore reference for Cross-sector.",
+      "impact": "Testing framework and open-source toolkit combining governance-process checks with technical tests for traditional and generative AI systems.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "mitre-atlas",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Knowledge base of adversary tactics and techniques for machine-learning, generative-AI and AI-enabled systems.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-apra-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Governing legislation establishing APRA and its mandate",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "Establishes APRA and its institutional mandate for prudential regulation under the relevant Commonwealth laws.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-banking-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Enabling legislation for prudential standards within its scope",
+      "relevance": "Australia reference for Banking.",
+      "impact": "Provides the legislative basis for APRA prudential standard-making in banking.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-insurance-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Enabling legislation for prudential standards within its scope",
+      "relevance": "Australia reference for General insurance.",
+      "impact": "Provides the legislative basis for APRA prudential standard-making in general insurance.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-life-insurance-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Enabling legislation for prudential standards within its scope",
+      "relevance": "Australia reference for Life insurance.",
+      "impact": "Provides the legislative basis for APRA prudential standard-making in life insurance.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-phips-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Enabling legislation for prudential standards within its scope",
+      "relevance": "Australia reference for Private health insurance.",
+      "impact": "Provides the legislative basis for APRA prudential standard-making in private health insurance.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-sis-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Enabling legislation for prudential standards within its scope",
+      "relevance": "Australia reference for Superannuation.",
+      "impact": "Provides the legislative basis for APRA prudential standard-making in superannuation.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "owasp-agent-control-standard",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary implementation specification and tooling",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "An open approach to enforcing portable safety policies through hooks in agent platforms.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "owasp-genai-crosswalk",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational mapping reference",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "A published crosswalk connecting GenAI security risks with security and governance frameworks.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-critical-infrastructure-concept",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Concept stage; not a final profile",
+      "relevance": "United States reference for Critical infrastructure, Financial services.",
+      "impact": "An ongoing NIST project to tailor AI risk-management practices to critical infrastructure.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Apply supported correction in proposed-refresh.json."
+  },
+  {
+    "sourceId": "apra-asic-frontier-roundtables-2026",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "APRA and ASIC report roundtable findings on cyber readiness, decision-making, defensive AI and shared dependencies.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "fsb-frontier-letter-2026",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Global reference for Financial services.",
+      "impact": "The FSB Chair warns that frontier AI could change cyber attack economics and undermine confidence across the financial system.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asd-unexpected-agent-actions",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Australia reference for Cross-sector.",
+      "impact": "ASD discusses a reported booking incident in which an AI agent made unapproved changes and disadvantaged another customer. It highlights unintended behaviour and weak boundaries.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-tevv-athlon",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Draft reference; not final",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "The draft TEVV-Athlon framework describes a four-stage method for tailoring AI assessments to organisational objectives. The announced comment deadline is 6 October.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-public-ai-documentation",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Draft reference; not final",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "NIST released a preliminary guidance-and-templates draft for public-facing AI documentation, with input requested by 16 September. It is a proposal for further standards development.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-aite",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "NIST announced AITE, a testbed using sequestered datasets. Initial vision-language tasks cover quantum science, genomics and public safety.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "eu-ai-transparency-guidelines",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Europe reference for Cross-sector.",
+      "impact": "The Commission published guidance on Article 50 obligations for AI providers and deployers, ahead of their general application from 2 August.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "edpb-anonymisation-2026",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Draft reference; not final",
+      "relevance": "Europe reference for Cross-sector.",
+      "impact": "The EDPB opened feedback on draft Guidelines 02/2026 on Anonymisation. The consultation page gives a closing date of 30 October.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asd-ai-enabled-attacks",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Australia reference for Cross-sector.",
+      "impact": "ASD\u2019s enterprise guidance addresses executive accountability, faster vulnerability remediation, internet-facing services, access controls and tested recovery.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "apra-frontier-speech-2026",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "In its AFIA speech, APRA connects frontier AI to cyber, provider concentration and sovereign access risks, and encourages defensive AI and safe information sharing.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "five-eyes-frontier-statement",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Informational reference; see scope below",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "A joint statement urges leaders to assess readiness, strengthen foundational controls and give cyber leaders the authority and resources to act as frontier AI changes threats.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-corporations-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Australia reference for Financial services, Corporations.",
+      "impact": "Core corporations and financial-services law governing directors, licensees, disclosure, conduct and product obligations.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-asic-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "Establishes ASIC powers and financial-consumer protections, including misleading and unconscionable conduct rules.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-far-act",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Australia reference for Banking, Insurance, Superannuation.",
+      "impact": "Creates entity and senior-executive accountability duties across banking, insurance and superannuation.",
+      "contribution": "Provides legislative foundation."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "apra-cps-220",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding prudential standard within its scope",
+      "relevance": "Australia reference for Banking, Insurance, Superannuation.",
+      "impact": "Whole-of-entity prudential framework for material risks, risk appetite, oversight, declarations and independent review.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asic-rep-798",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational research",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "Reports ASIC findings from 624 AI use cases across 23 licensees and identifies governance gaps and consumer risks.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "au-ai-adoption-guidance",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Australia reference for Cross-sector.",
+      "impact": "Six essential practices for accountable, transparent and risk-based adoption of complex and higher-risk AI.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "dta-ai-policy",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Mandatory policy for covered Commonwealth entities; exceptions apply",
+      "relevance": "Australia reference for Government.",
+      "impact": "Mandatory policy within its stated Commonwealth scope for accountable officials, transparency, ownership and impact assessment.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "dta-agentic-addendum",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Government implementation guidance; agencies are expected to apply it",
+      "relevance": "Australia reference for Government, Cross-sector reference.",
+      "impact": "Adds governance and technical practices for autonomy, memory, tool access, observability and failure containment.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asd-secure-ai-development",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Australia reference for Cross-sector.",
+      "impact": "Secure-by-design guidance across AI design, development, deployment and operation.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asd-ai-supply-chain",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Australia reference for Cross-sector.",
+      "impact": "Threat and mitigation guidance for models, data, software, infrastructure and AI providers.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asd-frontier-board",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Australia reference for Cross-sector, Financial services.",
+      "impact": "Board-level guidance for machine-speed vulnerability discovery, agentic attack, critical services and recovery.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "asic-ai-cyber-letter",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory expectations; see scope below",
+      "relevance": "Australia reference for Financial services.",
+      "impact": "Calls on boards and licensees to strengthen cyber resilience as AI compresses threat timelines.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "eu-gdpr",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Europe reference for Cross-sector, Financial services.",
+      "impact": "Binding data-protection regime governing personal-data processing, profiling and significant automated decisions.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "eu-dora",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Legally binding within its scope",
+      "relevance": "Europe reference for Financial services.",
+      "impact": "Binding financial-sector regime for ICT risk, incidents, resilience testing and critical third parties.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "eu-gpai-code",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Europe reference for AI providers, Cross-sector.",
+      "impact": "Voluntary compliance mechanism for documentation, copyright and systemic-risk obligations applying to general-purpose AI providers.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "uk-ai-white-paper",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Policy position; see scope below",
+      "relevance": "United Kingdom reference for Cross-sector.",
+      "impact": "Non-statutory policy framework implemented through existing UK regulators rather than a horizontal AI Act.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Apply supported correction in proposed-refresh.json."
+  },
+  {
+    "sourceId": "uk-pra-ss1-23",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory expectations; see scope below",
+      "relevance": "United Kingdom reference for Banking.",
+      "impact": "Enterprise model-risk governance principles covering AI, machine learning and vendor models.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "uk-ico-ai-guidance",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "United Kingdom reference for Cross-sector.",
+      "impact": "Explains how UK data-protection obligations and good practice apply to AI.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Apply supported correction in proposed-refresh.json."
+  },
+  {
+    "sourceId": "osfi-e23",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory expectations; see scope below",
+      "relevance": "Canada reference for Banking, Insurance.",
+      "impact": "Risk-based enterprise model-risk guideline expressly covering AI and machine learning.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "mas-feat",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Singapore reference for Financial services.",
+      "impact": "Foundational principles for fairness, ethics, accountability and transparency in financial AI and analytics.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "mas-ai-mrm",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational research",
+      "relevance": "Singapore reference for Financial services.",
+      "impact": "Supervisory observations on governance, inventory, development, validation, deployment and monitoring of AI models.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "mas-mindforge",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Singapore reference for Financial services.",
+      "impact": "Practical implementation patterns for traditional, generative and agentic AI risk management.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "imda-agentic-framework",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary reference",
+      "relevance": "Singapore reference for Cross-sector.",
+      "impact": "Governance framework for bounding agent autonomy, tool and data access, human checkpoints and lifecycle risk.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "us-sr-26-2",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory expectations; see scope below",
+      "relevance": "United States reference for Banking.",
+      "impact": "Updated interagency supervisory guidance for tailored model-risk management in banking.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "fsb-ai-stability",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational research",
+      "relevance": "Global reference for Financial services.",
+      "impact": "Identifies financial-system vulnerabilities from third-party concentration, market correlations, cyber, model risk and fraud.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "fsb-ai-sound-practices",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Consultation proposal; not final guidance",
+      "relevance": "Global reference for Financial services.",
+      "impact": "Twelve proposed organisation-wide and lifecycle practices for responsible AI adoption in finance.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "unesco-ai-ethics",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Global reference for Cross-sector, Government.",
+      "impact": "Global human-rights-centred ethical framework with values, principles and policy-action areas.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "coe-ai-convention",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Treaty obligations depend on entry into force and participation",
+      "relevance": "Europe reference for Cross-sector, Government.",
+      "impact": "International treaty framework connecting AI lifecycle activity to human rights, democracy and rule of law.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "csa-aicm-1-1",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary reference",
+      "relevance": "Global reference for Cross-sector, Cloud services, AI providers.",
+      "impact": "Vendor-neutral control catalogue for cloud-based AI systems with 247 objectives across 18 security domains, role guidance, audit guidance and published crosswalks.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "mit-ai-risk-mitigations",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Research synthesis with a preliminary taxonomy",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Living database of 831 mitigation statements from 13 frameworks, organised through a draft taxonomy of four categories and 23 subcategories.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-42005",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Guidance for assessing foreseeable impacts of AI systems on individuals, groups and society across the lifecycle.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-38507",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Guidance for governing bodies on effective, efficient and acceptable organisational use of AI.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-5338",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Defines AI-specific lifecycle processes based on established systems and software engineering standards.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "iso-tr-24028",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational technical report",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Technical report describing trustworthiness characteristics for AI systems.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-ai-rmf-playbook",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "Living set of suggested actions and references for AI RMF categories and subcategories.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-adversarial-ml",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "United States reference for Cross-sector.",
+      "impact": "Taxonomy for predictive and generative AI attacks, attacker goals, capabilities, knowledge and mitigations.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-sp-800-218a",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "United States reference for Software development, AI providers.",
+      "impact": "Community profile augmenting secure software-development practices for AI models and model-based systems.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "nist-synthetic-content",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational technical report",
+      "relevance": "United States reference for Cross-sector, Media.",
+      "impact": "Technical overview of provenance, authentication, watermarking, detection, testing and auditing for synthetic content.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "owasp-llm-top-10",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Awareness taxonomy for critical security risks in applications built with large language models.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "owasp-agentic-top-10",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Informational reference",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Threat taxonomy for goal hijack, tool misuse, identity, memory, inter-agent and cascading-failure risks.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "owasp-aisvs",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary technical reference",
+      "relevance": "Global reference for Cross-sector.",
+      "impact": "Testable AI security requirements arranged in chapters and verification levels.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "c2pa-2-4",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary unless adopted through law, policy or contract",
+      "relevance": "Global reference for Media, Cross-sector.",
+      "impact": "Open technical specification for signed manifests, assertions, claims, trust lists and content validation.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "enisa-ai-cyber-framework",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Guidance; see scope below",
+      "relevance": "Europe reference for Cross-sector.",
+      "impact": "Layered guidance combining foundational cybersecurity, AI-specific security and sector-specific controls.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  },
+  {
+    "sourceId": "uk-aisi-inspect",
+    "reviewed": "2026-09-10",
+    "reviewScope": "Editorial triage of existing Atlas description, authority, scope and linked concepts; not full re-verification of source text",
+    "disposition": "retain-pending-source-review",
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Voluntary technical reference",
+      "relevance": "United Kingdom reference for Cross-sector, AI providers.",
+      "impact": "Open-source framework for constructing evaluations from datasets, solvers and scorers.",
+      "contribution": "Adds contextual coverage; check overlap before creating additional nodes."
+    },
+    "action": "Retain current record and verification dates pending complete source review."
+  }
+]

@@ -1,0 +1,80 @@
+.leadership-panel { margin:24px 0; padding:20px 0; border-top:1px solid #cbdcea; border-bottom:1px solid #cbdcea; }
+.questions-eyebrow { font-size:9px; letter-spacing:.13em; color:#56799e; }
+.leadership-panel header h3 { margin:7px 0 15px; font-size:22px; letter-spacing:-.025em; color:#223d56; }
+.question-tools { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.question-audiences { display:flex; gap:3px; padding:4px; border:1px solid #ceddec; border-radius:10px; background:#fff; }
+.question-audiences button { border:0; padding:8px 10px; background:transparent; border-radius:7px; color:#526b81; font:inherit; font-size:12px; cursor:pointer; }
+.question-audiences button[aria-pressed=true] { background:#e6efff; color:#2054a5; box-shadow:0 1px 3px #214c7210; }
+.questions-view-brief { padding:7px 9px; border:0; background:transparent; color:#315ea2; font-size:12px; cursor:pointer; }
+.questions-note { font-size:11px!important; line-height:1.6!important; color:#61778b!important; margin:12px 0!important; }
+.leadership-question-list { display:grid; gap:10px; }
+.leadership-question { border:1px solid #d4e1ec; border-radius:11px; background:linear-gradient(140deg,#fff,#f5f9fe); overflow:hidden; }
+.leadership-question details > summary { display:block; padding:16px 16px 12px; list-style:none; cursor:pointer; }
+.leadership-question summary::-webkit-details-marker { display:none; }
+.question-context { display:block; font-size:10px; line-height:1.5; color:#567699; margin-bottom:7px; }
+.question-text { display:block; color:#243f58; font-size:15px; line-height:1.5; font-weight:550; letter-spacing:-.01em; }
+.question-expand { display:flex; justify-content:space-between; gap:10px; color:#527297; font-size:10px; line-height:1.5; margin-top:12px; }
+.leadership-question details[open] .question-expand > span { transform:rotate(45deg); }
+.question-detail { padding:0 16px 15px; }
+.question-detail h4 { margin:16px 0 5px!important; color:#2c4963; font-size:11px!important; font-weight:650; }
+.question-detail p { margin:0!important; color:#49637a!important; font-size:12px!important; line-height:1.7!important; }
+.question-detail ul { margin:6px 0 0; padding:0; list-style:none; display:grid; gap:6px; }
+.question-detail a { font-size:11px; color:#365e98; line-height:1.5; overflow-wrap:anywhere; }
+.question-add { margin:0 16px 14px; padding:6px 0; border:0; background:transparent; color:#2e5ca8; font:inherit; font-size:11px; cursor:pointer; }
+.question-add[aria-pressed=true] { color:#2b6c60; }
+.question-notice { display:block; font-size:11px; color:#315f82; margin-top:7px; }
+.question-notice:empty { display:none; }
+.questions-recent { margin-top:16px; }
+.questions-recent > summary { cursor:pointer; font-size:12px; color:#43698d; }
+.questions-recent > div { margin-top:16px; }
+.questions-recent > div > a { font-size:12px; color:#355d91; }
+.questions-recent > div > small { display:block; font-size:10px; color:#637e97; margin:6px 0; }
+.news-question-audience { margin-top:18px; padding-top:16px; border-top:1px solid #d8e4ef; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.news-question-audience > span { font-size:12px; color:#516f8b; }
+.development-question { margin-top:16px; }
+.development-question .question-context { display:none; }
+.brief-launcher { position:fixed; right:24px; bottom:24px; z-index:65; display:flex; align-items:center; gap:12px; border:1px solid #b8cce7; border-radius:30px; padding:12px 18px; background:#fff; color:#2c568f; box-shadow:0 6px 25px #29496424; font:inherit; font-size:13px; cursor:pointer; }
+.brief-launcher span { display:grid; place-items:center; min-width:22px; height:22px; background:#e8efff; border-radius:50%; color:#2456b9; }
+.meeting-brief { box-sizing:border-box; inset:0 0 0 auto; margin:0; width:min(620px,100vw); max-width:100vw; height:100dvh; max-height:100dvh; overflow:auto; border:0; border-left:1px solid #c9dae8; padding:30px; background:#f5f9fd; color:#29445e; box-shadow:-15px 0 80px #1d3b5e25; }
+.meeting-brief::backdrop { background:#19344c48; backdrop-filter:blur(4px); }
+.brief-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:15px; }
+.brief-heading span { font-size:10px; letter-spacing:.16em; color:#587a9b; }
+.brief-heading h2 { margin:10px 0; font-size:34px; letter-spacing:-.04em; font-weight:550; }
+.brief-heading p { font-size:12px; color:#59728b; }
+.brief-heading > button { width:36px; height:36px; flex-shrink:0; border:1px solid #ccdae7; border-radius:50%; background:white; color:#315979; cursor:pointer; }
+.brief-purpose { display:grid; gap:8px; margin:22px 0 15px; font-size:12px; color:#446480; }
+.brief-purpose input { width:100%; box-sizing:border-box; padding:12px; border:1px solid #c9d9e9; border-radius:8px; background:#fff; color:#2b435b; font:inherit; font-size:14px; }
+.brief-purpose-print { display:none; }
+.brief-actions { display:flex; gap:10px; margin-top:20px; }
+.brief-actions button,.brief-empty button { padding:10px 14px; border:1px solid #b8cde8; border-radius:8px; background:#fff; color:#315e99; cursor:pointer; font:inherit; font-size:12px; }
+.brief-actions button:first-child { background:#e8efff; }
+.brief-status { font-size:12px; color:#376b5d; }
+.brief-copy-fallback { width:100%; box-sizing:border-box; min-height:180px; border:1px solid #c8d9e9; padding:12px; color:#29445e; background:white; }
+.brief-questions { list-style:none; counter-reset:brief; padding:0; margin:22px 0; display:grid; gap:16px; }
+.brief-questions > li { counter-increment:brief; padding:22px; border:1px solid #d3e0ec; border-radius:12px; background:#fff; }
+.brief-questions > li::before { content:counter(brief,decimal-leading-zero); display:block; color:#5d81ac; font-size:11px; margin-bottom:10px; }
+.brief-questions h3 { font-size:19px; line-height:1.4; font-weight:550; letter-spacing:-.015em; margin:8px 0 14px; }
+.brief-questions .question-detail { padding:0; }
+.brief-item-actions { display:flex; gap:8px; margin-top:18px; border-top:1px solid #e0e8f1; padding-top:12px; }
+.brief-item-actions button { border:1px solid #d5e1ec; border-radius:5px; padding:5px 9px; background:#f8fbff; color:#416587; cursor:pointer; }
+.meeting-brief button:disabled { opacity:.4; cursor:default; }
+.brief-empty { padding:40px 10px; text-align:center; }
+.brief-empty p { font-size:14px; line-height:1.7; }
+.leadership-panel button:focus-visible,.leadership-panel summary:focus-visible,.development-question summary:focus-visible,.development-question button:focus-visible,.question-audiences button:focus-visible,.meeting-brief :focus-visible,.brief-launcher:focus-visible { outline:2px solid #386cd8; outline-offset:3px; }
+@media(max-width:700px) { .meeting-brief { padding:24px 18px; }.brief-heading h2{font-size:29px}.brief-launcher { right:16px; bottom:calc(14px + env(safe-area-inset-bottom)); }.brief-questions > li{padding:18px}.leadership-panel{margin:20px 0}.news-question-audience{align-items:flex-start}.news-question-audience .question-tools{width:100%} }
+@media print {
+  @page { margin:18mm; }
+  body:has(.meeting-brief[open]) > :not(.meeting-brief) { display:none!important; }
+  .meeting-brief[open] { position:static!important; display:block!important; width:100%!important; height:auto!important; max-height:none!important; max-width:none!important; overflow:visible!important; margin:0!important; padding:0!important; border:0!important; box-shadow:none!important; background:white!important; color:#172b40!important; }
+  .meeting-brief::backdrop { display:none; }
+  .brief-actions,.brief-item-actions,.brief-heading > button,.brief-purpose,.brief-status,.brief-copy-fallback { display:none!important; }
+  .brief-purpose-print { display:block; font-size:16px; margin:18px 0; }
+  .brief-questions { display:block; }
+  .brief-questions > li { break-inside:avoid; margin:0 0 18px; border:0; border-top:1px solid #bac8d6; padding:18px 0; }
+  .question-detail a::after { content:' (' attr(href) ')'; font-size:9px; color:#415467; }
+}
+@media(max-width:700px) {
+  .brief-launcher { top:86px; left:16px; right:auto; bottom:auto; padding:9px 12px; font-size:0; gap:7px; }
+  .brief-launcher::before { content:'Brief'; font-size:12px; }
+  .brief-launcher span { font-size:11px; }
+}

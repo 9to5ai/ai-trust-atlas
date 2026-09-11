@@ -1,0 +1,1476 @@
+{
+  "policyVersion": "2026-09-10",
+  "created": "2026-09-10",
+  "status": "INCOMPLETE",
+  "items": [
+    {
+      "id": "source:au-privacy-act",
+      "title": "Privacy Act",
+      "url": "https://www.legislation.gov.au/C2004A03712/latest/text",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2004A03712/latest/text"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-ai-letter-2026",
+      "title": "APRA AI Letter",
+      "url": "https://www.apra.gov.au/news-and-publications/apra-letter-industry-artificial-intelligence-ai",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/news-and-publications/apra-letter-industry-artificial-intelligence-ai"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-cps-230",
+      "title": "APRA CPS 230",
+      "url": "https://www.apra.gov.au/standards/cps-230",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/standards/cps-230"
+      ],
+      "note": "Current official standard shows in force 1 July 2026; stored effective date is already correct. Relevant scope and objectives inspected, not a fresh audit of all provisions.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-cps-234",
+      "title": "APRA CPS 234",
+      "url": "https://www.apra.gov.au/standards/cps-234",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/standards/cps-234"
+      ],
+      "note": "Official commencement and third-party transition match previously corrected dates. Full provision-by-provision comparison not completed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:eu-ai-act",
+      "title": "EU AI Act",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+      ],
+      "note": "Official endpoint yielded no substantive legal text.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-ai-rmf",
+      "title": "NIST AI RMF",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.nist.gov/itl/ai-risk-management-framework"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-genai-profile",
+      "title": "NIST GenAI Profile",
+      "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-42001",
+      "title": "ISO/IEC 42001",
+      "url": "https://www.iso.org/standard/42001",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/42001"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-23894",
+      "title": "ISO/IEC 23894",
+      "url": "https://www.iso.org/standard/77304.html",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/77304.html"
+      ],
+      "note": "Public catalogue metadata and abstract compared with the Atlas synopsis: title, edition, publication month and overview remain consistent. Licensed clauses were not accessed or reverified; existing detailed synthesis is not newly validated.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:oecd-ai-principles",
+      "title": "OECD AI Principles",
+      "url": "https://oecd.ai/en/ai-principles",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://oecd.ai/en/ai-principles"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:singapore-ai-verify",
+      "title": "AI Verify",
+      "url": "https://www.imda.gov.sg/about-imda/emerging-technologies-and-research/artificial-intelligence",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.imda.gov.sg/about-imda/emerging-technologies-and-research/artificial-intelligence"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:mitre-atlas",
+      "title": "MITRE ATLAS",
+      "url": "https://atlas.mitre.org/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://atlas.mitre.org/"
+      ],
+      "note": "Official site returned no extractable content.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-apra-act",
+      "title": "APRA Act",
+      "url": "https://www.legislation.gov.au/C2004A00310/latest/text",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2004A00310/latest/text"
+      ],
+      "note": "Official latest text endpoint failed; older 2024 PDF found but not accepted as current verification.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-banking-act",
+      "title": "Banking Act",
+      "url": "https://www.legislation.gov.au/Series/C1959A00006",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/Series/C1959A00006"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-insurance-act",
+      "title": "Insurance Act",
+      "url": "https://www.legislation.gov.au/Series/C1973A00076",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/Series/C1973A00076"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-life-insurance-act",
+      "title": "Life Insurance Act",
+      "url": "https://www.legislation.gov.au/Series/C2004A04860",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/Series/C2004A04860"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-phips-act",
+      "title": "PHIPS Act",
+      "url": "https://www.legislation.gov.au/Series/C2015A00085",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/Series/C2015A00085"
+      ],
+      "note": "Series endpoint failed; alternate official latest metadata found, full relevant text comparison pending.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-sis-act",
+      "title": "SIS Act",
+      "url": "https://www.legislation.gov.au/Series/C2004A04633",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/Series/C2004A04633"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-agent-control-standard",
+      "title": "OWASP ACS",
+      "url": "https://genai.owasp.org/resource/agent-control-standard-acs/",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://genai.owasp.org/resource/agent-control-standard-acs/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-genai-crosswalk",
+      "title": "OWASP GenAI Crosswalk",
+      "url": "https://genai.owasp.org/resource/genai-security-industry-framework-crosswalk/",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://genai.owasp.org/resource/genai-security-industry-framework-crosswalk/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-critical-infrastructure-concept",
+      "title": "NIST Critical Infrastructure",
+      "url": "https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "changed",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure"
+      ],
+      "note": "Official project page created 6 April 2026, updated 17 July. Correct stored 7 April to 6 April; retain concept-stage status.",
+      "candidateIds": [
+        "correct-nist-critical-infrastructure-concept"
+      ],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-asic-frontier-roundtables-2026",
+      "title": "APRA\u2013ASIC Frontier AI",
+      "url": "https://www.apra.gov.au/news-and-publications/insights-apra-asic-industry-roundtables",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/news-and-publications/insights-apra-asic-industry-roundtables"
+      ],
+      "note": "Official 27 August overview and executive summary confirm financial-sector readiness, practical testing and shared dependencies. No overview change.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:fsb-frontier-letter-2026",
+      "title": "FSB Frontier AI Letter",
+      "url": "https://www.fsb.org/2026/08/fsb-chairs-letter-to-g20-finance-ministers-and-central-bank-governors-august-2026/",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.fsb.org/2026/08/fsb-chairs-letter-to-g20-finance-ministers-and-central-bank-governors-august-2026/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asd-unexpected-agent-actions",
+      "title": "ASD Unexpected Agent Actions",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/news/when-ai-agents-take-unexpected-actions",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/about-us/view-all-content/news/when-ai-agents-take-unexpected-actions"
+      ],
+      "note": "Official page confirms 11 August publication and 14 August update. Incident is attributed to ABC reporting; scope remains informational.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-tevv-athlon",
+      "title": "NIST TEVV-Athlon",
+      "url": "https://www.nist.gov/artificial-intelligence/ai-research/tevv-athlon-framework-evaluating-ai-systems",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.nist.gov/artificial-intelligence/ai-research/tevv-athlon-framework-evaluating-ai-systems"
+      ],
+      "note": "Official overview confirms initial public draft, 7 August announcement and 6 October comment deadline. No change to overview.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-public-ai-documentation",
+      "title": "NIST AI Documentation Draft",
+      "url": "https://www.nist.gov/artificial-intelligence/ai-standards",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.nist.gov/artificial-intelligence/ai-standards"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-aite",
+      "title": "NIST AITE",
+      "url": "https://www.nist.gov/news-events/news/2026/07/announcing-nists-artificial-intelligence-technology-evaluation-aite",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.nist.gov/news-events/news/2026/07/announcing-nists-artificial-intelligence-technology-evaluation-aite"
+      ],
+      "note": "Official announcement confirms 27 July launch, blind/sequestered datasets and three initial vision-language tasks. No overview change.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:eu-ai-transparency-guidelines",
+      "title": "EU AI Transparency Guidelines",
+      "url": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:edpb-anonymisation-2026",
+      "title": "EDPB Anonymisation Draft",
+      "url": "https://www.edpb.europa.eu/public-consultations/guidelines-022026-on-anonymisation_en",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.edpb.europa.eu/public-consultations/guidelines-022026-on-anonymisation_en"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asd-ai-enabled-attacks",
+      "title": "ASD AI-enabled Cyber Defence",
+      "url": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/defending-against-ai-enabled-cyber-attacks/defending-against-ai-enabled-cyber-attacks-guidance-for-government-critical-infrastructure-and-large-enterprises",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/defending-against-ai-enabled-cyber-attacks/defending-against-ai-enabled-cyber-attacks-guidance-for-government-critical-infrastructure-and-large-enterprises"
+      ],
+      "note": "Official 6 July guidance confirms accountability, vulnerability remediation and recovery recommendations in current synopsis.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-frontier-speech-2026",
+      "title": "APRA Frontier AI Speech",
+      "url": "https://www.apra.gov.au/news-and-publications/apra-member-therese-mccarthy-hockeys-remarks-2026-afia-risk-summit",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/news-and-publications/apra-member-therese-mccarthy-hockeys-remarks-2026-afia-risk-summit"
+      ],
+      "note": "Official 24 June speech key points support provider concentration, sovereign access and safe information sharing. No overview change.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:five-eyes-frontier-statement",
+      "title": "Five Eyes Frontier AI",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/news/five-eyes-cyber-security-agencies-statement",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/about-us/view-all-content/news/five-eyes-cyber-security-agencies-statement"
+      ],
+      "note": "Official 22 June statement confirms readiness, foundational controls and leadership responsibilities. No overview change.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-corporations-act",
+      "title": "Corporations Act",
+      "url": "https://www.legislation.gov.au/C2004A00818/latest/text",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2004A00818/latest/text"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-asic-act",
+      "title": "ASIC Act",
+      "url": "https://www.legislation.gov.au/C2004A00819/latest/text",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2004A00819/latest/text"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-far-act",
+      "title": "FAR Act",
+      "url": "https://www.legislation.gov.au/C2023A00067/latest/versions",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2023A00067/latest/versions"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:apra-cps-220",
+      "title": "APRA CPS 220",
+      "url": "https://www.apra.gov.au/standards/cps-220",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/standards/cps-220"
+      ],
+      "note": "Official overview confirms material-risk framework, board accountability and specified banking/insurance scope. Full clause comparison pending.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asic-rep-798",
+      "title": "ASIC REP 798",
+      "url": "https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:au-ai-adoption-guidance",
+      "title": "AI Adoption Guidance",
+      "url": "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:dta-ai-policy",
+      "title": "Government AI Policy",
+      "url": "https://www.digital.gov.au/ai/ai-in-government-policy",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.digital.gov.au/ai/ai-in-government-policy"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:dta-agentic-addendum",
+      "title": "DTA Agentic Addendum",
+      "url": "https://www.digital.gov.au/policy/ai/agentic-ai-addendum",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.digital.gov.au/policy/ai/agentic-ai-addendum"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asd-secure-ai-development",
+      "title": "ASD Secure AI",
+      "url": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/guidelines-for-secure-ai-system-development",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/guidelines-for-secure-ai-system-development"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asd-ai-supply-chain",
+      "title": "ASD AI Supply Chain",
+      "url": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/artificial-intelligence-and-machine-learning-supply-chain-risks-and-mitigations",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/artificial-intelligence-and-machine-learning-supply-chain-risks-and-mitigations"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asd-frontier-board",
+      "title": "Frontier AI Board Guide",
+      "url": "https://www.cyber.gov.au/business-government/protecting-business-leaders/cyber-security-for-business-leaders/frontier-ai-cyber-threat-considerations-for-boards-of-directors",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/business-government/protecting-business-leaders/cyber-security-for-business-leaders/frontier-ai-cyber-threat-considerations-for-boards-of-directors"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:asic-ai-cyber-letter",
+      "title": "ASIC AI Cyber Letter",
+      "url": "https://www.asic.gov.au/about-asic/news-centre/find-a-media-release/2026-releases/26-092mr-asic-calls-for-urgent-cyber-uplift-as-ai-accelerates-cyber-threats",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.asic.gov.au/about-asic/news-centre/find-a-media-release/2026-releases/26-092mr-asic-calls-for-urgent-cyber-uplift-as-ai-accelerates-cyber-threats"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:eu-gdpr",
+      "title": "EU GDPR",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679"
+      ],
+      "note": "Official URL redirected to general Official Journal index.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:eu-dora",
+      "title": "EU DORA",
+      "url": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+      ],
+      "note": "Official URL redirected to general Official Journal index.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:eu-gpai-code",
+      "title": "EU GPAI Code",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai"
+      ],
+      "note": "Official overview confirms voluntary code dated 10 July 2025 with transparency, copyright, safety/security chapters. Chapter-by-chapter comparison pending.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:uk-ai-white-paper",
+      "title": "UK AI White Paper",
+      "url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach/white-paper",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach/white-paper"
+      ],
+      "note": "Original page says updated 3 August 2023; clarify historical proposal wording and edition date. Full current UK policy landscape not reverified.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:uk-pra-ss1-23",
+      "title": "PRA SS1/23",
+      "url": "https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:uk-ico-ai-guidance",
+      "title": "ICO AI Guidance",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/"
+      ],
+      "note": "Official page explicitly flags guidance under review following Data (Use and Access) Act; prepare scope warning.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:osfi-e23",
+      "title": "OSFI E-23",
+      "url": "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/guideline-e-23-model-risk-management-2027",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/guideline-e-23-model-risk-management-2027"
+      ],
+      "note": "Official metadata confirms 11 September 2025 and future effective 1 May 2027. Full guideline comparison pending.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:mas-feat",
+      "title": "MAS FEAT",
+      "url": "https://www.mas.gov.sg/-/media/MAS/News-and-Publications/Monographs-and-Information-Papers/FEAT-Principles-Updated-7-Feb-19.pdf",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.mas.gov.sg/-/media/MAS/News-and-Publications/Monographs-and-Information-Papers/FEAT-Principles-Updated-7-Feb-19.pdf"
+      ],
+      "note": "Original PDF failed; alternate official FEAT overview returns maintenance.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:mas-ai-mrm",
+      "title": "MAS AI MRM",
+      "url": "https://www.mas.gov.sg/publications/monographs-or-information-paper/2024/artificial-intelligence-model-risk-management",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.mas.gov.sg/publications/monographs-or-information-paper/2024/artificial-intelligence-model-risk-management"
+      ],
+      "note": "Official endpoint returns maintenance; search did not establish an accessible current primary copy.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:mas-mindforge",
+      "title": "MAS MindForge",
+      "url": "https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf"
+      ],
+      "note": "Official PDF returns maintenance.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:imda-agentic-framework",
+      "title": "IMDA Agentic Framework",
+      "url": "https://www.sgpc.gov.sg/detail?HomePage=home&page=%2Fdetail&url=%2Fmedia_releases%2Fimda%2Fpress_release%2FP-20260122-2",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.sgpc.gov.sg/detail?HomePage=home&page=%2Fdetail&url=%2Fmedia_releases%2Fimda%2Fpress_release%2FP-20260122-2"
+      ],
+      "note": "Government press-centre URL yielded generic search interface, not the source document.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:us-sr-26-2",
+      "title": "US SR 26-2",
+      "url": "https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm"
+      ],
+      "note": "Official letter confirms 17 April 2026 and supersession of SR11-7/SR21-8; detailed attachment comparison pending.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:fsb-ai-stability",
+      "title": "FSB AI Stability",
+      "url": "https://www.fsb.org/2024/11/fsb-assesses-the-financial-stability-implications-of-artificial-intelligence/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.fsb.org/2024/11/fsb-assesses-the-financial-stability-implications-of-artificial-intelligence/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:fsb-ai-sound-practices",
+      "title": "FSB AI Consultation",
+      "url": "https://www.fsb.org/2026/06/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-consultation-report/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.fsb.org/2026/06/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-consultation-report/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:unesco-ai-ethics",
+      "title": "UNESCO AI Ethics",
+      "url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:coe-ai-convention",
+      "title": "CoE AI Convention",
+      "url": "https://www.coe.int/en-GB/web/conventions/full-list2?module=treaty-detail&treatynum=225",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.coe.int/en-GB/web/conventions/full-list2?module=treaty-detail&treatynum=225"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:csa-aicm-1-1",
+      "title": "CSA AICM v1.1",
+      "url": "https://cloudsecurityalliance.org/artifacts/ai-controls-matrix-v1-1",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://cloudsecurityalliance.org/artifacts/ai-controls-matrix-v1-1"
+      ],
+      "note": "Public metadata confirms v1.1, released 22 June, 247 objectives and 18 domains. Catalogue detail not reviewed or reproduced.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:mit-ai-risk-mitigations",
+      "title": "MIT Mitigations",
+      "url": "https://airisk.mit.edu/ai-risk-mitigations",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://airisk.mit.edu/ai-risk-mitigations"
+      ],
+      "note": "Official taxonomy introduction and method confirm 831 mitigations, 13 frameworks, four categories and 23 subcategories. Detailed rows not reverified.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-42005",
+      "title": "ISO/IEC 42005",
+      "url": "https://www.iso.org/standard/42005",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/42005"
+      ],
+      "note": "Public metadata confirms first edition May 2025 and lifecycle impact-assessment scope. Licensed text not assessed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-38507",
+      "title": "ISO/IEC 38507",
+      "url": "https://www.iso.org/standard/56641.html",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/56641.html"
+      ],
+      "note": "Public abstract confirms governing body and executive scope, first edition April 2022. Licensed text not assessed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-5338",
+      "title": "ISO/IEC 5338",
+      "url": "https://www.iso.org/standard/81118.html",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/81118.html"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:iso-tr-24028",
+      "title": "ISO/IEC TR 24028",
+      "url": "https://www.iso.org/standard/77608.html",
+      "scope": "public metadata and overview only; full text not assessed",
+      "result": "unchanged",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/77608.html"
+      ],
+      "note": "Public catalogue metadata and abstract compared with the Atlas synopsis: title, edition, publication month and overview remain consistent. Licensed clauses were not accessed or reverified; existing detailed synthesis is not newly validated.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-ai-rmf-playbook",
+      "title": "NIST AI RMF Playbook",
+      "url": "https://airc.nist.gov/airmf-resources/playbook/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://airc.nist.gov/airmf-resources/playbook/"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-adversarial-ml",
+      "title": "NIST Adversarial ML",
+      "url": "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations-0",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.nist.gov/publications/adversarial-machine-learning-taxonomy-and-terminology-attacks-and-mitigations-0"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-sp-800-218a",
+      "title": "NIST SP 800-218A",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://csrc.nist.gov/pubs/sp/800/218/a/final"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:nist-synthetic-content",
+      "title": "NIST Synthetic Content",
+      "url": "https://www.nist.gov/publications/reducing-risks-posed-synthetic-content-overview-technical-approaches-digital-content",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.nist.gov/publications/reducing-risks-posed-synthetic-content-overview-technical-approaches-digital-content"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-llm-top-10",
+      "title": "OWASP LLM Top 10",
+      "url": "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/"
+      ],
+      "note": "Overview confirms 3 August 2026 release; not a complete edition diff.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-agentic-top-10",
+      "title": "OWASP Agentic Top 10",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+      ],
+      "note": "Overview confirms 9 December 2025 release; not a complete taxonomy diff.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-aisvs",
+      "title": "OWASP AISVS",
+      "url": "https://github.com/OWASP/AISVS",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://github.com/OWASP/AISVS"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:c2pa-2-4",
+      "title": "C2PA 2.4",
+      "url": "https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://spec.c2pa.org/specifications/specifications/2.4/specs/C2PA_Specification.html"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:enisa-ai-cyber-framework",
+      "title": "ENISA AI Cyber Framework",
+      "url": "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "source:uk-aisi-inspect",
+      "title": "UK AISI Inspect",
+      "url": "https://www.aisi.gov.uk/blog/open-sourcing-our-testing-framework-inspect",
+      "scope": "public source content and status",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [
+        "https://www.aisi.gov.uk/blog/open-sourcing-our-testing-framework-inspect"
+      ],
+      "note": "Official page retrieved; substantive record comparison not completed. No fresh verification claimed.",
+      "candidateIds": [],
+      "attempted": "2026-09-10"
+    },
+    {
+      "id": "publisher:apra",
+      "title": "APRA",
+      "url": "https://www.apra.gov.au/news-and-publications",
+      "scope": "public releases and linked primary documents",
+      "result": "changed",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/news-and-publications"
+      ],
+      "note": "Release/initiative page inspected; relevant leads identified, not all linked publications deeply assessed.",
+      "candidateIds": [
+        "apra-super-ceo-september"
+      ]
+    },
+    {
+      "id": "publisher:asic",
+      "title": "ASIC",
+      "url": "https://www.asic.gov.au/about-asic/news-centre/",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:asd",
+      "title": "ASD / ACSC",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/news",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:dta",
+      "title": "Digital Transformation Agency",
+      "url": "https://www.digital.gov.au/",
+      "scope": "public releases and linked primary documents",
+      "result": "changed",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.digital.gov.au/"
+      ],
+      "note": "Release/initiative page inspected; relevant leads identified, not all linked publications deeply assessed.",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:nist",
+      "title": "NIST",
+      "url": "https://www.nist.gov/artificial-intelligence",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:ec",
+      "title": "European Commission AI policy",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/artificial-intelligence",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:edpb",
+      "title": "European Data Protection Board",
+      "url": "https://www.edpb.europa.eu/news/news_en",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:fsb",
+      "title": "Financial Stability Board",
+      "url": "https://www.fsb.org/",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:owasp",
+      "title": "OWASP GenAI",
+      "url": "https://genai.owasp.org/",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:mit",
+      "title": "MIT AI Risk Repository",
+      "url": "https://airisk.mit.edu/",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:csa",
+      "title": "Cloud Security Alliance",
+      "url": "https://cloudsecurityalliance.org/artifacts",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:iso",
+      "title": "ISO AI standards",
+      "url": "https://www.iso.org/artificial-intelligence",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:imda",
+      "title": "IMDA",
+      "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "publisher:mas",
+      "title": "Monetary Authority of Singapore",
+      "url": "https://www.mas.gov.sg/news",
+      "scope": "public releases and linked primary documents",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:1",
+      "title": "Governance and accountability",
+      "query": "AI governance accountability regulator board new guidance consultation",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:2",
+      "title": "Risk and impact",
+      "query": "AI systemic risk impact assessment incident original research",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:3",
+      "title": "Lifecycle and change",
+      "query": "AI model lifecycle change management new standard evaluation",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:4",
+      "title": "Data and privacy",
+      "query": "AI data privacy provenance regulator new guidance",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:5",
+      "title": "Transparency",
+      "query": "AI transparency explainability documentation new research guidance",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:6",
+      "title": "Fairness",
+      "query": "AI discrimination fairness accessibility evaluation original research",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:7",
+      "title": "Security",
+      "query": "AI agent security vulnerabilities incident technical report",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:8",
+      "title": "Testing and evidence",
+      "query": "AI evaluation assurance reproducibility benchmark limitations research",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:9",
+      "title": "Third-party and resilience",
+      "query": "AI supplier concentration operational resilience regulator incident",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "topic:10",
+      "title": "Agentic AI",
+      "query": "AI agent autonomy oversight deployment evaluation technical report",
+      "scope": "discover original evidence, including publishers outside the register",
+      "result": "not reviewed",
+      "reviewed": null,
+      "reviewer": "",
+      "evidenceUrls": [],
+      "note": "",
+      "candidateIds": []
+    },
+    {
+      "id": "source:nist-agent-security-responses",
+      "title": "NIST Agent Security Findings",
+      "url": "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai",
+      "scope": "Official overview only",
+      "result": "changed",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai"
+      ],
+      "note": "Official abstract reviewed. Findings describe consultation responses, not a representative survey or validation of individual mitigations.",
+      "candidateIds": [
+        "nist-agent-security-responses"
+      ]
+    },
+    {
+      "id": "source:oaic-commercial-ai",
+      "title": "OAIC Commercial AI Privacy",
+      "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products",
+      "scope": "Official overview only",
+      "result": "changed",
+      "reviewed": "2026-09-10",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products"
+      ],
+      "note": "Official takeaways and quick reference reviewed; updated 17 January 2025. Read with the Privacy Act and APP guidelines. This summary is not a full review of every guidance section.",
+      "candidateIds": [
+        "oaic-commercial-ai"
+      ]
+    }
+  ],
+  "note": "76 existing records received editorial triage and endpoint attempts. Only completed substantive checks within declared scope are marked reviewed; remaining checks stay open. Individually supported proposed changes are recorded separately and held pending publication decision."
+}

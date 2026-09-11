@@ -1,4 +1,4 @@
-import type { Instrument } from '../types'
+import type { Instrument } from '../types.js'
 
 export type InstrumentInput = Omit<Instrument, 'lastVerified'> & { lastVerified?: string }
 

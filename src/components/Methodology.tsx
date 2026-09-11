@@ -1,0 +1,25 @@
+import { useEffect, useRef } from 'react'
+import { X } from '@phosphor-icons/react'
+import { sourcingPolicy } from '../data/sourcingPolicy'
+
+export function Methodology({ onClose }: { onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => { const element = dialog.current; element?.showModal(); return () => element?.close() }, [])
+  return <dialog ref={dialog} className="method-dialog sourcing-method" aria-labelledby="method-title" onCancel={onClose} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+    <header className="method-heading"><div><span className="method-label">METHODOLOGY</span><h2 id="method-title">How the Atlas is curated</h2></div><button type="button" autoFocus onClick={onClose} aria-label="Close methodology"><X /></button></header>
+    <p className="method-intro">Sources that help you ask better questions. Selected for their authority, relevance and practical value, with the limits of the evidence kept visible.</p>
+    <section className="method-lanes" aria-label="Two kinds of coverage">
+      <article><span>01 / REFERENCE</span><h3>A dependable foundation</h3><p>Durable laws, guidance, standards, frameworks and evidence resources. Authority, status and applicability stay attached to each source.</p></article>
+      <article><span>02 / DEVELOPMENTS</span><h3>A view of what is changing</h3><p>Significant publications, findings, consultations and incidents. Linked to existing sources where possible, without adding a permanent node for every announcement.</p></article>
+    </section>
+    <section className="method-weighting" aria-labelledby="weight-title"><h3 id="weight-title">What earns a closer look</h3><p>Our editorial rubric orders research effort. It does not score legal force, compliance or control effectiveness.</p>
+      <div className="method-factors">{sourcingPolicy.factors.map(factor => <article key={factor.id}><div><strong>{factor.weight}%</strong><h4>{factor.label}</h4></div><p>{factor.question}</p><div className="method-meter" aria-hidden="true"><i style={{ width: `${factor.weight * 2.5}%` }} /></div></article>)}</div>
+      <p className="method-rule">Relevant changes to binding obligations always receive review. A high score cannot compensate for missing evidence.</p>
+    </section>
+    <section className="method-process"><h3>Discover. Verify. Decide.</h3><ol><li><strong>Look beyond the existing collection.</strong> Check source documents, publisher releases and topic searches for original evidence.</li><li><strong>Check the claim and its limits.</strong> Record provenance, status, scope, dates and whether we read the full text, an overview or public metadata.</li><li><strong>Make a recorded editorial decision.</strong> Include as a reference, cover as a development, defer or exclude—with a reason. Consolidate duplicate announcements.</li></ol></section>
+    <details><summary>How we judge authority</summary><p>Authority depends on the claim. A regulator can establish supervisory expectations; an original study can provide technical evidence. Neither automatically establishes that a control works in your organisation.</p><p>Relevant binding instruments receive the highest monitoring priority. Guidance and established standards provide context; research and documented incidents surface emerging issues. Vendor claims remain attributed. News and commentary primarily help us find original evidence.</p></details>
+    <details><summary>Review cadence and coverage</summary><p>The weekly monitor is configured for Mondays at 7am Sydney time. It checks existing sources plus due publisher and topic searches. Some discovery sources have a monthly cadence. Scheduling is not a guarantee of completed coverage.</p><p>Each check is recorded as changed, unchanged or not reviewed. Missing checks make the run incomplete and block publication of that monitoring run. Licensed sources are reviewed only to their declared public scope; inaccessible detail is never represented as verified.</p><p>Development dates reflect the publication or clearly labelled substantive event, not the date we added it. Unknown dates remain unknown. This is a curated reference and briefing, not a complete newswire.</p></details>
+    <details><summary>Evidence, interpretation and human judgement</summary><p>Source-authored relationships and Atlas interpretations remain distinct, with citations and reasoning. Connections and discussion questions help exploration; they do not establish equivalence, applicability, compliance or assurance.</p><p>Accountable people retain decisions about materiality, risk, evidence sufficiency and operating effectiveness. Licensed standards text is not reproduced.</p></details>
+    <footer><span>Selection policy · 10 September 2026<br />Existing sources have received editorial triage; this does not imply full source re-verification.</span><button className="method-primary" type="button" onClick={onClose}>Back to the Atlas</button></footer>
+  </dialog>
+}

@@ -1,0 +1,343 @@
+[
+  {
+    "id": "nist-agent-security-responses",
+    "title": "Security Considerations for AI Agents: Summary Analysis of RFI Responses",
+    "url": "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai",
+    "discovered": "2026-09-10",
+    "eventKey": "nist-agent-security-responses",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Official abstract reviewed. Findings describe consultation responses, not a representative survey or validation of individual mitigations.",
+    "publicationDate": "2026-05-18",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Official abstract reviewed. Findings describe consultation responses, not a representative survey or validation of individual mitigations.",
+      "impact": "Lasting reference value: Summarises consultation responses on AI agent threats, adaptations to cybersecurity practices and proposed roles for government.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Lasting reference value: Summarises consultation responses on AI agent threats, adaptations to cybersecurity practices and proposed roles for government.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "oaic-commercial-ai",
+    "title": "Guidance on privacy and the use of commercially available AI products",
+    "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products",
+    "discovered": "2026-09-10",
+    "eventKey": "oaic-commercial-ai",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Official takeaways and quick reference reviewed; updated 17 January 2025. Read with the Privacy Act and APP guidelines. This summary is not a full review of every guidance section.",
+    "publicationDate": "2024-10-21",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Official takeaways and quick reference reviewed; updated 17 January 2025. Read with the Privacy Act and APP guidelines. This summary is not a full review of every guidance section.",
+      "impact": "Lasting reference value: Explains privacy considerations when choosing and using AI products, including personal information in inputs and outputs, due diligence, notices and human oversight.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Lasting reference value: Explains privacy considerations when choosing and using AI products, including personal information in inputs and outputs, due diligence, notices and human oversight.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "apra-super-ceo-september",
+    "title": "Superannuation CEOs focus on crisis exercises and shared dependencies",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-and-asic-host-superannuation-ceo-roundtables-june-2026",
+    "discovered": "2026-09-10",
+    "eventKey": "apra-super-ceo-september",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian superannuation boards and executives.",
+    "publicationDate": "2026-09-01",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian superannuation boards and executives.",
+      "impact": "Sector-specific crisis and supplier lessons; link to CPS 230 without adding another permanent announcement node.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "Sector-specific crisis and supplier lessons; link to CPS 230 without adding another permanent announcement node.",
+    "linkedSourceIds": [
+      "apra-cps-230"
+    ]
+  },
+  {
+    "id": "correct-nist-critical-infrastructure-concept",
+    "title": "Concept Note: AI RMF Profile on Trustworthy AI in Critical Infrastructure",
+    "url": "https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-nist-critical-infrastructure-concept",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"published\": \"2026-04-06\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"published\": \"2026-04-06\"}",
+    "linkedSourceIds": [
+      "nist-critical-infrastructure-concept"
+    ]
+  },
+  {
+    "id": "correct-uk-ai-white-paper",
+    "title": "A Pro-Innovation Approach to AI Regulation",
+    "url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach/white-paper",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-uk-ai-white-paper",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"summary\": \"A 2023 policy paper proposing five cross-sector principles and a non-statutory approach through existing UK regulators.\", \"authorityNote\": \"Historical policy proposal; not a statement of the complete current UK regulatory position.\", \"effective\": \"Paper updated 2023-08-03\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"summary\": \"A 2023 policy paper proposing five cross-sector principles and a non-statutory approach through existing UK regulators.\", \"authorityNote\": \"Historical policy proposal; not a statement of the complete current UK regulatory position.\", \"effective\": \"Paper updated 2023-08-03\"}",
+    "linkedSourceIds": [
+      "uk-ai-white-paper"
+    ]
+  },
+  {
+    "id": "correct-uk-ico-ai-guidance",
+    "title": "Guidance on AI and Data Protection",
+    "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-uk-ico-ai-guidance",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"authorityNote\": \"Regulator guidance under review following the Data (Use and Access) Act; check current ICO updates.\", \"summary\": \"Explains AI and UK data protection. The ICO flags this guidance as under review following legislative changes.\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"authorityNote\": \"Regulator guidance under review following the Data (Use and Access) Act; check current ICO updates.\", \"summary\": \"Explains AI and UK data protection. The ICO flags this guidance as under review following legislative changes.\"}",
+    "linkedSourceIds": [
+      "uk-ico-ai-guidance"
+    ]
+  },
+  {
+    "id": "mas-safr-lead",
+    "title": "Safeguards for Agentic Finance at Runtime",
+    "url": "https://www.mas.gov.sg/publications/monographs-or-information-paper/2026/safeguards-for-agentic-finance-at-runtime",
+    "discovered": "2026-09-10",
+    "eventKey": "mas-safr-lead",
+    "sourceType": "framework",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Financial institutions using autonomous agents.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": null,
+    "reviewer": "",
+    "reviewDepth": "unreviewed",
+    "gates": {
+      "provenance": false,
+      "evidence": false,
+      "rights": false,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 0,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Financial institutions using autonomous agents.",
+      "impact": "Official page returns maintenance; secondary reporting is a lead only.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Official page returns maintenance; secondary reporting is a lead only.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "parliament-ai-inquiry-lead",
+    "title": "Joint Select Committee on Artificial Intelligence",
+    "url": "https://www.aph.gov.au/Parliamentary_Business/Committees/Joint/Artificial_Intelligence",
+    "discovered": "2026-09-10",
+    "eventKey": "parliament-ai-inquiry-lead",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian policy and regulatory audiences.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": null,
+    "reviewer": "",
+    "reviewDepth": "unreviewed",
+    "gates": {
+      "provenance": false,
+      "evidence": false,
+      "rights": false,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 0,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian policy and regulatory audiences.",
+      "impact": "Search index shows an August inquiry, but direct official page returns 403. Confirm current inquiry details before adding.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Search index shows an August inquiry, but direct official page returns 403. Confirm current inquiry details before adding.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "apra-super-ceo-duplicate",
+    "title": "APRA super CEO roundtable media release",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-and-asic-host-super-ceos-discuss-frontier-ai-cyber-and-operational",
+    "discovered": "2026-09-10",
+    "eventKey": "apra-super-ceo-duplicate",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian superannuation.",
+    "publicationDate": "2026-09-01",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 1,
+      "contribution": 0
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian superannuation.",
+      "impact": "Duplicate announcement; use the original published roundtable notes instead.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "exclude",
+    "reason": "Duplicate announcement; use the original published roundtable notes instead.",
+    "linkedSourceIds": []
+  }
+]

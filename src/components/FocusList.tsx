@@ -38,7 +38,7 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
     >
       <div className="focus-list-ambient" aria-hidden="true"><span /><span /><span /></div>
       <header className="focus-list-header">
-        <button className="focus-return" type="button" onClick={onReturnToAtlas}><ArrowLeft /> Return to universe</button>
+        <button className="focus-return" type="button" onClick={onReturnToAtlas}><ArrowLeft /> Return to map</button>
         <div className="focus-anchor">
           <span>{model.anchorEyebrow}</span>
           <h2 id="focus-list-title">{model.anchorLabel}</h2>
@@ -46,16 +46,16 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
         </div>
         <div className="focus-list-summary" aria-live="polite">
           <strong>{rows.length}</strong>
-          <span>{mode === 'provisions' ? 'source provisions' : 'connected instruments'}</span>
+          <span>{mode === 'provisions' ? 'specific sections' : 'related sources'}</span>
         </div>
       </header>
 
       <div className="focus-list-toolbar">
-        <div className="focus-mode-switch" role="tablist" aria-label="Focus list contents">
-          {model.provisions.length > 0 && <button type="button" role="tab" aria-selected={mode === 'provisions'} onClick={() => setMode('provisions')}><FileText /> Provisions <small>{model.provisions.length}</small></button>}
-          <button type="button" role="tab" aria-selected={mode === 'instruments'} onClick={() => setMode('instruments')}><Rows /> {model.provisions.length ? 'Related instruments' : 'Instruments'} <small>{model.instruments.length}</small></button>
+        <div className="focus-mode-switch" role="tablist" aria-label="Related items">
+          {model.provisions.length > 0 && <button type="button" role="tab" aria-selected={mode === 'provisions'} onClick={() => setMode('provisions')}><FileText /> Sections <small>{model.provisions.length}</small></button>}
+          <button type="button" role="tab" aria-selected={mode === 'instruments'} onClick={() => setMode('instruments')}><Rows /> {model.provisions.length ? 'Related sources' : 'Sources'} <small>{model.instruments.length}</small></button>
         </div>
-        <p><CirclesThreePlus /> Ranked by explicit shared concepts and source foundations.</p>
+        <p><CirclesThreePlus /> Ordered by shared topics and supporting sources.</p>
       </div>
 
       <div className="focus-list-scroll" role="tabpanel" tabIndex={0}>

@@ -1,17 +1,15 @@
 export function AtlasMark() {
   return (
     <svg className="atlas-mark" viewBox="0 0 48 48" aria-hidden="true">
-      <circle className="atlas-mark-halo" cx="24" cy="24" r="17.5" />
-      <g className="atlas-mark-orbit atlas-mark-orbit-a">
-        <ellipse cx="24" cy="24" rx="17" ry="8.5" />
-        <circle cx="40.5" cy="24" r="2.25" />
-      </g>
-      <g className="atlas-mark-orbit atlas-mark-orbit-b">
-        <ellipse cx="24" cy="24" rx="8.5" ry="17" />
-        <circle cx="24" cy="7.5" r="1.75" />
-      </g>
-      <path className="atlas-mark-core" d="M24 16.5c1.15 4.55 2.95 6.35 7.5 7.5-4.55 1.15-6.35 2.95-7.5 7.5-1.15-4.55-2.95-6.35-7.5-7.5 4.55-1.15 6.35-2.95 7.5-7.5Z" />
-      <circle className="atlas-mark-centre" cx="24" cy="24" r="2.1" />
+      <path className="atlas-mark-frame" d="M24 4.5 40.9 14.25v19.5L24 43.5 7.1 33.75v-19.5Z" />
+      <path className="atlas-mark-facet facet-a" d="M24 4.5v19.3L7.1 14.25Z" />
+      <path className="atlas-mark-facet facet-b" d="m40.9 14.25-16.9 9.55V4.5Z" />
+      <path className="atlas-mark-facet facet-c" d="m7.1 33.75 16.9-9.95v19.7Z" />
+      <path className="atlas-mark-facet facet-d" d="M24 43.5V23.8l16.9 9.95Z" />
+      <path className="atlas-mark-river" d="M9.8 29.9c5.6-8.8 8.9 1.2 14.2-6.1 5.3-7.2 8.3 2.7 14.1-5.7" />
+      <circle className="atlas-mark-node node-a" cx="9.8" cy="29.9" r="1.6" />
+      <circle className="atlas-mark-node node-b" cx="24" cy="23.8" r="2.6" />
+      <circle className="atlas-mark-node node-c" cx="38.1" cy="18.1" r="1.6" />
     </svg>
   )
 }

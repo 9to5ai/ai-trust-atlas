@@ -1,0 +1,37 @@
+{
+  "id": "replace-with-stable-id",
+  "title": "Candidate title",
+  "url": "https://example.org/original-source",
+  "discovered": "2026-09-10",
+  "eventKey": "issuer-document-version-event",
+  "sourceType": "research-database",
+  "authorityNote": "Explain authority for this particular claim",
+  "scope": "Audience, jurisdiction and status",
+  "publicationDate": null,
+  "dateBasis": "Unknown; do not infer from review date",
+  "reviewed": null,
+  "reviewer": "",
+  "reviewDepth": "unreviewed",
+  "gates": {
+    "provenance": false,
+    "evidence": false,
+    "rights": false,
+    "scopeAndStatus": false
+  },
+  "scores": {
+    "authority": 0,
+    "relevance": 0,
+    "impact": 0,
+    "contribution": 0
+  },
+  "scoreReasons": {
+    "authority": "Not yet assessed",
+    "relevance": "Not yet assessed",
+    "impact": "Not yet assessed",
+    "contribution": "Not yet assessed"
+  },
+  "relevantBindingChange": false,
+  "decision": "defer",
+  "reason": "Awaiting review",
+  "linkedSourceIds": []
+}

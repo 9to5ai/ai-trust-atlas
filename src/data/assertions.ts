@@ -22,7 +22,7 @@ export const inferProvisionGranularity = (provision: SourceProvision): SourceGra
 
 const base = (assertion: Omit<MappingAssertion, 'verifiedAt' | 'status'>): MappingAssertion => ({
   ...assertion,
-  verifiedAt: ASSERTION_MODEL_VERIFIED,
+  verifiedAt: assertion.citations.reduce((latest, citation) => citation.accessedAt > latest ? citation.accessedAt : latest, ASSERTION_MODEL_VERIFIED),
   status: 'active',
 })
 
@@ -47,7 +47,7 @@ const provisionConceptAssertions = instruments.flatMap((instrument) => instrumen
   rationale: `${provision.ref} “${provision.title}” is associated with ${conceptById.get(conceptId)?.name ?? conceptId}.`,
   basis: 'atlas-synthesis',
   confidence: 'high',
-  citations: [{ sourceTitle: instrument.title, locator: provision.ref, url: provision.sourceUrl ?? instrument.officialUrl, accessedAt: instrument.lastVerified, sourceVersion: instrument.effective ?? instrument.published }],
+  citations: [{ sourceTitle: instrument.title, locator: provision.ref, url: provision.sourceUrl ?? instrument.officialUrl, accessedAt: provision.reviewedAt ?? instrument.lastVerified, sourceVersion: instrument.effective ?? instrument.published }],
   createdBy: 'AI Trust Atlas',
   inferenceDepth: 1,
 }))))
@@ -111,6 +111,7 @@ const controlAssertions = controlObjectives.flatMap((control) => [
 ]).flat()
 
 const relationPredicate = (relation: InstrumentRelation): MappingPredicate => {
+  if (relation.type === 'made-under' || relation.type === 'issuer-governed-by') return relation.type
   if (['requires', 'applies-to'].includes(relation.type)) return 'requires'
   if (['operationalises', 'implements', 'guides-implementation-of', 'profiles'].includes(relation.type)) return 'operationalises'
   return 'aligns-with'
@@ -127,7 +128,7 @@ const instrumentRelationAssertions = relations.map((relation) => {
     rationale: relation.explanation,
     basis: relation.basis === 'explicit' ? 'source-authored' : 'atlas-synthesis',
     confidence: relation.confidence,
-    citations: [source, target].filter((instrument): instrument is NonNullable<typeof instrument> => Boolean(instrument)).map((instrument, index) => ({
+    citations: relation.citations ?? [source, target].filter((instrument): instrument is NonNullable<typeof instrument> => Boolean(instrument)).map((instrument, index) => ({
       sourceTitle: instrument.title,
       locator: relation.sourceAnchors[index] ?? 'Document-level relationship',
       url: instrument.officialUrl,
@@ -174,14 +175,18 @@ export type RiskPath = {
   confidence: 'high' | 'medium'
 }
 
+// Broad governance concepts alone are insufficient for a useful suggested risk path.
+// This is a navigation heuristic, not a source-authored mapping or confidence assessment.
+export const specificConceptIds = (ids: string[]) => ids.filter(id => !new Set(['accountability', 'third-party-risk', 'assurance', 'evidence-quality', 'traceability', 'decision-rights', 'competence', 'risk-treatment', 'materiality', 'lifecycle-governance', 'continuous-monitoring', 'inventory']).has(id))
+
 export const riskPathsForInstrument = (instrumentId: string): RiskPath[] => {
   const instrument = instruments.find((candidate) => candidate.id === instrumentId)
   if (!instrument) return []
   return riskSubdomains.map((risk) => {
     const conceptIds = risk.conceptIds.filter((conceptId) => instrument.conceptIds.includes(conceptId))
-    const provisionIds = instrument.provisions.filter((provision) => provision.conceptIds.some((conceptId) => conceptIds.includes(conceptId))).map((provision) => provision.id)
-    return { riskId: risk.id, conceptIds, provisionIds, score: conceptIds.length * 10 + provisionIds.length * 6 + (risk.mappingConfidence === 'high' ? 2 : 0), confidence: risk.mappingConfidence }
-  }).filter((path) => path.conceptIds.length > 0).sort((left, right) => right.score - left.score || left.riskId.localeCompare(right.riskId))
+    const provisionIds = instrument.provisions.filter((provision) => provision.conceptIds.some((conceptId) => specificConceptIds(conceptIds).includes(conceptId))).map((provision) => provision.id)
+    return { riskId: risk.id, conceptIds, provisionIds, score: specificConceptIds(conceptIds).length * 20 + conceptIds.length * 2 + provisionIds.length * 6 + (risk.mappingConfidence === 'high' ? 2 : 0), confidence: risk.mappingConfidence }
+  }).filter((path) => specificConceptIds(path.conceptIds).length > 0 && path.provisionIds.length > 0).sort((left, right) => right.score - left.score || left.riskId.localeCompare(right.riskId))
 }
 
 export const riskPathsForProvision = (provisionId: string): RiskPath[] => {
@@ -189,6 +194,6 @@ export const riskPathsForProvision = (provisionId: string): RiskPath[] => {
   if (!provision) return []
   return riskSubdomains.map((risk) => {
     const conceptIds = risk.conceptIds.filter((conceptId) => provision.conceptIds.includes(conceptId))
-    return { riskId: risk.id, conceptIds, provisionIds: [provision.id], score: conceptIds.length * 10 + (risk.mappingConfidence === 'high' ? 2 : 0), confidence: risk.mappingConfidence }
-  }).filter((path) => path.conceptIds.length > 0).sort((left, right) => right.score - left.score || left.riskId.localeCompare(right.riskId))
+    return { riskId: risk.id, conceptIds, provisionIds: [provision.id], score: specificConceptIds(conceptIds).length * 20 + conceptIds.length * 2 + (risk.mappingConfidence === 'high' ? 2 : 0), confidence: risk.mappingConfidence }
+  }).filter((path) => specificConceptIds(path.conceptIds).length > 0 && path.provisionIds.length > 0).sort((left, right) => right.score - left.score || left.riskId.localeCompare(right.riskId))
 }

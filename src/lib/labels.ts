@@ -2,38 +2,28 @@ import type { AuthorityClass, Instrument, RelationType } from '../types'
 
 export const authorityOrder: AuthorityClass[] = [
   'law',
-  'regulatory-expectation',
-  'government-guidance',
-  'government-policy',
-  'international-treaty',
-  'financial-sector-guidance',
-  'analytical-report',
-  'international-standard',
-  'risk-framework',
-  'control-framework',
-  'testing-framework',
-  'threat-knowledge',
+  'treaty',
+  'policy-guidance',
+  'standard',
+  'framework',
+  'testing-tool',
+  'research-database',
 ]
 
 export const authorityLabels: Record<AuthorityClass, string> = {
-  law: 'Law',
-  'regulatory-expectation': 'Regulatory expectation',
-  'government-guidance': 'Government guidance',
-  'government-policy': 'Government policy',
-  'international-treaty': 'International treaty',
-  'international-standard': 'International standard',
-  'risk-framework': 'Risk framework',
-  'control-framework': 'Control framework',
-  'financial-sector-guidance': 'Financial-sector guidance',
-  'analytical-report': 'Analytical report',
-  'testing-framework': 'Testing framework',
-  'threat-knowledge': 'Threat knowledge',
+  'law': 'Laws & regulations',
+  'treaty': 'Treaties',
+  'policy-guidance': 'Policy & guidance',
+  'standard': 'Standards',
+  'framework': 'Frameworks',
+  'testing-tool': 'Testing & tools',
+  'research-database': 'Research & databases',
 }
 
 export type RelationFamily = 'Authority' | 'Alignment' | 'Implementation' | 'Testing and evidence' | 'Evolution'
 
 export const relationFamilyFor = (type: RelationType): RelationFamily => {
-  if (['requires', 'applies-to', 'interprets', 'co-applies-with'].includes(type)) return 'Authority'
+  if (['made-under', 'issuer-governed-by', 'requires', 'applies-to', 'interprets', 'co-applies-with'].includes(type)) return 'Authority'
   if (['aligns-with', 'complements', 'maps-to'].includes(type)) return 'Alignment'
   if (['operationalises', 'guides-implementation-of', 'implements', 'profiles'].includes(type)) return 'Implementation'
   if (['provides-testing-for', 'provides-threat-knowledge-for', 'supports-evidence-for', 'evidence-base-for'].includes(type)) return 'Testing and evidence'
@@ -41,6 +31,8 @@ export const relationFamilyFor = (type: RelationType): RelationFamily => {
 }
 
 export const relationLabels: Record<RelationType, string> = {
+  'made-under': 'Made under',
+  'issuer-governed-by': 'APRA’s governing legislation',
   requires: 'Requires',
   operationalises: 'Operationalises',
   'guides-implementation-of': 'Guides implementation of',
@@ -61,3 +53,8 @@ export const relationLabels: Record<RelationType, string> = {
 }
 
 export const regionOrder: Instrument['region'][] = ['Australia', 'Global', 'Europe', 'United States', 'United Kingdom', 'Singapore', 'Canada']
+
+export const legalRelationLabel = (type: RelationType, outgoing: boolean): string => {
+  if (type === 'made-under') return outgoing ? 'Made under' : 'Authorises'
+  return outgoing ? 'APRA’s governing legislation' : 'Standard issued by APRA'
+}

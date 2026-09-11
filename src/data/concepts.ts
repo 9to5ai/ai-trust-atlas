@@ -1,4 +1,4 @@
-import type { Concept, ConceptDomain } from '../types'
+import type { Concept, ConceptDomain } from '../types.js'
 
 export const domains: ConceptDomain[] = [
   { id: 'governance', name: 'Governance and accountability', shortName: 'Governance', question: 'Who owns the outcome and the decision?', definition: 'Decision rights, accountability, policy, oversight and organisational governance for AI.', color: '#f0a46b', role: 'governance-capability', navigationFamily: 'decide-and-govern' },

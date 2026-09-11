@@ -13,6 +13,7 @@ export type GraphFilters = {
   query: string
   authorityClasses: Set<AuthorityClass>
   regions: Set<Instrument['region']>
+  publishedThrough?: number
 }
 
 const authorityRadius = new Map(authorityOrder.map((authority, index) => [authority, 420 + index * 23]))
@@ -25,7 +26,7 @@ const hash = (value: string) => {
 
 const polar = (angle: number, radius: number) => ({ x: Math.cos(angle) * radius, y: Math.sin(angle) * radius })
 
-const primaryDomainFor = (instrument: Instrument) => {
+export const primaryDomainFor = (instrument: Instrument) => {
   const scores = new Map<string, number>()
   for (const conceptId of instrument.conceptIds) {
     const domainId = concepts.find((concept) => concept.id === conceptId)?.domainId
@@ -52,7 +53,9 @@ const includesQuery = (instrument: Instrument, query: string) => {
 const instrumentVisible = (instrument: Instrument, filters: GraphFilters) => {
   const authorityVisible = filters.authorityClasses.size === 0 || filters.authorityClasses.has(instrument.authorityClass)
   const regionVisible = filters.regions.size === 0 || filters.regions.has(instrument.region)
-  return authorityVisible && regionVisible && includesQuery(instrument, filters.query)
+  const publishedYear = Number.parseInt(instrument.published, 10)
+  const timeVisible = filters.publishedThrough === undefined || !Number.isFinite(publishedYear) || publishedYear <= filters.publishedThrough
+  return authorityVisible && regionVisible && timeVisible && includesQuery(instrument, filters.query)
 }
 
 const edgeFromAssertion = (assertion: MappingAssertion, semanticFamily: GraphEdge['semanticFamily']): GraphEdge => ({
@@ -254,7 +257,7 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
   return { nodes, edges: edges.filter((edge) => nodeIds.has(edge.sourceId) && nodeIds.has(edge.targetId)) }
 }
 
-export const defaultFilters = (): GraphFilters => ({ query: '', authorityClasses: new Set(), regions: new Set() })
+export const defaultFilters = (): GraphFilters => ({ query: '', authorityClasses: new Set(), regions: new Set(), publishedThrough: undefined })
 export const graphAssertionForEdge = (edgeId: string) => mappingAssertionById.get(edgeId)
 export const assertionsVisibleInGraph = (graph: GraphModel) => graph.edges.map((edge) => mappingAssertionById.get(edge.id)).filter((assertion): assertion is MappingAssertion => Boolean(assertion))
 export const assertionsForGraphNode = (nodeId: string) => mappingAssertions.filter((assertion) => assertion.sourceNodeId === nodeId || assertion.targetNodeId === nodeId)

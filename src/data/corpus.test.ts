@@ -130,3 +130,26 @@ describe('AI Trust Atlas corpus', () => {
     expect(paths.every((path, index) => index === 0 || paths[index - 1]!.score >= path.score)).toBe(true)
   })
 })
+
+describe('prudential legal foundations', () => {
+  it('records the exact enabling Acts without treating the APRA Act as a standard-making power', () => {
+    const foundations = (id: string) => relations.filter(r => r.sourceId === id && r.type === 'made-under').map(r => r.targetId).sort()
+    const four = ['au-banking-act', 'au-insurance-act', 'au-life-insurance-act', 'au-phips-act'].sort()
+    expect(foundations('apra-cps-220')).toEqual(four)
+    expect(foundations('apra-cps-230')).toEqual([...four, 'au-sis-act'].sort())
+    expect(foundations('apra-cps-234')).toEqual([...four, 'au-sis-act'].sort())
+    for (const id of ['apra-cps-220', 'apra-cps-230', 'apra-cps-234']) {
+      expect(relations.find(r => r.sourceId === id && r.targetId === 'au-apra-act')?.type).toBe('issuer-governed-by')
+    }
+  })
+  it('preserves legal predicates and dated determination citations in the graph evidence', () => {
+    const legal = mappingAssertions.filter(a => a.predicate === 'made-under')
+    expect(legal).toHaveLength(14)
+    for (const assertion of legal) {
+      expect(assertion.basis).toBe('source-authored')
+      expect(assertion.citations[0].locator).toContain('Determination: section')
+      expect(assertion.citations[0].accessedAt).toBe('2026-09-07')
+    }
+    expect(instruments.find(i => i.id === 'apra-cps-230')?.effective).toBe('2026-07-01')
+  })
+})
