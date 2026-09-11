@@ -27,6 +27,7 @@ describe('clean universe interface', () => {
     const { container } = render(<App />)
     expect(screen.getByLabelText(/Interactive orbital map/)).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Related items' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Build your framework' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /Saved items/ })).not.toBeInTheDocument()
     selectOversight()
     await new Promise(resolve => setTimeout(resolve, 600))

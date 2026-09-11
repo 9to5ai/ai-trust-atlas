@@ -1,4 +1,3 @@
-import FrameworkWorkspace from './framework/FrameworkWorkspace'
 import { Methodology } from './components/Methodology'
 import { ThemeToggle } from './components/ThemeToggle'
 import { QuestionsProvider } from './components/LeadershipQuestions'
@@ -48,7 +47,6 @@ function AtlasApp() {
   const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialHashSelection)
   const [mobileControls, setMobileControls] = useState(false)
   const [showMethod, setShowMethod] = useState(false)
-  const [showFramework, setShowFramework] = useState(false)
   const [showTime, setShowTime] = useState(false)
   const [newsFocus, setNewsFocus] = useState(0)
   const [timeCutoff, setTimeCutoff] = useState(maximumPublicationYear)
@@ -218,7 +216,7 @@ function AtlasApp() {
           <div><strong>{concepts.length}</strong><span>Trust Concepts</span></div>
           <div className="edition-cell"><strong>{mappingAssertions.length}</strong><span>Connections</span></div>
         </div>
-        <nav className="header-actions" aria-label="Atlas resources"><button className="framework-trigger" title="Build your framework" onClick={() => setShowFramework(true)} aria-label="Build your framework">◇ <span>Build framework</span></button><button type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass/> Search</button>
+        <nav className="header-actions" aria-label="Atlas resources"><button type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass/> Search</button>
           <button className={temporalActive ? 'header-active' : ''} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise /> What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</button>
           <button className="method-trigger" type="button" title="Methodology" aria-label="Methodology" onClick={() => setShowMethod(true)}><Info /><span>Methodology</span></button>
           <a href="https://github.com/9to5ai/ai-trust-atlas" target="_blank" rel="noreferrer"><GithubLogo /> Source</a>
@@ -324,7 +322,6 @@ function AtlasApp() {
 
       <TemporalLens onSelect={(id) => { setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} cutoff={timeCutoff} minYear={minimumPublicationYear} maxYear={maximumPublicationYear} instruments={instruments} onChange={setTimeCutoff} onClose={() => setShowTime(false)} onReset={() => setTimeCutoff(maximumPublicationYear)} />
 
-      {showFramework && <FrameworkWorkspace onClose={() => setShowFramework(false)} />}
       {showMethod && <Methodology onClose={() => setShowMethod(false)} />}
     </main>
   )
