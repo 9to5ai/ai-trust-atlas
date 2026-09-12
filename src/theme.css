@@ -65,3 +65,6 @@
 :root[data-theme=dark] .method-primary { background:#274d7b; color:#e7f1ff; border-color:#597fae; }
 :root[data-theme=dark] .universe-rail { background:#112337ed; border-color:#324b66; }
 :root[data-theme=dark] .universe-rail :is(.plate-copy strong,.plate-copy small,.universe-rail-label) { color:#b3c9e3; }
+
+/* Keep toolbar elevation on its container, not on individual controls. */
+:root[data-theme=dark] .graph-controls { box-shadow:0 6px 20px #00000026; }
