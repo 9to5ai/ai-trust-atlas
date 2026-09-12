@@ -329,7 +329,7 @@ Some topic-specific assumptions are spread across the code: MIT risk identifiers
 
 ## Verification, limits and next steps
 
-The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 89 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 93 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
 
 Known operational limits:
 
@@ -346,3 +346,14 @@ Useful next steps are source-version snapshots and meaningful diffs, review queu
 Application code is provided under the [MIT licence](LICENSE). Third-party publications, taxonomies, standards, brands and source material retain their own terms. The app licence does not grant rights to reproduce licensed standards or redistribute an entire external dataset. Follow each source’s permissions, retain attribution and prefer links plus original summaries.
 
 The diagrams above use Mermaid, which [GitHub renders in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams). Their source remains editable with the documentation.
+
+
+### Finding, sharing and retracing a view
+
+The top of the map and list shows removable filter chips and a **Copy view link** action. Links encode the selected node, source types, regions, search text, publication cutoff and Universe/List mode in the URL; invalid values are discarded on load. The clipboard action provides a selectable URL if browser permissions prevent copying. No account or server storage is needed.
+
+**Back** restores the previous selection, filters, mode, map camera and list scroll position within the current session. The detail trail shows recently visited items, rather than implying a legal or conceptual hierarchy. History is bounded to 30 views and is not persisted between visits. Shared links reproduce the content context, not the sender's camera or complete browsing history.
+
+Global search accepts compact acronyms (for example `CPS234`), full source names and issuers, and a small curated vocabulary of familiar questions such as “Who is accountable?”. These deterministic aliases are in `src/lib/workspace.ts`; they retrieve existing records and do not generate answers or judgments. Empty filter results offer recovery controls. Selected node labels have a contrasting backdrop. Mobile details retain preview/full reading positions and swipe dismissal, with sticky title and close controls while reading.
+
+URL validation and round trips, familiar-language retrieval, and filter/back restoration are covered by automated tests. Core modules: `src/lib/viewState.ts`, `src/App.tsx`, `src/usability.css` and the graph navigation handle in `src/components/GraphCanvas.tsx`.

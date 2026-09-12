@@ -21,3 +21,5 @@ import './questions.css'
 import './theme.css'
 
 import "./methodology.css"
+
+import './usability.css'

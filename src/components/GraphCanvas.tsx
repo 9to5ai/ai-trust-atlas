@@ -5,6 +5,8 @@ import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@pho
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import type { GraphModel, GraphNode, GraphEdge } from '../types'
 
+export type GraphPose = { camera: Camera; rotation: Rotation }
+export type GraphNavigation = { capture: () => GraphPose; restore: (pose: GraphPose) => void }
 type Camera = { x: number; y: number; scale: number }
 type Point3D = { x: number; y: number; z: number }
 type Rotation = { yaw: number; pitch: number }
@@ -16,6 +18,7 @@ type Props = {
   selectedNodeId?: string
   onSelect: (nodeId?: string) => void
   showSourceLabels?: boolean
+  navigationRef?: RefObject<GraphNavigation | null>
   snapshotRef?: RefObject<(() => NodeSnapshot) | null>
   inactive?: boolean
   focusRequest?: number
@@ -284,7 +287,7 @@ function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, e
   context.restore()
 }
 
-export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, snapshotRef, focusRequest = 0 }: Props) {
+export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, snapshotRef, navigationRef, focusRequest = 0 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const lastSize = useRef({ width: 0, height: 0 })
@@ -317,6 +320,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
   const hoveredRef = useRef<string | undefined>(undefined)
   const sourceLabelsRef = useRef(showSourceLabels)
   sourceLabelsRef.current = showSourceLabels
+  useEffect(() => {
+    if(!navigationRef)return
+    navigationRef.current={capture:()=>({camera:{...cameraRef.current},rotation:{...rotationRef.current}}),restore:pose=>{cameraRef.current={...pose.camera};cameraTargetRef.current={...pose.camera};rotationRef.current={...pose.rotation};rotationTargetRef.current={...pose.rotation}}}
+    return()=>{navigationRef.current=null}
+  },[navigationRef])
   const selectedRef = useRef(selectedNodeId)
   const keyboardIndexRef = useRef(0)
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -719,6 +727,12 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
           }
           const overlaps = collides()
           if (filteredSourceLabel || isSelected || isHovered || !overlaps) {
+            if(isSelected) {
+              const textColor=context.fillStyle
+              context.fillStyle=dark?'#14273cf0':'#ffffffed'
+              context.beginPath();context.roundRect(box.x-5/camera.scale,box.y-3/camera.scale,box.w+10/camera.scale,box.h+6/camera.scale,4/camera.scale);context.fill()
+              context.fillStyle=textColor
+            }
             drawWrappedLabel(context, node.shortLabel, point.x, box.y, maxWidth, (size + 2) / camera.scale)
             labelBoxes.push(box)
           }

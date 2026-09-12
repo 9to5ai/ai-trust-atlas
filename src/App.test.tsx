@@ -158,3 +158,22 @@ describe('focused reference workflow', () => {
     expect(window.location.hash).toBe('#/instrument/apra-asic-frontier-roundtables-2026')
   })
 })
+
+
+describe('view navigation', () => {
+  it('opens a shared filtered list, removes chips, and restores context after a search', async () => {
+    window.history.replaceState(null,'','/?view=list&type=standard&region=Australia&year=2026')
+    render(<App />)
+    expect(screen.getByRole('button',{name:'List'})).toHaveAttribute('aria-pressed','true')
+    expect(screen.getByText(/No sources match these filters/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button',{name:'Remove Australia filter'}))
+    expect(screen.queryByText(/No sources match these filters/)).not.toBeInTheDocument()
+    selectOversight()
+    expect(window.location.hash).toContain('human-oversight')
+    fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+    expect(screen.getByRole('button',{name:'Remove Standards filter'})).toBeInTheDocument()
+    expect(screen.getByRole('button',{name:'List'})).toHaveAttribute('aria-pressed','true')
+    expect(window.location.hash).toBe('')
+    expect(window.location.search).toContain('type=standard')
+  })
+})

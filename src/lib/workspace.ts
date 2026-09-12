@@ -29,7 +29,31 @@ export type BasisFilter = 'all'|'source-authored'|'source-backed'
 export function basisMatches(a:MappingAssertion,basis:BasisFilter) {return basis==='all'||(basis==='source-authored'?a.basis==='source-authored':a.basis!=='atlas-synthesis')}
 export function connections(id:string,basis:BasisFilter='all') {return assertions.filter(a=>a.status==='active'&&basisMatches(a,basis)&&(a.sourceNodeId===id||a.targetNodeId===id))}
 export function otherEnd(a:MappingAssertion,id:string) {return a.sourceNodeId===id?a.targetNodeId:a.sourceNodeId}
-export function searchObjects(query:string,kind='All') {const terms=query.toLowerCase().trim().split(/\s+/).filter(Boolean);return objects.filter(x=>(kind==='All'||x.kind===kind)&&terms.every(t=>`${x.name} ${x.summary} ${x.group}`.toLowerCase().includes(t))).sort((a,b)=>Number(b.name.toLowerCase().includes(query.toLowerCase()))-Number(a.name.toLowerCase().includes(query.toLowerCase()))||a.name.localeCompare(b.name))}
+// Small, inspectable vocabulary expansions; search retrieves records, it does not generate advice.
+const searchAliases: [RegExp,string][] = [
+ [/who (?:is accountable|is responsible|owns|should own)/g,'accountability'],
+ [/human in the loop|human oversight/g,'human oversight'],
+ [/personal (?:data|information)|data protection/g,'privacy'],
+ [/unfair|discrimination|discriminatory/g,'fairness'],
+ [/explain ai|explainability/g,'explainability'],
+ [/third[- ]party|suppliers|vendors/g,'third party'],
+ [/cybersecurity|cyber security/g,'security'],
+]
+export function searchObjects(query:string,kind='All') {
+ const normalize=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()
+ let expanded=query.toLowerCase()
+ for(const [pattern,replacement] of searchAliases)expanded=expanded.replace(pattern,replacement)
+ const terms=normalize(expanded).split(' ').filter(t=>t&&!['what','how','do','does','the','a','an','we','our','can','should','to','ask','about','is','are','i'].includes(t))
+ return objects.filter(x=>kind==='All'||x.kind===kind).map(x=>{
+   const source=x.sourceId?instruments.find(s=>s.id===x.sourceId):undefined
+   const text=normalize(`${x.name} ${x.summary} ${x.group} ${source?.title??''} ${source?.issuer??''}`)
+   const compact=text.replace(/ /g,'')
+   const matches=terms.every(t=>text.includes(t))|| (!!query.trim()&&compact.includes(normalize(query).replace(/ /g,'')))
+   const score=normalize(x.name)===normalize(query)?100:normalize(x.name).includes(normalize(expanded))?50:terms.filter(t=>normalize(x.name).includes(t)).length*5
+   return {x,matches,score}
+ }).filter(v=>v.matches).sort((a,b)=>b.score-a.score||a.x.name.localeCompare(b.x.name)).map(v=>v.x)
+}
+
 export type RecordedPath = {nodeIds:string[];edgeIds:string[]}
 // Paths navigate either way; the UI and export retain each assertion's original direction.
 export function findPaths(from:string,to:string,basis:BasisFilter='all',maxHops=4):RecordedPath[] {

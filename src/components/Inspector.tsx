@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { useSheetDismiss } from '../hooks/useSheetDismiss'
 import { QuestionsPanel } from './LeadershipQuestions'
 import { ArrowRight, ArrowSquareOut, CaretDown, CaretUp, CheckCircle, GitBranch, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
@@ -18,6 +19,8 @@ type Props = {
   causalLens: CausalLens
   onShowRelated?: () => void
   mobileExpanded?: boolean
+  navigation?: ReactNode
+  onBack?: () => void
   onMobileExpandedChange?: (expanded: boolean) => void
 }
 
@@ -75,7 +78,7 @@ function ControlCards({ controls, onSelectNode, note }: { controls: ControlObjec
   </>
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, mobileExpanded = false, onMobileExpandedChange }: Props) {
+export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
   const sheet = useSheetDismiss(onClose)
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const instrument = kind === 'instrument' ? instrumentById.get(rawId) : kind === 'provision' ? instruments.find((candidate) => candidate.provisions.some((provision) => provision.id === rawId)) : undefined
@@ -110,9 +113,10 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
       <button className="mobile-inspector-peek" type="button" aria-expanded={mobileExpanded} onClick={() => onMobileExpandedChange?.(!mobileExpanded)}>
         <i aria-hidden="true" />
         <span><small>{mobileKind}</small><strong>{mobileTitle}</strong></span>
-        <b>{mobileExpanded ? 'Hide' : 'View evidence'} {mobileExpanded ? <CaretDown /> : <CaretUp />}</b>
+        <b>{mobileExpanded ? 'Preview' : 'Read details'} {mobileExpanded ? <CaretDown /> : <CaretUp />}</b>
       </button>
       <button className="inspector-close" type="button" onClick={onClose} aria-label="Close details"><X /></button>
+      <div className="detail-navigation">{onBack&&<button type="button" onClick={onBack}>← Back</button>}{navigation}</div>
       <div className="evidence-spine-head">
         <span><i />About this item</span>
         <code>{selectedNodeId}</code>

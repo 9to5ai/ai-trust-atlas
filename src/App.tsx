@@ -1,3 +1,6 @@
+import { readView, viewUrl, type AtlasView } from './lib/viewState'
+import { authorityLabels } from './lib/labels'
+import { objectById } from './lib/workspace'
 import { Methodology } from './components/Methodology'
 import { ThemeToggle } from './components/ThemeToggle'
 import { QuestionsProvider } from './components/LeadershipQuestions'
@@ -7,9 +10,8 @@ import { AnimatePresence } from 'motion/react'
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { SearchDialog } from './components/SearchDialog'
 import { AtlasMark } from './components/AtlasMark'
-import { describeNode } from './components/DossierPanel'
 import { FocusList } from './components/FocusList'
-import { GraphCanvas } from './components/GraphCanvas'
+import { GraphCanvas, type GraphNavigation, type GraphPose } from './components/GraphCanvas'
 import { Inspector } from './components/Inspector'
 import { Sidebar } from './components/Sidebar'
 import { TemporalLens } from './components/TemporalLens'
@@ -18,39 +20,33 @@ import { mappingAssertions } from './data/assertions'
 import { controlObjectives } from './data/controls'
 import { instruments } from './data/instruments'
 import { countForCausalLens, mappedRiskRecordCount, riskDomainById, riskSubdomains, type CausalLens } from './data/mitRiskTaxonomy'
-import { buildGraphModel, defaultFilters, type LayoutMode } from './lib/graphModel'
+import { buildGraphModel, type LayoutMode } from './lib/graphModel'
 import type { AuthorityClass, Instrument } from './types'
-
-const initialHashSelection = () => {
-  const hash = window.location.hash.replace('#/', '')
-  if (!hash) return undefined
-  const [kind, ...rest] = hash.split('/')
-  const normalizedKind = kind === 'clause' ? 'provision' : kind
-  const candidate = `${normalizedKind}:${rest.join('/')}`
-  return rest.length && describeNode(candidate) ? candidate : undefined
-}
-
-const initialLayout = (): LayoutMode => window.location.hash.includes('/risk-') ? 'risk' : window.location.hash.includes('/control-') ? 'controls' : 'ontology'
 
 const publicationYears = instruments.map((instrument) => Number.parseInt(instrument.published, 10)).filter(Number.isFinite)
 const minimumPublicationYear = Math.min(...publicationYears)
 const maximumPublicationYear = Math.max(...publicationYears)
 
 function AtlasApp() {
+  const [initialView] = useState(() => readView(new URL(window.location.href), maximumPublicationYear))
+  const [trail, setTrail] = useState<(AtlasView & { scroll: number; pose?: GraphPose })[]>([])
+  const [copyStatus, setCopyStatus] = useState('')
+  const [shareFallback, setShareFallback] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [layout, setLayout] = useState<LayoutMode>(initialLayout)
+  const [layout, setLayout] = useState<LayoutMode>(initialView.layout)
   const causalLens: CausalLens = 'all'
-  const [query, setQuery] = useState('')
-  const [authorityClasses, setAuthorityClasses] = useState<Set<AuthorityClass>>(() => defaultFilters().authorityClasses)
-  const [regions, setRegions] = useState<Set<Instrument['region']>>(() => defaultFilters().regions)
-  const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialHashSelection)
+  const [query, setQuery] = useState(initialView.query)
+  const [authorityClasses, setAuthorityClasses] = useState<Set<AuthorityClass>>(() => new Set(initialView.authorities))
+  const [regions, setRegions] = useState<Set<Instrument['region']>>(() => new Set(initialView.regions))
+  const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialView.selected)
   const [mobileControls, setMobileControls] = useState(false)
   const [showMethod, setShowMethod] = useState(false)
   const [showTime, setShowTime] = useState(false)
   const [newsFocus, setNewsFocus] = useState(0)
-  const [timeCutoff, setTimeCutoff] = useState(maximumPublicationYear)
-  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list'>('atlas')
+  const [timeCutoff, setTimeCutoff] = useState(initialView.year)
+  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list'>(initialView.projection)
+  const graphNavigation = useRef<GraphNavigation | null>(null)
   const graphSnapshot = useRef<(() => NodeSnapshot) | null>(null)
   const outlineHandle = useRef<OutlineHandle | null>(null)
   const morphOrigin = useRef<NodeSnapshot>(new Map())
@@ -72,6 +68,7 @@ function AtlasApp() {
   }
   const changeProjection = (next: 'atlas' | 'list') => {
     if (next === projection) return
+    rememberView()
     clearMorph()
     if (next === 'list') {
       morphOrigin.current = graphSnapshot.current?.() ?? new Map()
@@ -90,7 +87,7 @@ function AtlasApp() {
       playMorph(morphOrigin.current, outlineHandle.current?.capture() ?? points, false)
     }, 40)
   }
-  const [focusAnchorId, setFocusAnchorId] = useState<string | undefined>(initialHashSelection)
+  const [focusAnchorId, setFocusAnchorId] = useState<string | undefined>(initialView.anchor)
   const [mobileInspectorExpanded, setMobileInspectorExpanded] = useState(false)
 
   const filteredInstruments = useMemo(() => {
@@ -128,7 +125,26 @@ function AtlasApp() {
 
   const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions, publishedThrough: timeCutoff }, selectedNodeId, causalLens), [authorityClasses, causalLens, layout, query, regions, selectedNodeId, timeCutoff])
 
+  const currentView = (): AtlasView => ({selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], year:timeCutoff, anchor:focusAnchorId})
+  const rememberView = () => setTrail(items => [...items, {...currentView(), scroll:document.querySelector('.outline-scroll')?.scrollTop ?? 0, pose:graphNavigation.current?.capture()}].slice(-30))
+  const restoreView = (view: AtlasView) => {
+    clearMorph(); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
+    setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
+  }
+  const goBack = (index = trail.length-1) => {
+    const view=trail[index]; if(!view)return
+    restoreView(view); setTrail(items=>items.slice(0,index))
+    requestAnimationFrame(()=>{ if(view.pose)graphNavigation.current?.restore(view.pose); const list=document.querySelector('.outline-scroll'); if(list)list.scrollTop=view.scroll })
+  }
+  const clearFilters = () => {setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear)}
+  const copyView = async () => {
+    const url=new URL(window.location.pathname+viewUrl(currentView()),window.location.origin).href
+    try {await navigator.clipboard.writeText(url);setCopyStatus('Link copied')}
+    catch {setShareFallback(url);setCopyStatus('Copy the link below')}
+  }
+  useEffect(()=>{if(!copyStatus)return;const timer=setTimeout(()=>setCopyStatus(''),3500);return()=>clearTimeout(timer)},[copyStatus])
   const selectNode = (nodeId?: string) => {
+    if(nodeId !== selectedNodeId) rememberView()
     if (!nodeId) {
       setSelectedNodeId(undefined)
       setFocusAnchorId(undefined)
@@ -147,11 +163,13 @@ function AtlasApp() {
   }
 
   const selectFocusItem = (nodeId: string) => {
+    if(nodeId !== selectedNodeId)rememberView()
     if (nodeId.startsWith('instrument:') || nodeId.startsWith('provision:')) setLayout('ontology')
     setSelectedNodeId(nodeId)
   }
 
   const changeLayout = (nextLayout: LayoutMode) => {
+    if(nextLayout!==layout)rememberView()
     setLayout(nextLayout)
     setQuery('')
     setSelectedNodeId(undefined)
@@ -176,13 +194,13 @@ function AtlasApp() {
   useEffect(() => setMobileInspectorExpanded(false), [selectedNodeId])
 
   useEffect(() => {
-    if (!selectedNodeId) {
-      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`)
-      return
-    }
-    const [kind, id] = selectedNodeId.split(':')
-    window.history.replaceState(null, '', `#/${kind}/${id}`)
-  }, [selectedNodeId])
+    window.history.replaceState(null, '', window.location.pathname+viewUrl(currentView()))
+  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId])
+  useEffect(() => {
+    const restore=()=>{restoreView(readView(new URL(window.location.href),maximumPublicationYear));setTrail([])}
+    window.addEventListener('popstate',restore);window.addEventListener('hashchange',restore)
+    return()=>{window.removeEventListener('popstate',restore);window.removeEventListener('hashchange',restore)}
+  }, [])
 
   const toggleAuthority = (authority: AuthorityClass) => setAuthorityClasses((current) => {
     const next = new Set(current)
@@ -262,12 +280,28 @@ function AtlasApp() {
         />
 
         <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}${morph.length ? ' is-morphing' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
+          <div className="view-actions">
+            {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
+            <button type="button" onClick={copyView}>Copy view link</button>
+            <span role="status">{copyStatus}</span>
+          </div>
+          {shareFallback&&<div className="share-fallback"><label>View link<input readOnly value={shareFallback} onFocus={e=>e.target.select()}/></label><button onClick={()=>setShareFallback('')} aria-label="Close link"><X/></button></div>}
+          {(query||((layout==='ontology'||layout==='authority')&&(authorityClasses.size>0||regions.size>0||temporalActive)))&&<div className="active-filters" aria-label="Active filters">
+            {query&&<button onClick={()=>setQuery('')} aria-label="Remove search filter">“{query}” <X/></button>}
+            {(layout==='ontology'||layout==='authority')&&<>
+              {[...authorityClasses].map(a=><button key={a} onClick={()=>toggleAuthority(a)} aria-label={`Remove ${authorityLabels[a]} filter`}>{authorityLabels[a]} <X/></button>)}
+              {[...regions].map(r=><button key={r} onClick={()=>toggleRegion(r)} aria-label={`Remove ${r} filter`}>{r} <X/></button>)}
+              {temporalActive&&<button onClick={()=>setTimeCutoff(maximumPublicationYear)}>Through {timeCutoff} <X/></button>}
+            </>}
+            <button onClick={clearFilters}>Clear all</button>
+          </div>}
+          {(layout==='risk'?filteredRiskSubdomains.length===0:layout==='controls'?filteredControls.length===0:filteredInstruments.length===0)&&<div className="atlas-empty" role="status"><strong>No {layout==='risk'?'risks':layout==='controls'?'controls':'sources'} match these filters</strong><p>Remove a filter above or clear them to explore again.</p><button onClick={clearFilters}>Clear filters</button></div>}
           <div className="observatory-frame" aria-hidden="true"><i /><i /><i /></div>
           <button className="sidebar-collapse" type="button" aria-label={sidebarCollapsed ? 'Expand left panel' : 'Collapse left panel'} aria-expanded={!sidebarCollapsed} onClick={() => setSidebarCollapsed(value => !value)}>{sidebarCollapsed ? <CaretRight /> : <CaretLeft />}</button>
           {selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
-          <GraphCanvas focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
+          <GraphCanvas navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
           <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} handle={outlineHandle} onReady={outlineReady} />
           {morph.length > 0 && <UniverseMorph key={reverseMorph ? 'reverse' : 'forward'} nodes={morph} edges={graphModel.edges} reverse={reverseMorph} selected={selectedNodeId} />}
@@ -308,11 +342,13 @@ function AtlasApp() {
         </section>
 
         <Inspector
+          navigation={<nav className="detail-trail" aria-label="Recently explored">{trail.filter(v=>v.selected).slice(-2).map((v)=>{const index=trail.indexOf(v);return <button key={index} onClick={()=>goBack(index)}>{objectById.get(v.selected!)?.name}<CaretRight/></button>})}<span>{selectedNodeId?objectById.get(selectedNodeId)?.name:''}</span></nav>}
+          onBack={trail.length?()=>goBack():undefined}
           selectedNodeId={selectedNodeId}
           onClose={() => selectNode(undefined)}
           onSelectNode={selectNode}
           causalLens={causalLens}
-          onShowRelated={selectedNodeId ? () => { setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
+          onShowRelated={selectedNodeId ? () => { rememberView(); setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
           mobileExpanded={mobileInspectorExpanded}
           onMobileExpandedChange={setMobileInspectorExpanded}
         />
@@ -320,7 +356,7 @@ function AtlasApp() {
 
       {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/>}
 
-      <TemporalLens onSelect={(id) => { setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} cutoff={timeCutoff} minYear={minimumPublicationYear} maxYear={maximumPublicationYear} instruments={instruments} onChange={setTimeCutoff} onClose={() => setShowTime(false)} onReset={() => setTimeCutoff(maximumPublicationYear)} />
+      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} cutoff={timeCutoff} minYear={minimumPublicationYear} maxYear={maximumPublicationYear} instruments={instruments} onChange={setTimeCutoff} onClose={() => setShowTime(false)} onReset={() => setTimeCutoff(maximumPublicationYear)} />
 
       {showMethod && <Methodology onClose={() => setShowMethod(false)} />}
     </main>
