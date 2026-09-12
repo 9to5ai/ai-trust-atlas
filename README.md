@@ -157,6 +157,12 @@ A source-to-risk path often travels through a concept or section. Path ranking i
 
 Search indexes the compiled objects and uses text matching, not embeddings. The List ranks sources within a concept partly by the number of supporting sections; direct source browsing is alphabetical. Neither ranking should be read as an authority assessment.
 
+### Motion that supports exploration
+
+The centre has a restrained 6.4-second halo cycle. Separate detail and ambient clocks let hover or selection stabilise the orbit while the halo and selection accents remain responsive. Selecting or hovering an item produces a single 1.5-second light cue along up to twelve visible connections; it is a selection aid, not a claim about semantic direction or live activity.
+
+Filtered nodes and edges crossfade over roughly 360 milliseconds. Exiting objects are retained only for drawing, not hit testing, and quick filter reversals reuse their current opacity and position. Pause freezes decorative motion; reduced-motion preferences settle transitions immediately and disable the reveal cue. Reduced-motion changes are observed while the app is open. The hidden List view stops the Canvas loop.
+
 ### Questions and developments
 
 The question bank is maintained in source files. `questionsForNode()` composes role-specific prompts from authored concept, risk, control and source material. Each question carries context, the question, why it matters, evidence to ask for, a follow-up and references. The build enforces coverage and distinct wording for Board, Executive and Regulator audiences.
@@ -323,7 +329,7 @@ Some topic-specific assumptions are spread across the code: MIT risk identifiers
 
 ## Verification, limits and next steps
 
-The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 86 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 89 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
 
 Known operational limits:
 

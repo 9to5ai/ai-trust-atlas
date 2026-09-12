@@ -1,8 +1,9 @@
+import { advancePresence, reconcilePresence, motionStep, type Presence } from '../lib/universeMotion'
 import { arcticAccents } from '../lib/nodeStyle'
 import type { NodeSnapshot } from './UniverseOutline'
 import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
-import type { GraphModel, GraphNode } from '../types'
+import type { GraphModel, GraphNode, GraphEdge } from '../types'
 
 type Camera = { x: number; y: number; scale: number }
 type Point3D = { x: number; y: number; z: number }
@@ -255,9 +256,19 @@ function drawParticleField(
   context.restore()
 }
 
-function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, _elapsed: number, _reducedMotion: boolean, dark: boolean) {
+function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, elapsed: number, reducedMotion: boolean, dark: boolean) {
   context.save()
   const radius = 30 / cameraScale
+  const breath = reducedMotion ? 0.5 : (1 - Math.cos(elapsed * Math.PI * 2 / 6400)) / 2
+  const haloRadius = radius + (10 + breath * 9) / cameraScale
+  const halo = context.createRadialGradient(0, 0, radius, 0, 0, haloRadius + 12 / cameraScale)
+  halo.addColorStop(0, `rgba(90, 147, 240, ${0.045 + breath * 0.045})`)
+  halo.addColorStop(1, 'rgba(90, 147, 240, 0)')
+  context.fillStyle = halo
+  context.beginPath(); context.arc(0, 0, haloRadius + 12 / cameraScale, 0, Math.PI * 2); context.fill()
+  context.strokeStyle = `rgba(100, 155, 235, ${0.1 + breath * 0.09})`
+  context.lineWidth = 0.7 / cameraScale
+  context.beginPath(); context.arc(0, 0, haloRadius, 0, Math.PI * 2); context.stroke()
   context.shadowColor = 'rgba(62, 99, 153, 0.14)'
   context.shadowBlur = 22 / cameraScale
   context.fillStyle = dark ? '#142a43' : '#ffffff'
@@ -278,6 +289,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const lastSize = useRef({ width: 0, height: 0 })
   const modelRef = useRef(model)
+  const nodePresenceRef = useRef(new Map<string, Presence<GraphNode>>())
+  const edgePresenceRef = useRef(new Map<string, Presence<GraphEdge>>())
   const nodePositionsRef = useRef(new Map<string, Point3D>())
   const projectedPositionsRef = useRef(new Map<string, ProjectedPoint>())
   const cameraRef = useRef<Camera>({ x: 0, y: 0, scale: initialScale })
@@ -306,7 +319,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
   sourceLabelsRef.current = showSourceLabels
   const selectedRef = useRef(selectedNodeId)
   const keyboardIndexRef = useRef(0)
-  const reducedMotion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReducedMotion(preference.matches)
+    preference.addEventListener('change', update)
+    return () => preference.removeEventListener('change', update)
+  }, [])
   const selectedConnectionSummary = useMemo(() => {
     if (!selectedNodeId) return 'No node selected. Use arrow keys to select nodes, plus and minus to zoom, or 0 to reset the universe.'
     const selected = model.nodes.find((node) => node.id === selectedNodeId)
@@ -321,17 +340,23 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
 
   useEffect(() => {
     const previous = nodePositionsRef.current
-    const next = new Map<string, Point3D>()
+    const next = new Map(previous)
+    nodePresenceRef.current = reconcilePresence(nodePresenceRef.current, model.nodes)
+    edgePresenceRef.current = reconcilePresence(edgePresenceRef.current, model.edges)
     model.nodes.forEach((node) => {
       const existing = previous.get(node.id)
       next.set(node.id, existing ?? {
-        x: node.targetX * 0.16,
-        y: node.targetY * 0.16,
-        z: node.targetZ * 0.16,
+        x: node.targetX,
+        y: node.targetY,
+        z: node.targetZ,
       })
     })
     nodePositionsRef.current = next
     modelRef.current = model
+    if (hoveredRef.current && !model.nodes.some(node => node.id === hoveredRef.current)) {
+      hoveredRef.current = undefined
+      setHoveredNodeId(undefined)
+    }
     if (!selectedRef.current && wrapRef.current) {
       const bounds = wrapRef.current.getBoundingClientRect()
       cameraTargetRef.current = { x: 0, y: 0, scale: fitScaleForModel(model, bounds.width, bounds.height) }
@@ -377,6 +402,9 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
     let previousElapsed = 0
     let animationTime = 0
     let ambientYaw = 0
+    let ambientTime = 0
+    let lastActiveId: string | undefined
+    let revealStarted = 0
 
     const render = (elapsed = 0) => {
       const context = canvas.getContext('2d')
@@ -388,10 +416,12 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       const frameFactor = previousElapsed ? Math.min(2, (elapsed - previousElapsed) / 16.67) : 1
       const delta = previousElapsed ? elapsed - previousElapsed : 0
       previousElapsed = elapsed
-      if (!pausedRef.current && !reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) animationTime += Math.min(delta, 50)
+      const step = motionStep(delta, pausedRef.current, reducedMotion, document.hidden, Boolean(dragRef.current.active || selectedRef.current || hoveredRef.current))
+      animationTime += step.detail
+      ambientTime += step.ambient
       elapsed = animationTime
       if (!pausedRef.current && !reducedMotion && !dragRef.current.active && !selectedRef.current && !hoveredRef.current) {
-        const nextAmbientYaw = Math.sin(elapsed * 0.00008) * 0.18
+        const nextAmbientYaw = Math.sin(ambientTime * 0.00008) * 0.18
         targetRotation.yaw += nextAmbientYaw - ambientYaw
         ambientYaw = nextAmbientYaw
       }
@@ -423,8 +453,14 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
 
       const positions = nodePositionsRef.current
       const currentModel = modelRef.current
+      const immediate = reducedMotion || pausedRef.current
+      advancePresence(nodePresenceRef.current, delta, immediate)
+      advancePresence(edgePresenceRef.current, delta, immediate)
+      const renderNodes = [...nodePresenceRef.current.values()].map(entry => entry.value)
+      const renderEdges = [...edgePresenceRef.current.values()].map(entry => entry.value)
+      for (const id of positions.keys()) if (!nodePresenceRef.current.has(id)) positions.delete(id)
       const sphereRadius = modelRadius(currentModel) * 1.02
-      currentModel.nodes.forEach((node) => {
+      renderNodes.forEach((node) => {
         const position = positions.get(node.id)
         if (!position) return
         const ease = reducedMotion ? 1 : 0.07
@@ -434,7 +470,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       })
 
       const projected = new Map<string, ProjectedPoint>()
-      currentModel.nodes.forEach((node) => {
+      renderNodes.forEach((node) => {
         const position = positions.get(node.id)
         if (position) projected.set(node.id, projectPoint(position, rotation, sphereRadius))
       })
@@ -447,8 +483,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       context.globalAlpha = 1
       drawParticleField(context, coreParticles, rotation, sphereRadius, camera.scale, elapsed, true, reducedMotion)
 
-      const nodeMap = new Map(currentModel.nodes.map((node) => [node.id, node]))
+      const nodeMap = new Map(renderNodes.map((node) => [node.id, node]))
       const activeId = hoveredRef.current ?? selectedRef.current
+      if (activeId !== lastActiveId) { lastActiveId = activeId; revealStarted = elapsed }
+      const reveal = (elapsed - revealStarted) / 1500
+      let revealedEdges = 0
       const activeNode = activeId ? nodeMap.get(activeId) : undefined
       const adjacent = new Set<string>()
       if (activeId) {
@@ -459,7 +498,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         })
       }
 
-      currentModel.edges.forEach((edge) => {
+      renderEdges.forEach((edge) => {
         if (!showSynthesisRef.current && edge.basis === 'cross-framework-synthesis') return
         const sourceNode = nodeMap.get(edge.sourceId)
         const targetNode = nodeMap.get(edge.targetId)
@@ -475,10 +514,11 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         const averageDepth = (source.depth + target.depth) / 2
         const depthOpacity = clamp(0.52 + averageDepth / Math.max(sphereRadius * 2.1, 1), 0.26, 1)
         const baseOpacity = isRelation ? 0.105 : isRiskMapping || isControlMapping ? 0.075 : camera.scale > 1 ? 0.07 : 0.038
+        context.globalAlpha = Math.min(edgePresenceRef.current.get(edge.id)?.opacity ?? 0, nodePresenceRef.current.get(edge.sourceId)?.opacity ?? 0, nodePresenceRef.current.get(edge.targetId)?.opacity ?? 0)
         context.strokeStyle = isActive ? (dark ? 'rgba(139, 185, 255, 0.95)' : 'rgba(36, 94, 232, 0.86)') : `rgba(70, 101, 143, ${baseOpacity * depthOpacity * 1.5})`
         context.lineWidth = (isActive ? 2.1 : isRelation ? 0.82 : 0.52) / camera.scale
-        context.setLineDash(isActive && !reducedMotion ? [8 / camera.scale, 5 / camera.scale] : (isRelation || isRiskMapping || isControlMapping) ? [5 / camera.scale, 7 / camera.scale] : [])
-        context.lineDashOffset = isActive && !reducedMotion ? -(elapsed * 0.018) / camera.scale : 0
+        context.setLineDash(!isActive && (isRelation || isRiskMapping || isControlMapping) ? [5 / camera.scale, 7 / camera.scale] : [])
+        context.lineDashOffset = 0
         context.beginPath()
         context.moveTo(source.x, source.y)
 
@@ -500,6 +540,18 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         context.setLineDash([])
         context.lineDashOffset = 0
 
+        // A bounded selection cue, not a representation of semantic flow or live data.
+        if (isActive && !reducedMotion && reveal > 0 && reveal < 1 && revealedEdges++ < 12) {
+          const t = edge.sourceId === activeId ? reveal : 1 - reveal
+          const x = (1-t)*(1-t)*source.x + 2*(1-t)*t*controlX + t*t*target.x
+          const y = (1-t)*(1-t)*source.y + 2*(1-t)*t*controlY + t*t*target.y
+          context.save()
+          context.globalAlpha *= Math.sin(reveal * Math.PI) * 0.85
+          context.fillStyle = dark ? '#d6e8ff' : '#397bd7'
+          context.shadowColor = '#80b5ff'; context.shadowBlur = 7 / camera.scale
+          context.beginPath(); context.arc(x, y, 2.4 / camera.scale, 0, Math.PI * 2); context.fill()
+          context.restore()
+        }
         const isProvisionEdge = sourceNode.kind === 'provision' || targetNode.kind === 'provision'
         if (isActive && camera.scale > 0.9 && (isRelation || isProvisionEdge || isRiskMapping || isControlMapping)) {
           const labelX = (source.x + target.x) / 2
@@ -516,9 +568,10 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         }
       })
 
+      context.globalAlpha = 1
       drawTrustCore(context, camera.scale, elapsed, reducedMotion, dark)
 
-      const orderedNodes = [...currentModel.nodes].sort((left, right) => (projected.get(left.id)?.depth ?? 0) - (projected.get(right.id)?.depth ?? 0))
+      const orderedNodes = [...renderNodes].sort((left, right) => (projected.get(left.id)?.depth ?? 0) - (projected.get(right.id)?.depth ?? 0))
       const labelBoxes: { x: number; y: number; w: number; h: number }[] = []
       orderedNodes.forEach((node) => {
         const point = projected.get(node.id)
@@ -528,7 +581,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         const nodeColor = dark ? node.color : arcticAccents[node.color.toLowerCase()] ?? '#68869e'
         const muted = Boolean(activeId && !adjacent.has(node.id))
         const depthOpacity = clamp(0.62 + point.depth / Math.max(sphereRadius * 2.2, 1), 0.42, 1)
-        context.globalAlpha = muted ? 0.18 : Math.max(.7, depthOpacity)
+        const presence = nodePresenceRef.current.get(node.id)?.opacity ?? 0
+        context.globalAlpha = presence * (muted ? 0.18 : Math.max(.7, depthOpacity))
         const radius = node.radius * point.scale * (isSelected ? 1.34 : isHovered ? 1.2 : 1)
 
         if (isSelected) {
@@ -638,20 +692,20 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
             || (node.kind === 'risk-subdomain' && camera.scale > 1.42)
             || (node.kind === 'control-objective' && camera.scale > 1.36)
           )))
-        if (showLabel) {
+        if (showLabel && nodePresenceRef.current.get(node.id)?.present) {
           const isGroup = node.kind === 'domain' || node.kind === 'risk-domain' || node.kind === 'control-family'
           const size = isSelected || isHovered ? 15 : isGroup ? 14 : 12
           context.font = `${isGroup ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
           context.textAlign = 'center'
           context.textBaseline = 'top'
-          context.globalAlpha = 1
+          context.globalAlpha = presence
           context.fillStyle = dark ? (isSelected || isHovered ? '#ffffff' : '#c2d5ea') : isSelected || isHovered ? '#17396a' : '#344f6b'
           const maxWidth = 140 / camera.scale
           const labelWidth = Math.min(maxWidth, context.measureText(node.shortLabel).width + 10 / camera.scale)
           const box = { x: point.x - labelWidth / 2, y: point.y + radius + 7 / camera.scale, w: labelWidth, h: (size + 2) * (labelWidth < maxWidth ? 1 : 2) / camera.scale }
           const collides = () => labelBoxes.some(b => box.x < b.x + b.w && box.x + box.w > b.x && box.y < b.y + b.h && box.y + box.h > b.y)
           if (filteredSourceLabel) {
-            context.globalAlpha = 1
+            context.globalAlpha = presence
             let attempts = 0
             while (collides() && attempts++ < 12) box.y += (size + 5) / camera.scale
             if (attempts > 0) {
@@ -707,6 +761,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
     let nearest: GraphNode | undefined
     let distance = Number.POSITIVE_INFINITY
     for (const node of modelRef.current.nodes) {
+      if ((nodePresenceRef.current.get(node.id)?.opacity ?? 0) < 0.15) continue
       const point = projectedPositionsRef.current.get(node.id)
       if (!point) continue
       const candidate = Math.hypot(worldX - point.x, worldY - point.y)
