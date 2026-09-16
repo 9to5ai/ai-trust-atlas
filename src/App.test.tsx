@@ -177,3 +177,19 @@ describe('view navigation', () => {
     expect(window.location.search).toContain('type=standard')
   })
 })
+
+
+describe('audience workspace entry',()=>{
+ it('opens Questions without a node and returns to the map after exploring',()=>{
+   render(<App />)
+   fireEvent.click(screen.getByRole('button',{name:'Questions'}))
+   expect(screen.getByRole('region',{name:'Questions workspace'})).toBeInTheDocument()
+   expect(window.location.search).toContain('view=questions')
+   fireEvent.click(screen.getByRole('button',{name:'Start with five questions'}))
+   fireEvent.click(screen.getAllByRole('button',{name:'Explore in Atlas →'})[0])
+   expect(screen.queryByRole('region',{name:'Questions workspace'})).not.toBeInTheDocument()
+   expect(window.location.hash).toContain('concept/accountability')
+   fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+   expect(screen.getByText('5 questions for Board')).toBeInTheDocument()
+ })
+})

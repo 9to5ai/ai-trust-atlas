@@ -2,6 +2,7 @@ import {describe,it,expect} from 'vitest'
 import {readView,viewUrl,type AtlasView} from './viewState'
 import {searchObjects} from './workspace'
 describe('shareable views',()=>{
+ it('opens the questions workspace directly',()=>{expect(readView(new URL('https://atlas.example/?view=questions'),2026).projection).toBe('questions')})
  it('round trips a filtered list selection',()=>{
  const view:AtlasView={selected:'concept:accountability',layout:'ontology',projection:'list',query:'AI & privacy',authorities:['standard'],regions:['Australia'],year:2026,anchor:'concept:accountability'}
  expect(readView(new URL('https://atlas.example/'+viewUrl(view)),2026)).toEqual(view)

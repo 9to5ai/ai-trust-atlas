@@ -656,7 +656,6 @@ export function questionForDevelopment(item: Development, audience: Audience): Q
   if (!prompt) return undefined
   return { id: `development:${item.id}:${audience}`, audience, context: item.title, text: prompt.questions[audience], why: item.implication, askFor: prompt.askFor, followUp: prompt.followUp, sources: [{ title: item.issuer + ' — ' + item.title, url: item.url }], developmentDate: item.published }
 }
-export const MAX_BRIEF_QUESTIONS = 8
 export function briefText(purpose: string, questions: Question[]): string {
   return ['AI Trust Atlas — Meeting brief', purpose.trim() || 'Discussion questions', '', 'Atlas-authored, source-informed prompts. Confirm the context and applicable requirements. Supporting material is an input to human assessment.', '', ...questions.flatMap((q,i) => [
     `${i+1}. ${q.text}`, `${audienceNames[q.audience]} · ${q.context}${q.developmentDate ? ' · Development: '+q.developmentDate : ''}`, ...(q.basis ? [`Connection to this item: ${q.basis}`] : []), `Why ask: ${q.why}`, `Ask for: ${q.askFor}`, `Follow-up: ${q.followUp}`, ...q.sources.map(s => `${s.title}: ${s.url}`), ''

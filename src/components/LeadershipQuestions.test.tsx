@@ -50,11 +50,11 @@ describe('meeting preparation',()=>{
     expect((fallback as HTMLTextAreaElement).value).toContain('https://www.apra.gov.au/')
     vi.unstubAllGlobals()
   })
-  it('limits a brief to eight questions and exposes a clear explanation',()=>{
+  it('allows more than eight questions with guidance instead of a hard limit',()=>{
     render(<QuestionsProvider><QuestionsPanel kind="domain" id="governance"/><QuestionsPanel kind="domain" id="security"/><QuestionsPanel kind="domain" id="resilience"/></QuestionsProvider>)
     const buttons=screen.getAllByRole('button',{name:'+ Add to brief'}).slice(0,9)
     buttons.forEach(b=>fireEvent.click(b))
-    expect(screen.getByRole('button',{name:'Meeting brief, 8 questions'})).toBeInTheDocument()
-    expect(screen.getAllByText('Your brief has eight questions. Remove one to make room.').length).toBeGreaterThan(0)
+    expect(screen.getByRole('button',{name:'Meeting brief, 9 questions'})).toBeInTheDocument()
+    expect(screen.getByText(/Five to eight questions usually/)).toBeInTheDocument()
   })
 })

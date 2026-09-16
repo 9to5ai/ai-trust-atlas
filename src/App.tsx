@@ -1,3 +1,4 @@
+import { QuestionsView } from './components/QuestionsView'
 import { readView, viewUrl, type AtlasView } from './lib/viewState'
 import { authorityLabels } from './lib/labels'
 import { objectById } from './lib/workspace'
@@ -45,7 +46,7 @@ function AtlasApp() {
   const [showTime, setShowTime] = useState(false)
   const [newsFocus, setNewsFocus] = useState(0)
   const [timeCutoff, setTimeCutoff] = useState(initialView.year)
-  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list'>(initialView.projection)
+  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions'>(initialView.projection)
   const graphNavigation = useRef<GraphNavigation | null>(null)
   const graphSnapshot = useRef<(() => NodeSnapshot) | null>(null)
   const outlineHandle = useRef<OutlineHandle | null>(null)
@@ -66,10 +67,11 @@ function AtlasApp() {
     }))
     morphTimer.current = setTimeout(() => setMorph([]), 860)
   }
-  const changeProjection = (next: 'atlas' | 'list') => {
+  const changeProjection = (next: 'atlas' | 'list' | 'questions') => {
     if (next === projection) return
     rememberView()
     clearMorph()
+    if(next==='questions'||projection==='questions'){setProjection(next);setMobileInspectorExpanded(false);setMobileControls(false);return}
     if (next === 'list') {
       morphOrigin.current = graphSnapshot.current?.() ?? new Map()
       morphPending.current = true
@@ -220,7 +222,7 @@ function AtlasApp() {
   const temporalActive = timeCutoff < maximumPublicationYear
 
   return (
-    <main className={`atlas-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}`} id="main-content">
+    <main className={`atlas-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${projection==='questions'?' questions-mode':''}`} id="main-content">
       <a className="skip-link" href="#atlas-graph">Skip to the map</a>
       <header className="atlas-header">
         <div className="brand-block">
@@ -243,7 +245,7 @@ function AtlasApp() {
         </nav>
       </header>
 
-      <div className={selectedNodeId ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
+      <div className={selectedNodeId && projection!=='questions' ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
         <div className={mobileControls ? 'sidebar-mobile open' : 'sidebar-mobile'} inert={!mobileControls} aria-hidden={!mobileControls}>
           <Sidebar
             query={query}
@@ -302,7 +304,8 @@ function AtlasApp() {
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
           <GraphCanvas navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
-          <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>
+          <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button><button type="button" aria-pressed={projection === 'questions'} onClick={() => changeProjection('questions')}>Questions</button></div>
+          <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} handle={outlineHandle} onReady={outlineReady} />
           {morph.length > 0 && <UniverseMorph key={reverseMorph ? 'reverse' : 'forward'} nodes={morph} edges={graphModel.edges} reverse={reverseMorph} selected={selectedNodeId} />}
           <AnimatePresence mode="wait">
@@ -341,7 +344,7 @@ function AtlasApp() {
           </div>
         </section>
 
-        <Inspector
+        {projection!=='questions'&&<Inspector
           navigation={<nav className="detail-trail" aria-label="Recently explored">{trail.filter(v=>v.selected).slice(-2).map((v)=>{const index=trail.indexOf(v);return <button key={index} onClick={()=>goBack(index)}>{objectById.get(v.selected!)?.name}<CaretRight/></button>})}<span>{selectedNodeId?objectById.get(selectedNodeId)?.name:''}</span></nav>}
           onBack={trail.length?()=>goBack():undefined}
           selectedNodeId={selectedNodeId}
@@ -351,7 +354,7 @@ function AtlasApp() {
           onShowRelated={selectedNodeId ? () => { rememberView(); setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
           mobileExpanded={mobileInspectorExpanded}
           onMobileExpandedChange={setMobileInspectorExpanded}
-        />
+        />}
       </div>
 
       {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/>}

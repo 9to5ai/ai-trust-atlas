@@ -1,21 +1,24 @@
+import { BRIEF_STORAGE_KEY, readBrief } from '../lib/questionCatalogue'
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { audiences, audienceNames, briefText, MAX_BRIEF_QUESTIONS, questionForDevelopment, type Audience, type Question } from '../data/leadershipQuestions'
+import { audiences, audienceNames, briefText, questionForDevelopment, type Audience, type Question } from '../data/leadershipQuestions'
 import { developments, inDateWindow, type Development } from '../data/developments'
 import { concepts, domains } from '../data/concepts'
 import { questionsForNode } from '../data/nodeQuestions'
 import type { GraphNodeKind } from '../types'
 
-type BriefContext = { audience: Audience; setAudience: (value: Audience) => void; selected: Question[]; toggle: (q: Question) => void; openBrief: () => void; notice: string }
+type BriefContext = { audience: Audience; setAudience: (value: Audience) => void; selected: Question[]; toggle: (q: Question) => void; openBrief: () => void; notice: string; move: (id:string,direction:number)=>void; clear:()=>void; storageNotice:string }
 const Context = createContext<BriefContext | null>(null)
-const useBrief = () => { const value = useContext(Context); if (!value) throw new Error('Questions require QuestionsProvider'); return value }
+export const useBrief = () => { const value = useContext(Context); if (!value) throw new Error('Questions require QuestionsProvider'); return value }
 const readAudience = (): Audience => { try { const value = localStorage.getItem('atlas-question-audience'); return audiences.includes(value as Audience) ? value as Audience : 'board' } catch { return 'board' } }
 
 export function QuestionsProvider({children}: {children: ReactNode}) {
   const [audience, setAudience] = useState<Audience>(readAudience)
-  const [selected, setSelected] = useState<Question[]>([])
+  const [saved] = useState(()=>{try{return readBrief(localStorage.getItem(BRIEF_STORAGE_KEY))}catch{return {selected:[],purpose:''}}})
+  const [selected, setSelected] = useState<Question[]>(saved.selected)
+  const [storageNotice,setStorageNotice]=useState('Saved on this device only.')
   const [open, setOpen] = useState(false)
-  const [purpose, setPurpose] = useState('')
+  const [purpose, setPurpose] = useState(saved.purpose)
   const [notice, setNotice] = useState('')
   const [copyStatus, setCopyStatus] = useState('')
   const [fallback, setFallback] = useState(false)
@@ -25,22 +28,24 @@ export function QuestionsProvider({children}: {children: ReactNode}) {
   useEffect(() => { if(open) dialog.current?.showModal(); else dialog.current?.close() },[open])
   useEffect(() => { if(fallback) { fallbackText.current?.focus(); fallbackText.current?.select() } },[fallback])
   useEffect(() => { setCopyStatus(''); setFallback(false) },[selected,purpose])
+  useEffect(()=>{try{localStorage.setItem(BRIEF_STORAGE_KEY,JSON.stringify({version:1,ids:selected.map(q=>q.id),purpose}));setStorageNotice('Saved on this device only.')}catch{setStorageNotice('Storage is unavailable. Copy your brief before leaving.')}},[selected,purpose])
+  const clear=()=>{setSelected([]);setPurpose('');setNotice('Shortlist cleared.')}
   const toggle = (q: Question) => {
     if(selected.some(item => item.id === q.id)) { setSelected(items => items.filter(item => item.id !== q.id)); setNotice('Question removed from brief.'); return }
-    if(selected.length >= MAX_BRIEF_QUESTIONS) { setNotice('Your brief has eight questions. Remove one to make room.'); return }
     setSelected(items => [...items,q]); setNotice('Question added to your meeting brief.')
   }
   const move = (id: string, direction: number) => setSelected(items => { const next = [...items]; const i=next.findIndex(q=>q.id===id); const target=i+direction; if(i<0 || target<0 || target>=next.length)return items; [next[i],next[target]]=[next[target],next[i]]; return next })
   const copy = async () => { try { await navigator.clipboard.writeText(briefText(purpose,selected)); setCopyStatus('Copied with source links.') } catch { setFallback(true); setCopyStatus('Copy the selected text below.') } }
-  return <Context.Provider value={{audience,setAudience,selected,toggle,openBrief:()=>setOpen(true),notice}}>
+  return <Context.Provider value={{audience,setAudience,selected,toggle,openBrief:()=>setOpen(true),notice,move,clear,storageNotice}}>
     {children}
     {selected.length > 0 && <button className="brief-launcher" onClick={()=>setOpen(true)} aria-label={`Meeting brief, ${selected.length} ${selected.length === 1 ? 'question' : 'questions'}`}>Meeting brief <span>{selected.length}</span> ↗</button>}
     {createPortal(<dialog ref={dialog} className="meeting-brief" aria-labelledby="meeting-brief-title" onCancel={()=>setOpen(false)} onClick={e=>{if(e.target===e.currentTarget)setOpen(false)}}>
-      <header className="brief-heading"><div><span>AI TRUST ATLAS</span><h2 id="meeting-brief-title">Your meeting brief</h2><p>{selected.length} of {MAX_BRIEF_QUESTIONS} questions · ready for discussion</p></div><button autoFocus aria-label="Close meeting brief" onClick={()=>setOpen(false)}>✕</button></header>
+      <header className="brief-heading"><div><span>AI TRUST ATLAS</span><h2 id="meeting-brief-title">Your meeting brief</h2><p>{selected.length} questions · ready for discussion</p></div><button autoFocus aria-label="Close meeting brief" onClick={()=>setOpen(false)}>✕</button></header>
       <label className="brief-purpose">Purpose of the discussion<input maxLength={240} value={purpose} placeholder="e.g. Board review of our AI suppliers" onChange={e=>setPurpose(e.target.value)} /></label>
       <p className="brief-purpose-print">{purpose || 'Discussion questions'}</p>
+      <p className="questions-note">{storageNotice} Five to eight questions usually makes a focused discussion.</p>
       <p className="questions-note">Atlas-authored, source-informed prompts. Confirm the context and applicable requirements. Supporting material is an input to human assessment.</p>
-      <div className="brief-actions"><button disabled={!selected.length} onClick={copy}>Copy brief</button><button disabled={!selected.length} onClick={()=>window.print()}>Print / Save PDF</button></div>
+      <div className="brief-actions"><button disabled={!selected.length} onClick={copy}>Copy brief</button><button disabled={!selected.length} onClick={()=>window.print()}>Print / Save PDF</button><button disabled={!selected.length && !purpose} onClick={clear}>Clear shortlist</button></div>
       <p className="brief-status" role="status">{copyStatus}</p>
       {fallback && <textarea ref={fallbackText} className="brief-copy-fallback" aria-label="Brief text to copy" readOnly value={briefText(purpose,selected)} />}
       <ol className="brief-questions">{selected.map(q=><li key={q.id}><div className="question-context">{audienceNames[q.audience]} · {q.context}{q.developmentDate && ` · ${q.developmentDate}`}</div><h3>{q.text}</h3><QuestionDetail question={q} /><div className="brief-item-actions"><button disabled={selected[0].id===q.id} aria-label={`Move up: ${q.text}`} onClick={()=>move(q.id,-1)}>↑</button><button disabled={selected[selected.length-1].id===q.id} aria-label={`Move down: ${q.text}`} onClick={()=>move(q.id,1)}>↓</button><button onClick={()=>toggle(q)} aria-label={`Remove: ${q.text}`}>Remove</button></div></li>)}</ol>
@@ -56,7 +61,7 @@ export function AudiencePicker() {
 function QuestionDetail({question:q}: {question:Question}) {
   return <div className="question-detail">{q.basis && <><h4>Connection to this item</h4><p>{q.basis}</p></>}<h4>Why ask?</h4><p>{q.why}</p><h4>What to ask for</h4><p>{q.askFor}</p><h4>If the answer is vague…</h4><p>{q.followUp}</p><h4>Related references</h4><ul>{q.sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.title} ↗</a></li>)}</ul></div>
 }
-function QuestionCard({question:q}: {question:Question}) {
+export function QuestionCard({question:q}: {question:Question}) {
   const {selected,toggle} = useBrief()
   const added=selected.some(item=>item.id===q.id)
   return <article className="leadership-question"><details><summary><span className="question-context">{q.context}</span><span className="question-text">{q.text}</span><span className="question-expand">Why ask · What to ask for <span aria-hidden="true">＋</span></span></summary><QuestionDetail question={q} /></details><button className="question-add" aria-pressed={added} onClick={()=>toggle(q)}>{added?'✓ In brief · remove':'+ Add to brief'}</button></article>

@@ -329,7 +329,7 @@ Some topic-specific assumptions are spread across the code: MIT risk identifiers
 
 ## Verification, limits and next steps
 
-The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 93 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 99 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
 
 Known operational limits:
 
@@ -357,3 +357,24 @@ The top of the map and list shows removable filter chips and a **Copy view link*
 Global search accepts compact acronyms (for example `CPS234`), full source names and issuers, and a small curated vocabulary of familiar questions such as “Who is accountable?”. These deterministic aliases are in `src/lib/workspace.ts`; they retrieve existing records and do not generate answers or judgments. Empty filter results offer recovery controls. Selected node labels have a contrasting backdrop. Mobile details retain preview/full reading positions and swipe dismissal, with sticky title and close controls while reading.
 
 URL validation and round trips, familiar-language retrieval, and filter/back restoration are covered by automated tests. Core modules: `src/lib/viewState.ts`, `src/App.tsx`, `src/usability.css` and the graph navigation handle in `src/components/GraphCanvas.tsx`.
+
+
+### Audience question workspace
+
+Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The workspace includes authored concept and development questions, searchable by wording and context. **Start with five questions** displays an editorial set for the chosen audience; it never selects questions automatically. Publication-based 30/90/120-day filters show development prompts, with publication and Atlas addition dates separately labelled.
+
+On desktop, a side panel holds the shortlist. On mobile, a bottom action opens the meeting brief. Questions can be reordered, removed, copied with references or printed to PDF. Five to eight is a recommendation, not a limit. Switching audiences retains each selected question's original audience label. Stable IDs prevent duplicate selections across topics.
+
+The localStorage key `atlas-meeting-brief-v1` stores ordered question IDs and the optional discussion purpose. Restore resolves IDs against the current corpus, discarding missing IDs and duplicates; stored question text and URLs are never trusted. The shortlist is saved on this device only, not synchronised or included in share links. Clear shortlist resets questions and purpose. Storage failures are explained, and clipboard failures offer a copy fallback. Existing node-card selections share the same provider.
+
+```mermaid
+flowchart LR
+  A[Audience and topics] --> B[Authored questions]
+  B --> C[Choose questions]
+  C --> D[Shared shortlist]
+  D --> E[Local IDs and purpose]
+  D --> F[Review, reorder, copy or print]
+  B --> G[Explore in Universe]
+```
+
+Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts` handles browsing, starter sets and canonical restore; `LeadershipQuestions.tsx` owns shared selection and exports. Open directly with `?view=questions`. No model generation, compliance scoring or effectiveness conclusions are involved. Tests cover starter sets, publication dates, multi-topic deduplication, canonical persistence, remount restoration, ordering, clearing and exports.
