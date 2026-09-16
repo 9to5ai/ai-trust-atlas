@@ -45,4 +45,4 @@
  .view-actions>button:last-of-type::after{content:'Copy link';font-size:10px}
 }
 
-body:has(.questions-mode) > .brief-launcher { display:none; }
+body:has(.questions-mode) .brief-launcher { display:none; }
