@@ -361,9 +361,9 @@ URL validation and round trips, familiar-language retrieval, and filter/back res
 
 ### Audience question workspace
 
-Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The audience selector sits directly above the questions. The workspace includes all authored concept and development questions for the selected audience and topics. **Start with five questions** displays an editorial set for the chosen audience; it never selects questions automatically. Development prompts show publication and Atlas addition dates separately.
+Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The audience selector sits directly above the questions. The workspace includes all authored concept and development questions for the selected audience and topics. Development prompts show publication and Atlas addition dates separately.
 
-On desktop, a side panel holds the shortlist. On mobile, a bottom action opens the meeting brief. Questions can be reordered, removed, copied with references or printed to PDF. Five to eight is a recommendation, not a limit. Switching audiences retains each selected question's original audience label. Stable IDs prevent duplicate selections across topics.
+On desktop, a side panel holds the shortlist. On mobile, a bottom action opens the meeting brief. Questions can be reordered, removed, copied with references or printed to PDF. Switching audiences retains each selected question's original audience label. Stable IDs prevent duplicate selections across topics.
 
 The localStorage key `atlas-meeting-brief-v1` stores ordered question IDs and the optional discussion purpose. Restore resolves IDs against the current corpus, discarding missing IDs and duplicates; stored question text and URLs are never trusted. The shortlist is saved on this device only, not synchronised or included in share links. Clear shortlist resets questions and purpose. Storage failures are explained, and clipboard failures offer a copy fallback. Existing node-card selections share the same provider.
 

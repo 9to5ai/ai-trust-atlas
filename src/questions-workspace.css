@@ -13,10 +13,8 @@
 .questions-topics button {display:flex;justify-content:space-between;gap:8px;text-align:left;width:100%;padding:11px 10px;border:1px solid transparent;background:transparent;color:var(--text-muted);border-radius:8px;font-size:12px;cursor:pointer}
 .questions-topics button[aria-pressed=true]{background:var(--surface-soft,#eaf1fc);border-color:var(--line-strong,#bcd0ed);color:var(--accent)}
 .questions-topics p,.questions-shortlist>p{font-size:11px;line-height:1.6;color:var(--text-muted)}
-.questions-start {display:flex;align-items:center;gap:12px;margin:16px 0}.questions-start span{font-size:11px;color:var(--text-muted);line-height:1.5}
 .questions-workspace button {font-family:inherit;cursor:pointer}.questions-workspace button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.questions-workspace button:disabled{opacity:.35;cursor:default}
-.questions-start button,.shortlist-heading button,.questions-shortlist li button,.shortlist-clear,.questions-no-results button {border:1px solid var(--line);border-radius:7px;padding:7px 10px;background:var(--surface,#fff);color:var(--accent);font-size:11px}
-.questions-start button{flex-shrink:0}.questions-result-count{font-size:11px;color:var(--text-muted);margin-bottom:18px}
+.shortlist-heading button,.questions-shortlist li button,.shortlist-clear,.questions-no-results button {border:1px solid var(--line);border-radius:7px;padding:7px 10px;background:var(--surface,#fff);color:var(--accent);font-size:11px}
 .question-browse-item {border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px;background:var(--surface,#fff)}
 .question-topic-label{font-size:10px;color:var(--text-muted);margin-bottom:8px;letter-spacing:.025em}
 .question-browse-item .leadership-question {border:0;background:transparent;padding:0;margin:0}.question-browse-item .question-text{font-size:16px;line-height:1.5}.question-browse-item .question-add{margin-top:12px}
@@ -30,7 +28,7 @@
  .view-actions{right:250px}.view-actions button{font-size:10px}.projection-switch{right:10px}.projection-switch button{padding:8px 10px;font-size:11px}
  .questions-workspace{padding-top:72px;overflow-y:auto;padding-bottom:80px}.questions-heading{display:block;padding:12px 16px 16px}.questions-heading h2{font-size:24px}
  .questions-columns{display:block;flex:none;min-height:auto}.questions-topics{display:flex;gap:6px;overflow-x:auto;padding:12px 16px;border-right:0;border-bottom:1px solid var(--line)}.questions-topics h3,.questions-topics p{display:none}.questions-topics button{width:auto;flex-shrink:0;padding:9px 12px;border-color:var(--line);max-width:240px}
- .questions-browse{overflow:visible;padding:16px}.questions-shortlist{display:none}.questions-start{align-items:flex-start}.questions-start span{font-size:11px}
+ .questions-browse{overflow:visible;padding:16px}.questions-shortlist{display:none}
  .questions-mobile-brief{display:flex;position:fixed;z-index:45;bottom:12px;left:12px;right:12px;justify-content:space-between;gap:12px;padding:15px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface,#fff);color:var(--text);box-shadow:0 5px 20px #0002;font-size:13px}.questions-mobile-brief span{color:var(--accent);font-size:12px}
  .questions-mode .view-actions{left:12px;right:245px}.questions-mode .view-actions>button:first-child:not(:last-of-type){display:none}
 }

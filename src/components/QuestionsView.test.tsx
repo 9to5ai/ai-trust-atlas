@@ -8,8 +8,6 @@ afterEach(()=>cleanup())
 it('shortlists across topics and audiences, survives remount, and clears persisted selections',()=>{
  const renderView=()=>render(<QuestionsProvider><QuestionsView onExplore={vi.fn()}/></QuestionsProvider>)
  const page=renderView()
- fireEvent.click(screen.getByRole('button',{name:'Start with five questions'}))
- expect(screen.getByText('5 questions for Board')).toBeInTheDocument()
  expect(within(screen.getByRole('complementary',{name:'Your shortlist'})).queryAllByRole('listitem')).toHaveLength(0)
  fireEvent.click(screen.getAllByRole('button',{name:'+ Add to brief'})[0])
  fireEvent.click(screen.getByRole('button',{name:'Executive'}))
