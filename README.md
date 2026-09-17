@@ -361,7 +361,7 @@ URL validation and round trips, familiar-language retrieval, and filter/back res
 
 ### Audience question workspace
 
-Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The workspace includes authored concept and development questions, searchable by wording and context. **Start with five questions** displays an editorial set for the chosen audience; it never selects questions automatically. Publication-based 30/90/120-day filters show development prompts, with publication and Atlas addition dates separately labelled.
+Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The audience selector sits directly above the questions. The workspace includes all authored concept and development questions for the selected audience and topics. **Start with five questions** displays an editorial set for the chosen audience; it never selects questions automatically. Development prompts show publication and Atlas addition dates separately.
 
 On desktop, a side panel holds the shortlist. On mobile, a bottom action opens the meeting brief. Questions can be reordered, removed, copied with references or printed to PDF. Five to eight is a recommendation, not a limit. Switching audiences retains each selected question's original audience label. Stable IDs prevent duplicate selections across topics.
 
