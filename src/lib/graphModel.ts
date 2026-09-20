@@ -1,3 +1,4 @@
+import { incidents } from '../data/incidents'
 import { mappingAssertionById, mappingAssertions } from '../data/assertions'
 import { concepts, domainById, domains } from '../data/concepts'
 import { controlFamilies, controlFamilyById, controlObjectives, controlsForConcept, controlsForRisk } from '../data/controls'
@@ -137,7 +138,7 @@ const addControlsAroundSelection = (nodes: GraphNode[], edges: GraphEdge[], sele
   })
 }
 
-export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selectedNodeId?: string, causalLens: CausalLens = 'all'): GraphModel {
+export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selectedNodeId?: string, causalLens: CausalLens = 'all', showIncidents = false): GraphModel {
   const nodes: GraphNode[] = []
   const edges: GraphEdge[] = []
   const domainAngles = mode === 'controls' ? new Map<string, number>() : addDomainsAndConcepts(nodes, edges, mode)
@@ -253,6 +254,13 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
   if (selectedNodeId?.startsWith('risk-subdomain:')) addControlsAroundSelection(nodes, edges, selectedNodeId, controlsForRisk(selectedNodeId.replace('risk-subdomain:', '')).map((control) => control.id))
   if (selectedNodeId?.startsWith('concept:') && mode !== 'controls') addControlsAroundSelection(nodes, edges, selectedNodeId, controlsForConcept(selectedNodeId.replace('concept:', '')).map((control) => control.id))
 
+  if(showIncidents || selectedNodeId?.startsWith('incident:')) {
+    for(const [index,item] of incidents.entries()) {
+      const point={x:260+index*100,y:-170,z:90}
+      nodes.push({id:`incident:${item.id}`,label:item.title,shortLabel:item.shortTitle,kind:'incident',domainId:'agentic',...point,targetX:point.x,targetY:point.y,targetZ:point.z,radius:14,color:'#b77949'})
+      for(const c of item.connections)edges.push({id:`incident-link:${item.id}:${c.conceptId}`,sourceId:`incident:${item.id}`,targetId:`concept:${c.conceptId}`,label:'illustrates',semanticFamily:'evidence',basis:'cross-framework-synthesis',confidence:'medium',explanation:c.reason})
+    }
+  }
   const nodeIds = new Set(nodes.map((node) => node.id))
   return { nodes, edges: edges.filter((edge) => nodeIds.has(edge.sourceId) && nodeIds.has(edge.targetId)) }
 }

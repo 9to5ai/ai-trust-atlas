@@ -1,3 +1,4 @@
+import { incidents, incidentById, incidentQuestion } from './incidents'
 import { concepts, domains } from './concepts'
 import { controlFamilies, controlObjectives } from './controls'
 import { instruments } from './instruments'
@@ -132,6 +133,7 @@ function questionsForControl(id: string, audience: Audience): Question[] {
 
 export function questionsForNode(kind: GraphNodeKind, id: string, audience: Audience): Question[] {
   switch (kind) {
+    case 'incident': { const item=incidentById.get(id);return item?[incidentQuestion(item,audience)]:[] }
     case 'concept': case 'domain': return questionsForContext(kind, id, audience)
     case 'instrument': {
       const source = instruments.find(s => s.id === id)
@@ -151,6 +153,7 @@ export function questionsForNode(kind: GraphNodeKind, id: string, audience: Audi
 
 // The complete set is also used by the ingestion coverage check. No view-specific allowlist.
 export const questionNodes: { kind: GraphNodeKind; id: string }[] = [
+  ...incidents.map(i=>({kind:'incident' as const,id:i.id})),
   ...domains.map(d => ({ kind: 'domain' as const, id: d.id })),
   ...concepts.map(c => ({ kind: 'concept' as const, id: c.id })),
   ...instruments.flatMap(s => [{ kind: 'instrument' as const, id: s.id }, ...s.provisions.map(p => ({ kind: 'provision' as const, id: p.id }))]),

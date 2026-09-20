@@ -1,3 +1,4 @@
+import { incidents } from '../data/incidents'
 import { mappingAssertions } from '../data/assertions'
 import { concepts, domains } from '../data/concepts'
 import { controlFamilies, controlObjectives } from '../data/controls'
@@ -7,6 +8,7 @@ import type { MappingAssertion, MappingBasis } from '../types'
 
 export type AtlasObject = { id:string; name:string; summary:string; kind:string; color:string; group:string; sourceId?:string }
 export const objects: AtlasObject[] = [
+ ...incidents.map(i=>({id:`incident:${i.id}`,name:i.shortTitle,summary:i.summary,kind:'Incident',color:'#b77949',group:'agentic'})),
  ...domains.map(x=>({id:`domain:${x.id}`,name:x.shortName,summary:x.definition,kind:'Theme',color:x.color,group:x.id})),
  ...concepts.map(x=>({id:`concept:${x.id}`,name:x.name,summary:x.definition,kind:'Concept',color:domains.find(d=>d.id===x.domainId)!.color,group:x.domainId})),
  ...instruments.map(x=>({id:`instrument:${x.id}`,name:x.shortTitle,summary:x.summary,kind:'Source',color:'#80b8d1',group:x.region,sourceId:x.id})),

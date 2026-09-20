@@ -224,7 +224,7 @@ export type InstrumentRelation = {
   citations?: SourceCitation[]
 }
 
-export type GraphNodeKind = 'domain' | 'concept' | 'instrument' | 'provision' | 'risk-domain' | 'risk-subdomain' | 'control-family' | 'control-objective'
+export type GraphNodeKind = 'incident' | 'domain' | 'concept' | 'instrument' | 'provision' | 'risk-domain' | 'risk-subdomain' | 'control-family' | 'control-objective'
 
 export type GraphNode = {
   id: string

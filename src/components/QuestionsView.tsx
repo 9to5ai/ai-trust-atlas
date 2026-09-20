@@ -18,6 +18,7 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
    <section className="questions-browse" aria-label="Browse questions">
     <div className="questions-audience"><AudiencePicker/></div>
     {entries.map(entry=><div className="question-browse-item" key={entry.question.id}>
+     {entry.incident&&<div className="question-development"><strong>Incident · {entry.incident.shortTitle}</strong><small>Occurred {entry.incident.occurred} · Findings {entry.incident.updated}</small></div>}
      <div className="question-topic-label">{entry.topics.map(t=>topicNames[t]??t).join(' · ')}</div>
      {entry.development&&<div className="question-development"><a href={entry.development.url} target="_blank" rel="noreferrer">{entry.development.title} ↗</a><small>Published {entry.development.published} · Added to Atlas {entry.development.added}</small></div>}
      <QuestionCard question={entry.question}/><button className="question-explore" onClick={()=>onExplore(entry.nodeId)}>Explore in Atlas →</button>

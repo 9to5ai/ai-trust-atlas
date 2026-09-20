@@ -1,3 +1,4 @@
+import { incidents, incidentQuestion, type Incident } from '../data/incidents'
 import { audiences, questionForConcept, questionForDevelopment, type Audience, type Question } from '../data/leadershipQuestions'
 import { concepts } from '../data/concepts'
 import { developments, inDateWindow } from '../data/developments'
@@ -11,9 +12,9 @@ export const starterConcepts: Record<Audience,string[]> = {
  regulator:['accountability','impact-assessment','human-oversight','evaluation','auditability'],
 }
 export const topicNames: Record<string,string> = {governance:'Accountability and governance',risk:'Risk and impact',lifecycle:'Lifecycle and change',data:'Data and privacy',transparency:'Transparency and challenge',fairness:'Fairness and human oversight',security:'Security',resilience:'Reliability and resilience','third-party':'AI suppliers',testing:'Testing and evaluation',evidence:'Evidence and assurance',agentic:'AI agents'}
-export type CatalogueEntry = { question: Question; topics: string[]; nodeId: string; development?: typeof developments[number] }
+export type CatalogueEntry = { question: Question; topics: string[]; nodeId: string; incident?: Incident; development?: typeof developments[number] }
 export function catalogue(audience:Audience):CatalogueEntry[] {
- return [...concepts.flatMap(c=>{const question=questionForConcept(c.id,audience);return question?[{question,topics:[c.domainId],nodeId:`concept:${c.id}`}]:[]}),...developments.flatMap(d=>{const question=questionForDevelopment(d,audience);return question?[{question,topics:d.topics,nodeId:`instrument:${d.sourceId}`,development:d}]:[]})]
+ return [...incidents.map(i=>({question:incidentQuestion(i,audience),topics:i.topics,nodeId:`incident:${i.id}`,incident:i})),...concepts.flatMap(c=>{const question=questionForConcept(c.id,audience);return question?[{question,topics:[c.domainId],nodeId:`concept:${c.id}`}]:[]}),...developments.flatMap(d=>{const question=questionForDevelopment(d,audience);return question?[{question,topics:d.topics,nodeId:`instrument:${d.sourceId}`,development:d}]:[]})]
 }
 export function filterQuestions(audience:Audience,topics:string[],query:string,days:number,starters:boolean) {
  const terms=query.toLowerCase().trim().split(/\s+/).filter(Boolean)

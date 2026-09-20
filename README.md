@@ -35,7 +35,7 @@ The initial audience is regulators, boards and executive leaders, with particula
 | What’s new | Review developments within 30, 90 or 120 days | Editorially curated event records filtered by publication date |
 | Light / dark | Preserve topic colours in either theme | CSS variables, saved preference and theme-aware Canvas rendering |
 
-At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 293 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
+At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 294 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
 
 ## Architecture at a glance
 
@@ -329,7 +329,7 @@ Some topic-specific assumptions are spread across the code: MIT risk identifiers
 
 ## Verification, limits and next steps
 
-The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 99 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 103 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
 
 Known operational limits:
 
@@ -378,3 +378,22 @@ flowchart LR
 ```
 
 Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts` handles browsing, starter sets and canonical restore; `LeadershipQuestions.tsx` owns shared selection and exports. Open directly with `?view=questions`. No model generation, compliance scoring or effectiveness conclusions are involved. Tests cover starter sets, publication dates, multi-topic deduplication, canonical persistence, remount restoration, ordering, clearing and exports.
+
+### Incidents and the review queue
+
+The optional **Incidents** universe layer connects real events to a few relevant concepts. Open **What’s new → Incidents**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
+
+The first approved case is the July 2026 OpenAI / Hugging Face intrusion. It draws on OpenAI's account and a scoped METR/Redwood investigation. The incident is not a regulatory source and does not increase the source count. Recent results use the substantive findings-publication date, separately labelled from the event period and Atlas review date.
+
+```mermaid
+flowchart LR
+  OECD[OECD AIM discovery] --> Review[Original evidence and editorial review]
+  Review --> Queue[Candidate proposals]
+  Queue --> Approval[User approval]
+  Approval --> Release[Validated Atlas release]
+  Release --> Incident[Incident]
+  Incident --> Concepts[Concepts and suggested practices]
+  Concepts --> Questions[Role questions and meeting brief]
+```
+
+A Codex app heartbeat named **Atlas incident review** is scheduled for Mondays at 09:00 Australia/Sydney. It reviews OECD leads and primary evidence, deduplicates cases and presents at most five worthwhile proposals. It does not publish automatically or run on Vercel. The full research instructions, evidence gates, review-file format and notification behaviour are documented in [research/incidents/README.md](research/incidents/README.md). Runtime scheduling is managed in the Codex app, outside this repository; reproduce it using that methodology when deploying your own instance.

@@ -1,3 +1,5 @@
+import { incidents } from '../data/incidents'
+import { inDateWindow } from '../data/developments'
 import { AudiencePicker, DevelopmentQuestion, BriefNotice } from './LeadershipQuestions'
 import { ArrowCounterClockwise, ArrowUpRight, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
@@ -14,21 +16,25 @@ export function TemporalLens({ open, cutoff, minYear, maxYear, instruments, onCh
   const dialog = useRef<HTMLDialogElement>(null)
   const [days, setDays] = useState<30 | 90 | 120>(30)
   const [topic, setTopic] = useState('all')
+  const [category,setCategory]=useState<'All'|'Developments'|'Incidents'>('All')
   useEffect(() => { if (open) dialog.current?.showModal(); else dialog.current?.close() }, [open])
   const today = new Date().toISOString().slice(0, 10)
-  const items = filterDevelopments(days, topic, today)
-  const count = items.length
+  const items = category==='Incidents'?[]:filterDevelopments(days, topic, today)
+  const cases=category==='Developments'?[]:incidents.filter(i=>inDateWindow(i.updated,days,today)&&(topic==='all'||i.topics.includes(topic)))
+  const count = items.length+cases.length
   const explore = (id: string) => { onSelect(`instrument:${id}`); onClose() }
   return <dialog ref={dialog} className="whats-new" aria-labelledby="whats-new-title" onCancel={onClose} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
     <div className="news-surface">
-      <header className="news-heading"><div><span className="news-eyebrow">ATLAS BRIEFING</span><h2 id="whats-new-title">What’s new</h2><p>Developments worth a closer look.</p></div><button autoFocus onClick={onClose} aria-label="Close What’s new"><X /></button></header>
+      <header className="news-heading"><div><span className="news-eyebrow">ATLAS BRIEFING</span><h2 id="whats-new-title">What’s new</h2><p>Developments and incidents worth a closer look.</p></div><button autoFocus onClick={onClose} aria-label="Close What’s new"><X /></button></header>
+      <div className="news-period" aria-label="Briefing type">{(['All','Developments','Incidents'] as const).map(c=><button key={c} aria-pressed={category===c} onClick={()=>setCategory(c)}>{c}</button>)}</div>
       <div className="news-filters">
         <div className="news-period" aria-label="Time period">{([30,90,120] as const).map(n => <button key={n} aria-pressed={days === n} onClick={() => setDays(n)}>Last {n} days</button>)}</div>
         <label className="news-topic">Topic<select value={topic} onChange={e => setTopic(e.target.value)}><option value="all">All topics</option>{domains.map(d => <option value={d.id} key={d.id}>{d.shortName}</option>)}</select></label>
       </div>
       <div className="news-question-audience"><span>Questions for your role</span><AudiencePicker /><BriefNotice /></div>
-      <div className="news-results" aria-live="polite"><strong>{count} {count === 1 ? 'item' : 'items'}</strong><span>By development date · through {dateLabel(today)}</span></div>
+      <div className="news-results" aria-live="polite"><strong>{count} {count === 1 ? 'item' : 'items'}</strong><span>By publication or findings date · through {dateLabel(today)}</span></div>
       <div className="news-cards">
+        {cases.map(item=><article className="news-card incident-card" key={item.id}><div className="news-meta"><span>Incident · new findings</span><time dateTime={item.updated}>Findings {dateLabel(item.updated)}</time></div><h3>{item.title}</h3><p>{item.summary}</p><small>Occurred {item.occurred} · Overview reviewed {item.reviewed}</small><p>{item.implication}</p><button className="news-explore" onClick={()=>{onSelect(`incident:${item.id}`);onClose()}}>Explore incident and questions <ArrowUpRight/></button></article>)}
         {items.map(item => <article className="news-card" key={item.id}>
           <div className="news-meta"><span>{item.status}</span><time dateTime={item.published}>{item.dateBasis ?? 'Published'} {dateLabel(item.published)}</time></div>
           <h3>{item.title}</h3><p className="news-issuer">{item.issuer}</p><p>{item.summary}</p>

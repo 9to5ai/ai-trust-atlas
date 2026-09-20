@@ -1,3 +1,5 @@
+import { IncidentDetail } from './IncidentDetail'
+import { incidentById, incidentsForNode } from '../data/incidents'
 import type { ReactNode } from 'react'
 import { useSheetDismiss } from '../hooks/useSheetDismiss'
 import { QuestionsPanel } from './LeadershipQuestions'
@@ -81,6 +83,8 @@ function ControlCards({ controls, onSelectNode, note }: { controls: ControlObjec
 export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
   const sheet = useSheetDismiss(onClose)
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
+  const incident = kind==='incident'?incidentById.get(rawId):undefined
+  const linkedIncidents=incidentsForNode(kind,rawId)
   const instrument = kind === 'instrument' ? instrumentById.get(rawId) : kind === 'provision' ? instruments.find((candidate) => candidate.provisions.some((provision) => provision.id === rawId)) : undefined
   const provision = kind === 'provision' ? instrument?.provisions.find((candidate) => candidate.id === rawId) : undefined
   const concept = kind === 'concept' ? concepts.find((candidate) => candidate.id === rawId) : undefined
@@ -105,8 +109,8 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
   const directAssertionCount = allNodeAssertions.filter((assertion) => assertion.basis === 'source-authored' || assertion.basis === 'published-crosswalk').length
   const synthesisAssertionCount = allNodeAssertions.filter((assertion) => assertion.basis === 'atlas-synthesis').length
   const activeCausalLabel = causalLensOptions.find((option) => option.id === causalLens)?.label ?? 'All records'
-  const mobileTitle = provision?.title ?? instrument?.shortTitle ?? concept?.name ?? riskSubdomain?.name ?? riskDomain?.name ?? control?.name ?? controlFamily?.name ?? domain?.name ?? 'Selected node'
-  const mobileKind = provision ? `Source ${inferProvisionGranularity(provision)}` : instrument ? authorityLabels[instrument.authorityClass] : concept ? conceptRoleLabels[concept.role] : riskSubdomain ? 'MIT risk type' : riskDomain ? 'MIT risk domain' : control ? 'Control objective' : controlFamily ? 'Control family' : domain ? domainRoleLabels[domain.role] : 'Atlas detail'
+  const mobileTitle = incident?.shortTitle ?? provision?.title ?? instrument?.shortTitle ?? concept?.name ?? riskSubdomain?.name ?? riskDomain?.name ?? control?.name ?? controlFamily?.name ?? domain?.name ?? 'Selected node'
+  const mobileKind = incident ? 'Incident' : provision ? `Source ${inferProvisionGranularity(provision)}` : instrument ? authorityLabels[instrument.authorityClass] : concept ? conceptRoleLabels[concept.role] : riskSubdomain ? 'MIT risk type' : riskDomain ? 'MIT risk domain' : control ? 'Control objective' : controlFamily ? 'Control family' : domain ? domainRoleLabels[domain.role] : 'Atlas detail'
 
   return <AnimatePresence mode="wait">
     {selectedNodeId && <motion.aside ref={sheet.ref} style={{ y: sheet.y }} className={mobileExpanded ? 'inspector mobile-expanded' : 'inspector'} key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} aria-label="Selected node details">
@@ -117,13 +121,15 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
       </button>
       <button className="inspector-close" type="button" onClick={onClose} aria-label="Close details"><X /></button>
       <div className="detail-navigation">{onBack&&<button type="button" onClick={onBack}>← Back</button>}{navigation}</div>
-      <div className="evidence-spine-head">
+      {!incident&&<div className="evidence-spine-head">
         <span><i />About this item</span>
         <code>{selectedNodeId}</code>
         <div><small>{directAssertionCount} source-based</small><small>{synthesisAssertionCount} Atlas interpretation</small></div>
-      </div>
+      </div>}
 
-      {onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
+      {incident&&<IncidentDetail item={incident} onSelect={onSelectNode}/>}
+      {linkedIncidents.length>0&&<section className="inspector-section incident-links"><h3>Related incidents</h3>{linkedIncidents.map(i=><button key={i.id} onClick={()=>onSelectNode(`incident:${i.id}`)}>{i.shortTitle} →</button>)}</section>}
+      {!incident&&onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
 
       {(kind === 'risk-domain' || kind === 'risk-subdomain') && <p className="section-boundary">Counts use the bundled December 2025 snapshot. MIT’s website describes 1,700+ risks as of our 7 September 2026 review; that newer database has not been imported. <a href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">See current MIT repository</a>.</p>}
       {instrument && !provision && <>
