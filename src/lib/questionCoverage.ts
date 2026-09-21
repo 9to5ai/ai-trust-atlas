@@ -19,7 +19,7 @@ export function questionCoverageIssues(): string[] {
   }
   for (const node of questionNodes) {
     const sets = audiences.map(role => questionsForNode(node.kind, node.id, role))
-    sets.forEach((qs, index) => inspect(`${node.kind}:${node.id}:${audiences[index]}`, qs, node.kind === 'incident' ? 1 : 2))
+    sets.forEach((qs, index) => inspect(`${node.kind}:${node.id}:${audiences[index]}`, qs, ['incident','use-case'].includes(node.kind) ? 1 : 2))
     if (new Set(sets.map(qs => qs.map(q => q.text).join('\n'))).size !== audiences.length) issues.push(`${node.kind}:${node.id}: missing role distinctions`)
   }
   for (const item of developments) for (const role of audiences) {

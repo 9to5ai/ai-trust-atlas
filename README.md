@@ -33,9 +33,10 @@ The initial audience is regulators, boards and executive leaders, with particula
 | Source inspector | Read summaries, scope, source links, legal foundations and related material | Components backed by the compiled source corpus |
 | Questions to ask | Prepare Board, Executive or Regulator conversations and collect a meeting brief | Authored question banks and deterministic composition, not live model generation |
 | What’s new | Review developments within 30, 90 or 120 days | Editorially curated event records filtered by publication date |
+| Use cases | Browse ten documented production deployments by workflow and sector; shortlist role questions and explore related practices | Authored evidence snapshots, searchable cards and optional universe nodes |
 | Light / dark | Preserve topic colours in either theme | CSS variables, saved preference and theme-aware Canvas rendering |
 
-At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 296 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
+At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 306 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
 
 ## Architecture at a glance
 
@@ -397,3 +398,24 @@ flowchart LR
 ```
 
 A Codex app heartbeat named **Atlas incident review** is scheduled for Mondays at 09:00 Australia/Sydney. It reviews OECD leads and primary evidence, deduplicates cases and presents at most five worthwhile proposals. It does not publish automatically or run on Vercel. The full research instructions, evidence gates, review-file format and notification behaviour are documented in [research/incidents/README.md](research/incidents/README.md). Runtime scheduling is managed in the Codex app, outside this repository; reproduce it using that methodology when deploying your own instance.
+
+## Production use cases
+
+[Browse use cases](https://ai-trust-atlas.vercel.app/?view=use-cases) · [Selection and evidence policy](research/use-cases/README.md)
+
+`src/data/useCases.ts` holds ten initial deployment snapshots: five financial-services operators and five technology, retail and logistics operators. Each record separates deployment status, evidence basis, publication date (nullable), review date, AI actions, disclosed human role, reported value, limitations, and authored concept/control connections. Public disclosure of production use is not independent verification of current operation or effectiveness.
+
+```mermaid
+flowchart LR
+  Account[Operator's dated public account] --> Case[Use case evidence snapshot]
+  Case --> Browse[Workflow and sector browsing]
+  Case --> Detail[AI actions / human role / reported value]
+  Case --> Concepts[Concepts and practices to examine]
+  Case --> Questions[Board / Executive / Regulator questions]
+  Questions --> Brief[Existing meeting brief and export]
+  Case --> News[What's new: publication date only]
+```
+
+`UseCasesView` supports browsing and shortlisting without opening graph nodes. `UseCaseDetail` reuses the inspector and mobile dismissal. `useCasesForNode` exposes related deployments on topic, concept and control cards. `workspace` includes them in global search; `nodeQuestions` and `questionCatalogue` make their questions persistable in the existing brief. `buildGraphModel` hides the layer by default, shows the selected case on demand, and limits optional nodes to relevant cases when a topic/concept/control is selected. `?view=use-cases` shares the browse view; `#/use-case/<id>` shares a specific case. `?useCases=1` enables the optional layer.
+
+The initial collection includes older, clearly dated deployments to establish workflow coverage. Cases with unknown exact publication days do not enter rolling-day news filters. Review dates never manufacture recency. No use-case monitoring job, cron, or automated publication has been created; the user will review the experience before agreeing a schedule.

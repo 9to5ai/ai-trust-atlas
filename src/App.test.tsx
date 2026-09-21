@@ -193,3 +193,32 @@ describe('audience workspace entry',()=>{
    expect(screen.getByRole('button',{name:'Accountability and governance'})).toHaveAttribute('aria-pressed','true')
  })
 })
+
+
+describe('production use case journey',()=>{
+ it('opens a shared collection, explores a case and returns to its filtered collection',()=>{
+  window.history.replaceState(null,'','/?view=use-cases')
+  render(<App/>)
+  expect(screen.getByRole('button',{name:'Use cases'})).toHaveAttribute('aria-pressed','true')
+  fireEvent.click(screen.getByRole('button',{name:'Detect fraud & manage risk'}))
+  fireEvent.click(screen.getByRole('button',{name:'Proposing new fraud rules'}))
+  expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
+  expect(window.location.hash).toBe('#/use-case/cba-fraud-agent')
+  fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+  expect(screen.getByRole('button',{name:'Detect fraud & manage risk'})).toHaveAttribute('aria-pressed','true')
+  expect(screen.queryByRole('complementary',{name:'Selected node details'})).not.toBeInTheDocument()
+ })
+ it('shows use cases in the briefing by publication date and opens their details',()=>{
+  render(<App/>)
+  fireEvent.click(screen.getAllByRole('button',{name:'What’s new'})[0])
+  const news=within(screen.getByRole('dialog',{name:'What’s new'}))
+  fireEvent.click(news.getByRole('button',{name:'Use cases'}))
+  expect(news.getByText('No reviewed items in this selection')).toBeInTheDocument()
+  fireEvent.click(news.getByRole('button',{name:'Last 90 days'}))
+  expect(news.getByRole('heading',{name:'Everyday financial assistance'})).toBeInTheDocument()
+  expect(news.queryByRole('heading',{name:'Proposing new fraud rules'})).not.toBeInTheDocument()
+  fireEvent.click(news.getByRole('button',{name:'Explore use case and questions'}))
+  expect(window.location.hash).toBe('#/use-case/bofa-erica')
+  expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
+ })
+})

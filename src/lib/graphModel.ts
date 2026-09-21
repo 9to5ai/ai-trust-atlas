@@ -1,3 +1,4 @@
+import { useCases, useCasesForNode } from '../data/useCases'
 import { incidents } from '../data/incidents'
 import { mappingAssertionById, mappingAssertions } from '../data/assertions'
 import { concepts, domainById, domains } from '../data/concepts'
@@ -138,7 +139,7 @@ const addControlsAroundSelection = (nodes: GraphNode[], edges: GraphEdge[], sele
   })
 }
 
-export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selectedNodeId?: string, causalLens: CausalLens = 'all', showIncidents = false): GraphModel {
+export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selectedNodeId?: string, causalLens: CausalLens = 'all', showIncidents = false, showUseCases = false): GraphModel {
   const nodes: GraphNode[] = []
   const edges: GraphEdge[] = []
   const domainAngles = mode === 'controls' ? new Map<string, number>() : addDomainsAndConcepts(nodes, edges, mode)
@@ -261,6 +262,17 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
       nodes.push({id:`incident:${item.id}`,label:item.title,shortLabel:item.shortTitle,kind:'incident',domainId:'agentic',...point,targetX:point.x,targetY:point.y,targetZ:point.z,radius:14,color:'#b77949'})
       for(const c of item.connections)edges.push({id:`incident-link:${item.id}:${c.conceptId}`,sourceId:`incident:${item.id}`,targetId:`concept:${c.conceptId}`,label:'illustrates',semanticFamily:'evidence',basis:'cross-framework-synthesis',confidence:'medium',explanation:c.reason})
     }
+  }
+  if(showUseCases || selectedNodeId?.startsWith('use-case:')) {
+    const [kind,id]=selectedNodeId?.split(':')??[]
+    const relevant=useCasesForNode(kind,id)
+    const visible=selectedNodeId?.startsWith('use-case:')?useCases.filter(item=>item.id===id):kind&&['domain','concept','control-objective'].includes(kind)?relevant:useCases
+    visible.forEach((item,index)=>{
+      const angle=-Math.PI/2+index*Math.PI*2/visible.length
+      const point={x:365*Math.cos(angle),y:365*Math.sin(angle),z:70}
+      nodes.push({id:`use-case:${item.id}`,label:`${item.company} · ${item.title}`,shortLabel:item.company,kind:'use-case',domainId:item.topics[0],...point,targetX:point.x,targetY:point.y,targetZ:point.z,radius:13,color:'#378d8c'})
+      for(const c of item.connections)edges.push({id:`use-case-link:${item.id}:${c.conceptId}`,sourceId:`use-case:${item.id}`,targetId:`concept:${c.conceptId}`,label:'illustrates',semanticFamily:'evidence',basis:'cross-framework-synthesis',confidence:'medium',explanation:c.reason})
+    })
   }
   const nodeIds = new Set(nodes.map((node) => node.id))
   return { nodes, edges: edges.filter((edge) => nodeIds.has(edge.sourceId) && nodeIds.has(edge.targetId)) }

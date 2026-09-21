@@ -1,3 +1,4 @@
+import { UseCasesView } from './components/UseCasesView'
 import { QuestionsView } from './components/QuestionsView'
 import { readView, viewUrl, type AtlasView } from './lib/viewState'
 import { authorityLabels } from './lib/labels'
@@ -44,11 +45,12 @@ function AtlasApp() {
   const [mobileControls, setMobileControls] = useState(false)
   const [showMethod, setShowMethod] = useState(false)
   const [showTime, setShowTime] = useState(false)
+  const [showUseCases,setShowUseCases]=useState(initialView.useCases??false)
   const [showIncidents,setShowIncidents]=useState(initialView.incidents??initialView.selected?.startsWith('incident:')??false)
   useEffect(()=>{if(selectedNodeId?.startsWith('incident:'))setShowIncidents(true)},[selectedNodeId])
   const [newsFocus, setNewsFocus] = useState(0)
   const [timeCutoff, setTimeCutoff] = useState(initialView.year)
-  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions'>(initialView.projection)
+  const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions' | 'use-cases'>(initialView.projection)
   const graphNavigation = useRef<GraphNavigation | null>(null)
   const graphSnapshot = useRef<(() => NodeSnapshot) | null>(null)
   const outlineHandle = useRef<OutlineHandle | null>(null)
@@ -69,11 +71,11 @@ function AtlasApp() {
     }))
     morphTimer.current = setTimeout(() => setMorph([]), 860)
   }
-  const changeProjection = (next: 'atlas' | 'list' | 'questions') => {
+  const changeProjection = (next: 'atlas' | 'list' | 'questions' | 'use-cases') => {
     if (next === projection) return
     rememberView()
     clearMorph()
-    if(next==='questions'||projection==='questions'){setProjection(next);setMobileInspectorExpanded(false);setMobileControls(false);return}
+    if(next==='questions'||projection==='questions'||next==='use-cases'||projection==='use-cases'){setProjection(next);setMobileInspectorExpanded(false);setMobileControls(false);return}
     if (next === 'list') {
       morphOrigin.current = graphSnapshot.current?.() ?? new Map()
       morphPending.current = true
@@ -127,12 +129,12 @@ function AtlasApp() {
     return controlObjectives.filter((control) => !normalized || [control.code, control.name, control.objective, control.purpose, ...control.conceptIds].join(' ').toLowerCase().includes(normalized))
   }, [query])
 
-  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions, publishedThrough: timeCutoff }, selectedNodeId, causalLens, showIncidents), [showIncidents, authorityClasses, causalLens, layout, query, regions, selectedNodeId, timeCutoff])
+  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions, publishedThrough: timeCutoff }, selectedNodeId, causalLens, showIncidents, showUseCases), [showUseCases, showIncidents, authorityClasses, causalLens, layout, query, regions, selectedNodeId, timeCutoff])
 
-  const currentView = (): AtlasView => ({incidents:showIncidents,selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], year:timeCutoff, anchor:focusAnchorId})
+  const currentView = (): AtlasView => ({useCases:showUseCases,incidents:showIncidents,selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], year:timeCutoff, anchor:focusAnchorId})
   const rememberView = () => setTrail(items => [...items, {...currentView(), scroll:document.querySelector('.outline-scroll')?.scrollTop ?? 0, pose:graphNavigation.current?.capture()}].slice(-30))
   const restoreView = (view: AtlasView) => {
-    clearMorph(); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
+    clearMorph(); setShowUseCases(view.useCases??false); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
     setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
   }
   const goBack = (index = trail.length-1) => {
@@ -149,6 +151,7 @@ function AtlasApp() {
   useEffect(()=>{if(!copyStatus)return;const timer=setTimeout(()=>setCopyStatus(''),3500);return()=>clearTimeout(timer)},[copyStatus])
   const selectNode = (nodeId?: string) => {
     if(nodeId !== selectedNodeId) rememberView()
+    if(nodeId?.startsWith('use-case:')){setLayout('ontology');setProjection('atlas');setNewsFocus(n=>n+1)}
     if(nodeId?.startsWith('incident:')){setShowIncidents(true);setLayout('ontology');setProjection('atlas')}
     if (!nodeId) {
       setSelectedNodeId(undefined)
@@ -164,7 +167,7 @@ function AtlasApp() {
     }
     setSelectedNodeId(nodeId)
     setFocusAnchorId(nodeId)
-    setProjection(current => nodeId.startsWith('incident:')?'atlas':current === 'list' ? 'list' : 'atlas')
+    setProjection(current => (nodeId.startsWith('incident:')||nodeId.startsWith('use-case:'))?'atlas':current === 'list' ? 'list' : 'atlas')
   }
 
   const selectFocusItem = (nodeId: string) => {
@@ -200,7 +203,7 @@ function AtlasApp() {
 
   useEffect(() => {
     window.history.replaceState(null, '', window.location.pathname+viewUrl(currentView()))
-  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId, showIncidents])
+  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId, showIncidents, showUseCases])
   useEffect(() => {
     const restore=()=>{restoreView(readView(new URL(window.location.href),maximumPublicationYear));setTrail([])}
     window.addEventListener('popstate',restore);window.addEventListener('hashchange',restore)
@@ -225,7 +228,7 @@ function AtlasApp() {
   const temporalActive = timeCutoff < maximumPublicationYear
 
   return (
-    <main className={`atlas-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${projection==='questions'?' questions-mode':''}`} id="main-content">
+    <main className={`atlas-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
       <a className="skip-link" href="#atlas-graph">Skip to the map</a>
       <header className="atlas-header">
         <div className="brand-block">
@@ -248,7 +251,7 @@ function AtlasApp() {
         </nav>
       </header>
 
-      <div className={selectedNodeId && projection!=='questions' ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
+      <div className={selectedNodeId && projection!=='questions' && projection!=='use-cases' ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
         <div className={mobileControls ? 'sidebar-mobile open' : 'sidebar-mobile'} inert={!mobileControls} aria-hidden={!mobileControls}>
           <Sidebar
             query={query}
@@ -289,6 +292,7 @@ function AtlasApp() {
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
             <button className="copy-view-button" type="button" onClick={copyView}>Copy view link</button>
             {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showIncidents} onClick={()=>{setLayout('ontology');setShowIncidents(v=>!v);if(selectedNodeId?.startsWith('incident:'))selectNode(undefined)}}>Incidents</button>}
+            {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showUseCases||selectedNodeId?.startsWith('use-case:')||false} onClick={()=>{setLayout('ontology');setShowUseCases(v=>!v);if(selectedNodeId?.startsWith('use-case:')){setShowUseCases(false);selectNode(undefined)}}}>Use case nodes</button>}
             <span role="status">{copyStatus}</span>
           </div>
           {shareFallback&&<div className="share-fallback"><label>View link<input readOnly value={shareFallback} onFocus={e=>e.target.select()}/></label><button onClick={()=>setShareFallback('')} aria-label="Close link"><X/></button></div>}
@@ -308,7 +312,8 @@ function AtlasApp() {
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
           <GraphCanvas navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
-          <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button><button type="button" aria-pressed={projection === 'questions'} onClick={() => changeProjection('questions')}>Questions</button></div>
+          <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button><button type="button" aria-pressed={projection === 'questions'} onClick={() => changeProjection('questions')}>Questions</button><button type="button" aria-pressed={projection==='use-cases'} onClick={()=>changeProjection('use-cases')}>Use cases</button></div>
+          <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
           <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} handle={outlineHandle} onReady={outlineReady} />
           {morph.length > 0 && <UniverseMorph key={reverseMorph ? 'reverse' : 'forward'} nodes={morph} edges={graphModel.edges} reverse={reverseMorph} selected={selectedNodeId} />}
@@ -326,6 +331,7 @@ function AtlasApp() {
             )}
           </AnimatePresence>
           <div className="semantic-key" role="group" aria-label="Graph legend">
+            {(showUseCases||selectedNodeId?.startsWith('use-case:'))&&<span><i className="shape-use-case"/>Use case</span>}
             {showIncidents && <span><i className="shape-incident" />Incident</span>}
             {layout === 'risk' ? <>
               <span><i className="shape-domain" />Trust domain</span>
@@ -349,8 +355,8 @@ function AtlasApp() {
           </div>
         </section>
 
-        {projection!=='questions'&&<Inspector
-          navigation={<nav className="detail-trail" aria-label="Recently explored">{trail.filter(v=>v.selected).slice(-2).map((v)=>{const index=trail.indexOf(v);return <button key={index} onClick={()=>goBack(index)}>{objectById.get(v.selected!)?.name}<CaretRight/></button>})}<span>{selectedNodeId?objectById.get(selectedNodeId)?.name:''}</span></nav>}
+        {projection!=='questions'&&projection!=='use-cases'&&<Inspector
+          navigation={<nav className="detail-trail" aria-label="Recently explored">{trail.filter(v=>v.selected&&v.selected!==selectedNodeId).slice(-2).map((v)=>{const index=trail.indexOf(v);return <button key={index} onClick={()=>goBack(index)}>{objectById.get(v.selected!)?.name}<CaretRight/></button>})}<span>{selectedNodeId?objectById.get(selectedNodeId)?.name:''}</span></nav>}
           onBack={trail.length?()=>goBack():undefined}
           selectedNodeId={selectedNodeId}
           onClose={() => selectNode(undefined)}

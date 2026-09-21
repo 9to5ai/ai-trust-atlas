@@ -27,3 +27,5 @@ import './usability.css'
 import './questions-workspace.css'
 
 import './incidents.css'
+
+import "./use-cases.css"

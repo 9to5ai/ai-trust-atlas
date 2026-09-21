@@ -610,7 +610,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
           context.shadowBlur = 12 / camera.scale
         }
 
-        if (node.kind === 'incident') {
+        if (node.kind === 'use-case') {
+          polygonPath(context, point.x, point.y, radius, 4, Math.PI / 4)
+          context.fillStyle = nodeColor
+          context.fill()
+          context.strokeStyle = dark ? '#bae5de' : '#1b595c'
+          context.stroke()
+        } else if (node.kind === 'incident') {
           polygonPath(context, point.x, point.y, radius, 3, -Math.PI / 2)
           context.fillStyle = nodeColor
           context.fill()
@@ -691,13 +697,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         context.shadowBlur = 0
 
         const compactCanvas = width <= 560
-        const showAdjacentRiskLabel = Boolean(!compactCanvas && activeNode && ['instrument', 'provision', 'domain', 'risk-domain', 'risk-subdomain', 'control-family', 'control-objective', 'concept', 'incident'].includes(activeNode.kind) && adjacent.has(node.id))
+        const showAdjacentRiskLabel = Boolean(!compactCanvas && activeNode && ['instrument', 'provision', 'domain', 'risk-domain', 'risk-subdomain', 'control-family', 'control-objective', 'concept', 'incident', 'use-case'].includes(activeNode.kind) && adjacent.has(node.id))
         const filteredSourceLabel = sourceLabelsRef.current && node.kind === 'instrument'
         const showLabel = filteredSourceLabel || !muted && (isSelected
           || isHovered
           || (!compactCanvas && (
             node.kind === 'domain'
-            || node.kind === 'incident'
+            || node.kind === 'incident' || node.kind === 'use-case'
             || node.kind === 'risk-domain'
             || node.kind === 'control-family'
             || showAdjacentRiskLabel
