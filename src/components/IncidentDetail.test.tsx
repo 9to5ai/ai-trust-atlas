@@ -13,3 +13,11 @@ it('connects an incident to practices and a persistable role-specific brief',()=
  fireEvent.click(screen.getByRole('button',{name:'Meeting brief, 1 question'}))
  const brief=within(screen.getByRole('dialog',{name:'Your meeting brief'}));expect(brief.getByText(incidents[0].prompts.executive.text)).toBeInTheDocument();expect(brief.getByRole('link',{name:'METR / Redwood: independent investigation ↗'})).toHaveAttribute('href',incidents[0].sources[1].url)
 })
+
+it.each(incidents.slice(1))('uses case-specific evidence labels for $id',item=>{
+ render(<QuestionsProvider><IncidentDetail item={item} onSelect={vi.fn()}/></QuestionsProvider>)
+ expect(screen.getByText(`Incident · ${item.classification}`)).toBeInTheDocument()
+ expect(screen.getByText(`${item.disclosureLabel} ${item.disclosed}`)).toBeInTheDocument()
+ expect(screen.queryByText(/OpenAI disclosure/)).not.toBeInTheDocument()
+ expect(screen.getByText(`Reviewed ${item.reviewed}. ${item.reviewScope}`)).toBeInTheDocument()
+})

@@ -1,6 +1,6 @@
 # Incident review methodology
 
-The incident layer turns documented events into questions for boards, executives and regulators. The only approved initial case is the July 2026 OpenAI / Hugging Face intrusion. Other cases, including Anthropic, require separate approval before ingestion.
+The incident layer turns documented events into questions for boards, executives and regulators. Approved cases are the July 2026 OpenAI / Hugging Face intrusion (20 September approval), the Anthropic evaluation-incident series and the Hacktron / OpenAI account-access chain (21 September approval). All other cases require separate approval before ingestion. Consult dated approval records and published incident IDs before proposing duplicates.
 
 ## Discovery and publication
 

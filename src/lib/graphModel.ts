@@ -256,7 +256,8 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
 
   if(showIncidents || selectedNodeId?.startsWith('incident:')) {
     for(const [index,item] of incidents.entries()) {
-      const point={x:260+index*100,y:-170,z:90}
+      const angle = -0.58 + index * (Math.PI * 2 / incidents.length)
+      const point={x:310*Math.cos(angle),y:310*Math.sin(angle),z:90}
       nodes.push({id:`incident:${item.id}`,label:item.title,shortLabel:item.shortTitle,kind:'incident',domainId:'agentic',...point,targetX:point.x,targetY:point.y,targetZ:point.z,radius:14,color:'#b77949'})
       for(const c of item.connections)edges.push({id:`incident-link:${item.id}:${c.conceptId}`,sourceId:`incident:${item.id}`,targetId:`concept:${c.conceptId}`,label:'illustrates',semanticFamily:'evidence',basis:'cross-framework-synthesis',confidence:'medium',explanation:c.reason})
     }

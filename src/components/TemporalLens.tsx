@@ -20,7 +20,7 @@ export function TemporalLens({ open, cutoff, minYear, maxYear, instruments, onCh
   useEffect(() => { if (open) dialog.current?.showModal(); else dialog.current?.close() }, [open])
   const today = new Date().toISOString().slice(0, 10)
   const items = category==='Incidents'?[]:filterDevelopments(days, topic, today)
-  const cases=category==='Developments'?[]:incidents.filter(i=>inDateWindow(i.updated,days,today)&&(topic==='all'||i.topics.includes(topic)))
+  const cases=category==='Developments'?[]:incidents.filter(i=>inDateWindow(i.updated,days,today)&&(topic==='all'||i.topics.includes(topic))).sort((a,b)=>b.updated.localeCompare(a.updated))
   const count = items.length+cases.length
   const explore = (id: string) => { onSelect(`instrument:${id}`); onClose() }
   return <dialog ref={dialog} className="whats-new" aria-labelledby="whats-new-title" onCancel={onClose} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
