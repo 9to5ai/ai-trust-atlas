@@ -1,0 +1,174 @@
+{
+  "date": "2026-09-22",
+  "approval": {
+    "date": "2026-09-22",
+    "authority": "User",
+    "instruction": "approved",
+    "scope": [
+      "asd-agentic-harnesses-review-2026-09-22",
+      "owasp-aisvs-version-boundary-2026-09-22",
+      "canada-ai-register-feedback-2026-09-22"
+    ]
+  },
+  "wholeRunStatus": "INCOMPLETE",
+  "coverage": {
+    "completed": 9,
+    "unresolved": 95,
+    "originalChecks": 100,
+    "supplementalChecks": 4
+  },
+  "sources": [
+    {
+      "id": "asd-agentic-harnesses",
+      "title": "Agentic AI harnesses",
+      "shortTitle": "ASD Agentic AI Harnesses",
+      "issuer": "Australian Signals Directorate / Australian Cyber Security Centre",
+      "jurisdiction": "Australia",
+      "region": "Australia",
+      "authorityClass": "policy-guidance",
+      "authorityNote": "Government cyber-security guidance for government and large organisations; non-binding outside any separately applicable obligation.",
+      "status": "active",
+      "published": "2026-09-11",
+      "lastVerified": "2026-09-22",
+      "officialUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+      "summary": "Explains the agent harness as the software layer connecting an LLM to tools, data, memory and execution, and locates practical security and governance controls in that layer.",
+      "applicability": "Guidance for organisations adopting or considering agentic AI, especially executive decision-makers, CISOs and IT leaders. Inclusion does not determine legal applicability, implementation or control effectiveness.",
+      "sectors": [
+        "Cross-sector",
+        "Government",
+        "Critical infrastructure",
+        "Financial services"
+      ],
+      "conceptIds": [
+        "agent-authority",
+        "tool-use",
+        "runtime-guardrails",
+        "access-control",
+        "traceability",
+        "human-oversight",
+        "supply-chain",
+        "continuous-monitoring",
+        "ai-security"
+      ],
+      "detailAvailability": "full-public-text",
+      "provisions": [
+        {
+          "id": "asd-harness-control-surface",
+          "ref": "Executive summary and Harness components",
+          "title": "Treat the harness as the governable control surface",
+          "summary": "The harness supplies context, tools, permissions, execution, memory, connectors and observability, and should be assessed separately from the replaceable language model.",
+          "conceptIds": [
+            "agent-authority",
+            "tool-use",
+            "access-control",
+            "traceability",
+            "ai-security"
+          ],
+          "sourceUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+          "reviewedAt": "2026-09-22",
+          "note": "Original Atlas synopsis of the reviewed public sections; concept placement is Atlas interpretation."
+        },
+        {
+          "id": "asd-harness-good-practice",
+          "ref": "Good practice",
+          "title": "Enforce permissions, approvals, monitoring and evidence in the harness",
+          "summary": "Recommends least privilege, controlled tools and data, human approval for sensitive actions, output verification, protected logs, phased deployment and incident integration.",
+          "conceptIds": [
+            "runtime-guardrails",
+            "access-control",
+            "human-oversight",
+            "continuous-monitoring",
+            "traceability",
+            "supply-chain"
+          ],
+          "sourceUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+          "reviewedAt": "2026-09-22",
+          "note": "Guidance does not demonstrate that any organisation has implemented these practices or that they operate effectively."
+        }
+      ]
+    }
+  ],
+  "clarifications": [
+    {
+      "candidateId": "owasp-aisvs-version-boundary-2026-09-22",
+      "checkId": "candidate:owasp-version-20260922",
+      "proposedEdit": {
+        "sourceId": "owasp-aisvs",
+        "appendApplicability": "Stable version 1.0 is distinguished from in-progress 1.01 research. Requirement references should identify their version; this review does not validate every requirement."
+      },
+      "limits": "No new requirement mappings or changed requirement counts."
+    }
+  ],
+  "developments": [
+    {
+      "published": "2026-09-11",
+      "updated": "2026-09-15",
+      "reviewed": "2026-09-22",
+      "title": "Canada consultation exposes gaps in AI register disclosures",
+      "issuer": "Treasury Board of Canada Secretariat",
+      "status": "Consultation feedback",
+      "summary": "Respondents asked for consistent status labels, clearer AI decision roles, accountable contacts and links to recourse. These are reported views, not new obligations.",
+      "implication": "Review whether inventories explain how AI affects decisions and make missing information visible. The connection to Australian government guidance is Atlas interpretation; the Canadian report does not establish Australian obligations.",
+      "sourceId": "dta-ai-policy",
+      "url": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/advancing-ai/progress/consultations-government-canada-ai-register-what-we-heard.html",
+      "topics": [
+        "governance",
+        "transparency"
+      ],
+      "id": "canada-ai-register-feedback",
+      "added": "2026-09-22",
+      "question": "Does our inventory show where AI changes decisions and who remains accountable?"
+    }
+  ],
+  "questions": {
+    "canada-ai-register-feedback": {
+      "questions": {
+        "board": "Does our inventory show where AI changes decisions and who remains accountable?",
+        "executive": "Which records lack verified status, ownership, update dates or recourse links?",
+        "regulator": "Can affected people understand the decision role and find a responsible contact?"
+      },
+      "askFor": "Inventory records with decision roles, named owners, review dates, impact assessments and recourse contacts.",
+      "followUp": "Which missing fields prevent a reviewer or affected person from understanding how a decision was made?"
+    }
+  },
+  "evidence": [
+    {
+      "candidateId": "asd-agentic-harnesses-review-2026-09-22",
+      "checkId": "candidate:asd-harness-20260922",
+      "limitations": "Government guidance, not binding law or proof of effective controls."
+    },
+    {
+      "candidateId": "owasp-aisvs-version-boundary-2026-09-22",
+      "checkId": "candidate:owasp-version-20260922",
+      "limitations": "No new requirement mappings or changed requirement counts."
+    },
+    {
+      "candidateId": "canada-ai-register-feedback-2026-09-22",
+      "checkId": "topic:1",
+      "limitations": "Connection to Australian sources is Atlas interpretation, not Canadian endorsement or applicability."
+    }
+  ],
+  "mappingPolicy": {
+    "basis": "atlas-synthesis",
+    "predicate": "addresses",
+    "inferenceDepth": 1,
+    "modelVersion": "2026.08",
+    "verifiedAt": "2026-09-22",
+    "sourceVersion": "2026-09-11",
+    "citation": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+    "scope": "ASD instrument and section concept links generated by existing assertion model; no compliance or effectiveness conclusion."
+  },
+  "excludedFromRelease": [
+    "scale-ready-lead-2026-09-22",
+    "nist-playbook-date-review-2026-09-22",
+    "ico-agentic-ai-guidance-review-2026-09-22"
+  ],
+  "validation": {
+    "tests": "113 passed in 24 files",
+    "questionCoverage": "309 cards and 21 developments; all three audiences",
+    "build": "passed",
+    "diffCheck": "passed",
+    "browser": "Local harness search/detail and Canada briefing/role questions verified; publication dates retained separately from page update and review dates."
+  },
+  "releaseDate": "2026-09-23"
+}

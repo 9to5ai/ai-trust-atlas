@@ -75,7 +75,7 @@ export const standardsAndTestingInstruments = [
   }),
   makeInstrument({
     id: 'owasp-aisvs', title: 'OWASP AI Security Verification Standard 1.0', shortTitle: 'OWASP AISVS', issuer: 'OWASP', jurisdiction: 'Global technical standard', region: 'Global', authorityClass: 'standard', authorityNote: "Voluntary technical reference", status: 'active', published: '2026-06', lastVerified: '2026-08-31', officialUrl: 'https://github.com/OWASP/AISVS',
-    summary: 'Testable AI security requirements arranged in chapters and verification levels.', applicability: 'Open security verification standard. Meeting selected requirements is evidence input, not an assurance conclusion.', sectors: ['Cross-sector'],
+    summary: 'Testable AI security requirements arranged in chapters and verification levels.', applicability: 'Open security verification standard. Meeting selected requirements is evidence input, not an assurance conclusion. Stable version 1.0 is distinguished from in-progress 1.01 research. Requirement references should identify their version. The 22 September 2026 review verified this version distinction, not every requirement.', sectors: ['Cross-sector'],
     conceptIds: ['ai-security', 'access-control', 'adversarial-risk', 'supply-chain', 'evaluation', 'evidence-quality', 'auditability'], detailAvailability: 'full-public-text',
     provisions: [{ id: 'aisvs-requirements', ref: 'Twelve chapters / 191 requirements', title: 'Testable AI security requirements', summary: 'Bridges high-level AI security risks to 191 verifiable requirements across twelve chapters and three verification levels.', conceptIds: ['ai-security', 'evaluation', 'evidence-quality', 'auditability'] }],
   }),

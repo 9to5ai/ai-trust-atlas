@@ -2,6 +2,75 @@ import { makeInstrument } from './makeInstrument.js'
 
 export const australianInstruments = [
   makeInstrument({
+  "id": "asd-agentic-harnesses",
+  "title": "Agentic AI harnesses",
+  "shortTitle": "ASD Agentic AI Harnesses",
+  "issuer": "Australian Signals Directorate / Australian Cyber Security Centre",
+  "jurisdiction": "Australia",
+  "region": "Australia",
+  "authorityClass": "policy-guidance",
+  "authorityNote": "Government cyber-security guidance for government and large organisations; non-binding outside any separately applicable obligation.",
+  "status": "active",
+  "published": "2026-09-11",
+  "lastVerified": "2026-09-22",
+  "officialUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+  "summary": "Explains the agent harness as the software layer connecting an LLM to tools, data, memory and execution, and locates practical security and governance controls in that layer.",
+  "applicability": "Guidance for organisations adopting or considering agentic AI, especially executive decision-makers, CISOs and IT leaders. Inclusion does not determine legal applicability, implementation or control effectiveness.",
+  "sectors": [
+    "Cross-sector",
+    "Government",
+    "Critical infrastructure",
+    "Financial services"
+  ],
+  "conceptIds": [
+    "agent-authority",
+    "tool-use",
+    "runtime-guardrails",
+    "access-control",
+    "traceability",
+    "human-oversight",
+    "supply-chain",
+    "continuous-monitoring",
+    "ai-security"
+  ],
+  "detailAvailability": "full-public-text",
+  "provisions": [
+    {
+      "id": "asd-harness-control-surface",
+      "ref": "Executive summary and Harness components",
+      "title": "Treat the harness as the governable control surface",
+      "summary": "The harness supplies context, tools, permissions, execution, memory, connectors and observability, and should be assessed separately from the replaceable language model.",
+      "conceptIds": [
+        "agent-authority",
+        "tool-use",
+        "access-control",
+        "traceability",
+        "ai-security"
+      ],
+      "sourceUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+      "reviewedAt": "2026-09-22",
+      "note": "Original Atlas synopsis of the reviewed public sections; concept placement is Atlas interpretation."
+    },
+    {
+      "id": "asd-harness-good-practice",
+      "ref": "Good practice",
+      "title": "Enforce permissions, approvals, monitoring and evidence in the harness",
+      "summary": "Recommends least privilege, controlled tools and data, human approval for sensitive actions, output verification, protected logs, phased deployment and incident integration.",
+      "conceptIds": [
+        "runtime-guardrails",
+        "access-control",
+        "human-oversight",
+        "continuous-monitoring",
+        "traceability",
+        "supply-chain"
+      ],
+      "sourceUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
+      "reviewedAt": "2026-09-22",
+      "note": "Guidance does not demonstrate that any organisation has implemented these practices or that they operate effectively."
+    }
+  ]
+}),
+  makeInstrument({
     id: 'au-corporations-act', title: 'Corporations Act 2001', shortTitle: 'Corporations Act', issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law', authorityNote: "Legally binding within its scope", status: 'in-force', published: '2001', officialUrl: 'https://www.legislation.gov.au/C2004A00818/latest/text',
     summary: 'Core corporations and financial-services law governing directors, licensees, disclosure, conduct and product obligations.', applicability: 'Binding according to the Act. AI use remains subject to existing director, licensing and conduct duties.', sectors: ['Financial services', 'Corporations'],
     conceptIds: ['accountability', 'decision-rights', 'competence', 'risk-treatment', 'transparency-disclosure', 'contestability'], detailAvailability: 'full-public-text',

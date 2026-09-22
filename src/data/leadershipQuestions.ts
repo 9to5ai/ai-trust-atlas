@@ -468,6 +468,15 @@ export function questionsForContext(kind: 'concept' | 'domain', id: string, audi
 }
 
 export const developmentPrompts: Record<string, { questions: Record<Audience,string>; askFor: string; followUp: string }> = {
+  "canada-ai-register-feedback": {
+  "questions": {
+    "board": "Does our inventory show where AI changes decisions and who remains accountable?",
+    "executive": "Which records lack verified status, ownership, update dates or recourse links?",
+    "regulator": "Can affected people understand the decision role and find a responsible contact?"
+  },
+  "askFor": "Inventory records with decision roles, named owners, review dates, impact assessments and recourse contacts.",
+  "followUp": "Which missing fields prevent a reviewer or affected person from understanding how a decision was made?"
+},
 
   "apra-super-ceo-september": {
     "questions": {

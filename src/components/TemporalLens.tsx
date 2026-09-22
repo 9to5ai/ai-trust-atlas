@@ -46,7 +46,7 @@ export function TemporalLens({ open, cutoff, minYear, maxYear, instruments, onCh
           <DevelopmentQuestion item={item} />
           <footer><button className="news-explore" onClick={() => explore(item.sourceId)}>Explore in Atlas <ArrowUpRight /></button><a href={item.url} target="_blank" rel="noreferrer">Original source ↗</a></footer>
           {item.backgroundSourceId && <button className="news-background" onClick={() => explore(item.backgroundSourceId!)}>Background: {instruments.find(s => s.id === item.backgroundSourceId)?.shortTitle} · {instruments.find(s => s.id === item.backgroundSourceId)?.published} →</button>}
-          <small className="news-review">Overview reviewed {dateLabel(item.reviewed)} · Briefing added {dateLabel(item.added)}</small>
+          <small className="news-review">{item.updated && <>Source page updated {dateLabel(item.updated)} · </>}Overview reviewed {dateLabel(item.reviewed)} · Briefing added {dateLabel(item.added)}</small>
         </article>)}
         {count === 0 && <div className="news-empty"><h3>No reviewed items in this selection</h3><p>Try a longer period or another topic. An empty feed does not mean there were no developments.</p><button onClick={() => { setDays(120); setTopic('all') }}>Show all topics · last 120 days</button></div>}
       </div>
