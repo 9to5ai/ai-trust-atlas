@@ -152,6 +152,42 @@
     --backdrop: radial-gradient(1200px 700px at 80% -20%, rgba(28, 73, 201, 0.06), transparent 60%), var(--ivory-100);
   }
 
+  /* Printing always uses the Paper palette. */
+  @media print {
+    :root,
+    :root[data-theme] {
+      color-scheme: light;
+      --surface-0: #ffffff;
+      --surface-1: #ffffff;
+      --surface-2: #ffffff;
+      --surface-3: #f5f3ec;
+      --surface-4: #ffffff;
+      --surface-glass: #ffffff;
+      --surface-glass-strong: #ffffff;
+      --border-subtle: rgba(15, 21, 34, 0.1);
+      --border: rgba(15, 21, 34, 0.18);
+      --border-strong: rgba(15, 21, 34, 0.3);
+      --text-primary: #0f1522;
+      --text-secondary: #2a3346;
+      --text-tertiary: #56607a;
+      --signal: #1c49c9;
+      --signal-strong: #143597;
+      --signal-contrast: #ffffff;
+      --signal-soft: rgba(28, 73, 201, 0.08);
+      --aurora: #7059e0;
+      --aurora-soft: rgba(112, 89, 224, 0.1);
+      --caution: #9a5b06;
+      --positive: #11774d;
+      --critical: #b8321f;
+      --glow: none;
+      --glow-soft: none;
+      --shadow-1: none;
+      --shadow-2: none;
+      --shadow-3: none;
+      --backdrop: #ffffff;
+    }
+  }
+
   /* Stage mode: projector-friendly scale and emphasis */
   :root[data-stage] {
     font-size: 125%;

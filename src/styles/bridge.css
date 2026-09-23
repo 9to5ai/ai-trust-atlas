@@ -307,4 +307,21 @@
     text-decoration: underline;
     text-underline-offset: 4px;
   }
+
+  /* Print: plain paper, no chrome */
+  @media print {
+    :root,
+    :root[data-theme],
+    html,
+    body {
+      color-scheme: light;
+      background: #ffffff;
+      color: #0f1522;
+    }
+  }
+}
+
+@page {
+  size: A4;
+  margin: 16mm 14mm;
 }

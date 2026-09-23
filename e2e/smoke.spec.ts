@@ -13,6 +13,8 @@ const routes = [
   { path: '/crosswalk', heading: /One control/ },
   { path: '/crosswalk/impact-risk-assessment', heading: 'Assess impacts and risks' },
   { path: '/horizon', heading: /What’s coming/ },
+  { path: '/assess', heading: /Readiness/ },
+  { path: '/ask', heading: /Questions, answered/ },
 ]
 
 const collectErrors = (page: Page) => {
@@ -59,7 +61,7 @@ test('theme choice persists across visits', async ({ page }) => {
 })
 
 for (const theme of ['dark', 'light']) {
-  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon']) {
+  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon', '/assess', '/ask']) {
     test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
       await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
       await page.goto(path)
@@ -134,4 +136,15 @@ test('Ask the Atlas streams a cited answer', async ({ page, isMobile }) => {
   await expect(page.getByRole('link', { name: 'Source 1: APRA CPS 230' })).toBeVisible()
   await page.getByRole('link', { name: 'Source 1: APRA CPS 230' }).click()
   await expect(page).toHaveURL(/\/library\/apra-cps-230$/)
+})
+
+test('assessment example exports a board pack and a workbook', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Downloads covered on desktop')
+  await page.goto('/assess')
+  await page.getByRole('button', { name: /Load an example/ }).click()
+  await expect(page.getByRole('heading', { name: 'Priority gaps' })).toBeVisible()
+  const [pptx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /Board pack/ }).click()])
+  expect(pptx.suggestedFilename()).toMatch(/board-pack\.pptx$/)
+  const [xlsx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /Workbook/ }).click()])
+  expect(xlsx.suggestedFilename()).toMatch(/assessment\.xlsx$/)
 })

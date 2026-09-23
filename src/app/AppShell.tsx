@@ -13,6 +13,7 @@ export const navItems = [
   { to: '/library', label: 'Library', match: ['/library'] },
   { to: '/crosswalk', label: 'Crosswalk', match: ['/crosswalk'] },
   { to: '/horizon', label: 'Horizon', match: ['/horizon'] },
+  { to: '/assess', label: 'Assess', match: ['/assess'] },
   { to: '/questions', label: 'Questions', match: ['/questions'] },
   { to: '/cases', label: 'Use cases', match: ['/cases'] },
   { to: '/methodology', label: 'Methodology', match: ['/methodology'] },
