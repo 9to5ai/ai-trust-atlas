@@ -15,6 +15,8 @@ const routes = [
   { path: '/horizon', heading: /What’s coming/ },
   { path: '/assess', heading: /Readiness/ },
   { path: '/ask', heading: /Questions, answered/ },
+  { path: '/implement', heading: /From obligation to operating control/ },
+  { path: '/implement/agentic-guardrails', heading: /runtime guardrails/ },
 ]
 
 const collectErrors = (page: Page) => {
@@ -61,7 +63,7 @@ test('theme choice persists across visits', async ({ page }) => {
 })
 
 for (const theme of ['dark', 'light']) {
-  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon', '/assess', '/ask']) {
+  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon', '/assess', '/ask', '/implement']) {
     test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
       await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
       await page.goto(path)

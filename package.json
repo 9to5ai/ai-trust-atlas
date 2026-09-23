@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run questions:check && npm run content:check && tsc -b && vite build",
+    "build": "npm run questions:check && npm run content:check && tsc -b && vite build && vite-node scripts/prerender-heads.ts && vite-node scripts/check-bundle.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "test:watch": "vitest",

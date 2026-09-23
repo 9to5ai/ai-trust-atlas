@@ -200,7 +200,7 @@ describe('production use case journey',()=>{
   window.history.replaceState(null,'','/?view=use-cases')
   render(<App/>)
   expect(window.location.pathname).toBe('/cases')
-  expect(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Use cases'})).toHaveAttribute('aria-current','page')
+  expect(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Implement'})).toHaveAttribute('aria-current','page')
   fireEvent.click(screen.getByRole('button',{name:'Detect fraud & manage risk'}))
   fireEvent.click(screen.getByRole('button',{name:'Proposing new fraud rules'}))
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()

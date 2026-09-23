@@ -6,6 +6,7 @@ import { SearchDialog } from '../components/SearchDialog'
 import { AskDrawer } from '../ask/AskDrawer'
 import { StageToggle, ThemeToggle } from '../components/ThemeToggle'
 import { Link, navigate, usePathname } from './router'
+import { metaFor } from './pageMeta'
 import styles from './AppShell.module.css'
 
 export const navItems = [
@@ -14,8 +15,8 @@ export const navItems = [
   { to: '/crosswalk', label: 'Crosswalk', match: ['/crosswalk'] },
   { to: '/horizon', label: 'Horizon', match: ['/horizon'] },
   { to: '/assess', label: 'Assess', match: ['/assess'] },
+  { to: '/implement', label: 'Implement', match: ['/implement', '/cases'] },
   { to: '/questions', label: 'Questions', match: ['/questions'] },
-  { to: '/cases', label: 'Use cases', match: ['/cases'] },
   { to: '/methodology', label: 'Methodology', match: ['/methodology'] },
 ] as const
 
@@ -41,6 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [askOpen, setAskOpen] = useState(false)
   const routeOwnsSearch = universeRoutes.includes(pathname)
   useEffect(() => setMenuOpen(false), [pathname])
+  useEffect(() => { document.title = metaFor(pathname).title }, [pathname])
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'j') { event.preventDefault(); setAskOpen((open) => !open) }

@@ -156,6 +156,7 @@ export function Home() {
         <nav aria-label="Footer">
           <Link to="/methodology"><Scales size={16} /> Methodology</Link>
           <Link to="/universe?view=list">Browse as a list</Link>
+          <Link to="/implement">Implement</Link>
           <Link to="/cases">Production use cases</Link>
           <a href="https://github.com/9to5ai/ai-trust-atlas" target="_blank" rel="noreferrer">Source code</a>
         </nav>

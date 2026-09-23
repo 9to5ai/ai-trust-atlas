@@ -15,6 +15,8 @@ import { ControlPage } from './routes/crosswalk/ControlPage'
 import { HorizonPage } from './routes/horizon/HorizonPage'
 import { AskPage } from './ask/AskPage'
 import { AssessHome } from './routes/assess/AssessHome'
+import { ImplementPage } from './routes/implement/ImplementPage'
+import { PlaybookPage } from './routes/implement/PlaybookPage'
 import { AssessEditor } from './routes/assess/AssessEditor'
 import { AssessReport } from './routes/assess/AssessReport'
 
@@ -31,6 +33,8 @@ function Routes() {
   if (pathname === '/horizon') return <HorizonPage />
   if (pathname === '/ask') return <AskPage />
   if (pathname === '/assess') return <AssessHome />
+  if (pathname === '/implement') return <ImplementPage />
+  if (pathname.startsWith('/implement/')) return <PlaybookPage key={pathname} id={decodeURIComponent(pathname.slice('/implement/'.length))} />
   if (pathname.startsWith('/assess/') && pathname.endsWith('/report')) return <AssessReport key={pathname} id={decodeURIComponent(pathname.slice('/assess/'.length, -'/report'.length))} />
   if (pathname.startsWith('/assess/')) return <AssessEditor key={pathname} id={decodeURIComponent(pathname.slice('/assess/'.length))} />
   return <NotFound />

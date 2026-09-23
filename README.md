@@ -2,7 +2,7 @@
 
 **A source-linked knowledge map that turns a complex topic into something people can explore, question and use.**
 
-[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
+[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Ask the Atlas](docs/ASK_ATLAS.md) · [Assessment policy](docs/ASSESSMENT_POLICY.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
 
 AI Trust Atlas connects AI governance concepts with laws, guidance, standards, research, risks and candidate controls. Its Universe makes the landscape explorable; its hierarchical List makes it readable. Source cards explain the material, role-specific questions help prepare conversations, and meeting briefs help readers prepare evidence-based discussions.
 
@@ -26,18 +26,22 @@ The initial audience is regulators, boards and executive leaders, with particula
 
 ## What you can do
 
-| Experience | Purpose | Implementation |
-|---|---|---|
-| Universe | Explore sources, concepts, risks and controls spatially, with selection emphasis and source provenance | Custom Canvas 2D renderer with projected 3D positions |
-| List | Browse the same objects hierarchically or go directly to an alphabetical source directory | Accessible React tree with canonical node IDs and appearance-specific paths |
-| Source inspector | Read summaries, scope, source links, legal foundations and related material | Components backed by the compiled source corpus |
-| Questions to ask | Prepare Board, Executive or Regulator conversations and collect a meeting brief | Authored question banks and deterministic composition, not live model generation |
-| What’s new | Review developments within 30, 90 or 120 days | Editorially curated event records filtered by publication date |
-| Use cases | Browse ten documented production deployments by workflow and sector; shortlist role questions and explore related practices | Authored evidence snapshots, searchable cards and optional universe nodes |
-| Home | Orient newcomers: what the Atlas covers, four starting questions, the latest developments and coverage by jurisdiction | `src/routes/home/` with a constellation drawn from the real graph |
-| Observatory / Paper themes and Stage mode | Cinematic dark by default, a light editorial theme for reading and print, and a projector-friendly Stage mode (`S`) | Semantic design tokens in `src/styles/tokens.css`, saved preference |
+| Area | Purpose |
+|---|---|
+| **Home** | Orientation: what the Atlas covers, six starting questions, the latest developments and coverage by jurisdiction |
+| **Universe** | A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Includes guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
+| **Library** | Every source with its authority, status and mapped sections. Source pages list key dates, related sources and role questions. **Compare** sets up to three sources side by side and exports to Excel |
+| **Crosswalk** | Twenty-four candidate control objectives mapped to the EU AI Act, ISO/IEC 42001, NIST AI RMF, APRA CPS 230/234 and Australia’s six AI practices, with Excel export |
+| **Horizon** | A radar and regional timeline of dated obligations, commencements and transitions |
+| **Assess** | A private, browser-only readiness self-assessment with a report, an editable PowerPoint board pack, an Excel workbook and PDF |
+| **Implement** | Five playbooks, a catalogue of open tools, and production use cases and incidents |
+| **Questions** | Board, executive and regulator questions, built into a meeting brief |
+| **Ask the Atlas** | Answers powered by Gemini, grounded only in Atlas records, with every claim cited (⌘J from anywhere) |
+| **Methodology** | How sources are selected, verified and connected |
 
-At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 306 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
+Themes: **Observatory** (dark, default) and **Paper** (light, print). Press `S` for Stage mode on projectors.
+
+At this snapshot the corpus holds 86 sources, including seven assurance standards, 40 trust concepts, the MIT risk taxonomy (7 domains, 24 risk types) and 24 candidate control objectives. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
 
 ## Architecture at a glance
 
@@ -56,9 +60,9 @@ flowchart TD
   UI --> News[Recent developments]
 ```
 
-**The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not call an LLM or query a graph database. The graph is assembled from arrays and maps in the browser.
+**The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not query a graph database; only Ask the Atlas calls a model. The graph is assembled from arrays and maps in the browser.
 
-The application is static and has no application API or live model calls. There is no crawler running inside the web app, vector database, retrieval-augmented chat service, shared organisation database or automatic legal decision engine.
+The application is static apart from one optional serverless function: `/api/ask`, which powers Ask the Atlas. It retrieves Atlas records in memory, asks Gemini to answer only from them, and strips any citation to a record it did not supply (see [docs/ASK_ATLAS.md](docs/ASK_ATLAS.md)). Browsing, the Crosswalk, Horizon and Assess never call a model. There is no crawler inside the web app, vector database, shared organisation database or automatic legal decision engine. Assessments stay in the user's browser.
 
 ### Main layers and files
 
@@ -97,6 +101,8 @@ npm run questions:check    # All required cards and audiences have complete ques
 npm run build              # Question gate, TypeScript and Vite output
 npm run preview            # Serve the built static app locally
 npm run test:e2e           # Playwright smoke, legacy-link and accessibility checks (after build)
+npm run content:check      # Crosswalk, timeline and draft-content gates
+npm run ask:eval           # Ask the Atlas golden questions (model calls only if a key is set)
 npm run sources:review     # Validate the ledger and report due checks; no research occurs
 ```
 
