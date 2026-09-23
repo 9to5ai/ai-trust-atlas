@@ -40,7 +40,8 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
     if (!canvas || !wrap) return
     const engine = new UniverseEngine(canvas, { theme: currentTheme(), reducedMotion: prefersReducedMotion() })
     engineRef.current = engine
-    const resize = () => { const box = wrap.getBoundingClientRect(); engine.resize(box.width, box.height) }
+    // Layout size, not getBoundingClientRect: the List transition scales the stage with a CSS transform.
+    const resize = () => engine.resize(wrap.clientWidth, wrap.clientHeight)
     resize()
     engine.setModel(state.current.model)
     engine.setSelection(state.current.selectedNodeId)

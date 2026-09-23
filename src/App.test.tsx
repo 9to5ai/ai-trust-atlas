@@ -250,3 +250,27 @@ describe('pages and browser history',()=>{
   expect(screen.getByRole('heading',{level:1,name:'How the Atlas is curated'})).toBeInTheDocument()
  })
 })
+
+describe('guided tours',()=>{
+ it('plays a tour from its link, drives the selection and keeps the step in the URL',()=>{
+  window.history.replaceState(null,'','/universe?tour=apra-to-controls&step=0')
+  render(<App/>)
+  const player=screen.getByRole('region',{name:/Guided tour: From APRA/})
+  expect(within(player).getByRole('heading',{name:'One universe, every link sourced'})).toBeInTheDocument()
+  fireEvent.click(within(player).getByRole('button',{name:/Next/}))
+  expect(window.location.search).toContain('step=1')
+  expect(window.location.hash).toBe('#/instrument/apra-ai-letter-2026')
+  expect(screen.getByLabelText('Selected node details')).toHaveTextContent('APRA')
+  fireEvent.click(within(player).getByRole('button',{name:'Exit tour'}))
+  expect(screen.queryByRole('region',{name:/Guided tour/})).not.toBeInTheDocument()
+  expect(window.location.search).not.toContain('tour=')
+ })
+ it('traces a recorded route from the inspector',()=>{
+  window.history.replaceState(null,'','/universe#/instrument/apra-cps-230')
+  render(<App/>)
+  fireEvent.change(screen.getByLabelText('Trace destination'),{target:{value:'control-objective:third-party-assessment'}})
+  expect(screen.getAllByRole('button',{name:'Show in Universe'}).length).toBeGreaterThan(0)
+  fireEvent.click(screen.getAllByRole('button',{name:'Show in Universe'})[0])
+  expect(screen.getByRole('button',{name:'Hide route'})).toHaveAttribute('aria-pressed','true')
+ })
+})

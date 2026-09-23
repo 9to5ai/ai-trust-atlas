@@ -21,9 +21,7 @@ export function navigate(to: string, { replace = false }: { replace?: boolean } 
   const leavingPage = new URL(to, window.location.origin).pathname !== window.location.pathname
   window.history[replace ? 'replaceState' : 'pushState'](null, '', to)
   window.dispatchEvent(new PopStateEvent('popstate'))
-  if (leavingPage && typeof window.scrollTo === 'function') {
-    try { window.scrollTo({ top: 0 }) } catch { /* jsdom does not implement scrolling */ }
-  }
+  if (leavingPage && document.scrollingElement && document.scrollingElement.scrollTop > 0) window.scrollTo({ top: 0 })
 }
 
 type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { to: string; replace?: boolean }

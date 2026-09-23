@@ -83,6 +83,26 @@ test.describe('WebGL universe', () => {
     await expect(page.locator('.universe-label[data-state="selected"]')).toBeVisible()
     expect(errors.filter((message) => !message.includes('GL Driver'))).toEqual([])
   })
+  test('keeps a single render loop once ambient rotation starts', async ({ page }) => {
+    await page.addInitScript(() => {
+      const probe = { clears: 0, frames: new Set<number>() }
+      ;(window as unknown as { __probe: typeof probe }).__probe = probe
+      const clear = WebGL2RenderingContext.prototype.clear
+      WebGL2RenderingContext.prototype.clear = function (mask: number) { probe.clears++; return clear.call(this, mask) }
+      const raf = window.requestAnimationFrame.bind(window)
+      window.requestAnimationFrame = (callback) => raf((time) => { probe.frames.add(time); callback(time) })
+    })
+    await page.goto('/universe')
+    await page.waitForTimeout(7500)
+    const perFrame = await page.evaluate(async () => {
+      const probe = (window as unknown as { __probe: { clears: number; frames: Set<number> } }).__probe
+      probe.clears = 0; probe.frames.clear()
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      return probe.clears / Math.max(1, probe.frames.size)
+    })
+    // A single loop clears a fixed handful of targets per frame (scene plus bloom passes); duplicate loops multiply it.
+    expect(perFrame).toBeLessThan(25)
+  })
   test('falls back to the 2D map on request', async ({ page }) => {
     await page.goto('/universe?renderer=2d')
     await expect(page.locator('.universe-webgl')).toHaveCount(0)

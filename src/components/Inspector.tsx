@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 import { useSheetDismiss } from '../hooks/useSheetDismiss'
 import { QuestionsPanel } from './LeadershipQuestions'
 import { ArrowRight, ArrowSquareOut, CaretDown, CaretUp, CheckCircle, GitBranch, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
+import { TracePanel } from './TracePanel'
 import { AnimatePresence, motion } from 'motion/react'
 import { assertionsForNode, inferProvisionGranularity, riskPathsForInstrument, riskPathsForProvision, specificConceptIds } from '../data/assertions'
 import { concepts, domainById, domains } from '../data/concepts'
@@ -22,6 +23,7 @@ type Props = {
   onSelectNode: (nodeId: string) => void
   causalLens: CausalLens
   onShowRelated?: () => void
+  onTrace?: (nodeIds: string[]) => void
   mobileExpanded?: boolean
   navigation?: ReactNode
   onBack?: () => void
@@ -82,7 +84,7 @@ function ControlCards({ controls, onSelectNode, note }: { controls: ControlObjec
   </>
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
+export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, onTrace, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
   const sheet = useSheetDismiss(onClose)
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const useCase = kind==='use-case'?useCaseById.get(rawId):undefined
@@ -126,9 +128,9 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
       <button className="inspector-close" type="button" onClick={onClose} aria-label="Close details"><X /></button>
       <div className="detail-navigation">{onBack&&<button type="button" onClick={onBack}>← Back</button>}{navigation}</div>
       {!incident&&!useCase&&<div className="evidence-spine-head">
-        <span><i />About this item</span>
-        <code>{selectedNodeId}</code>
-        <div><small>{directAssertionCount} source-based</small><small>{synthesisAssertionCount} Atlas interpretation</small></div>
+        <span><i />Evidence behind this item</span>
+        <div className="evidence-split" role="img" aria-label={`${directAssertionCount} source-based and ${synthesisAssertionCount} Atlas interpretation links`}><i className="is-source" style={{ flexGrow: directAssertionCount || 0.02 }} /><i className="is-synthesis" style={{ flexGrow: synthesisAssertionCount || 0.02 }} /></div>
+        <div><small><b className="is-source" />{directAssertionCount} source-based</small><small><b className="is-synthesis" />{synthesisAssertionCount} Atlas interpretation</small></div>
       </div>}
 
       {useCase&&<UseCaseDetail item={useCase} onSelect={onSelectNode}/>}
@@ -136,6 +138,7 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
       {incident&&<IncidentDetail item={incident} onSelect={onSelectNode}/>}
       {linkedIncidents.length>0&&<section className="inspector-section incident-links"><h3>Related incidents</h3>{linkedIncidents.map(i=><button key={i.id} onClick={()=>onSelectNode(`incident:${i.id}`)}>{i.shortTitle} →</button>)}</section>}
       {!incident&&!useCase&&onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
+      {!incident&&!useCase&&selectedNodeId&&onTrace&&<TracePanel key={selectedNodeId} from={selectedNodeId} onShow={onTrace} onSelect={onSelectNode} />}
 
       {(kind === 'risk-domain' || kind === 'risk-subdomain') && <p className="section-boundary">Counts use the bundled December 2025 snapshot. MIT’s website describes 1,700+ risks as of our 7 September 2026 review; that newer database has not been imported. <a href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">See current MIT repository</a>.</p>}
       {instrument && !provision && <>

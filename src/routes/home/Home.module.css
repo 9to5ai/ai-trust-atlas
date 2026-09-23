@@ -38,6 +38,7 @@
   .heroCopy > :nth-child(3) { animation-delay: 160ms; }
   .heroCopy > :nth-child(4) { animation-delay: 240ms; }
   .heroCopy > :nth-child(5) { animation-delay: 320ms; }
+  .heroCopy > :nth-child(6) { animation-delay: 400ms; }
   @keyframes rise {
     from { opacity: 0; transform: translateY(14px); }
   }
@@ -124,6 +125,31 @@
   .secondary:hover {
     border-color: var(--signal);
     background: var(--signal-soft);
+  }
+  .tourLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--step--1);
+  }
+  .tourLink svg {
+    color: var(--signal);
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--signal) 60%, transparent));
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+  .tourLink strong {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .tourLink:hover svg {
+    transform: scale(1.1);
+  }
+  .tourLink:hover strong {
+    color: var(--signal);
   }
   .searchTrigger {
     display: flex;

@@ -1,7 +1,8 @@
+// Must be first: declares the cascade layer order before any component stylesheet.
+import './styles/index.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import './styles/index.css'
 import './styles/legacy/styles.css'
 import './styles/legacy/universe-polish.css'
 import './styles/legacy/arctic.css'

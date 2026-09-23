@@ -77,6 +77,31 @@ const linear = (hex: string) => {
   return new Color(channel((value >> 16) & 255), channel((value >> 8) & 255), channel(value & 255))
 }
 
+/*
+ * Writes attribute data into reusable GPU buffers. Buffers grow (and the old
+ * geometry is disposed) only when capacity is exceeded; otherwise the draw
+ * range shrinks, avoiding a new bufferData allocation every frame.
+ */
+function writeAttributes(object: { geometry: BufferGeometry }, count: number, data: Record<string, [Float32Array | number[], number]>) {
+  let geometry = object.geometry
+  const capacity = (geometry.getAttribute('position') as BufferAttribute | undefined)?.count ?? 0
+  if (count > capacity || !geometry.getAttribute('position')) {
+    const next = new BufferGeometry()
+    const size = Math.max(64, Math.ceil(count * 1.5))
+    for (const [name, [, itemSize]] of Object.entries(data)) next.setAttribute(name, new BufferAttribute(new Float32Array(size * itemSize), itemSize))
+    geometry.dispose()
+    object.geometry = geometry = next
+  }
+  for (const [name, [values, itemSize]] of Object.entries(data)) {
+    const attribute = geometry.getAttribute(name) as BufferAttribute
+    ;(attribute.array as Float32Array).set(values.length > count * itemSize ? values.slice(0, count * itemSize) : values)
+    attribute.clearUpdateRanges()
+    attribute.addUpdateRange(0, count * itemSize)
+    attribute.needsUpdate = true
+  }
+  geometry.setDrawRange(0, count)
+}
+
 const glowTexture = (inner: string, outer: string) => {
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = 256
@@ -134,6 +159,8 @@ export class UniverseEngine {
   private height = 1
   private disposed = false
   private edgesDirty = true
+  private pulseUntil = 0
+  private ticking = false
   private activeCurves: { curve: Vec3[]; path: boolean; offset: number }[] = []
 
   constructor(canvas: HTMLCanvasElement, options: { theme: Theme; reducedMotion: boolean }) {
@@ -219,9 +246,9 @@ export class UniverseEngine {
     this.settle(1400)
   }
 
-  setSelection(id?: string) { if (id === this.selected) return; this.selected = id; this.updateEmphasis(); this.settle(900) }
+  setSelection(id?: string) { if (id === this.selected) return; this.selected = id; this.pulseUntil = performance.now() + 12000; this.updateEmphasis(); this.settle(900) }
   setHover(id?: string) { if (id === this.hovered) return; this.hovered = id; this.updateEmphasis(); this.settle(400) }
-  setHighlight(ids: string[]) { this.highlight = new Set(ids); this.updateEmphasis(); this.settle(900) }
+  setHighlight(ids: string[]) { if (ids.join('|') === [...this.highlight].join('|')) return; this.highlight = new Set(ids); this.pulseUntil = performance.now() + 12000; this.updateEmphasis(); this.settle(900) }
   setShowSynthesis(value: boolean) { this.showSynthesis = value; this.settle(200) }
   setEmphasiseSources(value: boolean) { this.emphasiseSources = value; this.settle(100) }
   setPaused(value: boolean) { this.paused = value; this.invalidate() }
@@ -334,9 +361,11 @@ export class UniverseEngine {
     return out.toDataURL('image/png')
   }
 
+  /* Exactly one animation-frame loop: requests made during a tick are folded into the next frame. */
   invalidate() {
     this.dirty = true
-    if (!this.frame && !this.disposed && !this.inactive) this.frame = requestAnimationFrame(this.tick)
+    if (this.ticking || this.frame || this.disposed || this.inactive) return
+    this.frame = requestAnimationFrame(this.tick)
   }
 
   dispose() {
@@ -535,10 +564,7 @@ export class UniverseEngine {
         }
       }
     }
-    const web = this.web.geometry
-    web.setAttribute('position', new BufferAttribute(new Float32Array(webPositions), 3))
-    web.setAttribute('color', new BufferAttribute(new Float32Array(webColors), 3))
-    web.setAttribute('alpha', new BufferAttribute(new Float32Array(webAlpha), 1))
+    writeAttributes(this.web, webAlpha.length, { position: [webPositions, 3], color: [webColors, 3], alpha: [webAlpha, 1] })
     this.active.visible = activePositions.length > 0
     if (activePositions.length) {
       const geometry = new LineSegmentsGeometry()
@@ -551,7 +577,7 @@ export class UniverseEngine {
 
   /* One travelling signal per highlighted edge; returns whether any are animating. */
   private writePulses(time: number) {
-    const moving = !this.reducedMotion && !this.paused
+    const moving = !this.reducedMotion && !this.paused && time < this.pulseUntil
     const curves = moving ? this.activeCurves : []
     const count = curves.length
     const positions = new Float32Array(count * 3), colors = new Float32Array(count * 3)
@@ -564,20 +590,18 @@ export class UniverseEngine {
       const color = path ? aurora : accent
       colors.set([color.r, color.g, color.b], item * 3)
     })
-    const geometry = this.pulses.geometry
-    geometry.setAttribute('position', new BufferAttribute(positions, 3))
-    geometry.setAttribute('color', new BufferAttribute(colors, 3))
-    geometry.setAttribute('size', new BufferAttribute(new Float32Array(count).fill(5), 1))
-    geometry.setAttribute('alpha', new BufferAttribute(new Float32Array(count).fill(1), 1))
-    geometry.setAttribute('shape', new BufferAttribute(new Float32Array(count), 1))
-    geometry.setAttribute('ring', new BufferAttribute(new Float32Array(count), 1))
-    geometry.setAttribute('emphasis', new BufferAttribute(new Float32Array(count).fill(0.6), 1))
+    if (count || this.pulses.geometry.drawRange.count) writeAttributes(this.pulses, count, {
+      position: [positions, 3], color: [colors, 3], size: [new Float32Array(count).fill(5), 1], alpha: [new Float32Array(count).fill(1), 1],
+      shape: [new Float32Array(count), 1], ring: [new Float32Array(count), 1], emphasis: [new Float32Array(count).fill(0.6), 1],
+    })
     return count > 0
   }
 
   private tick = (time: number) => {
     this.frame = 0
     if (this.disposed || this.inactive) return
+    this.ticking = true
+    this.dirty = false
     const dt = this.last ? Math.min(64, time - this.last) : 16
     this.last = time
     let animating = false
@@ -596,8 +620,8 @@ export class UniverseEngine {
     if (nodesMoving) this.edgesDirty = true
     const pulsing = this.render(time)
     animating ||= controlsMoving || nodesMoving || this.controls.autoRotate || pulsing || time < this.settleUntil
-    this.dirty = false
-    if (animating) this.frame = requestAnimationFrame(this.tick)
+    this.ticking = false
+    if (animating || this.dirty) this.frame = requestAnimationFrame(this.tick)
     else this.last = 0
   }
 

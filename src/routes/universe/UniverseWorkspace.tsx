@@ -11,6 +11,10 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 import { SearchDialog } from '../../components/SearchDialog'
 import { FocusList } from '../../components/FocusList'
 import { Universe } from '../../universe/Universe'
+import { TourPlayer } from '../../tour/TourPlayer'
+import { TourMenu } from '../../tour/TourMenu'
+import { tourById } from '../../data/tours'
+import { findPaths } from '../../lib/workspace'
 import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
@@ -27,6 +31,8 @@ const maximumPublicationYear = Math.max(...publicationYears)
 
 export function UniverseWorkspace() {
   const [initialView] = useState(() => readView(new URL(window.location.href), maximumPublicationYear))
+  const readTour = (url: URL) => { const id = url.searchParams.get('tour'); const tour = id ? tourById.get(id) : undefined; if (!tour) return undefined; const step = Number(url.searchParams.get('step') ?? 0); return { id: tour.id, step: Number.isInteger(step) && step >= 0 && step < tour.steps.length ? step : 0 } }
+  const [tour, setTour] = useState(() => readTour(new URL(window.location.href)))
   const [trail, setTrail] = useState<(AtlasView & { scroll: number; pose?: unknown })[]>([])
   const [copyStatus, setCopyStatus] = useState('')
   const [shareFallback, setShareFallback] = useState('')
@@ -181,6 +187,22 @@ export function UniverseWorkspace() {
     setMobileInspectorExpanded(false)
   }
 
+  // Guided tours drive the real selection, layout and a highlighted recorded path.
+  const activeTour = tour ? tourById.get(tour.id) : undefined
+  const tourStep = activeTour && tour ? activeTour.steps[tour.step] : undefined
+  const [tracePath, setTracePath] = useState<string[]>([])
+  const tourPath = useMemo(() => (tourStep?.trace ? findPaths(tourStep.trace[0], tourStep.trace[1], 'all', 4)[0]?.nodeIds ?? [] : []), [tourStep])
+  const highlightIds = tourPath.length ? tourPath : tracePath
+  useEffect(() => { setTracePath([]) }, [selectedNodeId])
+  useEffect(() => {
+    if (!tourStep) return
+    clearFilters()
+    if (tourStep.projection === 'questions') { setProjection('questions'); return }
+    if (tourStep.select) { if (tourStep.select !== selectedNodeId) selectNode(tourStep.select); else setProjection('atlas') }
+    else { setSelectedNodeId(undefined); setFocusAnchorId(undefined); setLayout(tourStep.layout ?? 'ontology'); setProjection('atlas') }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tour?.id, tour?.step])
+
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); setSearchOpen(open => !open) }
@@ -201,16 +223,19 @@ export function UniverseWorkspace() {
   const restoringFromUrl = useRef(false)
   useEffect(() => {
     const view = currentView()
-    const next = pathForView(view) + viewUrl(view)
-    const navigation = `${view.projection}|${view.selected ?? ''}`
+    const base = pathForView(view) + viewUrl(view)
+    const [beforeHash, hash = ''] = base.split('#')
+    const tourQuery = tour ? `tour=${tour.id}&step=${tour.step}` : ''
+    const next = tourQuery ? `${beforeHash}${beforeHash.includes('?') ? '&' : '?'}${tourQuery}${hash ? `#${hash}` : ''}` : base
+    const navigation = `${view.projection}|${view.selected ?? ''}|${tour ? `${tour.id}:${tour.step}` : ''}`
     const push = lastNavigation.current !== undefined && navigation !== lastNavigation.current && !restoringFromUrl.current
     lastNavigation.current = navigation
     restoringFromUrl.current = false
     if (next === window.location.pathname + window.location.search + window.location.hash) return
     window.history[push ? 'pushState' : 'replaceState'](null, '', next)
-  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId, showIncidents, showUseCases])
+  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId, showIncidents, showUseCases, tour])
   useEffect(() => {
-    const restore=()=>{if(!universeRoutes.includes(window.location.pathname))return;restoringFromUrl.current=true;restoreView(readView(new URL(window.location.href),maximumPublicationYear));setTrail([])}
+    const restore=()=>{if(!universeRoutes.includes(window.location.pathname))return;restoringFromUrl.current=true;restoreView(readView(new URL(window.location.href),maximumPublicationYear));setTour(readTour(new URL(window.location.href)));setTrail([])}
     window.addEventListener('popstate',restore);window.addEventListener('hashchange',restore)
     return()=>{window.removeEventListener('popstate',restore);window.removeEventListener('hashchange',restore)}
   }, [])
@@ -283,6 +308,7 @@ export function UniverseWorkspace() {
             <button className="copy-view-button" type="button" onClick={copyView}>Copy view link</button>
             {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showIncidents} onClick={()=>{setLayout('ontology');setShowIncidents(v=>!v);if(selectedNodeId?.startsWith('incident:'))selectNode(undefined)}}>Incidents</button>}
             {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showUseCases||selectedNodeId?.startsWith('use-case:')||false} onClick={()=>{setLayout('ontology');setShowUseCases(v=>!v);if(selectedNodeId?.startsWith('use-case:')){setShowUseCases(false);selectNode(undefined)}}}>Use case nodes</button>}
+            <TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} />
             <span role="status">{copyStatus}</span>
           </div>
           {shareFallback&&<div className="share-fallback"><label>View link<input readOnly value={shareFallback} onFocus={e=>e.target.select()}/></label><button onClick={()=>setShareFallback('')} aria-label="Close link"><X/></button></div>}
@@ -298,10 +324,11 @@ export function UniverseWorkspace() {
           {(layout==='risk'?filteredRiskSubdomains.length===0:layout==='controls'?filteredControls.length===0:filteredInstruments.length===0)&&<div className="atlas-empty" role="status"><strong>No {layout==='risk'?'risks':layout==='controls'?'controls':'sources'} match these filters</strong><p>Remove a filter above or clear them to explore again.</p><button onClick={clearFilters}>Clear filters</button></div>}
           <div className="observatory-frame" aria-hidden="true"><i /><i /><i /></div>
           <button className="sidebar-collapse" type="button" aria-label={sidebarCollapsed ? 'Expand left panel' : 'Collapse left panel'} aria-expanded={!sidebarCollapsed} onClick={() => setSidebarCollapsed(value => !value)}>{sidebarCollapsed ? <CaretRight /> : <CaretLeft />}</button>
-          {selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
+          {!activeTour && selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
-          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
+          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} highlightIds={highlightIds} />
+          {activeTour && tour && <TourPlayer tour={activeTour} step={tour.step} onStep={(step) => setTour({ id: activeTour.id, step: Math.max(0, Math.min(activeTour.steps.length - 1, step)) })} onExit={() => setTour(undefined)} />}
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
           <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
@@ -352,6 +379,7 @@ export function UniverseWorkspace() {
           onClose={() => selectNode(undefined)}
           onSelectNode={selectNode}
           causalLens={causalLens}
+          onTrace={setTracePath}
           onShowRelated={selectedNodeId ? () => { rememberView(); setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
           mobileExpanded={mobileInspectorExpanded}
           onMobileExpandedChange={setMobileInspectorExpanded}

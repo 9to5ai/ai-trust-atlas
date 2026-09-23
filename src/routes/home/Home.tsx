@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Bank, ChatsCircle, Fingerprint, GlobeHemisphereWest, MagnifyingGlass, Scales, ShieldCheck, TreeStructure, UserFocus } from '@phosphor-icons/react'
+import { ArrowRight, ArrowUpRight, Bank, PlayCircle, ChatsCircle, Fingerprint, GlobeHemisphereWest, MagnifyingGlass, Scales, ShieldCheck, TreeStructure, UserFocus } from '@phosphor-icons/react'
 import type { Icon } from '@phosphor-icons/react'
 import { openSearch } from '../../app/AppShell'
 import { Link } from '../../app/router'
@@ -75,6 +75,7 @@ export function Home() {
             <Link to="/universe" className={styles.primary}>Enter the Universe <ArrowRight size={18} weight="bold" /></Link>
             <Link to="/questions" className={styles.secondary}>Prepare a board conversation</Link>
           </div>
+          <Link to="/universe?tour=apra-to-controls&step=0" className={styles.tourLink}><PlayCircle size={22} weight="duotone" /> <span><strong>Take the three-minute guided tour</strong> From APRA’s expectations to candidate controls</span></Link>
           <button type="button" className={styles.searchTrigger} onClick={openSearch}>
             <MagnifyingGlass size={18} />
             <span>Search sources, risks and controls — try “CPS 230” or “Who is accountable?”</span>

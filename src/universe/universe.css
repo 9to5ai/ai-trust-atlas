@@ -3,6 +3,7 @@
     position: absolute;
     inset: 0;
     overflow: hidden;
+    container-type: inline-size;
   }
   .universe-webgl canvas {
     display: block;
@@ -123,7 +124,7 @@
     font-size: var(--step--1);
     letter-spacing: 0.08em;
   }
-  @media (max-width: 1100px) {
+  @container (max-width: 1040px) {
     .universe-hint {
       display: none;
     }
