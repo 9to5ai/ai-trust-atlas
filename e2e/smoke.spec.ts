@@ -64,3 +64,28 @@ for (const theme of ['dark', 'light']) {
     })
   }
 }
+
+test.describe('WebGL universe', () => {
+  test.skip(({ isMobile }) => isMobile, 'Covered on desktop')
+  test('renders the observatory and selects nodes from the keyboard', async ({ page }) => {
+    const errors = collectErrors(page)
+    await page.goto('/universe')
+    const stage = page.locator('.universe-webgl')
+    await expect(stage).toBeVisible()
+    await page.waitForTimeout(1500)
+    const canvas = stage.locator('canvas')
+    // A blank frame compresses to almost nothing; a rendered constellation does not.
+    const image = await canvas.screenshot()
+    expect(image.length).toBeGreaterThan(40_000)
+    await canvas.focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(page.getByLabel('Selected node details')).toBeVisible()
+    await expect(page.locator('.universe-label[data-state="selected"]')).toBeVisible()
+    expect(errors.filter((message) => !message.includes('GL Driver'))).toEqual([])
+  })
+  test('falls back to the 2D map on request', async ({ page }) => {
+    await page.goto('/universe?renderer=2d')
+    await expect(page.locator('.universe-webgl')).toHaveCount(0)
+    await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
+  })
+})

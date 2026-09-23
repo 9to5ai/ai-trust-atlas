@@ -2,8 +2,9 @@ import { advancePresence, reconcilePresence, motionStep, type Presence } from '.
 import { arcticAccents } from '../lib/nodeStyle'
 import type { NodeSnapshot } from './UniverseOutline'
 import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphModel, GraphNode, GraphEdge } from '../types'
+import type { UniverseProps } from '../universe/shared'
 
 export type GraphPose = { camera: Camera; rotation: Rotation }
 export type GraphNavigation = { capture: () => GraphPose; restore: (pose: GraphPose) => void }
@@ -13,16 +14,7 @@ type Rotation = { yaw: number; pitch: number }
 type ProjectedPoint = { x: number; y: number; depth: number; scale: number }
 type AmbientParticle = Point3D & { opacity: number; phase: number; size: number; tone: number; speed: number }
 
-type Props = {
-  model: GraphModel
-  selectedNodeId?: string
-  onSelect: (nodeId?: string) => void
-  showSourceLabels?: boolean
-  navigationRef?: RefObject<GraphNavigation | null>
-  snapshotRef?: RefObject<(() => NodeSnapshot) | null>
-  inactive?: boolean
-  focusRequest?: number
-}
+type Props = UniverseProps
 
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value))
 const lerp = (from: number, to: number, amount: number) => from + (to - from) * amount
@@ -322,7 +314,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
   sourceLabelsRef.current = showSourceLabels
   useEffect(() => {
     if(!navigationRef)return
-    navigationRef.current={capture:()=>({camera:{...cameraRef.current},rotation:{...rotationRef.current}}),restore:pose=>{cameraRef.current={...pose.camera};cameraTargetRef.current={...pose.camera};rotationRef.current={...pose.rotation};rotationTargetRef.current={...pose.rotation}}}
+    navigationRef.current={capture:()=>({camera:{...cameraRef.current},rotation:{...rotationRef.current}}),restore:value=>{const pose=value as GraphPose|undefined;if(!pose?.camera)return;cameraRef.current={...pose.camera};cameraTargetRef.current={...pose.camera};rotationRef.current={...pose.rotation};rotationTargetRef.current={...pose.rotation}}}
     return()=>{navigationRef.current=null}
   },[navigationRef])
   const selectedRef = useRef(selectedNodeId)

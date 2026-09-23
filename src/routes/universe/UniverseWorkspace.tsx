@@ -10,7 +10,8 @@ import { AnimatePresence } from 'motion/react'
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { SearchDialog } from '../../components/SearchDialog'
 import { FocusList } from '../../components/FocusList'
-import { GraphCanvas, type GraphNavigation, type GraphPose } from '../../components/GraphCanvas'
+import { Universe } from '../../universe/Universe'
+import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
 import { TemporalLens } from '../../components/TemporalLens'
@@ -26,7 +27,7 @@ const maximumPublicationYear = Math.max(...publicationYears)
 
 export function UniverseWorkspace() {
   const [initialView] = useState(() => readView(new URL(window.location.href), maximumPublicationYear))
-  const [trail, setTrail] = useState<(AtlasView & { scroll: number; pose?: GraphPose })[]>([])
+  const [trail, setTrail] = useState<(AtlasView & { scroll: number; pose?: unknown })[]>([])
   const [copyStatus, setCopyStatus] = useState('')
   const [shareFallback, setShareFallback] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
@@ -45,7 +46,7 @@ export function UniverseWorkspace() {
   const [newsFocus, setNewsFocus] = useState(0)
   const [timeCutoff, setTimeCutoff] = useState(initialView.year)
   const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions' | 'use-cases'>(initialView.projection)
-  const graphNavigation = useRef<GraphNavigation | null>(null)
+  const graphNavigation = useRef<UniverseNavigation | null>(null)
   const graphSnapshot = useRef<(() => NodeSnapshot) | null>(null)
   const outlineHandle = useRef<OutlineHandle | null>(null)
   const morphOrigin = useRef<NodeSnapshot>(new Map())
@@ -300,7 +301,7 @@ export function UniverseWorkspace() {
           {selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
-          <GraphCanvas navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
+          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
           <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>

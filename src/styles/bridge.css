@@ -57,4 +57,32 @@
   .atlas-workspace {
     height: calc(100dvh - var(--header-height));
   }
+
+  /* Universe legend: readable, glassy, consistent with the toolbar */
+  .semantic-key {
+    gap: 14px;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-1) 72%, transparent);
+    backdrop-filter: blur(12px);
+    color: var(--text-secondary);
+    font-size: var(--step--2);
+    opacity: 1;
+  }
+  .semantic-key span {
+    font-size: var(--step--2);
+    color: var(--text-secondary);
+  }
+  .graph-controls {
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-1) 72%, transparent);
+    backdrop-filter: blur(12px);
+  }
+  .graph-controls button[aria-pressed='true'],
+  .graph-controls button:hover:not(:disabled) {
+    color: var(--signal);
+    background: var(--signal-soft);
+  }
 }
