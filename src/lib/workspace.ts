@@ -34,7 +34,7 @@ export function basisMatches(a:MappingAssertion,basis:BasisFilter) {return basis
 export function connections(id:string,basis:BasisFilter='all') {return assertions.filter(a=>a.status==='active'&&basisMatches(a,basis)&&(a.sourceNodeId===id||a.targetNodeId===id))}
 export function otherEnd(a:MappingAssertion,id:string) {return a.sourceNodeId===id?a.targetNodeId:a.sourceNodeId}
 // Small, inspectable vocabulary expansions; search retrieves records, it does not generate advice.
-const searchAliases: [RegExp,string][] = [
+export const searchAliases: [RegExp,string][] = [
  [/who (?:is accountable|is responsible|owns|should own)/g,'accountability'],
  [/human in the loop|human oversight/g,'human oversight'],
  [/personal (?:data|information)|data protection/g,'privacy'],

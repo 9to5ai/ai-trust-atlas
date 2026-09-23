@@ -190,10 +190,11 @@ export function UniverseWorkspace() {
   // Guided tours drive the real selection, layout and a highlighted recorded path.
   const activeTour = tour ? tourById.get(tour.id) : undefined
   const tourStep = activeTour && tour ? activeTour.steps[tour.step] : undefined
-  const [tracePath, setTracePath] = useState<string[]>([])
+  const [tracePath, setTracePath] = useState<string[]>(() => (new URLSearchParams(window.location.search).get('highlight') ?? '').split(',').filter((id) => objectById.has(id)).slice(0, 24))
+  const highlightFromUrl = useRef(tracePath.length > 0)
   const tourPath = useMemo(() => (tourStep?.trace ? findPaths(tourStep.trace[0], tourStep.trace[1], 'all', 4)[0]?.nodeIds ?? [] : []), [tourStep])
   const highlightIds = tourPath.length ? tourPath : tracePath
-  useEffect(() => { setTracePath([]) }, [selectedNodeId])
+  useEffect(() => { if (highlightFromUrl.current) { highlightFromUrl.current = false; return } setTracePath([]) }, [selectedNodeId])
   useEffect(() => {
     if (!tourStep) return
     clearFilters()

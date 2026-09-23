@@ -115,3 +115,23 @@ test.describe('WebGL universe', () => {
     await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
   })
 })
+
+test('Ask the Atlas streams a cited answer', async ({ page, isMobile }) => {
+  await page.route('**/api/ask', (route) => route.fulfill({
+    status: 200,
+    headers: { 'content-type': 'text/event-stream' },
+    body: [
+      ['meta', { provider: 'gemini', model: 'gemini-test', records: [{ id: 'instrument:apra-cps-230', title: 'APRA CPS 230', kind: 'Source', draft: false }] }],
+      ['delta', { text: 'CPS 230 sets expectations for material service providers [[instrument:apra-cps-230]].' }],
+      ['done', { cited: ['instrument:apra-cps-230'], dropped: [], uncited: false, conclusiveLanguage: false }],
+    ].map(([event, data]) => `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`).join(''),
+  }))
+  await page.goto('/')
+  if (isMobile) await page.goto('/ask')
+  else await page.getByRole('button', { name: 'Ask the Atlas' }).click()
+  await page.getByLabel('Your question').fill('What does CPS 230 say about service providers?')
+  await page.getByRole('button', { name: 'Ask', exact: true }).click()
+  await expect(page.getByRole('link', { name: 'Source 1: APRA CPS 230' })).toBeVisible()
+  await page.getByRole('link', { name: 'Source 1: APRA CPS 230' }).click()
+  await expect(page).toHaveURL(/\/library\/apra-cps-230$/)
+})

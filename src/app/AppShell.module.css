@@ -97,6 +97,29 @@
     gap: 6px;
     justify-self: end;
   }
+  .ask {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 14px 0 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in srgb, var(--signal) 50%, transparent);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--signal) 22%, transparent), color-mix(in srgb, var(--aurora) 22%, transparent));
+    color: var(--text-primary);
+    font-size: var(--step--1);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 20px -8px var(--signal);
+    transition: box-shadow var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+  .ask svg {
+    color: var(--signal);
+  }
+  .ask:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 26px -6px var(--signal);
+  }
   .routeActions {
     display: contents;
   }

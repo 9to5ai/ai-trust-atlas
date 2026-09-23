@@ -13,6 +13,7 @@ import { ComparePage } from './routes/library/ComparePage'
 import { CrosswalkPage } from './routes/crosswalk/CrosswalkPage'
 import { ControlPage } from './routes/crosswalk/ControlPage'
 import { HorizonPage } from './routes/horizon/HorizonPage'
+import { AskPage } from './ask/AskPage'
 
 function Routes() {
   const pathname = usePathname()
@@ -25,6 +26,7 @@ function Routes() {
   if (pathname === '/crosswalk') return <CrosswalkPage />
   if (pathname.startsWith('/crosswalk/')) return <ControlPage key={pathname} id={decodeURIComponent(pathname.slice('/crosswalk/'.length))} />
   if (pathname === '/horizon') return <HorizonPage />
+  if (pathname === '/ask') return <AskPage />
   return <NotFound />
 }
 
