@@ -257,6 +257,26 @@
       display: none;
     }
   }
+  @media (max-width: 600px) {
+    .bar {
+      padding: 0 var(--space-3);
+      gap: var(--space-2);
+    }
+    .wordmark {
+      font-size: 0.9375rem;
+    }
+    .actions {
+      gap: 0;
+    }
+    .ask {
+      width: 34px;
+      padding: 0;
+      justify-content: center;
+    }
+    .ask span {
+      display: none;
+    }
+  }
   :global(:root[data-stage]) .iconLink {
     display: none;
   }

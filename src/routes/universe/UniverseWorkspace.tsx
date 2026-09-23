@@ -309,7 +309,7 @@ export function UniverseWorkspace() {
             <button className="copy-view-button" type="button" onClick={copyView}>Copy view link</button>
             {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showIncidents} onClick={()=>{setLayout('ontology');setShowIncidents(v=>!v);if(selectedNodeId?.startsWith('incident:'))selectNode(undefined)}}>Incidents</button>}
             {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showUseCases||selectedNodeId?.startsWith('use-case:')||false} onClick={()=>{setLayout('ontology');setShowUseCases(v=>!v);if(selectedNodeId?.startsWith('use-case:')){setShowUseCases(false);selectNode(undefined)}}}>Use case nodes</button>}
-            <TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} />
+            {projection === 'atlas' && <TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} />}
             <span role="status">{copyStatus}</span>
           </div>
           {shareFallback&&<div className="share-fallback"><label>View link<input readOnly value={shareFallback} onFocus={e=>e.target.select()}/></label><button onClick={()=>setShareFallback('')} aria-label="Close link"><X/></button></div>}

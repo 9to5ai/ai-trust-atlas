@@ -4,11 +4,6 @@
 
 /* Keep the universe dominant; tools stay quiet until needed. */
 .atlas-shell { --text-muted:#2d394a; --text-faint:#344154; }
-.atlas-shell.universe-immersive .atlas-workspace,
-.atlas-shell.universe-immersive .atlas-workspace.has-selection { grid-template-columns:minmax(0,1fr); }
-.universe-immersive .atlas-workspace > .sidebar,
-.universe-immersive .atlas-workspace > .inspector { display:none; }
-.universe-immersive .executive-fold { display:none; }
 .projection-switch { left:auto; right:22px; transform:none; }
 .projection-switch button { min-width:74px; font-size:10px; }
 .graph-controls { padding:5px; border:1px solid #29334220; border-radius:12px; background:#f8f9fbd9; backdrop-filter:blur(16px); }
@@ -24,27 +19,17 @@
 .sidebar .filter-list label { font-size:11px; min-height:35px; color:#2b3546; }
 .sidebar .search-wrap input { font-size:12px; }
 .sidebar .control-title { font-size:10px; }
-.is-focus-list .universe-rail,.is-focus-list .observatory-frame,.is-focus-list .corpus-status { display:none; }
+.is-focus-list .observatory-frame { display:none; }
 .focus-list { background:#f7f9fb; }
 .focus-row-title strong { font-size:14px; }
 .focus-row-subtitle,.inspector .section-boundary { font-size:11px; line-height:1.7; }
 .focus-connection { font-size:10px; }
 .inspector .assertion-meta p { font-size:12px; line-height:1.75; }
 .inspector .section-label { font-size:11px; }
-.header-actions button[aria-label="Search everything"] { display:flex!important; }
-.dossier-export { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border:1px solid #465772; background:#eaeff4; border-radius:5px; width:100%; font-size:12px; cursor:pointer; margin:12px 0; }
 @media(min-width:861px) and (max-width:1450px) {
-  .graph-title { max-width:170px; }
-  .graph-title strong { font-size:15px; }
   .projection-switch button { min-width:60px; padding:0 8px; }
 }
-@media(max-width:1100px) and (min-width:861px) {
-  .atlas-header .corpus-stats { display:none; }
-  .atlas-header { grid-template-columns:1fr auto; }
-}
 @media(max-width:860px) {
-  .header-actions button[aria-label="Search everything"] { font-size:0; width:32px; padding:5px; }
-  .header-actions button[aria-label="Search everything"] svg { width:18px; height:18px; }
   .projection-switch { top:72px; right:12px; left:auto; }
   .projection-switch button { min-width:64px; height:32px; font-size:9px; }
   .graph-controls { right:12px; bottom:56px; padding:3px; }
@@ -60,8 +45,6 @@
 /* Explicit toolbar geometry avoids legacy two-column control grids. */
 .projection-switch { display:flex; flex-wrap:nowrap; width:max-content; max-width:calc(100% - 24px); }
 .graph-controls { display:flex; flex-wrap:nowrap; width:max-content; }
-.corpus-status { top:auto; bottom:82px; right:22px; max-width:260px; }
-@media(max-width:860px) { .corpus-status { display:none; } }
 @media(max-width:860px) { .has-selection .graph-controls { bottom:158px; } }
 
 .legal-foundations .relation-list > div { min-width: 0; }

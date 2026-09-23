@@ -2,16 +2,11 @@
 @layer legacy {
 /* Midnight counterpart to Arctic. Node accents retain their topic identity. */
 :root[data-theme=dark] { color-scheme:dark; --bg:#0b1422; --surface:#101d2e; --surface-raised:#192b41; --surface-soft:#142438; --line:#283e55; --line-strong:#496784; --text:#e5edf6; --text-muted:#b1c2d4; --text-faint:#96aec6; --accent:#91bcff; --accent-deep:#b4d3ff; --warning:#e8bc71; }
-.header-actions > button.theme-toggle { display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; padding:7px; }
 :root[data-theme=dark] .atlas-shell { --text-muted:#b1c2d4; --text-faint:#96aec6; --accent:#91bcff; background:var(--surface-0); color:var(--text-primary); }
 :root[data-theme=dark] :is(.atlas-header,.sidebar,.sidebar-mobile,.inspector,.atlas-workspace.has-selection .inspector,.atlas-workspace.has-selection .inspector.mobile-expanded,.method-dialog,.dossier-panel,.atlas-search-dialog) { background:var(--surface-1); border-color:var(--border); color:var(--text-primary); box-shadow:none; }
 :root[data-theme=dark] :is(.brand-block h1,.brand-block h1 i,.corpus-stats strong,.corpus-stats .edition-cell strong,.graph-title strong,.inspector h2,.method-dialog h2,.focus-list-title h2,.dossier-panel h2,.outline-heading h2,.news-heading h2,.brief-heading h2) { color:var(--text-primary); }
 :root[data-theme=dark] :is(.corpus-stats span,.brand-block p,.sidebar .control-title,.sidebar .filter-list label,.sidebar .control-note,.graph-title span,.graph-title p,.graph-hint,.semantic-key,.corpus-status,.corpus-status strong,.header-actions button,.header-actions a) { color:var(--text-secondary); }
 :root[data-theme=dark] :is(.brand-mark,.sidebar .search-wrap,.projection-switch,.graph-controls,.outline-expand,.outline-tools button,.outline-browse button,.sidebar-collapse,.mobile-atlas-tools button,.news-period,.news-topic select,.question-audiences,.brief-launcher) { background:var(--surface-3); border-color:var(--border); color:var(--text-secondary); box-shadow:none; }
-:root[data-theme=dark] .brand-mark { color:var(--signal); }
-:root[data-theme=dark] .atlas-mark-frame { fill:var(--surface-2); stroke:var(--signal); }
-:root[data-theme=dark] .atlas-mark-river { stroke:var(--signal); }
-:root[data-theme=dark] .atlas-mark-node { fill:var(--signal-soft); stroke:var(--surface-2); }
 :root[data-theme=dark] :is(.sidebar .search-wrap input,.atlas-search-dialog input,.brief-purpose input) { color:var(--text-primary); background:var(--surface-2); border-color:var(--border); }
 :root[data-theme=dark] input::placeholder { color:var(--text-secondary); }
 :root[data-theme=dark] :is(.graph-region,.graph-stage) { background:var(--surface-1); }
@@ -51,9 +46,6 @@
 :root[data-theme=dark] .atlas-search-dialog button { background:var(--surface-2); border-color:var(--border); }
 :root[data-theme=dark] .atlas-search-dialog button:hover { background:color-mix(in srgb, var(--signal) 14%, var(--surface-2)); }
 :root[data-theme=dark] .atlas-search-dialog strong { color:var(--text-primary); }
-:root[data-theme=dark] .method-dialog:is(p,li,small,span) { color:var(--text-secondary); }
-:root[data-theme=dark] .method-dialog:is(h3,strong,a) { color:var(--text-primary); }
-@media(max-width:860px) { .header-actions > button.theme-toggle { display:inline-flex!important; width:30px; min-width:30px; padding:5px; } }
 /* Meeting briefs remain ink-friendly regardless of the on-screen theme. */
 @media print {
   :root[data-theme=dark] .meeting-brief[open] { background:white!important; color:var(--surface-3)!important; }
@@ -63,10 +55,6 @@
 :root[data-theme=dark] :is(.outline-browse,.outline-breadcrumb,.command-input,.atlas-search-dialog footer) { border-color:var(--border); }
 :root[data-theme=dark] :is(.outline-browse>span,.outline-breadcrumb,.outline-breadcrumb button,.command-caption,.atlas-search-dialog footer) { color:var(--text-secondary); }
 :root[data-theme=dark] .command-results button.active { background:color-mix(in srgb, var(--signal) 14%, var(--surface-2)); border-color:var(--border-strong); }
-:root[data-theme=dark] .method-columns>div { background:var(--surface-3); border-color:var(--border); }
-:root[data-theme=dark] .method-primary { background:color-mix(in srgb, var(--signal) 14%, var(--surface-2)); color:var(--text-primary); border-color:var(--border-strong); }
-:root[data-theme=dark] .universe-rail { background:var(--surface-glass); border-color:var(--border); }
-:root[data-theme=dark] .universe-rail:is(.plate-copy strong,.plate-copy small,.universe-rail-label) { color:var(--text-secondary); }
 
 /* Keep toolbar elevation on its container, not on individual controls. */
 :root[data-theme=dark] .graph-controls[role=toolbar] { box-shadow:0 6px 20px var(--surface-glass); }
