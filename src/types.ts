@@ -3,6 +3,7 @@ export type AuthorityClass =
   | 'treaty'
   | 'policy-guidance'
   | 'standard'
+  | 'assurance-standard'
   | 'framework'
   | 'testing-tool'
   | 'research-database'
@@ -38,6 +39,8 @@ export type RelationType =
   | 'maps-to'
   | 'co-applies-with'
   | 'evidence-base-for'
+  | 'certifies-against'
+  | 'provides-assurance-basis-for'
   | 'supersedes'
 
 export type EvidenceBasis = 'explicit' | 'cross-framework-synthesis'
@@ -110,7 +113,11 @@ export type SourceProvision = {
   sourceUrl?: string
   reviewedAt?: string
   note?: string
+  /* 'draft' records were prepared for editorial review and are shown with a Draft badge until approved. */
+  editorialStatus?: EditorialStatus
 }
+
+export type EditorialStatus = 'draft' | 'reviewed'
 
 export type Instrument = {
   id: string
@@ -132,6 +139,7 @@ export type Instrument = {
   conceptIds: string[]
   provisions: SourceProvision[]
   detailAvailability: 'full-public-text' | 'public-summary' | 'licensed-standard'
+  editorialStatus?: EditorialStatus
 }
 
 export type MappingBasis = 'source-authored' | 'published-crosswalk' | 'atlas-synthesis'

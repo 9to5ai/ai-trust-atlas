@@ -60,10 +60,10 @@ describe('clean universe interface', () => {
 })
 
 describe('source type navigation', () => {
-  it('offers seven types and keeps binding standards distinct from guidance', () => {
+  it('offers eight types, including assurance standards, and keeps binding standards distinct from guidance', () => {
     window.history.replaceState(null, '', '/#/instrument/apra-cps-234')
     render(<App />)
-    const types = ['Laws & regulations', 'Treaties', 'Policy & guidance', 'Standards', 'Frameworks', 'Testing & tools', 'Research & databases']
+    const types = ['Laws & regulations', 'Treaties', 'Policy & guidance', 'Standards', 'Assurance standards', 'Frameworks', 'Testing & tools', 'Research & databases']
     for (const name of types) expect(screen.getByRole('checkbox', { name })).toBeInTheDocument()
     expect(screen.queryByRole('checkbox', { name: 'Regulatory expectation' })).not.toBeInTheDocument()
     const detail = within(screen.getByLabelText('Selected node details'))

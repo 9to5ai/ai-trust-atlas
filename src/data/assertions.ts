@@ -1,6 +1,7 @@
 import type { InstrumentRelation, MappingAssertion, MappingPredicate, SourceGranularity, SourceProvision } from '../types'
 import { conceptById, concepts, domains } from './concepts'
 import { controlObjectives } from './controls'
+import { crosswalkAssertions } from './crosswalk'
 import { instruments } from './instruments'
 import { MIT_RISK_SOURCE_URL, MIT_RISK_UPDATED, riskSubdomains } from './mitRiskTaxonomy'
 import { relations } from './relations'
@@ -162,6 +163,7 @@ export const mappingAssertions: MappingAssertion[] = [
   ...riskConceptAssertions,
   ...controlAssertions,
   ...instrumentRelationAssertions,
+  ...crosswalkAssertions,
 ]
 
 export const mappingAssertionById = new Map(mappingAssertions.map((assertion) => [assertion.id, assertion]))

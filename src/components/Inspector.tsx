@@ -35,6 +35,7 @@ const reviewPurpose: Record<AuthorityClass, string> = {
   treaty: 'Use this to understand international commitments and the questions to check against domestic implementation.',
   'policy-guidance': 'Use this to understand the issuer’s expectations and practical advice, then check which parts concern your organisation.',
   standard: 'Use this to structure questions about management practices and technical requirements. Consult the full standard for the exact requirements.',
+  'assurance-standard': 'Use this to understand how an independent practitioner would plan, perform and report an engagement. The standard governs the practitioner; it does not itself set criteria for your AI systems.',
   framework: 'Use this to organise a review and identify areas to investigate. The framework does not establish that controls are operating.',
   'testing-tool': 'Use this to develop evaluation questions and possible tests. Check the tool’s scope and limitations before adopting it.',
   'research-database': 'Use this to find documented risks, examples and research leads. Validate their relevance to the system you are reviewing.',

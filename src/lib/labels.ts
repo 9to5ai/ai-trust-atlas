@@ -5,6 +5,7 @@ export const authorityOrder: AuthorityClass[] = [
   'treaty',
   'policy-guidance',
   'standard',
+  'assurance-standard',
   'framework',
   'testing-tool',
   'research-database',
@@ -15,6 +16,7 @@ export const authorityLabels: Record<AuthorityClass, string> = {
   'treaty': 'Treaties',
   'policy-guidance': 'Policy & guidance',
   'standard': 'Standards',
+  'assurance-standard': 'Assurance standards',
   'framework': 'Frameworks',
   'testing-tool': 'Testing & tools',
   'research-database': 'Research & databases',
@@ -26,7 +28,7 @@ export const relationFamilyFor = (type: RelationType): RelationFamily => {
   if (['made-under', 'issuer-governed-by', 'requires', 'applies-to', 'interprets', 'co-applies-with'].includes(type)) return 'Authority'
   if (['aligns-with', 'complements', 'maps-to'].includes(type)) return 'Alignment'
   if (['operationalises', 'guides-implementation-of', 'implements', 'profiles'].includes(type)) return 'Implementation'
-  if (['provides-testing-for', 'provides-threat-knowledge-for', 'supports-evidence-for', 'evidence-base-for'].includes(type)) return 'Testing and evidence'
+  if (['provides-testing-for', 'provides-threat-knowledge-for', 'supports-evidence-for', 'evidence-base-for', 'certifies-against', 'provides-assurance-basis-for'].includes(type)) return 'Testing and evidence'
   return 'Evolution'
 }
 
@@ -50,6 +52,8 @@ export const relationLabels: Record<RelationType, string> = {
   'co-applies-with': 'Co-applies with',
   'evidence-base-for': 'Evidence base for',
   supersedes: 'Supersedes',
+  'certifies-against': 'Certifies against',
+  'provides-assurance-basis-for': 'Provides an assurance basis for',
 }
 
 export const regionOrder: Instrument['region'][] = ['Australia', 'Global', 'Europe', 'United States', 'United Kingdom', 'Singapore', 'Canada']

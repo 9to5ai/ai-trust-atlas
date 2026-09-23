@@ -1,3 +1,5 @@
+import { assuranceInstruments } from './assurance'
+import { draftProvisions } from './draftProvisions'
 import { methodologySources, methodologyCorrections } from './methodologyRefresh.js'
 import { frontierSources } from './frontierRefresh.js'
 import { legalFoundationInstruments } from './legalFoundations.js'
@@ -137,6 +139,7 @@ const coreInstruments: Instrument[] = [
 ]
 
 export const instruments: Instrument[] = [
+  ...assuranceInstruments,
   ...methodologySources,
   ...coreInstruments,
   ...legalFoundationInstruments,
@@ -145,6 +148,6 @@ export const instruments: Instrument[] = [
   ...australianInstruments,
   ...globalInstruments,
   ...standardsAndTestingInstruments,
-].map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
+].map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
 
 export const instrumentById = new Map(instruments.map((instrument) => [instrument.id, instrument]))
