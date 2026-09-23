@@ -7,7 +7,7 @@
 .questions-mode .view-actions {left:24px}
 .questions-workspace {position:absolute;inset:0;z-index:20;background:var(--bg,#f6f9fd);color:var(--text);display:flex;flex-direction:column;padding-top:72px;overflow:hidden}
 .questions-heading {display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 28px 20px;border-bottom:1px solid var(--line)}
-.questions-heading h2 {font-size:28px;letter-spacing:-.035em;margin:6px 0}.questions-heading p {font-size:13px;color:var(--text-muted);margin:0}
+.questions-heading h1 {font-size:28px;letter-spacing:-.035em;margin:6px 0}.questions-heading p {font-size:13px;color:var(--text-muted);margin:0}
 .questions-audience .question-tools {margin:0}.questions-audience {margin-bottom:16px}.questions-audience .questions-view-brief {display:none}
 .questions-columns {display:grid;grid-template-columns:205px minmax(300px,1fr) 300px;flex:1;min-height:0}
 .questions-topics,.questions-browse,.questions-shortlist {overflow-y:auto;overscroll-behavior:contain;padding:22px;min-width:0;scrollbar-width:thin}
@@ -28,7 +28,7 @@
 @media(max-width:1100px){.questions-columns{grid-template-columns:170px minmax(280px,1fr) 250px}.questions-heading{padding:16px 20px}.questions-browse,.questions-shortlist{padding:16px}}
 @media(max-width:860px){
  .view-actions{right:250px}.view-actions button{font-size:10px}.projection-switch{right:10px}.projection-switch button{padding:8px 10px;font-size:11px}
- .questions-workspace{padding-top:72px;overflow-y:auto;padding-bottom:80px}.questions-heading{display:block;padding:12px 16px 16px}.questions-heading h2{font-size:24px}
+ .questions-workspace{padding-top:72px;overflow-y:auto;padding-bottom:80px}.questions-heading{display:block;padding:12px 16px 16px}.questions-heading h1{font-size:24px}
  .questions-columns{display:block;flex:none;min-height:auto}.questions-topics{display:flex;gap:6px;overflow-x:auto;padding:12px 16px;border-right:0;border-bottom:1px solid var(--line)}.questions-topics h3,.questions-topics p{display:none}.questions-topics button{width:auto;flex-shrink:0;padding:9px 12px;border-color:var(--line);max-width:240px}
  .questions-browse{overflow:visible;padding:16px}.questions-shortlist{display:none}
  .questions-mobile-brief{display:flex;position:fixed;z-index:45;bottom:12px;left:12px;right:12px;justify-content:space-between;gap:12px;padding:15px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface,#fff);color:var(--text);box-shadow:0 5px 20px #0002;font-size:13px}.questions-mobile-brief span{color:var(--accent);font-size:12px}

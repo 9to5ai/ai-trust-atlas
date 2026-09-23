@@ -38,7 +38,7 @@ export function UniverseWorkspace() {
   const [regions, setRegions] = useState<Set<Instrument['region']>>(() => new Set(initialView.regions))
   const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialView.selected)
   const [mobileControls, setMobileControls] = useState(false)
-  const [showTime, setShowTime] = useState(false)
+  const [showTime, setShowTime] = useState(() => new URLSearchParams(window.location.search).get('panel') === 'news')
   const [showUseCases,setShowUseCases]=useState(initialView.useCases??false)
   const [showIncidents,setShowIncidents]=useState(initialView.incidents??initialView.selected?.startsWith('incident:')??false)
   useEffect(()=>{if(selectedNodeId?.startsWith('incident:'))setShowIncidents(true)},[selectedNodeId])
@@ -237,7 +237,7 @@ export function UniverseWorkspace() {
       <RouteActions>
         <button className="shell-action" type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16}/><span>Search</span><kbd>⌘K</kbd></button>
         <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
-        {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}<span>Filters</span></button>}
+        {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}
       </RouteActions>
 
       <div className={selectedNodeId && projection!=='questions' && projection!=='use-cases' ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
@@ -301,7 +301,7 @@ export function UniverseWorkspace() {
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
           <GraphCanvas navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} />
-          <div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>
+          {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
           <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} handle={outlineHandle} onReady={outlineReady} />

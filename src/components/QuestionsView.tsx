@@ -12,7 +12,7 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
  const reset=()=>{setTopics([])}
  if(!active)return null
  return <section className="questions-workspace" aria-label="Questions workspace">
-  <header className="questions-heading"><div><span className="questions-eyebrow">PREPARE YOUR NEXT CONVERSATION</span><h2>Questions worth asking</h2><p>Choose your audience and topics. Build a focused discussion.</p></div></header>
+  <header className="questions-heading"><div><span className="questions-eyebrow">PREPARE YOUR NEXT CONVERSATION</span><h1>Questions worth asking</h1><p>Choose your audience and topics. Build a focused discussion.</p></div></header>
   <div className="questions-columns">
    <aside className="questions-topics" aria-label="Question topics"><h3>Topics</h3><button aria-pressed={!topics.length} onClick={()=>{setTopics([])}}>All topics</button>{domains.map(d=><button key={d.id} aria-pressed={topics.includes(d.id)} onClick={()=>toggleTopic(d.id)}><span>{topicNames[d.id]??d.name}</span><span aria-hidden="true">{topics.includes(d.id)?'✓':'+'}</span></button>)}<p>Choose more than one topic.</p></aside>
    <section className="questions-browse" aria-label="Browse questions">

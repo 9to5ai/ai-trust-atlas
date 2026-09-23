@@ -34,7 +34,8 @@ The initial audience is regulators, boards and executive leaders, with particula
 | Questions to ask | Prepare Board, Executive or Regulator conversations and collect a meeting brief | Authored question banks and deterministic composition, not live model generation |
 | What’s new | Review developments within 30, 90 or 120 days | Editorially curated event records filtered by publication date |
 | Use cases | Browse ten documented production deployments by workflow and sector; shortlist role questions and explore related practices | Authored evidence snapshots, searchable cards and optional universe nodes |
-| Light / dark | Preserve topic colours in either theme | CSS variables, saved preference and theme-aware Canvas rendering |
+| Home | Orient newcomers: what the Atlas covers, four starting questions, the latest developments and coverage by jurisdiction | `src/routes/home/` with a constellation drawn from the real graph |
+| Observatory / Paper themes and Stage mode | Cinematic dark by default, a light editorial theme for reading and print, and a projector-friendly Stage mode (`S`) | Semantic design tokens in `src/styles/tokens.css`, saved preference |
 
 At the September 2026 documentation snapshot, the corpus contains 78 sources and 40 trust concepts. The risk layer has seven MIT domains and 24 risk types; the control layer has six Atlas families and 24 objectives. These are versioned content counts, not a completeness score. The build currently checks questions across 306 Atlas cards and 20 developments; consult the actual build output as the corpus evolves.
 
@@ -68,7 +69,9 @@ The application is static and has no application API or live model calls. There 
 | Ontology | [`src/data/concepts.ts`](src/data/concepts.ts), [`controls.ts`](src/data/controls.ts), [`mitRiskTaxonomy.ts`](src/data/mitRiskTaxonomy.ts) | Topics, shared concepts, risk taxonomy and candidate control objectives |
 | Relationships | [`src/data/relations.ts`](src/data/relations.ts), [`assertions.ts`](src/data/assertions.ts) | Source-to-source links, typed assertions, explanations and ranked risk paths |
 | Navigation models | [`src/lib/graphModel.ts`](src/lib/graphModel.ts), [`outlineModel.ts`](src/lib/outlineModel.ts), [`workspace.ts`](src/lib/workspace.ts) | Filtered graph, deterministic coordinates, tree appearances, search and bounded path exploration |
-| App state | [`src/App.tsx`](src/App.tsx) | Selection, filters, view transitions, dialogs and URL navigation |
+| App shell and routes | [`src/App.tsx`](src/App.tsx), [`src/app/`](src/app/) | Page routes (`/`, `/universe`, `/questions`, `/cases`, `/methodology`), section navigation, legacy-link redirects |
+| Universe state | [`src/routes/universe/UniverseWorkspace.tsx`](src/routes/universe/UniverseWorkspace.tsx) | Selection, filters, view transitions, dialogs and URL history |
+| Design system | [`src/styles/`](src/styles/) | Tokens, base styles, the fenced `legacy` layer and the `bridge` layer that re-skins legacy screens |
 | Rendering | [`GraphCanvas.tsx`](src/components/GraphCanvas.tsx), [`UniverseOutline.tsx`](src/components/UniverseOutline.tsx), [`Inspector.tsx`](src/components/Inspector.tsx) | Universe, List and source-detail experiences |
 | Questions | [`leadershipQuestions.ts`](src/data/leadershipQuestions.ts), [`nodeQuestionPrompts.ts`](src/data/nodeQuestionPrompts.ts), [`nodeQuestions.ts`](src/data/nodeQuestions.ts) | Authored prompts and audience-specific composition |
 | Developments | [`src/data/developments.ts`](src/data/developments.ts), [`TemporalLens.tsx`](src/components/TemporalLens.tsx) | Event metadata and recent-development feed |
@@ -93,6 +96,7 @@ npm test                   # Vitest: data, model, UI and endpoint tests
 npm run questions:check    # All required cards and audiences have complete questions
 npm run build              # Question gate, TypeScript and Vite output
 npm run preview            # Serve the built static app locally
+npm run test:e2e           # Playwright smoke, legacy-link and accessibility checks (after build)
 npm run sources:review     # Validate the ledger and report due checks; no research occurs
 ```
 
@@ -149,7 +153,7 @@ A source-to-risk path often travels through a concept or section. Path ranking i
 
 ### Universe and List are two projections of one corpus
 
-1. `App.tsx` holds filters, the active lens and canonical selected ID.
+1. `UniverseWorkspace.tsx` holds filters, the active lens and canonical selected ID.
 2. `buildGraphModel()` selects relevant records and creates deterministic target coordinates and edges. Stable hashing helps preserve layout between renders.
 3. `GraphCanvas` projects x/y/z coordinates onto Canvas 2D, applies camera scale and rotation, draws depth-aware nodes and labels, and handles hit testing and keyboard navigation. This is custom projected geometry, not a Three.js scene or a force-directed graph database.
 4. `buildOutline()` makes the corresponding topic, risk or control hierarchy. Source browsing can instead use a flat alphabetical source directory with expandable sections.
@@ -357,7 +361,7 @@ The top of the map and list shows removable filter chips and a **Copy view link*
 
 Global search accepts compact acronyms (for example `CPS234`), full source names and issuers, and a small curated vocabulary of familiar questions such as “Who is accountable?”. These deterministic aliases are in `src/lib/workspace.ts`; they retrieve existing records and do not generate answers or judgments. Empty filter results offer recovery controls. Selected node labels have a contrasting backdrop. Mobile details retain preview/full reading positions and swipe dismissal, with sticky title and close controls while reading.
 
-URL validation and round trips, familiar-language retrieval, and filter/back restoration are covered by automated tests. Core modules: `src/lib/viewState.ts`, `src/App.tsx`, `src/usability.css` and the graph navigation handle in `src/components/GraphCanvas.tsx`.
+URL validation and round trips, familiar-language retrieval, and filter/back restoration are covered by automated tests. Core modules: `src/lib/viewState.ts`, `src/lib/legacyUrls.ts`, `src/routes/universe/UniverseWorkspace.tsx`, `src/styles/legacy/usability.css` and the graph navigation handle in `src/components/GraphCanvas.tsx`.
 
 
 ### Audience question workspace

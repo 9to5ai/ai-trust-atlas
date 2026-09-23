@@ -1,0 +1,66 @@
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test, type Page } from '@playwright/test'
+
+const routes = [
+  { path: '/', heading: /The map of/ },
+  { path: '/universe', label: /Interactive orbital map/ },
+  { path: '/questions', region: 'Questions workspace' },
+  { path: '/cases', heading: /See how the work is changing/ },
+  { path: '/methodology', heading: 'How the Atlas is curated' },
+]
+
+const collectErrors = (page: Page) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
+  return errors
+}
+
+for (const route of routes) {
+  test(`${route.path} renders without runtime errors`, async ({ page }) => {
+    const errors = collectErrors(page)
+    await page.goto(route.path)
+    if (route.heading) await expect(page.getByRole('heading', { level: 1, name: route.heading })).toBeVisible()
+    if (route.label) await expect(page.getByLabel(route.label)).toBeAttached()
+    if (route.region) await expect(page.getByRole('region', { name: route.region })).toBeVisible()
+    expect(errors).toEqual([])
+  })
+}
+
+test('legacy shared links land on the matching page', async ({ page }) => {
+  await page.goto('/?view=questions')
+  await expect(page).toHaveURL(/\/questions$|\/questions\?/)
+  await page.goto('/#/instrument/apra-cps-230')
+  await expect(page).toHaveURL(/\/universe(\?[^#]*)?#\/instrument\/apra-cps-230$/)
+  await expect(page.getByLabel('Selected node details')).toContainText('APRA CPS 230')
+})
+
+test('section navigation and browser Back work without reloads', async ({ page, isMobile }) => {
+  await page.goto('/')
+  if (isMobile) await page.getByRole('button', { name: 'Open sections menu' }).click()
+  await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Methodology' }).click()
+  await expect(page).toHaveURL(/\/methodology$/)
+  await page.goBack()
+  await expect(page.getByRole('heading', { level: 1, name: /The map of/ })).toBeVisible()
+})
+
+test('theme choice persists across visits', async ({ page }) => {
+  await page.goto('/methodology')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.getByRole('button', { name: 'Switch to light mode' }).click()
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+})
+
+for (const theme of ['dark', 'light']) {
+  for (const path of ['/', '/methodology']) {
+    test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
+      await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
+      await page.goto(path)
+      await page.waitForTimeout(1200)
+      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()
+      const serious = results.violations.filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
+      expect(serious.map((violation) => `${violation.id}: ${violation.nodes.slice(0, 3).map((node) => node.target.join(' ')).join(', ')}`)).toEqual([])
+    })
+  }
+}

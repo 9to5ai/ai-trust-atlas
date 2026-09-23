@@ -32,8 +32,8 @@
   .mark {
     display: grid;
     place-items: center;
-    color: var(--accent);
-    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 45%, transparent));
+    color: var(--signal);
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--signal) 45%, transparent));
   }
   .wordmark {
     font-size: 1.0625rem;
@@ -46,7 +46,7 @@
     font-style: italic;
     font-weight: 500;
     letter-spacing: -0.01em;
-    color: var(--accent);
+    color: var(--signal);
     margin-left: 1px;
   }
   .nav {
@@ -72,12 +72,12 @@
   }
   .navLink:hover {
     color: var(--text-primary);
-    background: var(--accent-soft);
+    background: var(--signal-soft);
   }
   .navLink[aria-current='page'] {
     color: var(--text-primary);
-    background: var(--surface-raised);
-    box-shadow: inset 0 0 0 1px var(--border), 0 0 18px color-mix(in srgb, var(--accent) 16%, transparent);
+    background: var(--surface-4);
+    box-shadow: inset 0 0 0 1px var(--border), 0 0 18px color-mix(in srgb, var(--signal) 16%, transparent);
   }
   .navLink[aria-current='page']::after {
     content: '';
@@ -88,8 +88,8 @@
     height: 2px;
     border-radius: 2px;
     transform: translateX(-50%);
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
+    background: var(--signal);
+    box-shadow: 0 0 10px var(--signal);
   }
   .actions {
     display: flex;
@@ -130,7 +130,7 @@
   .actions :global(.shell-action kbd) {
     font-family: var(--font-mono);
     font-size: var(--step--2);
-    color: var(--text-muted);
+    color: var(--text-tertiary);
     padding: 1px 6px;
     border-radius: 6px;
     border: 1px solid var(--border-subtle);
@@ -156,12 +156,12 @@
   .iconLink:hover,
   .menu:hover {
     color: var(--text-primary);
-    background: var(--accent-soft);
+    background: var(--signal-soft);
   }
   .actions > :global(.stage-toggle[aria-pressed='true']) {
-    color: var(--accent);
-    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    background: var(--accent-soft);
+    color: var(--signal);
+    border-color: color-mix(in srgb, var(--signal) 45%, transparent);
+    background: var(--signal-soft);
   }
   .menu {
     display: none;

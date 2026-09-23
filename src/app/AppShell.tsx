@@ -22,6 +22,8 @@ export function RouteActions({ children }: { children: ReactNode }) {
 }
 
 export const universeRoutes = ['/universe', '/questions', '/cases']
+export const openSearchEvent = 'atlas:open-search'
+export const openSearch = () => window.dispatchEvent(new Event(openSearchEvent))
 export const hashPath = (id: string) => `#/${id.replace(':', '/')}`
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -36,8 +38,10 @@ export function AppShell({ children }: { children: ReactNode }) {
     const handler = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); setSearchOpen((open) => !open) }
     }
+    const open = () => setSearchOpen(true)
     window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
+    window.addEventListener(openSearchEvent, open)
+    return () => { window.removeEventListener('keydown', handler); window.removeEventListener(openSearchEvent, open) }
   }, [routeOwnsSearch])
 
   return (

@@ -15,9 +15,10 @@
   }
   .lane {
     display: grid;
+    align-content: start;
     gap: var(--space-2);
     padding: var(--space-5);
-    color: var(--accent);
+    color: var(--signal);
     overflow: hidden;
   }
   .lane::after {
@@ -27,7 +28,7 @@
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--signal) 16%, transparent), transparent 70%);
     pointer-events: none;
   }
   .lane span {
@@ -35,7 +36,7 @@
     font-size: var(--step--2);
     letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-tertiary);
   }
   .lane h3,
   .factor h3 {
@@ -82,8 +83,8 @@
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, var(--accent-2), var(--accent));
-    box-shadow: 0 0 12px var(--accent);
+    background: linear-gradient(90deg, var(--aurora), var(--signal));
+    box-shadow: 0 0 12px var(--signal);
   }
   .rule {
     margin: var(--space-4) 0 0;
@@ -115,13 +116,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--accent);
+    color: var(--signal);
   }
   .stepIndex em {
     font-style: normal;
     font-family: var(--font-mono);
     font-size: var(--step--2);
-    color: var(--text-muted);
+    color: var(--text-tertiary);
   }
   .details {
     display: grid;
@@ -148,7 +149,7 @@
     content: '+';
     font-family: var(--font-mono);
     font-size: var(--step-2);
-    color: var(--accent);
+    color: var(--signal);
     transition: transform var(--dur-2) var(--ease-out);
   }
   .details details[open] summary::after {
@@ -168,7 +169,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    color: var(--text-muted);
+    color: var(--text-tertiary);
     font-size: var(--step--1);
   }
   .footer span {
@@ -180,8 +181,8 @@
     gap: 8px;
     padding: 10px 18px;
     border-radius: var(--radius-pill);
-    background: var(--accent);
-    color: var(--accent-contrast);
+    background: var(--signal);
+    color: var(--signal-contrast);
     font-weight: 600;
     font-size: var(--step--1);
     text-decoration: none;

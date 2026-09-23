@@ -716,7 +716,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         if (showLabel && nodePresenceRef.current.get(node.id)?.present) {
           const isGroup = node.kind === 'domain' || node.kind === 'risk-domain' || node.kind === 'control-family'
           const size = isSelected || isHovered ? 15 : isGroup ? 14 : 12
-          context.font = `${isGroup ? 650 : 500} ${size / camera.scale}px "Arial Narrow", "Helvetica Neue", sans-serif`
+          context.font = `${isGroup ? 650 : 500} ${size / camera.scale}px "Inter Variable", "Inter", system-ui, sans-serif`
           context.textAlign = 'center'
           context.textBaseline = 'top'
           context.globalAlpha = presence

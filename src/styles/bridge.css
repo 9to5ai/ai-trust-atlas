@@ -1,1 +1,60 @@
-@layer bridge {}
+/*
+ * Bridge: re-skins legacy screens with the new tokens until each is rebuilt.
+ * This layer beats @layer legacy regardless of selector specificity, so rules
+ * here stay short. Delete a block when its screen moves to CSS Modules.
+ */
+@layer bridge {
+  /* Global resets that legacy styles got wrong for a multi-page app */
+  html,
+  body {
+    background: var(--backdrop);
+    background-attachment: fixed;
+    color: var(--text-primary);
+  }
+  body {
+    overflow: visible;
+  }
+  body::after {
+    content: none;
+    display: none;
+  }
+
+  /* Legacy custom properties → new semantic tokens (theme-aware through the tokens) */
+  :root,
+  :root[data-theme],
+  .atlas-shell,
+  :root[data-theme] .atlas-shell {
+    --bg: var(--surface-0);
+    --surface: var(--surface-1);
+    --surface-raised: var(--surface-2);
+    --surface-soft: color-mix(in srgb, var(--surface-2) 88%, transparent);
+    --line: var(--border);
+    --line-strong: var(--border-strong);
+    --text: var(--text-primary);
+    --text-muted: var(--text-secondary);
+    --text-faint: var(--text-tertiary);
+    --accent: var(--signal);
+    --accent-deep: var(--signal-strong);
+    --warning: var(--caution);
+    --radius: var(--radius-m);
+    --header-height: 60px;
+  }
+  @media (max-width: 860px) {
+    :root,
+    :root[data-theme] {
+      --header-height: 56px;
+    }
+  }
+
+  /* Universe workspace shell */
+  .atlas-shell,
+  :root[data-theme] .atlas-shell {
+    background: transparent;
+    color: var(--text-primary);
+    height: calc(100dvh - var(--header-height));
+    min-height: 0;
+  }
+  .atlas-workspace {
+    height: calc(100dvh - var(--header-height));
+  }
+}

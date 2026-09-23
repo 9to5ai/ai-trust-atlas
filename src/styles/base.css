@@ -16,7 +16,7 @@
     line-height: var(--leading-body);
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    background: color-mix(in srgb, var(--signal) 35%, transparent);
     color: var(--text-primary);
   }
   :focus-visible {
