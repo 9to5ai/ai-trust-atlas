@@ -39,12 +39,6 @@
     --radius: var(--radius-m);
     --header-height: 60px;
   }
-  @media (max-width: 860px) {
-    :root,
-    :root[data-theme] {
-      --header-height: 56px;
-    }
-  }
 
   /* Universe workspace shell */
   .atlas-shell,
@@ -297,5 +291,20 @@
   .trace-show[aria-pressed='true'] {
     background: var(--aurora);
     color: var(--signal-contrast);
+  }
+
+  .inspector-source-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 10px 0 0;
+    color: var(--signal);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .inspector-source-page:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 }

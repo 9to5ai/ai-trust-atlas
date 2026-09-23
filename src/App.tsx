@@ -7,12 +7,24 @@ import { legacyRedirect } from './lib/legacyUrls'
 import { Home } from './routes/home/Home'
 import { NotFound } from './routes/NotFound'
 import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
+import { LibraryPage } from './routes/library/LibraryPage'
+import { SourcePage } from './routes/library/SourcePage'
+import { ComparePage } from './routes/library/ComparePage'
+import { CrosswalkPage } from './routes/crosswalk/CrosswalkPage'
+import { ControlPage } from './routes/crosswalk/ControlPage'
+import { HorizonPage } from './routes/horizon/HorizonPage'
 
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
   if (pathname === '/') return <Home />
   if (pathname === '/methodology') return <Methodology />
+  if (pathname === '/library') return <LibraryPage />
+  if (pathname === '/library/compare') return <ComparePage />
+  if (pathname.startsWith('/library/')) return <SourcePage key={pathname} id={decodeURIComponent(pathname.slice('/library/'.length))} />
+  if (pathname === '/crosswalk') return <CrosswalkPage />
+  if (pathname.startsWith('/crosswalk/')) return <ControlPage key={pathname} id={decodeURIComponent(pathname.slice('/crosswalk/'.length))} />
+  if (pathname === '/horizon') return <HorizonPage />
   return <NotFound />
 }
 

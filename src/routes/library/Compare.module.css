@@ -1,0 +1,182 @@
+@layer components {
+  .picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+  .pick {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    padding: var(--space-4) var(--space-7) var(--space-4) var(--space-4);
+    border-radius: var(--radius-l);
+    border: 1px solid color-mix(in srgb, var(--signal) 40%, transparent);
+    background: var(--signal-soft);
+  }
+  .pick span {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .pick a {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .pick button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .add {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 var(--space-4);
+    min-height: 72px;
+    border-radius: var(--radius-l);
+    border: 1px dashed var(--border-strong);
+    color: var(--text-tertiary);
+  }
+  .add select {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-primary);
+    font: inherit;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-3);
+    color: var(--text-tertiary);
+    font-size: var(--step--1);
+  }
+  .controls > :last-child {
+    margin-left: auto;
+  }
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .tableWrap {
+    overflow-x: auto;
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+  .table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 12px 14px;
+    background: var(--surface-3);
+    color: var(--text-primary);
+    font-weight: 650;
+    text-align: left;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .table th[scope='row'] {
+    width: 22%;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 560;
+    vertical-align: top;
+  }
+  .table th[scope='row'] a {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .table th[scope='row'] a:hover {
+    color: var(--signal);
+  }
+  .table td {
+    padding: 10px 14px;
+    vertical-align: top;
+    border-left: 1px solid var(--border-subtle);
+  }
+  .table tbody tr + tr {
+    border-top: 1px solid var(--border-subtle);
+  }
+  .group th {
+    padding: 14px 14px 8px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    background: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  }
+  .group i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+  }
+  .table ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .table li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .table li svg {
+    color: var(--positive);
+    flex: none;
+  }
+  .table li a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--signal);
+    text-decoration: none;
+  }
+  .table li span {
+    color: var(--text-secondary);
+  }
+  .strong {
+    background: color-mix(in srgb, var(--positive) 6%, transparent);
+  }
+  .weak span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+  }
+  .none {
+    color: var(--text-tertiary);
+  }
+}

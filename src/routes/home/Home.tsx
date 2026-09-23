@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Bank, PlayCircle, ChatsCircle, Fingerprint, GlobeHemisphereWest, MagnifyingGlass, Scales, ShieldCheck, TreeStructure, UserFocus } from '@phosphor-icons/react'
+import { ArrowRight, ArrowUpRight, Bank, CalendarDots, GridFour, PlayCircle, SealCheck, ChatsCircle, Fingerprint, GlobeHemisphereWest, MagnifyingGlass, Scales, TreeStructure, UserFocus } from '@phosphor-icons/react'
 import type { Icon } from '@phosphor-icons/react'
 import { openSearch } from '../../app/AppShell'
 import { Link } from '../../app/router'
@@ -28,8 +28,10 @@ const stats = [
 
 const journeys: { icon: Icon; question: string; detail: string; to: string; cta: string }[] = [
   { icon: Bank, question: 'What does APRA expect when we use AI?', detail: 'Follow the 2026 AI letter into CPS 230, CPS 234 and the Acts they are made under.', to: '/universe#/instrument/apra-ai-letter-2026', cta: 'Trace APRA’s expectations' },
-  { icon: GlobeHemisphereWest, question: 'How far does the EU AI Act reach?', detail: 'See risk management, human oversight and robustness duties beside ISO 42001 and NIST.', to: '/universe#/instrument/eu-ai-act', cta: 'Open the EU AI Act' },
-  { icon: ShieldCheck, question: 'Which controls answer which risks?', detail: 'Move from 24 MIT risk types to 24 candidate control objectives and the evidence behind them.', to: '/universe?mode=controls', cta: 'Explore controls' },
+  { icon: GlobeHemisphereWest, question: 'How far does the EU AI Act reach?', detail: 'Sixteen articles mapped, with application dates as amended in 2026.', to: '/library/eu-ai-act', cta: 'Open the EU AI Act' },
+  { icon: GridFour, question: 'Which controls answer which obligations?', detail: 'Twenty-four control objectives crosswalked to the EU AI Act, ISO/IEC 42001, NIST, APRA and Australia’s six practices.', to: '/crosswalk', cta: 'Open the crosswalk' },
+  { icon: CalendarDots, question: 'What’s coming in the next 18 months?', detail: 'A radar and timeline of dated obligations, commencements and transitions.', to: '/horizon', cta: 'See the horizon' },
+  { icon: SealCheck, question: 'How would AI governance be assured?', detail: 'ISAE and ASAE 3000, ASAE 3150, SOC 2, ISO/IEC 42006 and the IIA Standards — and how they differ.', to: '/library?type=assurance-standard', cta: 'Explore assurance standards' },
   { icon: ChatsCircle, question: 'What should the board be asking?', detail: 'Build a meeting brief from role-specific questions for boards, executives and regulators.', to: '/questions', cta: 'Prepare a conversation' },
 ]
 
@@ -90,7 +92,7 @@ export function Home() {
       <section className={styles.band} aria-labelledby="journeys-title">
         <header className={styles.bandHead}>
           <span className={styles.eyebrow}>Start with a question</span>
-          <h2 id="journeys-title">Four ways into the Atlas</h2>
+          <h2 id="journeys-title">Six ways into the Atlas</h2>
         </header>
         <div className={styles.journeys}>
           {journeys.map(({ icon: JourneyIcon, question, detail, to, cta }) => (

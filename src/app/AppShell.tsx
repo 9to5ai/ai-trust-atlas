@@ -9,6 +9,9 @@ import styles from './AppShell.module.css'
 
 export const navItems = [
   { to: '/universe', label: 'Universe', match: ['/universe'] },
+  { to: '/library', label: 'Library', match: ['/library'] },
+  { to: '/crosswalk', label: 'Crosswalk', match: ['/crosswalk'] },
+  { to: '/horizon', label: 'Horizon', match: ['/horizon'] },
   { to: '/questions', label: 'Questions', match: ['/questions'] },
   { to: '/cases', label: 'Use cases', match: ['/cases'] },
   { to: '/methodology', label: 'Methodology', match: ['/methodology'] },
@@ -53,7 +56,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Link>
         <nav className={`${styles.nav}${menuOpen ? ` ${styles.navOpen}` : ''}`} aria-label="Atlas sections" id="atlas-sections">
           {navItems.map((item) => {
-            const current = (item.match as readonly string[]).includes(pathname)
+            const current = (item.match as readonly string[]).some((match) => pathname === match || pathname.startsWith(`${match}/`))
             return <Link key={item.to} to={item.to} className={styles.navLink} aria-current={current ? 'page' : undefined}>{item.label}</Link>
           })}
         </nav>

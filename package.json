@@ -5,20 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run questions:check && tsc -b && vite build",
+    "build": "npm run questions:check && npm run content:check && tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "typecheck": "tsc -b --pretty false",
     "sources:review": "vite-node scripts/source-review.ts",
-    "questions:check": "vite-node scripts/check-question-coverage.ts"
+    "questions:check": "vite-node scripts/check-question-coverage.ts",
+    "content:check": "vite-node scripts/check-content-gates.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "@phosphor-icons/react": "^2.1.10",
+    "exceljs": "^4.4.0",
     "motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

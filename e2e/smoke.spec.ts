@@ -7,6 +7,12 @@ const routes = [
   { path: '/questions', region: 'Questions workspace' },
   { path: '/cases', heading: /See how the work is changing/ },
   { path: '/methodology', heading: 'How the Atlas is curated' },
+  { path: '/library', heading: 'Every source, one shelf' },
+  { path: '/library/eu-ai-act', heading: 'EU AI Act' },
+  { path: '/library/compare?ids=apra-cps-230,eu-dora', heading: /Shared themes/ },
+  { path: '/crosswalk', heading: /One control/ },
+  { path: '/crosswalk/impact-risk-assessment', heading: 'Assess impacts and risks' },
+  { path: '/horizon', heading: /What’s coming/ },
 ]
 
 const collectErrors = (page: Page) => {
@@ -53,7 +59,7 @@ test('theme choice persists across visits', async ({ page }) => {
 })
 
 for (const theme of ['dark', 'light']) {
-  for (const path of ['/', '/methodology']) {
+  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon']) {
     test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
       await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
       await page.goto(path)
