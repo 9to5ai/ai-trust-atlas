@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .use-cases-workspace{position:absolute;inset:0;z-index:20;overflow-y:auto;overscroll-behavior:contain;padding:88px 36px 40px;background:var(--bg,#f6f9fd);color:var(--text);scrollbar-width:thin}
 .use-cases-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px}.use-cases-heading h2{font-size:clamp(25px,3vw,38px);font-weight:600;letter-spacing:-.045em;line-height:1.15;margin:10px 0}.use-cases-heading p{font-size:14px;color:var(--text-muted);margin:0;line-height:1.6}
 .use-cases-workspace button,.use-cases-workspace input,.use-cases-workspace select{font:inherit}.use-cases-workspace button{cursor:pointer}.use-cases-workspace button:focus-visible,.use-cases-workspace summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -25,3 +27,5 @@
 @media(max-width:860px){.use-case-sector{min-width:130px}.use-case-search{flex:1 1 180px;min-width:140px}.atlas-shell:not(.questions-mode) .view-actions{top:62px;left:12px;right:12px}.use-case-workflows{scrollbar-width:none}.use-case-workflows::-webkit-scrollbar{display:none}}
 
 @media(max-width:860px){body:has(.mobile-details-open) .brief-launcher{display:none}}
+
+}

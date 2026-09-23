@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .projection-switch { position:absolute; z-index:32; top:18px; right:20px; display:flex; padding:4px; border:1px solid #d7e3ef; border-radius:12px; background:#f9fcffed; box-shadow:0 5px 20px #37527308; }
 .projection-switch button { border:0; background:transparent; color:#647b93; padding:8px 15px; border-radius:8px; font:inherit; font-size:12px; cursor:pointer; }
 .projection-switch button[aria-pressed=true] { background:#e9f0ff; color:#285fea; box-shadow:0 1px 4px #2045790b; }
@@ -86,3 +88,5 @@
 .temporal-lens .change-history { padding:0 24px; }
 .temporal-lens .publication-filter { margin:0 24px 24px; }
 .temporal-lens > header { position:sticky; top:0; z-index:2; background:#f8fbff; }
+
+}

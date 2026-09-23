@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .sourcing-method { width:min(880px,calc(100% - 32px)); max-height:calc(100dvh - 40px); margin:auto; padding:32px; background:#fff; color:#20364c; border:1px solid #ccddec; }
 .sourcing-method::backdrop {background:#20364c70;backdrop-filter:blur(8px)}
 .method-heading {display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
@@ -6,7 +8,7 @@
 .sourcing-method .method-intro {font-size:15px;line-height:1.7;max-width:70ch;margin:20px 0 28px}
 .method-lanes {display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .method-lanes article {padding:22px;border:1px solid #d6e3f0;border-radius:14px;background:#f3f7fc}
-.method-lanes article>span {font:11px monospace;letter-spacing:.08em;color:#436a98}
+.method-lanes article>span {font:11px var(--font-mono);letter-spacing:.08em;color:#436a98}
 .sourcing-method h3 {font-size:19px;line-height:1.3;margin:12px 0}
 .sourcing-method p,.sourcing-method li {font-size:14px;line-height:1.7;color:#526b86}
 .method-weighting,.method-process {margin:28px 0}
@@ -35,3 +37,5 @@
 @media(max-width:860px){.header-actions>button.method-trigger{display:inline-flex!important;align-items:center;justify-content:center;width:30px;min-width:30px;padding:5px}.header-actions .method-trigger span{display:none}.header-actions .method-trigger svg{width:18px;height:18px}}
 @media(max-width:420px){.header-actions .mobile-control-button span{display:none}.header-actions .mobile-control-button{width:30px;min-width:30px;padding:5px}}
 @media(max-width:420px){.atlas-header{padding-left:14px;padding-right:14px;gap:8px}.header-actions{gap:4px}.header-actions .mobile-control-button span{display:none!important}.header-actions .mobile-control-button svg{display:block!important;width:18px;height:18px}.header-actions .mobile-control-button{display:inline-flex!important;align-items:center;justify-content:center;font-size:0!important;min-width:30px;width:30px;padding:5px}}
+
+}

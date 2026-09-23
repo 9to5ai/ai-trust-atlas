@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .atlas-search-dialog{padding:0;border:1px solid #465772;border-radius:14px;width:min(660px,calc(100vw - 30px));color:#242d3a;background:#f4f6f9;box-shadow:0 30px 100px #fdfefe88;max-height:85dvh;overflow:hidden}.atlas-search-dialog::backdrop{background:#f9fafcb8;backdrop-filter:blur(7px)}.command-input{display:flex;align-items:center;gap:15px;padding:22px;border-bottom:1px solid #465772}.command-input input{flex:1;min-width:0;background:none;color:#232b39;border:0;outline:0;font-size:16px}.command-input button{padding:5px;border:0;background:none;color:#303c4e;cursor:pointer}.command-caption{font-size:10px;padding:16px 22px;color:#323f51}.command-results{max-height:51dvh;overflow:auto;padding:0 10px 10px}.command-results button{display:flex;width:100%;align-items:center;justify-content:space-between;text-align:left;gap:24px;border:1px solid transparent;background:none;border-radius:7px;padding:12px;color:#252f3d;cursor:pointer}.command-results button.active,.command-results button:hover{background:#eaeff4;border-color:#465772}.command-results small{color:#323f51;font-size:9px}.command-results strong{display:block;font-size:14px;margin:4px 0}.command-results p{font-size:11px;line-height:1.5;color:#303c4f;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}.command-results svg{flex-shrink:0}.atlas-search-dialog footer{display:flex;justify-content:space-between;padding:14px 22px;font-size:9px;color:#334054;border-top:1px solid #e5ebf1}.command-empty{padding:30px;font-size:13px}
 
 /* Keep the universe dominant; tools stay quiet until needed. */
@@ -15,7 +17,7 @@
 .graph-controls button[aria-pressed=true] { color:#273140; background:#2933431a; }
 .graph-controls button:disabled { opacity:.3; cursor:default; }
 .universe-hover-card { position:absolute; z-index:8; right:24px; bottom:100px; width:min(270px,calc(100% - 48px)); pointer-events:none; padding:15px 18px; border:1px solid #2a354540; border-radius:10px; background:#f6f8faed; box-shadow:0 10px 40px #fdfefe55; backdrop-filter:blur(16px); }
-.universe-hover-card span { display:block; color:#2b3646; font:9px ui-monospace,monospace; text-transform:uppercase; letter-spacing:.12em; }
+.universe-hover-card span { display:block; color:#2b3646; font:9px var(--font-mono); text-transform:uppercase; letter-spacing:.12em; }
 .universe-hover-card strong { display:block; color:#222a37; font-size:16px; line-height:1.4; margin:7px 0; }
 .universe-hover-card small { font-size:10px; color:#2d3849; }
 .sidebar .control-note { font-size:11px; line-height:1.7; color:#303c4e; }
@@ -65,3 +67,5 @@
 .legal-foundations .relation-list > div { min-width: 0; }
 .legal-foundations .relation-list button { width: 100%; }
 .legal-foundations .relation-list a { display: block; margin: 6px 10px 12px; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+
+}

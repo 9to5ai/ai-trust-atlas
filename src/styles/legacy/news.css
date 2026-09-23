@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .whats-new { border:1px solid #d2e0ed; border-radius:20px; padding:0; width:min(960px,calc(100vw - 32px)); max-width:none; max-height:90dvh; background:#f5f9fd; color:#29445e; box-shadow:0 24px 100px #17385938; }
 .whats-new::backdrop { background:#19344c48; backdrop-filter:blur(5px); }
 .news-surface { padding:32px; }
@@ -43,3 +45,5 @@
 @media(max-width:700px) { .whats-new { width:calc(100vw - 16px); max-height:94dvh; border-radius:14px; }.news-surface{padding:20px 16px}.news-heading h2{font-size:32px}.news-cards{grid-template-columns:1fr}.news-card{padding:20px}.news-results{flex-direction:column}.news-topic{width:100%;justify-content:space-between}.news-period{width:100%}.news-period button{flex:1}.news-card h3{font-size:22px} }
 
 .news-background { border:0; padding:8px 0; background:transparent; color:#315e9b; font-size:12px; text-align:left; cursor:pointer; }
+
+}

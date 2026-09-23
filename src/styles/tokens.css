@@ -1,0 +1,159 @@
+/*
+ * AI Trust Atlas design tokens.
+ * Primitives → semantic tokens → (rare) component tokens.
+ * Observatory (dark) is the default; Paper is the light / print theme.
+ * The html data-theme attribute keeps its historic values: "dark" = Observatory, "light" = Paper.
+ */
+@layer tokens {
+  :root {
+    /* Primitives */
+    --void-1000: #03050a;
+    --void-950: #05080f;
+    --void-900: #080d18;
+    --void-850: #0b1220;
+    --void-800: #0f1829;
+    --void-700: #16213a;
+    --void-600: #1f2d4b;
+    --void-500: #2d3f63;
+    --mist-400: #7f8cab;
+    --mist-300: #a3aec8;
+    --mist-200: #c7d0e3;
+    --mist-100: #e7ecf7;
+    --mist-50: #f5f7fc;
+    --signal-400: #5ee4ff;
+    --signal-500: #22c6f0;
+    --signal-700: #0b7fa6;
+    --aurora-400: #a78bfa;
+    --aurora-600: #7059e0;
+    --amber-400: #ffc46b;
+    --amber-700: #9a5b06;
+    --ember-400: #ff8a7a;
+    --ember-700: #b8321f;
+    --jade-400: #4ee0a1;
+    --jade-700: #11774d;
+    --ivory-50: #fbfaf6;
+    --ivory-100: #f5f3ec;
+    --ivory-200: #ebe7dc;
+    --ink-900: #0f1522;
+    --ink-700: #2a3346;
+    --ink-500: #56607a;
+    --ink-blue: #1c49c9;
+
+    /* Typography */
+    --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --step--2: 0.6875rem; /* 11px: the floor for any text */
+    --step--1: 0.8125rem; /* 13px */
+    --step-0: 0.9375rem;  /* 15px */
+    --step-1: 1.125rem;   /* 18px */
+    --step-2: 1.375rem;   /* 22px */
+    --step-3: 1.75rem;    /* 28px */
+    --step-4: 2.25rem;    /* 36px */
+    --step-5: 3.25rem;    /* 52px */
+    --step-6: 4.5rem;     /* 72px */
+    --leading-tight: 1.08;
+    --leading-snug: 1.3;
+    --leading-body: 1.6;
+    --tracking-tight: -0.03em;
+    --tracking-eyebrow: 0.14em;
+
+    /* Space, shape, motion */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --radius-s: 6px;
+    --radius-m: 10px;
+    --radius-l: 16px;
+    --radius-xl: 24px;
+    --radius-pill: 999px;
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-1: 120ms;
+    --dur-2: 220ms;
+    --dur-3: 420ms;
+    --dur-4: 800ms;
+    --content-max: 1240px;
+  }
+
+  /* Observatory: the default, cinematic dark theme */
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --surface-0: var(--void-950);
+    --surface-1: var(--void-900);
+    --surface-2: var(--void-850);
+    --surface-3: var(--void-800);
+    --surface-raised: var(--void-700);
+    --surface-glass: rgba(11, 18, 32, 0.72);
+    --surface-glass-strong: rgba(8, 13, 24, 0.9);
+    --border-subtle: rgba(148, 178, 255, 0.09);
+    --border: rgba(148, 178, 255, 0.16);
+    --border-strong: rgba(148, 178, 255, 0.3);
+    --text-primary: #eef2fb;
+    --text-secondary: #b9c3db;
+    --text-muted: #8b98b8;
+    --accent: var(--signal-400);
+    --accent-strong: #9ef0ff;
+    --accent-contrast: #031018;
+    --accent-soft: rgba(94, 228, 255, 0.12);
+    --accent-2: var(--aurora-400);
+    --accent-2-soft: rgba(167, 139, 250, 0.14);
+    --positive: var(--jade-400);
+    --caution: var(--amber-400);
+    --critical: var(--ember-400);
+    --glow: 0 0 0 1px rgba(94, 228, 255, 0.35), 0 0 28px rgba(94, 228, 255, 0.28);
+    --glow-soft: 0 0 40px rgba(94, 228, 255, 0.14);
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-2: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+    --shadow-3: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
+    --focus-ring: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--signal-400);
+    --backdrop: radial-gradient(1200px 700px at 70% -10%, rgba(112, 89, 224, 0.16), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(34, 198, 240, 0.1), transparent 60%), var(--void-950);
+  }
+
+  /* Paper: light, editorial, print-ready */
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --surface-0: var(--ivory-100);
+    --surface-1: var(--ivory-50);
+    --surface-2: #ffffff;
+    --surface-3: #ffffff;
+    --surface-raised: #ffffff;
+    --surface-glass: rgba(255, 255, 255, 0.8);
+    --surface-glass-strong: rgba(255, 255, 255, 0.95);
+    --border-subtle: rgba(15, 21, 34, 0.07);
+    --border: rgba(15, 21, 34, 0.12);
+    --border-strong: rgba(15, 21, 34, 0.24);
+    --text-primary: var(--ink-900);
+    --text-secondary: var(--ink-700);
+    --text-muted: var(--ink-500);
+    --accent: var(--ink-blue);
+    --accent-strong: #143597;
+    --accent-contrast: #ffffff;
+    --accent-soft: rgba(28, 73, 201, 0.08);
+    --accent-2: var(--aurora-600);
+    --accent-2-soft: rgba(112, 89, 224, 0.1);
+    --positive: var(--jade-700);
+    --caution: var(--amber-700);
+    --critical: var(--ember-700);
+    --glow: 0 0 0 1px rgba(28, 73, 201, 0.3), 0 6px 20px rgba(28, 73, 201, 0.15);
+    --glow-soft: 0 10px 40px rgba(15, 21, 34, 0.06);
+    --shadow-1: 0 1px 2px rgba(15, 21, 34, 0.06);
+    --shadow-2: 0 10px 30px -12px rgba(15, 21, 34, 0.18);
+    --shadow-3: 0 30px 80px -24px rgba(15, 21, 34, 0.25);
+    --focus-ring: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--ink-blue);
+    --backdrop: radial-gradient(1200px 700px at 80% -20%, rgba(28, 73, 201, 0.06), transparent 60%), var(--ivory-100);
+  }
+
+  /* Stage mode: projector-friendly scale and emphasis */
+  :root[data-stage] {
+    font-size: 125%;
+  }
+}

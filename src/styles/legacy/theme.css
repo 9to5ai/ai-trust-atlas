@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 /* Midnight counterpart to Arctic. Node accents retain their topic identity. */
 :root[data-theme=dark] { color-scheme:dark; --bg:#0b1422; --surface:#101d2e; --surface-raised:#192b41; --surface-soft:#142438; --line:#283e55; --line-strong:#496784; --text:#e5edf6; --text-muted:#b1c2d4; --text-faint:#96aec6; --accent:#91bcff; --accent-deep:#b4d3ff; --warning:#e8bc71; }
 .header-actions > button.theme-toggle { display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; padding:7px; }
@@ -68,3 +70,5 @@
 
 /* Keep toolbar elevation on its container, not on individual controls. */
 :root[data-theme=dark] .graph-controls[role=toolbar] { box-shadow:0 6px 20px #00000026; }
+
+}

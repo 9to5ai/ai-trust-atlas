@@ -1,0 +1,8 @@
+/* Cascade order: later layers win regardless of selector specificity. */
+@layer reset, tokens, base, legacy, bridge, components, utilities;
+
+@import '@fontsource-variable/inter/index.css';
+@import '@fontsource-variable/source-serif-4/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+@import './tokens.css';
+@import './base.css';

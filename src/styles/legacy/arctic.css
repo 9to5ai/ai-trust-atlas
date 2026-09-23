@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 /* Arctic Laboratory: crisp surfaces, readable evidence, a quiet orbital field. */
 :root {color-scheme:light;--bg:#f5f8fc;--surface:#fff;--surface-raised:#f0f5fb;--surface-soft:#f3f7fc;--line:#dce5ef;--line-strong:#b7c9dd;--text:#20364c;--text-muted:#526b81;--text-faint:#61788c;--accent:#245ee8;--accent-deep:#1645b8;--warning:#956318;--radius:12px;--sidebar-width:248px}
 .atlas-shell {--text-muted:#526b81;--text-faint:#61788c;--accent:#245ee8;background:#f5f8fc}
@@ -5,7 +7,7 @@
 .brand-mark {color:#245ee8;background:#edf3ff;border:1px solid #d2dff6;clip-path:none;border-radius:12px;box-shadow:none}
 .brand-mark::after {display:none}
 .atlas-mark-river {stroke:#245ee8;filter:none}.atlas-mark-frame {stroke:#638abd;fill:#eef4fd}.atlas-mark-node {fill:#245ee8;stroke:#fff}.node-b{filter:none}
-.brand-block h1,.brand-block h1 i {font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;font-style:normal;color:#20364c;font-weight:600;letter-spacing:-.045em}
+.brand-block h1,.brand-block h1 i {font-family: var(--font-sans);font-style:normal;color:#20364c;font-weight:600;letter-spacing:-.045em}
 .brand-block h1 i {font-weight:400;color:#637b91}
 .brand-edition {color:#245ee8;letter-spacing:.13em;font-size:9px}
 .brand-block p {font-size:9px;color:#61788c;letter-spacing:.06em}
@@ -24,7 +26,7 @@
 .graph-region,.graph-stage {background:#edf3f9}
 .observatory-frame,.graph-region::before,.graph-region::after {display:none!important}
 .graph-title {top:24px;left:25px}
-.graph-title strong {font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;font-size:21px;font-weight:500;color:#20364c;letter-spacing:-.035em}
+.graph-title strong {font-family: var(--font-sans);font-size:21px;font-weight:500;color:#20364c;letter-spacing:-.035em}
 .graph-title span {font-size:10px;color:#5e7892;letter-spacing:.07em}
 .graph-title p {font-size:12px;color:#61788c;line-height:1.6;max-width:32ch}
 .projection-switch {border:1px solid #d8e2ef;border-radius:9px;background:#fff;box-shadow:0 3px 10px #25486c06}
@@ -49,7 +51,7 @@
 .universe-hover-card {background:#fff;border-color:#c4d6ea;box-shadow:0 10px 30px #28446215}
 .universe-hover-card span {color:#245ee8}.universe-hover-card strong{color:#20364c}.universe-hover-card small{color:#61788c}
 .atlas-workspace.has-selection .inspector,.inspector {background:#fff;border-color:#dce5ef;color:#20364c}
-.inspector h2,.focus-list-title h2,.method-dialog h2,.dossier-panel h2,.temporal-lens h2 {font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif!important;font-weight:500!important;letter-spacing:-.04em;color:#20364c}
+.inspector h2,.focus-list-title h2,.method-dialog h2,.dossier-panel h2,.temporal-lens h2 {font-family: var(--font-sans)!important;font-weight:500!important;letter-spacing:-.04em;color:#20364c}
 .inspector h2 {font-size:30px}.inspector p{color:#526b81}.inspector .section-label{font-size:12px;color:#425e77}
 .inspector .inspector-summary {font-family:inherit;font-size:14px;line-height:1.75;color:#425e77}
 .evidence-spine-head {background:#fbfcfe;border-color:#dce5ef;color:#526b81}
@@ -106,4 +108,6 @@
   .atlas-workspace.has-selection .inspector { z-index:40; overscroll-behavior-y:contain; }
   .mobile-inspector-peek { touch-action:pan-x; user-select:none; cursor:grab; }
   .mobile-inspector-peek:active { cursor:grabbing; }
+}
+
 }

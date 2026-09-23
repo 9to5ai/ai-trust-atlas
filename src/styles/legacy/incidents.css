@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .incident-dates{display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--text-muted);line-height:1.7}
 .incident-connection{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;background:var(--surface-soft)}
 .incident-connection button,.incident-links button{border:0;background:none;color:var(--accent);font:inherit;text-align:left;cursor:pointer;padding:4px 0}
@@ -7,3 +9,5 @@
 .incident-card{border-left:3px solid #b77949}.incident-card .news-explore{margin-top:12px}
 
 .shape-incident{background:#b77949;clip-path:polygon(50% 0,100% 100%,0 100%)}
+
+}

@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 /* Compact navigation and filter context, shared by both views and themes. */
 .view-actions {position:absolute;top:20px;left:52px;right:205px;z-index:33;display:flex;align-items:center;gap:8px;min-height:32px}
 .view-actions button,.active-filters button,.atlas-empty button,.detail-navigation>button,.share-fallback button {display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--surface,#fff);color:var(--text-muted);font-size:12px;cursor:pointer}
@@ -26,3 +28,5 @@
  .atlas-workspace.has-selection .inspector.mobile-expanded {max-height:calc(100dvh - 100px);overflow-y:auto}
 }
 @media(prefers-reduced-motion:reduce){.inspector{scroll-behavior:auto}}
+
+}

@@ -1,3 +1,5 @@
+/* Legacy styles, fenced below new layers. Delete as each screen is rebuilt. */
+@layer legacy {
 .leadership-panel { margin:24px 0; padding:20px 0; border-top:1px solid #cbdcea; border-bottom:1px solid #cbdcea; }
 .questions-eyebrow { font-size:9px; letter-spacing:.13em; color:#56799e; }
 .leadership-panel header h3 { margin:7px 0 15px; font-size:22px; letter-spacing:-.025em; color:#223d56; }
@@ -77,4 +79,6 @@
   .brief-launcher { top:86px; left:16px; right:auto; bottom:auto; padding:9px 12px; font-size:0; gap:7px; }
   .brief-launcher::before { content:'Brief'; font-size:12px; }
   .brief-launcher span { font-size:11px; }
+}
+
 }
