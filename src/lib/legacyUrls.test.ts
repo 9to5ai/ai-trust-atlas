@@ -1,0 +1,26 @@
+import { describe, expect, it } from 'vitest'
+import { legacyRedirect } from './legacyUrls'
+
+const at = (path: string) => legacyRedirect(new URL(path, 'https://atlas.example'))
+
+describe('legacy shared links', () => {
+  it('leaves the new home page and new routes alone', () => {
+    expect(at('/')).toBeNull()
+    expect(at('/universe?view=list')).toBeNull()
+    expect(at('/methodology')).toBeNull()
+    expect(at('/?utm_source=newsletter')).toBeNull()
+  })
+
+  it('sends selections, filters and display modes to the Universe', () => {
+    expect(at('/#/instrument/apra-cps-230')).toBe('/universe#/instrument/apra-cps-230')
+    expect(at('/?mode=risk&year=2026#/risk-subdomain/mit-1-1')).toBe('/universe?mode=risk&year=2026#/risk-subdomain/mit-1-1')
+    expect(at('/?view=list&type=standard&region=Australia&year=2026')).toBe('/universe?view=list&type=standard&region=Australia&year=2026')
+    expect(at('/?view=focus&anchor=concept:privacy#/concept/privacy')).toBe('/universe?view=focus&anchor=concept%3Aprivacy#/concept/privacy')
+  })
+
+  it('gives the question workspace and use cases their own pages', () => {
+    expect(at('/?view=questions&year=2026')).toBe('/questions?year=2026')
+    expect(at('/?view=use-cases')).toBe('/cases')
+    expect(at('/?view=use-cases&year=2026#/use-case/cba-fraud-agent')).toBe('/cases?year=2026#/use-case/cba-fraud-agent')
+  })
+})

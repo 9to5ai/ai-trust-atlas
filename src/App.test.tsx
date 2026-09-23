@@ -5,7 +5,7 @@ import App from './App'
 beforeEach(() => {
   vi.spyOn(Date.prototype, 'toISOString').mockReturnValue('2026-09-08T12:00:00.000Z')
   localStorage.clear()
-  window.history.replaceState(null, '', '/')
+  window.history.replaceState(null, '', '/universe')
   HTMLDialogElement.prototype.close = function () { this.removeAttribute('open') }
   HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', '') }
   Element.prototype.scrollIntoView = vi.fn()
@@ -182,9 +182,9 @@ describe('view navigation', () => {
 describe('audience workspace entry',()=>{
  it('opens Questions without a node and returns to the map after exploring',()=>{
    render(<App />)
-   fireEvent.click(screen.getByRole('button',{name:'Questions'}))
+   fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Questions'}))
    expect(screen.getByRole('region',{name:'Questions workspace'})).toBeInTheDocument()
-   expect(window.location.search).toContain('view=questions')
+   expect(window.location.pathname).toBe('/questions')
    fireEvent.click(screen.getByRole('button',{name:'Accountability and governance'}))
    fireEvent.click(screen.getAllByRole('button',{name:'Explore in Atlas →'})[0])
    expect(screen.queryByRole('region',{name:'Questions workspace'})).not.toBeInTheDocument()
@@ -199,7 +199,8 @@ describe('production use case journey',()=>{
  it('opens a shared collection, explores a case and returns to its filtered collection',()=>{
   window.history.replaceState(null,'','/?view=use-cases')
   render(<App/>)
-  expect(screen.getByRole('button',{name:'Use cases'})).toHaveAttribute('aria-pressed','true')
+  expect(window.location.pathname).toBe('/cases')
+  expect(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Use cases'})).toHaveAttribute('aria-current','page')
   fireEvent.click(screen.getByRole('button',{name:'Detect fraud & manage risk'}))
   fireEvent.click(screen.getByRole('button',{name:'Proposing new fraud rules'}))
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
@@ -220,5 +221,32 @@ describe('production use case journey',()=>{
   fireEvent.click(news.getByRole('button',{name:'Explore use case and questions'}))
   expect(window.location.hash).toBe('#/use-case/bofa-erica')
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
+ })
+})
+
+describe('pages and browser history',()=>{
+ it('rewrites legacy root links onto the Universe route',()=>{
+  window.history.replaceState(null,'','/?mode=risk#/instrument/apra-cps-234')
+  render(<App/>)
+  expect(window.location.pathname).toBe('/universe')
+  expect(window.location.hash).toBe('#/instrument/apra-cps-234')
+  expect(screen.getByLabelText('Selected node details')).toHaveTextContent('APRA CPS 234')
+ })
+ it('records selections as browser history so Back returns to the previous item',async()=>{
+  window.history.replaceState(null,'','/universe#/instrument/apra-cps-234')
+  render(<App/>)
+  selectOversight()
+  expect(window.location.hash).toBe('#/concept/human-oversight')
+  window.history.back()
+  await waitFor(()=>expect(window.location.hash).toBe('#/instrument/apra-cps-234'))
+  await waitFor(()=>expect(screen.getByLabelText('Selected node details')).toHaveTextContent('APRA CPS 234'))
+ })
+ it('opens the home page at the site root and navigates to sections without reloading',()=>{
+  window.history.replaceState(null,'','/')
+  render(<App/>)
+  expect(screen.getByRole('heading',{level:1})).toBeInTheDocument()
+  fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Methodology'}))
+  expect(window.location.pathname).toBe('/methodology')
+  expect(screen.getByRole('heading',{level:1,name:'How the Atlas is curated'})).toBeInTheDocument()
  })
 })

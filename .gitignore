@@ -12,3 +12,4 @@ dist
 .shots/
 test-results/
 playwright-report/
+.scratch/

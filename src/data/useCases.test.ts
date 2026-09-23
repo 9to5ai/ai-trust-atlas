@@ -4,7 +4,7 @@ import {concepts,domains} from './concepts'
 import {controlObjectives} from './controls'
 import {readBrief,catalogue} from '../lib/questionCatalogue'
 import {buildGraphModel,defaultFilters} from '../lib/graphModel'
-import {readView,viewUrl} from '../lib/viewState'
+import {pathForView,readView,viewUrl} from '../lib/viewState'
 import {searchObjects} from '../lib/workspace'
 import {inDateWindow} from './developments'
 
@@ -37,8 +37,9 @@ describe('production use case evidence and navigation',()=>{
   expect(selected.edges.filter(e=>e.sourceId==='use-case:cba-fraud-agent')).toHaveLength(2)
   const context=buildGraphModel('ontology',defaultFilters(),'concept:agent-authority','all',false,true)
   expect(context.nodes.filter(n=>n.kind==='use-case').length).toBe(useCasesForNode('concept','agent-authority').length)
-  const url=viewUrl(readView(new URL('https://atlas.test/?view=use-cases&useCases=1#/use-case/cba-fraud-agent'),2026))
-  expect(url).toContain('view=use-cases');expect(url).toContain('useCases=1');expect(url).toContain('#/use-case/cba-fraud-agent')
+  const view=readView(new URL('https://atlas.test/cases?useCases=1#/use-case/cba-fraud-agent'),2026)
+  const url=pathForView(view)+viewUrl(view)
+  expect(url.startsWith('/cases?')).toBe(true);expect(url).toContain('useCases=1');expect(url).toContain('#/use-case/cba-fraud-agent')
  })
  it('restores all three roles with source references and does not manufacture recent publication dates',()=>{
   for(const item of useCases)for(const role of ['board','executive','regulator'] as const){const q=useCaseQuestion(item,role);expect(catalogue(role).some(e=>e.question.id===q.id)).toBe(true);expect(readBrief(JSON.stringify({version:1,ids:[q.id]})).selected).toEqual([q])}
