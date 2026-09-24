@@ -9,7 +9,7 @@ import {inDateWindow} from './developments'
 
 describe('incident evidence and integration',()=>{
  it('has only approved incidents and resolvable interpretive connections',()=>{
-  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026'])
+  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal'])
   for(const i of incidents){expect(i.sources.length).toBeGreaterThan(1);expect(i.limitations).toBeTruthy();for(const f of i.findings)expect(i.sources[f.source]).toBeDefined();for(const c of i.connections){expect(concepts.some(x=>x.id===c.conceptId)).toBe(true);expect(controlObjectives.some(x=>x.id===c.controlId)).toBe(true);expect(c.reason).toBeTruthy()}}
  })
  it('keeps incidents optional, with real graph edges and shareable selection',()=>{

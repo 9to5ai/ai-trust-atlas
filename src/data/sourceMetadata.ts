@@ -92,11 +92,11 @@ export const legalEffectById: Record<string, LegalEffect> = Object.fromEntries([
 
 /* Issuer type, matched on the issuer name. The first matching rule wins. */
 const issuerRules: [RegExp, IssuerType][] = [
-  [/Parliament|^European Union$/, 'legislature'],
+  [/Parliament|National Assembly|^European Union$/, 'legislature'],
   [/Institute of Company Directors|Institute of Internal Auditors|AICPA/, 'professional-body'],
   [/ISO and IEC|IAASB|AUASB|International Organization of Securities Commissions|International Association of Insurance Supervisors|Financial Stability Board|Basel Committee/, 'standard-setter'],
   [/OECD|Organisation for Economic Co-operation|UNESCO|Council of Europe|Five Eyes/, 'intergovernmental'],
-  [/Prudential Regulation Authority|Securities and Investments Commission|Information Commissioner|Superintendent of Financial Institutions|Monetary Authority|Federal Reserve|Hong Kong Monetary|Securities and Futures Commission|European Insurance|European Banking Authority|European Securities|Financial Conduct Authority|Insurance Commissioners|Financial Services Agency|Bank of England|Data Protection Board|Privacy Commissioner|Reserve Bank/, 'regulator'],
+  [/Prudential Regulation Authority|Securities and Investments Commission|Information Commissioner|Superintendent of Financial Institutions|Monetary Authority|Federal Reserve|Hong Kong Monetary|Securities and Futures Commission|European Insurance|European Banking Authority|European Securities|Financial Conduct Authority|Insurance Commissioners|Financial Services Agency|Bank of England|Data Protection Board|Privacy Commissioner|Reserve Bank|Financial Services Commission/, 'regulator'],
   [/MITRE|MIT AI Risk|University|Research/, 'research'],
   [/OWASP|Cloud Security Alliance|Coalition for Content Provenance|AI Verify Foundation/, 'industry-body'],
   [/.*/, 'government'],
@@ -115,4 +115,11 @@ export function enrichSource(record: SourceRecord) {
   const legalEffect = record.legalEffect ?? legalEffectById[record.id]
   if (!legalEffect) throw new Error(`No legal effect recorded for source "${record.id}". Add it to legalEffectById in sourceMetadata.ts.`)
   return { ...record, legalEffect, issuerType: issuerTypeFor(record.issuer), sectorIds: normaliseSectors(record.sectors), ...(supersededVersions[record.id] ? { supersedes: supersededVersions[record.id] } : {}) }
+}
+
+/* Source facet filters. A financial-services sub-sector also matches sources tagged "Financial services" as a whole; cross-sector sources are not included. */
+export function matchesSourceFacets(source: { legalEffect: LegalEffect; sectorIds: SectorId[] }, effects: ReadonlySet<LegalEffect>, sectors: ReadonlySet<SectorId>) {
+  const effectMatch = effects.size === 0 || effects.has(source.legalEffect)
+  const sectorMatch = sectors.size === 0 || source.sectorIds.some((id) => sectors.has(id) || (id === 'financial-services' && [...sectors].some((sector) => financialSubsectors.has(sector))))
+  return effectMatch && sectorMatch
 }

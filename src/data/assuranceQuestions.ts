@@ -6,10 +6,212 @@
  */
 export type AssurancePrompt = { text: string; askFor: string; followUp: string }
 
-export const assuranceConceptQuestions: Record<string, string> = {}
-export const assuranceRiskQuestions: Record<string, string> = {}
-export const assuranceControlQuestions: Record<string, string> = {}
-export const assuranceSourceQuestions: Record<string, string> = {}
-export const assuranceDevelopmentQuestions: Record<string, string> = {}
-export const assuranceUseCasePrompts: Record<string, AssurancePrompt> = {}
-export const assuranceIncidentPrompts: Record<string, AssurancePrompt> = {}
+export const assuranceConceptQuestions: Record<string, string> = {
+  'accountability': 'Can we test from records over the period that each named AI owner actually made the decisions their role assigns?',
+  'senior-accountability': 'What evidence would let us test that accountable executives took reasonable steps on AI, not just that they were named?',
+  'decision-rights': 'Against which delegation schedule would we test a sample of AI approvals and exceptions, and how many fell outside it?',
+  'ai-policy-appetite': 'Are the AI policy and risk appetite specific enough to serve as audit criteria, and how would a breach be evidenced?',
+  'inventory': 'How would we test the AI inventory for completeness, and which independent sources would we reconcile it against?',
+  'competence': 'What evidence would show that people approving AI met a defined competence standard at the time they decided?',
+  'materiality': 'Could we re-perform the materiality rating for a sample of AI uses and reach the same result from the documented criteria?',
+  'impact-assessment': 'Can we sample impact assessments to test that they were completed before deployment and updated when the use changed?',
+  'model-risk': 'Can we rely on the model validation function’s work for AI models, given its independence, competence and coverage?',
+  'risk-treatment': 'For a sample of accepted AI risks, can we evidence who accepted them, under what authority and whether they were revisited?',
+  'use-case-intake': 'What population would we sample to test that every production AI use passed intake, and how would we find those that did not?',
+  'lifecycle-governance': 'Which lifecycle gates leave evidence we could test, and which rely on undocumented judgement between stages?',
+  'change-management': 'Can we select AI changes from system logs, rather than the change register, and trace each one to an approval?',
+  'documentation': 'Is technical documentation version-controlled well enough for us to establish what was true on a given date?',
+  'data-governance': 'Which data quality controls over AI inputs operated throughout the period, and what evidence of exceptions was retained?',
+  'privacy': 'Which privacy criteria would we test an AI use against, and can we sample actual data flows rather than design documents?',
+  'provenance': 'Can we independently verify the recorded origin and licence of a sample of datasets and models, or only read the register?',
+  'intellectual-property': 'What evidence would let us test that licence terms were checked before a model or dataset entered use?',
+  'transparency-disclosure': 'Can we inspect a sample of interactions to confirm the approved AI notice was actually displayed at the time?',
+  'content-authenticity': 'How would we test that labelling and verification controls operated across all AI-generated content in scope, not just in a demonstration?',
+  'explainability': 'What criteria would we use to judge whether an explanation given to a person was accurate, and could we re-perform it?',
+  'contestability': 'Can we sample closed AI-related complaints to test whether reviews were timely, independent and led to remedies where due?',
+  'fairness-bias': 'Which fairness metrics and thresholds form the criteria, and can we reproduce the reported subgroup results from source data?',
+  'consumer-outcomes': 'Which customer outcome measures would we need to test for accuracy and completeness before relying on them?',
+  'human-rights': 'What documented criteria would let us assess whether rights impacts were considered without substituting our own judgement?',
+  'content-safety': 'Can we re-run a sample of harmful-content tests and confirm the filters in production match those that were tested?',
+  'workforce-impact': 'What evidence shows AI workforce consultation commitments were met, and who could we interview to corroborate it?',
+  'environmental-impact': 'Could reported AI energy and emissions figures withstand limited assurance, given their boundaries, estimates and supplier data?',
+  'ai-security': 'Which AI security controls could we test for operating effectiveness, and which rest only on a provider’s attestation?',
+  'secure-development': 'Can we trace a sample of AI releases through the pipeline and confirm required security checks ran and were not bypassed?',
+  'access-control': 'Can we extract AI service-account permissions directly and test them against approved access, including dormant credentials?',
+  'reliability': 'Were performance thresholds set before testing, and can we reproduce the results on the data and versions actually deployed?',
+  'operational-resilience': 'What exercise evidence from the period shows AI-dependent critical operations recovered within tolerance?',
+  'incident-response': 'Can we test the completeness of the AI incident register against complaints, service tickets and monitoring alerts?',
+  'systemic-risk': 'How would we verify that the dependency analysis captured shared models and providers across every business unit in scope?',
+  'third-party-risk': 'Can we rely on the provider’s assurance report or certificate, and which of our AI concerns sit outside its scope and period?',
+  'supply-chain': 'How far upstream does the available evidence reach, and where would our conclusion need a scope limitation?',
+  'exitability': 'Is there tested evidence that AI provider exit plans would work, or only documented intentions we cannot verify?',
+  'evaluation': 'Could an independent reviewer re-perform the evaluation from retained data, code and criteria and obtain consistent results?',
+  'red-teaming': 'Were red-team scope, independence and coverage adequate for us to rely on its findings, and were fixes retested?',
+  'continuous-monitoring': 'Can we test that monitoring alerts fired and were actioned across the whole period, not just on selected days?',
+  'evidence-quality': 'Is the evidence we would rely on sufficient and appropriate, given its source, the period it covers and who produced it?',
+  'traceability': 'Could we select an AI output at random and reconstruct it from retained records without asking the system owner?',
+  'auditability': 'Do we hold the access, logs and contractual rights needed to audit this AI system, including its provider components?',
+  'assurance': 'Are the subject matter and criteria defined clearly enough to support a limited or reasonable assurance engagement on this AI claim?',
+  'human-oversight': 'How would we test that reviewers actually overrode AI recommendations when warranted, rather than approving by default?',
+  'agent-authority': 'Can we compare an agent’s configured permissions with its approved mandate and test that out-of-scope actions were refused?',
+  'runtime-guardrails': 'What evidence shows runtime guardrails were active and unchanged throughout the period, not just at go-live?',
+}
+
+export const assuranceRiskQuestions: Record<string, string> = {
+  'mit-risk-1-1': 'Which documented fairness criteria could we audit against, and is the underlying outcome data complete enough to test?',
+  'mit-risk-1-2': 'Can we sample live interactions to test whether harmful-content controls performed as pre-release testing suggested?',
+  'mit-risk-1-3': 'Can we reproduce the subgroup performance results, and were thresholds agreed before the results were known?',
+  'mit-risk-2-1': 'What evidence shows leakage was tested in the production configuration, including logs and provider retention?',
+  'mit-risk-2-2': 'Which AI security test results can we rely on, given who performed them, their scope and when they were last repeated?',
+  'mit-risk-3-1': 'How would we sample AI outputs to estimate error rates, and which authoritative source would we check them against?',
+  'mit-risk-3-2': 'Is there a measurable criterion for wider information harm, or should it sit outside audit scope with a stated limitation?',
+  'mit-risk-4-1': 'What evidence shows misuse monitoring for surveillance or influence operated over the period, and were flagged cases followed up?',
+  'mit-risk-4-2': 'Can we verify that restrictions on dangerous capabilities are enforced, rather than relying on the provider’s usage policy?',
+  'mit-risk-4-3': 'Can we sample high-value approvals and confirm that out-of-band verification actually occurred before funds moved?',
+  'mit-risk-5-1': 'What evidence would show reviewers caught AI errors in practice, such as override rates or seeded-error tests?',
+  'mit-risk-5-2': 'Can we sample cases where people declined an AI recommendation and confirm the workflow allowed it without penalty?',
+  'mit-risk-6-1': 'Is there documented analysis of benefit distribution and provider dependency we could audit, or only strategy statements?',
+  'mit-risk-6-2': 'Which workforce data could we test to verify management’s reported effects of AI on roles and job quality?',
+  'mit-risk-6-3': 'What evidence would show critical human expertise is being retained, such as skills registers or manual fallback drills?',
+  'mit-risk-6-4': 'Can we identify releases where risk sign-off was waived or compressed to meet a deadline, and was each exception authorised?',
+  'mit-risk-6-5': 'Which governance processes would we test first, and what evidence would reveal AI uses operating outside them?',
+  'mit-risk-6-6': 'Can the reported environmental figures be traced to metered data, or do they rest on supplier estimates we cannot verify?',
+  'mit-risk-7-1': 'What test evidence shows the system was checked for reward gaming, and could we re-run those scenarios independently?',
+  'mit-risk-7-2': 'Who evaluates capability thresholds, and is their work independent and documented enough for us to rely on?',
+  'mit-risk-7-3': 'Do test conditions match production closely enough for us to rely on the reported robustness results?',
+  'mit-risk-7-4': 'Where interpretability is limited, what compensating evidence would we need to reach any conclusion on a disputed outcome?',
+  'mit-risk-7-5': 'Should AI welfare claims sit outside our audit scope, and how would we record that scoping decision and its basis?',
+  'mit-risk-7-6': 'Is there evidence from whole-system tests of interacting agents, or only component tests we would have to piece together?',
+}
+
+export const assuranceControlQuestions: Record<string, string> = {
+  'accountable-ownership': 'Can we test for a sample of AI systems that the named owner approved key decisions during the period under review?',
+  'ai-inventory-classification': 'Which independent population would we reconcile the inventory against, and could we re-perform risk classification for a sample?',
+  'decision-rights-approval': 'Does the approval evidence show the approver held delegated authority on the date, and were any approvals retrospective?',
+  'competence-challenge': 'What would we accept as evidence that independent challenge occurred and changed an outcome, beyond minutes noting discussion?',
+  'context-materiality': 'Is the materiality methodology applied consistently enough across business units for us to test outcomes against it?',
+  'impact-risk-assessment': 'How would we test that impact assessments were completed before go-live and repeated after material change?',
+  'data-model-provenance': 'Can we select deployed models and datasets from production and trace each back to recorded rights and versions?',
+  'third-party-assessment': 'Which provider assurance reports cover this AI service, for what period, and which complementary user controls do they assume?',
+  'least-privilege-access': 'Can we extract actual permissions for AI identities and test them against approved access across the period?',
+  'secure-ai-development': 'Does pipeline evidence show required security checks ran for every release in the period, and could they be bypassed?',
+  'privacy-data-protection': 'Can we test retention and deletion settings in prompts, logs and provider systems against the documented privacy criteria?',
+  'agent-runtime-constraints': 'Can we attempt a prohibited agent action ourselves and obtain logs showing it was blocked, rather than reading policy text?',
+  'ai-notice-disclosure': 'Can we evidence that the approved AI notice appeared in each channel throughout the period, including after interface changes?',
+  'explanation-limitations': 'What criteria define an adequate explanation, and can we test a sample of explanations against the underlying records?',
+  'contestability-redress': 'Is the complaints population complete enough to sample AI-related challenges and test their timeliness and outcome?',
+  'records-traceability': 'Are logs complete, tamper-evident and retained long enough to support audit testing over the full period?',
+  'fit-for-purpose-evaluation': 'Were acceptance criteria set before testing, and can we re-perform key evaluations using the retained data and versions?',
+  'fairness-rights-testing': 'Can we reproduce the subgroup analysis from source data and confirm that unresolved disparities were formally accepted?',
+  'adversarial-security-testing': 'Was adversarial testing independent and broad enough to rely on, and do retest results close each finding?',
+  'runtime-monitoring': 'Can we test that thresholds stayed unchanged, alerts were complete and each breach was actioned during the period?',
+  'incident-response-reporting': 'Can we reconcile the incident log with other sources to test completeness, and were reporting deadlines met?',
+  'human-intervention-safe-stop': 'What evidence shows the stop mechanism worked in a test during the period, and who witnessed or logged it?',
+  'resilience-rollback-continuity': 'Do exercise records show recovery times against defined tolerances, and were identified gaps tracked to closure?',
+  'change-release-retirement': 'Can we select changes from deployment logs and test that each was reassessed and approved before release?',
+}
+
+export const assuranceSourceQuestions: Record<string, string> = {
+  'apra-cps-230': 'Which CPS 230 requirements would serve as criteria for AI dependencies, and what testing evidence covers the period?',
+  'apra-cps-234': 'Did the latest CPS 234 control testing include AI-related information assets, and is its scope sufficient to rely on?',
+  'apra-cps-220': 'How would internal audit’s review of the risk management framework test whether AI risks are captured and escalated?',
+  'oaic-commercial-ai': 'Could we use the OAIC guidance as criteria for reviewing a commercial AI product, noting where it is guidance rather than law?',
+  'nist-agent-security-responses': 'Which reported agent-security concerns could become audit test steps, and which remain unverified stakeholder views?',
+  'eu-ai-act': 'Where the AI Act may apply, which obligations produce evidence we could test now, and which await later application dates?',
+  'apra-ai-letter-2026': 'Could internal audit use the letter’s concerns to scope a review, and which gaps would it test first?',
+}
+
+export const assuranceDevelopmentQuestions: Record<string, string> = {
+  'apra-super-ceo-september': 'Can we test whether crisis-exercise findings were tracked to closure and the remediation was actually verified?',
+  'nist-agent-security-findings': 'Does our audit programme include test steps for agent permissions and unintended actions, or only conventional IT controls?',
+  'canada-ai-register-feedback': 'If we audited our AI register against these reported gaps, which fields could we verify and which rely on self-reporting?',
+  'apra-frontier-roundtables': 'What evidence would show that changes to response and recovery arrangements were tested, not just documented?',
+  'fsb-frontier-letter': 'Is our view of shared AI dependencies based on verifiable data, or only on management’s own dependency mapping?',
+  'asd-agent-actions': 'Could we test business-rule enforcement by attempting a prohibited agent action and reviewing the resulting logs?',
+  'nist-tevv-athlon': 'Could this method help define criteria for auditing whether our AI evaluations fit their stated objectives?',
+  'asd-board-guidance': 'Which statements in board reporting on frontier AI cyber readiness could internal audit verify against underlying evidence?',
+  'nist-documentation-draft': 'Could we test our public AI documentation for accuracy against internal system records and test results?',
+  'nist-aite-launch': 'When relying on external benchmark results, how do we assess test design, data independence and relevance to our use?',
+  'eu-transparency-guidelines': 'Which Article 50 transparency obligations could we test, and what records would show they operated once they began to apply?',
+  'edpb-anonymisation-consultation': 'What evidence would we need to test a claim that AI training data was anonymised rather than merely pseudonymised?',
+  'asd-ai-cyber-defence': 'Which of these immediate actions could we test for operating effectiveness, such as remediation timeframes or recovery?',
+  'apra-frontier-speech': 'Can we evidence where offshore frontier model dependencies sit, and does current assurance coverage extend to them?',
+  'csa-aicm-11': 'Could the matrix’s audit guidance support our test procedures, and how would we map it to our own control criteria?',
+  'five-eyes-frontier-statement': 'How would we verify that foundational cyber controls are operating, rather than accepting a readiness self-assessment?',
+  'fsb-ai-practices-consultation': 'If these practices were used as criteria, which could we test with existing evidence and which are too broad to audit?',
+  'dta-agentic-guidance': 'Which requirements in the agentic addendum produce records that an auditor could inspect and test?',
+  'acs-release': 'Would runtime hooks of this kind produce logs reliable enough to support testing of agent control operation?',
+  'crosswalk-release': 'Can we rely on a published crosswalk to map GenAI risks to controls, or must we validate the mappings ourselves?',
+  'llm-top10-2026': 'Does our AI audit programme include test steps for the revised risks, and when was it last updated?',
+}
+
+export const assuranceUseCasePrompts: Record<string, AssurancePrompt> = {
+  'cba-fraud-agent': {
+    text: 'Can we sample AI-proposed fraud rules and trace each through back-testing, specialist approval and post-release monitoring?',
+    askFor: 'The population of deployed rules, approval records, back-test outputs, false-positive reports and rule-change logs.',
+    followUp: 'Could any rule reach production without recorded specialist approval, and how would we detect it?',
+  },
+  'jpm-employee-assistant': {
+    text: 'What evidence would let us test that assistant actions stay within each employee’s own access and delegated authority?',
+    askFor: 'Connector and permission configurations, action logs, access review results and sampled actions traced to requesting users.',
+    followUp: 'Can the logs distinguish what the employee did from what the assistant did on their behalf?',
+  },
+  'morgan-stanley-debrief': {
+    text: 'Can we sample AI-generated CRM notes and confirm consent, adviser review and accuracy against the source meeting?',
+    askFor: 'Sampled notes with consent records, edit history, source recordings or transcripts, and retention settings.',
+    followUp: 'What share of saved notes were never edited, and does that indicate careful review or its absence?',
+  },
+  'dbs-cso-assistant': {
+    text: 'How would we test the accuracy of assistant recommendations across languages if only summarised call data is retained?',
+    askFor: 'Quality-assurance sampling results by language, retained transcripts, recommendation logs and linked complaints.',
+    followUp: 'Is the quality-assurance sample selected independently of the team measured on handling time?',
+  },
+  'bofa-erica': {
+    text: 'Which assistant functions are in scope, and what evidence separates adoption metrics from tested customer outcomes?',
+    askFor: 'A function inventory, escalation logs, complaint samples, outcome measures and the definitions behind reported metrics.',
+    followUp: 'Who defines a successful interaction, and has that definition changed during the period?',
+  },
+  'google-code-assistance': {
+    text: 'Can we sample merged AI-assisted changes and verify that required review and tests actually ran before release?',
+    askFor: 'Sampled AI-assisted pull requests, reviewer records, test and security scan results, and escaped-defect data.',
+    followUp: 'Can the organisation reliably identify AI-generated code, and if not, how is the test population defined?',
+  },
+  'amazon-deepfleet': {
+    text: 'What evidence shows safe-stop and fallback for the robot coordinator were tested at in-scope sites during the period?',
+    askFor: 'Site-level exercise records, override logs, incident reports and the list of sites where the coordinator operates.',
+    followUp: 'Is site coverage verified from system data, or taken from management’s rollout statements?',
+  },
+  'chrobinson-shipment-agents': {
+    text: 'Can we select automated quotes and orders and trace each back to the source message, applied rules and any human review?',
+    askFor: 'Transaction samples with source messages, agent action logs, exception queues, approval limits and correction records.',
+    followUp: 'How are erroneous commitments identified, and is that error population complete enough to test?',
+  },
+  'walmart-sparky': {
+    text: 'Can we test that automated reorders matched customer settings and limits, using transaction records rather than design documents?',
+    askFor: 'Consent and settings records, sampled reorder transactions, cancellation and refund data, and spending-limit configurations.',
+    followUp: 'How many reorders did customers reverse, and is that data captured consistently across channels?',
+  },
+  'salesforce-agentforce-help': {
+    text: 'Because the operator is also the supplier, what independent evidence supports the reported resolution rates and definitions?',
+    askFor: 'Resolution-rate definitions over time, conversation samples, escalation logs and any third-party review of the metrics.',
+    followUp: 'Would we reach the same resolution rate by recalculating it from raw conversation data?',
+  },
+}
+
+export const assuranceIncidentPrompts: Record<string, AssurancePrompt> = {
+  'hugging-face-2026': {
+    text: 'If we relied on the independent investigation, what did its scope, period and access limits leave unexamined?',
+    askFor: 'The investigation’s terms of reference, period covered, data access, use of AI-assisted analysis and excluded areas.',
+    followUp: 'Which of our own agent boundary controls would we test differently given what the reviewers could not see?',
+  },
+  'anthropic-evaluation-incidents-2026': {
+    text: 'How would we test the completeness of an incident population when the first review missed a case?',
+    askFor: 'Environment and agent inventories, log-coverage reconciliations, the search method and the criteria used to identify incidents.',
+    followUp: 'What shows the revised search covered every environment, not only those with usable logs?',
+  },
+  'hacktron-openai-2026': {
+    text: 'Which parts of this access chain are independently corroborated, and which rest on the researchers’ account alone?',
+    askFor: 'The maintainer advisory, vendor remediation confirmation, our connector scope settings and our own assistant-to-production access tests.',
+    followUp: 'When did we last test our own assistant connector scopes and revocation, and who performed the test?',
+  },
+}

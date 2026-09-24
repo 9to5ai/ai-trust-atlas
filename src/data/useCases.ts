@@ -1,5 +1,7 @@
 import { reviewUseCases } from './useCasesReview'
-import type { Audience, Question } from './leadershipQuestions'
+import type { Audience, CoreAudience, Question } from './leadershipQuestions'
+import { assuranceUseCasePrompts } from './assuranceQuestions'
+import { reviewUseCaseAssurancePrompts } from './useCasesReview'
 export const useCaseWorkflows = {customers:'Serve customers', employees:'Support employees & advisers', software:'Build software', risk:'Detect fraud & manage risk', operations:'Run operations', products:'Create products & revenue'} as const
 export type UseCaseWorkflow = keyof typeof useCaseWorkflows
 export type UseCase = {
@@ -8,7 +10,7 @@ export type UseCase = {
  reported:string; published:string|null; reviewed:string; summary:string; before:string; actions:string; human:string; value:string; limitations:string;
  topics:string[]; sources:{title:string;url:string}[];
  connections:{conceptId:string;controlId:string;reason:string}[];
- prompts:Record<Audience,{text:string;askFor:string;followUp:string}>;
+ prompts:Record<CoreAudience,{text:string;askFor:string;followUp:string}>&Partial<Record<'assurance',{text:string;askFor:string;followUp:string}>>;
 }
 // Authored evidence snapshots. Publication dates never inherit the review date.
 const baseUseCases:UseCase[] = [
@@ -593,10 +595,11 @@ const baseUseCases:UseCase[] = [
     }
   }
 ]
-export const useCases:UseCase[] = [...baseUseCases, ...reviewUseCases]
+const assuranceFor=(id:string)=>assuranceUseCasePrompts[id]??reviewUseCaseAssurancePrompts[id]
+export const useCases:UseCase[] = [...baseUseCases, ...reviewUseCases].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
 export const useCaseById = new Map(useCases.map(item=>[item.id,item]))
 export function useCaseQuestion(item:UseCase,audience:Audience):Question {
- return {id:`use-case:${item.id}:${audience}`,audience,context:`${item.company} · ${item.title}`,basis:item.summary,why:item.connections.map(c=>c.reason).join(' '),sources:item.sources,...item.prompts[audience]}
+ return {id:`use-case:${item.id}:${audience}`,audience,context:`${item.company} · ${item.title}`,basis:item.summary,why:item.connections.map(c=>c.reason).join(' '),sources:item.sources,...(item.prompts[audience]??{text:'',askFor:'',followUp:''})}
 }
 export function useCasesForNode(kind:string|undefined,id:string|undefined) {
  return useCases.filter(item=>kind==='domain'?item.topics.includes(id??''):kind==='concept'?item.connections.some(c=>c.conceptId===id):kind==='control-objective'?item.connections.some(c=>c.controlId===id):false)

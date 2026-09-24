@@ -61,6 +61,36 @@ export const tours: Tour[] = [
       { title: 'Questions for the board', narration: 'The Questions workspace turns this into a brief: select the Board audience, add the agentic questions, and export them for the next meeting.', projection: 'questions' },
     ],
   },
+  {
+    id: 'insurers-and-super',
+    title: 'AI for insurers and super funds',
+    audience: 'Boards and executives in APRA-regulated insurers and superannuation funds',
+    summary: 'From customer outcomes and model risk to prudential standards and the controls that could evidence them.',
+    minutes: 3,
+    steps: [
+      { title: 'Filter to what applies', narration: 'The Atlas records who each source applies to and its legal effect. Filtering to insurers or super funds separates binding prudential standards from supervisory expectations and voluntary guidance.', layout: 'ontology' },
+      { title: 'Customer outcomes first', narration: 'Insurance supervisors judge AI by its outcomes for policyholders. The IAIS applies its core principles to AI, with fair treatment, explainability and routes to challenge at the centre.', select: 'instrument:iais-ai-application-paper' },
+      { title: 'The binding floor in Australia', narration: 'CPS 230 applies to insurers and super funds alike. Its service-provider and continuity requirements reach AI vendors that support critical operations.', select: 'instrument:apra-cps-230' },
+      { title: 'Model risk has moved', narration: 'Model risk management now spans generative AI. Some supervisors place generative and agentic AI outside traditional model guidance, so governance has to be explicit rather than assumed.', select: 'concept:model-risk' },
+      { title: 'What would show it works', narration: 'Fairness and human-impact testing is a candidate control objective. It lists the evidence an assessor might ask for, not a claim that any organisation has it.', select: 'control-objective:fairness-rights-testing' },
+      { title: 'Prepare the conversation', narration: 'Every item carries questions for boards, executives, regulators and internal audit. Shortlist them into a meeting brief.', projection: 'questions' },
+    ],
+  },
+  {
+    id: 'assurance-over-ai',
+    title: 'Assurance over AI',
+    audience: 'Internal audit, risk and assurance practitioners',
+    summary: 'How an engagement moves from criteria to controls to evidence, and what a report can and cannot conclude.',
+    minutes: 3,
+    steps: [
+      { title: 'Start with the question of assurance', narration: 'Independent assurance is a scoped conclusion by a sufficiently independent practitioner. The Atlas separates it from certification, testing tools and management assertions.', select: 'concept:assurance' },
+      { title: 'The engagement standard', narration: 'ISAE 3000 (Revised), and ASAE 3000 in Australia, set how assurance engagements on non-financial subject matter are planned, performed and reported, including the need for suitable criteria.', select: 'instrument:isae-3000' },
+      { title: 'Assurance on controls', narration: 'ASAE 3150 covers the design, implementation and operating effectiveness of controls against defined objectives — a natural fit for AI control environments.', select: 'instrument:asae-3150' },
+      { title: 'Criteria from requirements', narration: 'Requirements recorded against sources show what is expected, of whom and by when. Candidate controls link to them, which helps frame suitable criteria.', select: 'control-objective:records-traceability' },
+      { title: 'Certification is different', narration: 'ISO/IEC 42006 sets requirements for bodies that certify AI management systems against ISO/IEC 42001. Certification and assurance answer different questions.', select: 'instrument:iso-42006' },
+      { title: 'Questions for the audit committee', narration: 'Switch to Questions and choose Assurance to see what internal auditors and practitioners would ask for each item.', projection: 'questions' },
+    ],
+  },
 ]
 
 export const tourById = new Map(tours.map((tour) => [tour.id, tour]))

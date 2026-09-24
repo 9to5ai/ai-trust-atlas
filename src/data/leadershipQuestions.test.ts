@@ -8,7 +8,7 @@ describe('curated leadership questions', () => {
     expect(new Set(conceptPrompts.map(p=>p.conceptId))).toEqual(new Set(concepts.map(c=>c.id)))
     for(const concept of concepts) {
       const items=audiences.map(a=>questionForConcept(concept.id,a)!)
-      expect(new Set(items.map(q=>q.text)).size).toBe(3)
+      expect(new Set(items.map(q=>q.text)).size).toBe(audiences.length)
       for(const q of items) {
         expect(q.sources.length).toBeGreaterThan(0)
         expect(q.sources.every(s=>s.url.startsWith('https://'))).toBe(true)
@@ -18,7 +18,7 @@ describe('curated leadership questions', () => {
     }
     for(const item of developments) {
       expect(developmentPrompts[item.id]).toBeDefined()
-      expect(new Set(audiences.map(a=>questionForDevelopment(item,a)!.text)).size).toBe(3)
+      expect(new Set(audiences.map(a=>questionForDevelopment(item,a)!.text)).size).toBe(audiences.length)
       expect(questionForDevelopment(item,'board')!.sources[0].url).toBe(item.url)
     }
   })

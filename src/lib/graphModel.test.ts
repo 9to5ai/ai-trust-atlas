@@ -129,3 +129,15 @@ describe('rationalised source filters', () => {
     expect(nodes.every(n => filters.authorityClasses.has(n.authorityClass!))).toBe(true)
   })
 })
+
+describe('source facet filters', () => {
+  it('shows only binding sources for insurers, including instruments tagged for financial services but not purely cross-sector ones', () => {
+    const model = buildGraphModel('ontology', { ...defaultFilters(), effects: new Set(['binding-law']), sectors: new Set(['insurance']) })
+    const sources = model.nodes.filter((node) => node.kind === 'instrument').map((node) => node.id)
+    expect(sources).toContain('instrument:apra-cps-230')
+    expect(sources).toContain('instrument:au-insurance-act')
+    expect(sources).toContain('instrument:eu-ai-act')
+    expect(sources).not.toContain('instrument:iso-42001')
+    expect(sources).not.toContain('instrument:nist-ai-rmf')
+  })
+})

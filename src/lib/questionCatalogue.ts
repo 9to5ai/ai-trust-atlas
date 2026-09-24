@@ -11,6 +11,7 @@ export const starterConcepts: Record<Audience,string[]> = {
  board:['accountability','inventory','materiality','human-oversight','third-party-risk'],
  executive:['inventory','decision-rights','risk-treatment','continuous-monitoring','incident-response'],
  regulator:['accountability','impact-assessment','human-oversight','evaluation','auditability'],
+ assurance:['assurance','evidence-quality','auditability','traceability','model-risk'],
 }
 export const topicNames: Record<string,string> = {governance:'Accountability and governance',risk:'Risk and impact',lifecycle:'Lifecycle and change',data:'Data and privacy',transparency:'Transparency and challenge',fairness:'Fairness and human oversight',security:'Security',resilience:'Reliability and resilience','third-party':'AI suppliers',testing:'Testing and evaluation',evidence:'Evidence and assurance',agentic:'AI agents'}
 export type CatalogueEntry = { question: Question; topics: string[]; nodeId: string; useCase?: UseCase; incident?: Incident; development?: typeof developments[number] }

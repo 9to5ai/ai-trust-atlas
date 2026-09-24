@@ -9,6 +9,8 @@ beforeEach(()=>{HTMLDialogElement.prototype.showModal=function(){this.setAttribu
 it('filters production cards and shortlists a role question without opening a node',()=>{
  const explore=vi.fn();render(<QuestionsProvider><UseCasesView active onExplore={explore} onShowUniverse={vi.fn()}/></QuestionsProvider>)
  fireEvent.click(screen.getByRole('button',{name:'Detect fraud & manage risk'}))
+ expect(screen.getByRole('status')).toHaveTextContent('2 documented deployments')
+ fireEvent.change(screen.getByPlaceholderText('Company or use case'),{target:{value:'Commonwealth'}})
  expect(screen.getByRole('status')).toHaveTextContent('1 documented deployment')
  fireEvent.click(screen.getByRole('button',{name:'Executive'}))
  fireEvent.click(screen.getByText('Question for Executive'))

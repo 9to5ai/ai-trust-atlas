@@ -6,7 +6,7 @@ Status: initial collection implemented for user review. **No monitoring schedule
 
 Require a named operator, a specific workflow, an original public account and an explicit statement of operating deployment. A launch announcement alone is insufficient if it only describes future availability. Prefer operator disclosures, annual reports and earnings material; supplier testimonials alone remain leads. Production, pilot, announced and retired are separate statuses. Default browsing includes production only.
 
-Evidence authority is claim-specific: a company can report its deployment, but that does not independently establish performance, impact or effective safeguards. The first ten records are all labelled company-reported; none claims independent corroboration. Do not rank companies or infer maturity from brand size.
+Evidence authority is claim-specific: a company can report its deployment, but that does not independently establish performance, impact or effective safeguards. All sixteen records (ten initial snapshots plus six added in the September 2026 ontology review, drafted for editorial review) are labelled company-reported; none claims independent corroboration. Do not rank companies or infer maturity from brand size.
 
 ## Record and connect
 

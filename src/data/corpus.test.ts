@@ -201,3 +201,14 @@ describe('two-axis concept model (ontology review)', () => {
     }
   })
 })
+
+describe('ontology review outcomes', () => {
+  it('gives every concept section-level evidence', () => {
+    const sectionConcepts = new Set(instruments.flatMap((source) => source.provisions.flatMap((provision) => provision.conceptIds)))
+    expect(concepts.filter((concept) => !sectionConcepts.has(concept.id)).map((concept) => concept.id)).toEqual([])
+  })
+  it('keeps a meaningful share of connections source-based', () => {
+    const sourceBased = mappingAssertions.filter((assertion) => assertion.basis !== 'atlas-synthesis').length
+    expect(sourceBased / mappingAssertions.length).toBeGreaterThan(0.12)
+  })
+})

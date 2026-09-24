@@ -1,0 +1,111 @@
+@layer components {
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .item {
+    display: grid;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+  }
+  .modality {
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+  }
+  .must {
+    color: var(--signal);
+    background: var(--signal-soft);
+  }
+  .should {
+    color: var(--aurora);
+    background: var(--aurora-soft);
+  }
+  .may {
+    color: var(--text-secondary);
+  }
+  .ref {
+    font-family: var(--font-mono);
+  }
+  .source {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-secondary);
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+  .source:hover {
+    color: var(--signal);
+  }
+  .date {
+    margin-left: auto;
+  }
+  .title {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .summary {
+    margin: 0;
+    font-size: var(--step--1);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .meta {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .controls button {
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 11.5px;
+    cursor: pointer;
+  }
+  .controls button:hover {
+    border-color: color-mix(in srgb, var(--signal) 50%, transparent);
+    color: var(--text-primary);
+  }
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11.5px;
+  }
+  .foot a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--signal);
+  }
+}

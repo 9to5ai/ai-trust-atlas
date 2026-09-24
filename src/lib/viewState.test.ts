@@ -37,3 +37,13 @@ describe('retired concept links', () => {
     expect(readView(new URL('https://atlas.example/universe#/concept/adversarial-risk'), 2026).selected).toBe('concept:ai-security')
   })
 })
+
+describe('legal effect and sector filters', () => {
+  it('round-trip through the URL and ignore unknown values', () => {
+    const view = readView(new URL('https://atlas.example/universe?effect=binding-law&effect=bogus&sector=insurance&sector=nope'), 2026)
+    expect(view.effects).toEqual(['binding-law'])
+    expect(view.sectors).toEqual(['insurance'])
+    expect(viewUrl(view)).toContain('effect=binding-law')
+    expect(viewUrl(view)).toContain('sector=insurance')
+  })
+})

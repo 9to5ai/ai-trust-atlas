@@ -1,13 +1,18 @@
 import { concepts } from './concepts'
 import { instruments } from './instruments'
 import type { Development } from './developments'
-export const audiences = ['board', 'executive', 'regulator'] as const
-export type Audience = typeof audiences[number]
-export const audienceNames: Record<Audience, string> = { board: 'Board', executive: 'Executive', regulator: 'Regulator' }
+import { assuranceConceptQuestions, assuranceDevelopmentQuestions } from './assuranceQuestions'
+export type Audience = 'board' | 'executive' | 'regulator' | 'assurance'
+/* Audiences offered in the interface. Every question set must cover each one (questions:check). */
+export const audiences: readonly Audience[] = ['board', 'executive', 'regulator', 'assurance']
+export const audienceNames: Record<Audience, string> = { board: 'Board', executive: 'Executive', regulator: 'Regulator', assurance: 'Internal audit & assurance' }
+/* Board, executive and regulator texts are authored inline; assurance texts live in assuranceQuestions.ts. */
+export type CoreAudience = Exclude<Audience, 'assurance'>
 export type Question = { id: string; audience: Audience; context: string; text: string; why: string; askFor: string; followUp: string; sources: { title: string; url: string }[]; developmentDate?: string; basis?: string }
 type ConceptPrompt = { conceptId: string; questions: Record<Audience, string>; why: string; askFor: string; followUp: string }
+type AuthoredConceptPrompt = Omit<ConceptPrompt, 'questions'> & { questions: Record<CoreAudience, string> }
 // Atlas-authored discussion prompts. References provide context, not verbatim questions or findings of compliance.
-export const conceptPrompts: ConceptPrompt[] = [
+const authoredConceptPrompts: AuthoredConceptPrompt[] = [
   {
     "conceptId": "accountability",
     "questions": {
@@ -537,6 +542,7 @@ export const conceptPrompts: ConceptPrompt[] = [
     "followUp": "Which open security finding did we accept to meet a launch date?"
   }
 ]
+export const conceptPrompts: ConceptPrompt[] = authoredConceptPrompts.map((prompt) => ({ ...prompt, questions: { ...prompt.questions, assurance: assuranceConceptQuestions[prompt.conceptId] ?? '' } }))
 const sourcePreference = ['apra-ai-letter-2026', 'dta-agentic-addendum', 'nist-ai-rmf', 'eu-ai-act', 'csa-aicm-1-1']
 export function questionForConcept(id: string, audience: Audience): Question | undefined {
   const prompt = conceptPrompts.find(p => p.conceptId === id)
@@ -555,7 +561,8 @@ export function questionsForContext(kind: 'concept' | 'domain', id: string, audi
   return ids.flatMap(cid => { const q = questionForConcept(cid,audience); return q ? [q] : [] })
 }
 
-export const developmentPrompts: Record<string, { questions: Record<Audience,string>; askFor: string; followUp: string }> = {
+type DevelopmentPrompt = { questions: Record<Audience,string>; askFor: string; followUp: string }
+const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questions'> & { questions: Record<CoreAudience,string> }> = {
   "canada-ai-register-feedback": {
   "questions": {
     "board": "Does our inventory show where AI changes decisions and who remains accountable?",
@@ -748,6 +755,7 @@ export const developmentPrompts: Record<string, { questions: Record<Audience,str
     "followUp": "Which newly considered scenario has changed a deployment or control decision?"
   }
 }
+export const developmentPrompts: Record<string, DevelopmentPrompt> = Object.fromEntries(Object.entries(authoredDevelopmentPrompts).map(([id, prompt]) => [id, { ...prompt, questions: { ...prompt.questions, assurance: assuranceDevelopmentQuestions[id] ?? '' } }]))
 export function questionForDevelopment(item: Development, audience: Audience): Question | undefined {
   const prompt = developmentPrompts[item.id]
   if (!prompt) return undefined

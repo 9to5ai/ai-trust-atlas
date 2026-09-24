@@ -1,3 +1,5 @@
+import { legalEffectLabels, matchesSourceFacets, sectorLabels } from '../../data/sourceMetadata'
+import type { LegalEffect, SectorId } from '../../types'
 import { UseCasesView } from '../../components/UseCasesView'
 import { QuestionsView } from '../../components/QuestionsView'
 import { pathForView, readView, viewUrl, type AtlasView } from '../../lib/viewState'
@@ -42,6 +44,8 @@ export function UniverseWorkspace() {
   const [query, setQuery] = useState(initialView.query)
   const [authorityClasses, setAuthorityClasses] = useState<Set<AuthorityClass>>(() => new Set(initialView.authorities))
   const [regions, setRegions] = useState<Set<Instrument['region']>>(() => new Set(initialView.regions))
+  const [effects, setEffects] = useState<Set<LegalEffect>>(() => new Set(initialView.effects ?? []))
+  const [sectors, setSectors] = useState<Set<SectorId>>(() => new Set(initialView.sectors ?? []))
   const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialView.selected)
   const [mobileControls, setMobileControls] = useState(false)
   const [showTime, setShowTime] = useState(() => new URLSearchParams(window.location.search).get('panel') === 'news')
@@ -70,17 +74,17 @@ export function UniverseWorkspace() {
       const matchesRegion = regions.size === 0 || regions.has(instrument.region)
       const year = Number.parseInt(instrument.published, 10)
       const matchesTime = !Number.isFinite(year) || year <= timeCutoff
-      return matchesQuery && matchesAuthority && matchesRegion && matchesTime
+      return matchesQuery && matchesAuthority && matchesRegion && matchesTime && matchesSourceFacets(instrument, effects, sectors)
     })
-  }, [authorityClasses, query, regions, timeCutoff])
+  }, [authorityClasses, query, regions, timeCutoff, effects, sectors])
 
   const focusEligibleInstruments = useMemo(() => instruments.filter((instrument) => {
     const matchesAuthority = authorityClasses.size === 0 || authorityClasses.has(instrument.authorityClass)
     const matchesRegion = regions.size === 0 || regions.has(instrument.region)
     const year = Number.parseInt(instrument.published, 10)
     const matchesTime = !Number.isFinite(year) || year <= timeCutoff
-    return matchesAuthority && matchesRegion && matchesTime
-  }), [authorityClasses, regions, timeCutoff])
+    return matchesAuthority && matchesRegion && matchesTime && matchesSourceFacets(instrument, effects, sectors)
+  }), [authorityClasses, regions, timeCutoff, effects, sectors])
 
   const filteredRiskSubdomains = useMemo(() => {
     const normalized = query.toLowerCase().trim()
@@ -95,20 +99,20 @@ export function UniverseWorkspace() {
     return controlObjectives.filter((control) => !normalized || [control.code, control.name, control.objective, control.purpose, ...control.conceptIds].join(' ').toLowerCase().includes(normalized))
   }, [query])
 
-  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions, publishedThrough: timeCutoff }, selectedNodeId, causalLens, showIncidents, showUseCases), [showUseCases, showIncidents, authorityClasses, causalLens, layout, query, regions, selectedNodeId, timeCutoff])
+  const graphModel = useMemo(() => buildGraphModel(layout, { query, authorityClasses, regions, effects, sectors, publishedThrough: timeCutoff }, selectedNodeId, causalLens, showIncidents, showUseCases), [effects, sectors, showUseCases, showIncidents, authorityClasses, causalLens, layout, query, regions, selectedNodeId, timeCutoff])
 
-  const currentView = (): AtlasView => ({useCases:showUseCases,incidents:showIncidents,selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], year:timeCutoff, anchor:focusAnchorId})
+  const currentView = (): AtlasView => ({useCases:showUseCases,incidents:showIncidents,selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], effects:[...effects], sectors:[...sectors], year:timeCutoff, anchor:focusAnchorId})
   const rememberView = () => setTrail(items => [...items, {...currentView(), scroll:document.querySelector('.outline-scroll')?.scrollTop ?? 0, pose:graphNavigation.current?.capture()}].slice(-30))
   const restoreView = (view: AtlasView) => {
     setShowUseCases(view.useCases??false); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
-    setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
+    setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setEffects(new Set(view.effects ?? [])); setSectors(new Set(view.sectors ?? [])); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
   }
   const goBack = (index = trail.length-1) => {
     const view=trail[index]; if(!view)return
     restoreView(view); setTrail(items=>items.slice(0,index))
     requestAnimationFrame(()=>{ if(view.pose)graphNavigation.current?.restore(view.pose); const list=document.querySelector('.outline-scroll'); if(list)list.scrollTop=view.scroll })
   }
-  const clearFilters = () => {setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear)}
+  const clearFilters = () => {setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setEffects(new Set());setSectors(new Set());setTimeCutoff(maximumPublicationYear)}
   const selectNode = (nodeId?: string) => {
     if(nodeId !== selectedNodeId) rememberView()
     if(nodeId?.startsWith('use-case:')){setLayout('ontology');setProjection('atlas');setNewsFocus(n=>n+1)}
@@ -172,7 +176,7 @@ export function UniverseWorkspace() {
     return () => window.removeEventListener('keydown', handler)
   }, [])
   const openFromSearch = (nodeId: string) => {
-    setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear)
+    setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set());setEffects(new Set());setSectors(new Set()); setTimeCutoff(maximumPublicationYear)
     if (projection === 'list') setLayout(nodeId.startsWith('risk-') ? 'risk' : nodeId.startsWith('control-') ? 'controls' : 'ontology')
     setSearchOpen(false); selectNode(nodeId)
   }
@@ -193,7 +197,7 @@ export function UniverseWorkspace() {
     restoringFromUrl.current = false
     if (next === window.location.pathname + window.location.search + window.location.hash) return
     window.history[push ? 'pushState' : 'replaceState'](null, '', next)
-  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, timeCutoff, focusAnchorId, showIncidents, showUseCases, tour])
+  }, [selectedNodeId, layout, projection, query, authorityClasses, regions, effects, sectors, timeCutoff, focusAnchorId, showIncidents, showUseCases, tour])
   useEffect(() => {
     const restore=()=>{if(!universeRoutes.includes(window.location.pathname))return;restoringFromUrl.current=true;restoreView(readView(new URL(window.location.href),maximumPublicationYear));setTour(readTour(new URL(window.location.href)));setTrail([])}
     window.addEventListener('popstate',restore);window.addEventListener('hashchange',restore)
@@ -213,6 +217,9 @@ export function UniverseWorkspace() {
     else next.add(region)
     return next
   })
+  const toggleIn = <T,>(set: (update: (current: Set<T>) => Set<T>) => void) => (value: T) => set((current) => { const next = new Set(current); if (next.has(value)) next.delete(value); else next.add(value); return next })
+  const toggleEffect = toggleIn<LegalEffect>(setEffects)
+  const toggleSector = toggleIn<SectorId>(setSectors)
 
   const selectedGraphNode = selectedNodeId ? graphModel.nodes.find((node) => node.id === selectedNodeId) : undefined
   const temporalActive = timeCutoff < maximumPublicationYear
@@ -237,6 +244,10 @@ export function UniverseWorkspace() {
             onToggleAuthority={toggleAuthority}
             regions={regions}
             onToggleRegion={toggleRegion}
+            effects={effects}
+            onToggleEffect={toggleEffect}
+            sectors={sectors}
+            onToggleSector={toggleSector}
             results={filteredInstruments}
             onSelectInstrument={(id) => { selectNode(`instrument:${id}`); setMobileControls(false) }}
             riskResults={filteredRiskSubdomains}
@@ -255,6 +266,10 @@ export function UniverseWorkspace() {
           onToggleAuthority={toggleAuthority}
           regions={regions}
           onToggleRegion={toggleRegion}
+          effects={effects}
+          onToggleEffect={toggleEffect}
+          sectors={sectors}
+          onToggleSector={toggleSector}
           results={filteredInstruments}
           onSelectInstrument={(id) => selectNode(`instrument:${id}`)}
           riskResults={filteredRiskSubdomains}
@@ -268,11 +283,13 @@ export function UniverseWorkspace() {
           <div className="view-actions">
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
           </div>
-          {(query||((layout==='ontology'||layout==='authority')&&(authorityClasses.size>0||regions.size>0||temporalActive)))&&<div className="active-filters" aria-label="Active filters">
+          {(query||((layout==='ontology'||layout==='authority')&&(authorityClasses.size>0||regions.size>0||effects.size>0||sectors.size>0||temporalActive)))&&<div className="active-filters" aria-label="Active filters">
             {query&&<button onClick={()=>setQuery('')} aria-label="Remove search filter">“{query}” <X/></button>}
             {(layout==='ontology'||layout==='authority')&&<>
               {[...authorityClasses].map(a=><button key={a} onClick={()=>toggleAuthority(a)} aria-label={`Remove ${authorityLabels[a]} filter`}>{authorityLabels[a]} <X/></button>)}
               {[...regions].map(r=><button key={r} onClick={()=>toggleRegion(r)} aria-label={`Remove ${r} filter`}>{r} <X/></button>)}
+              {[...effects].map(e=><button key={e} onClick={()=>toggleEffect(e)} aria-label={`Remove ${legalEffectLabels[e]} filter`}>{legalEffectLabels[e]} <X/></button>)}
+              {[...sectors].map(x=><button key={x} onClick={()=>toggleSector(x)} aria-label={`Remove ${sectorLabels[x]} filter`}>{sectorLabels[x]} <X/></button>)}
               {temporalActive&&<button onClick={()=>setTimeCutoff(maximumPublicationYear)}>Through {timeCutoff} <X/></button>}
             </>}
             <button onClick={clearFilters}>Clear all</button>
@@ -288,7 +305,7 @@ export function UniverseWorkspace() {
           {activeTour && tour && <TourPlayer tour={activeTour} step={tour.step} onStep={(step) => setTour({ id: activeTour.id, step: Math.max(0, Math.min(activeTour.steps.length - 1, step)) })} onExit={() => setTour(undefined)} />}
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
-          <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
+          <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setEffects(new Set());setSectors(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} />
           <AnimatePresence mode="wait">
             {projection === 'focus' && focusAnchorId && (
@@ -344,7 +361,7 @@ export function UniverseWorkspace() {
 
       {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/>}
 
-      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} />
+      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set());setEffects(new Set());setSectors(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} />
 
     </main>
   )

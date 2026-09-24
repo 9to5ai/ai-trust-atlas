@@ -8,16 +8,16 @@ import { conceptPrompts, questionsForContext, type Audience, type Question } fro
 import { controlQuestions, riskQuestions, sourceQuestions, type RoleQuestions } from './nodeQuestionPrompts'
 import type { AuthorityClass, GraphNodeKind, Instrument, SourceProvision } from '../types'
 
-const roles = (board: string, executive: string, regulator: string): RoleQuestions => ({ board, executive, regulator })
+const roles = (board: string, executive: string, regulator: string, assurance: string): RoleQuestions => ({ board, executive, regulator, assurance })
 const scopeQuestions: Record<AuthorityClass, RoleQuestions> = {
-  law: roles('Who has confirmed which obligations apply to us and which decisions need board attention?', 'Which applicable obligations have an owner, a deadline and evidence of follow-through?', 'What supports the entity’s assessment of its obligations, including exclusions and effective dates?'),
-  treaty: roles('How could these commitments affect our organisation through domestic implementation?', 'Which domestic measures should we track before changing our operating requirements?', 'How are treaty commitments distinguished from duties that already apply domestically?'),
-  'policy-guidance': roles('Which recommendations should influence our decisions, and what has management prioritised?', 'Which recommendations fit our activities, and what work follows from that assessment?', 'How has the organisation considered this guidance within the issuer’s remit and its own context?'),
-  standard: roles('Why is this standard an appropriate reference for our AI use and assurance needs?', 'Which parts have we adopted, and do we have access to the exact requirements and current edition?', 'What is the basis and scope of any claim made against this standard?'),
-  'assurance-standard': roles('What level of assurance do we need over AI, from whom, and what would a report actually conclude on?', 'Which subject matter, criteria and evidence would an assurance practitioner need from us, and are they ready?', 'What does the assurance report cover, against which criteria, and what does it expressly not conclude on?'),
-  framework: roles('Which decisions does this framework help us make, and what does it leave unresolved?', 'Which outcomes have been translated into practical responsibilities and review activities?', 'How has the organisation adapted this framework and identified what its use does not establish?'),
-  'testing-tool': roles('What deployment decisions could this resource inform, and what would it fail to tell us?', 'Which test conditions, limitations and maintenance needs must we check before using it?', 'How do results from this resource relate to the actual deployment environment?'),
-  'research-database': roles('Which findings are relevant enough to change our questions or commission further work?', 'Which findings can we investigate in our environment, and what evidence would we need?', 'How has the organisation distinguished research findings from evidence about its own systems?'),
+  law: roles('Who has confirmed which obligations apply to us and which decisions need board attention?', 'Which applicable obligations have an owner, a deadline and evidence of follow-through?', 'What supports the entity’s assessment of its obligations, including exclusions and effective dates?', 'Which obligations would form suitable criteria for an assurance engagement, and has their applicability been evidenced?'),
+  treaty: roles('How could these commitments affect our organisation through domestic implementation?', 'Which domestic measures should we track before changing our operating requirements?', 'How are treaty commitments distinguished from duties that already apply domestically?', 'Which domestic implementing measures, if any, could be used as audit criteria today?'),
+  'policy-guidance': roles('Which recommendations should influence our decisions, and what has management prioritised?', 'Which recommendations fit our activities, and what work follows from that assessment?', 'How has the organisation considered this guidance within the issuer’s remit and its own context?', 'Has management documented which recommendations it adopted, so we can test against a stated position rather than the whole text?'),
+  standard: roles('Why is this standard an appropriate reference for our AI use and assurance needs?', 'Which parts have we adopted, and do we have access to the exact requirements and current edition?', 'What is the basis and scope of any claim made against this standard?', 'Do we have the current edition, and which clauses are in scope for any claim we are asked to assure?'),
+  'assurance-standard': roles('What level of assurance do we need over AI, from whom, and what would a report actually conclude on?', 'Which subject matter, criteria and evidence would an assurance practitioner need from us, and are they ready?', 'What does the assurance report cover, against which criteria, and what does it expressly not conclude on?', 'What subject matter, criteria and level of assurance would an engagement use, and what would the report not cover?'),
+  framework: roles('Which decisions does this framework help us make, and what does it leave unresolved?', 'Which outcomes have been translated into practical responsibilities and review activities?', 'How has the organisation adapted this framework and identified what its use does not establish?', 'Which framework outcomes has management adopted as its own criteria, and how would we test they operated?'),
+  'testing-tool': roles('What deployment decisions could this resource inform, and what would it fail to tell us?', 'Which test conditions, limitations and maintenance needs must we check before using it?', 'How do results from this resource relate to the actual deployment environment?', 'Can we re-perform or independently inspect the results, and what do they not evidence about operation over time?'),
+  'research-database': roles('Which findings are relevant enough to change our questions or commission further work?', 'Which findings can we investigate in our environment, and what evidence would we need?', 'How has the organisation distinguished research findings from evidence about its own systems?', 'Is any finding being used as evidence of our own control operation, and is that reliance justified?'),
 }
 
 const followOnConcepts: Record<string, string> = {
@@ -44,14 +44,13 @@ function scopeQuestion(source: Instrument, audience: Audience, section?: SourceP
   const text = section ? roles(
     'Which decisions or practices should this section cause us to examine?',
     'How have we translated the relevant points in this section into work and ownership?',
-    'How has the organisation assessed the relevance of this section, including any limits?'
-  )[audience] : scopeQuestions[source.authorityClass][audience]
+    'How has the organisation assessed the relevance of this section, including any limits?', 'What evidence would show this section was assessed, and could we re-perform that assessment?')[audience] : scopeQuestions[source.authorityClass][audience]
   return make(kind, section?.id ?? source.id, 'scope', audience, {
     context, text, sources: sourceRefs(source, section),
     basis: section?.summary ?? source.summary,
     why: `${source.authorityNote} ${source.applicability} Confirm the version and scope before deciding what action is appropriate.`,
     askFor: section ? `An assessment of ${section.ref} (${section.title}), with the relevant decisions, responsible people and supporting records. Consult the original text for exact wording.` : `A documented assessment of ${source.shortTitle}, including relevant activities, source version, adoption or applicability decisions, owners and unresolved questions.`,
-    followUp: roles('Which unresolved point needs a decision, and by when?', 'Which action is still unowned or depends on an assumption we have not checked?', 'What evidence would change the organisation’s current interpretation?')[audience],
+    followUp: roles('Which unresolved point needs a decision, and by when?', 'Which action is still unowned or depends on an assumption we have not checked?', 'What evidence would change the organisation’s current interpretation?', 'Which conclusion here rests on management assertion alone rather than evidence we can test?')[audience],
   })
 }
 
@@ -89,7 +88,7 @@ function questionsForSource(source: Instrument, audience: Audience, section?: So
     context, text: curated[audience], basis: source.summary,
     why: `This question explores the implications of ${source.shortTitle} for the organisation’s AI use. ${source.authorityNote}`,
     askFor: `The relevant assessment and decisions for ${source.shortTitle}, with named owners, supporting records and unresolved findings.`,
-    followUp: roles('Which gap needs the board’s attention rather than routine management action?', 'What remains untested or unowned, and when will it be addressed?', 'Which part of the organisation’s account is least supported by evidence?')[audience],
+    followUp: roles('Which gap needs the board’s attention rather than routine management action?', 'What remains untested or unowned, and when will it be addressed?', 'Which part of the organisation’s account is least supported by evidence?', 'Which part of management\'s account could we not re-perform or corroborate with independent evidence?')[audience],
     sources: sourceRefs(source),
   })] : []
   return [...targeted, ...mapped, scopeQuestion(source, audience, section)]
@@ -107,7 +106,7 @@ function questionsForRisk(id: string, audience: Audience): Question[] {
     askFor: `A scenario for ${risk.name.toLowerCase()}, identifying affected people or services, relevant AI uses, assumptions and observed evidence.`,
     followUp: 'Which assumption matters most, and what observation would change the assessment?', sources,
   }), make('risk-subdomain', id, 'response', audience, {
-    context: risk.name, text: roles('Who owns our response to this risk, and what would cause us to change course?', 'How would we detect this risk becoming an incident, and who could intervene?', 'What evidence supports the proposed response, and what uncertainty remains?')[audience],
+    context: risk.name, text: roles('Who owns our response to this risk, and what would cause us to change course?', 'How would we detect this risk becoming an incident, and who could intervene?', 'What evidence supports the proposed response, and what uncertainty remains?', 'What evidence shows the response to this risk operated over the period, not just that it was designed?')[audience],
     basis: risk.definition,
     why: 'A risk-to-control link suggests a response to examine. The organisation still needs to decide relevance, test its response and address gaps.',
     askFor: `${concept?.askFor ?? 'The scenario assessment and supporting observations.'} Include the response owner, escalation triggers and results of any relevant tests.`,
@@ -125,7 +124,7 @@ function questionsForControl(id: string, audience: Audience): Question[] {
     askFor: `Examples to examine: ${control.evidenceExamples.join('; ')}. Check what the records demonstrate, including failures and gaps.`,
     followUp: 'When did this practice last fail a test or require an exception, and what changed afterwards?', sources,
   }), make('control-objective', id, 'ownership', audience, {
-    context: control.name, text: roles('Who is answerable for this control, and how do unresolved failures reach us?', 'Who operates, tests and repairs this control when the system or its use changes?', 'How are responsibility, exceptions and independent challenge evidenced for this control?')[audience],
+    context: control.name, text: roles('Who is answerable for this control, and how do unresolved failures reach us?', 'Who operates, tests and repairs this control when the system or its use changes?', 'How are responsibility, exceptions and independent challenge evidenced for this control?', 'What evidence shows this control operated over the period, and who independently tested it?')[audience],
     basis: control.objective,
     why: `Possible responsibilities include ${control.roleArchetypes.join(', ')}. Named people still need sufficient authority and resources to act.`,
     askFor: `The ownership and exception records for ${control.shortName.toLowerCase()}, plus recent results from the ${control.lifecycleStages.join(', ').toLowerCase()} stages that apply.`,

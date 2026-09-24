@@ -1,3 +1,5 @@
+import { matchesSourceFacets } from '../data/sourceMetadata'
+import type { LegalEffect, SectorId } from '../types'
 import { useCases, useCasesForNode } from '../data/useCases'
 import { incidents } from '../data/incidents'
 import { mappingAssertionById, mappingAssertions } from '../data/assertions'
@@ -15,6 +17,8 @@ export type GraphFilters = {
   query: string
   authorityClasses: Set<AuthorityClass>
   regions: Set<Instrument['region']>
+  effects?: Set<LegalEffect>
+  sectors?: Set<SectorId>
   publishedThrough?: number
 }
 
@@ -57,7 +61,7 @@ const instrumentVisible = (instrument: Instrument, filters: GraphFilters) => {
   const regionVisible = filters.regions.size === 0 || filters.regions.has(instrument.region)
   const publishedYear = Number.parseInt(instrument.published, 10)
   const timeVisible = filters.publishedThrough === undefined || !Number.isFinite(publishedYear) || publishedYear <= filters.publishedThrough
-  return authorityVisible && regionVisible && timeVisible && includesQuery(instrument, filters.query)
+  return authorityVisible && regionVisible && timeVisible && matchesSourceFacets(instrument, filters.effects ?? new Set(), filters.sectors ?? new Set()) && includesQuery(instrument, filters.query)
 }
 
 const edgeFromAssertion = (assertion: MappingAssertion, semanticFamily: GraphEdge['semanticFamily']): GraphEdge => ({

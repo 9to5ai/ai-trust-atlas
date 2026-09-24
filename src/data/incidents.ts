@@ -1,5 +1,7 @@
 import { reviewIncidents } from './incidentsReview'
-import type { Audience, Question } from './leadershipQuestions'
+import type { Audience, CoreAudience, Question } from './leadershipQuestions'
+import { assuranceIncidentPrompts } from './assuranceQuestions'
+import { reviewIncidentAssurancePrompts } from './incidentsReview'
 
 export type Incident = {
  id:string; title:string; shortTitle:string; occurred:string; disclosed:string; updated:string; reviewed:string;
@@ -8,7 +10,7 @@ export type Incident = {
  sources:{title:string;url:string;role:string}[];
  findings:{text:string;source:number}[]; limitations:string;
  connections:{conceptId:string;controlId:string;reason:string;practice:string}[];
- prompts:Record<Audience,{text:string;askFor:string;followUp:string}>;
+ prompts:Record<CoreAudience,{text:string;askFor:string;followUp:string}>&Partial<Record<'assurance',{text:string;askFor:string;followUp:string}>>;
 }
 const baseIncidents:Incident[]=[{
  classification:'Evaluation with real-world impact',disclosureLabel:'OpenAI disclosure',reviewScope:'Report overviews reviewed; technical report and raw transcripts were not independently re-audited by the Atlas.',
@@ -208,10 +210,11 @@ const baseIncidents:Incident[]=[{
     }
   }
 }]
-export const incidents:Incident[]=[...baseIncidents,...reviewIncidents]
+const assuranceFor=(id:string)=>assuranceIncidentPrompts[id]??reviewIncidentAssurancePrompts[id]
+export const incidents:Incident[]=[...baseIncidents,...reviewIncidents].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
 export const incidentById=new Map(incidents.map(i=>[i.id,i]))
 export function incidentQuestion(item:Incident,audience:Audience):Question {
- const prompt=item.prompts[audience]
+ const prompt=item.prompts[audience]??{text:'',askFor:'',followUp:''}
  return {id:`incident:${item.id}:${audience}`,audience,context:item.shortTitle,...prompt,why:item.implication,basis:'Atlas-authored discussion prompt informed by the incident reports. Suggested practices are not findings about the affected organisations or proof of prevention.',sources:item.sources.map(({title,url})=>({title,url}))}
 }
 export function incidentsForNode(kind:string,id:string) {

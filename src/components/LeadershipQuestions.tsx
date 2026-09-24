@@ -56,7 +56,7 @@ export function QuestionsProvider({children}: {children: ReactNode}) {
 
 export function AudiencePicker() {
   const {audience,setAudience,selected,openBrief} = useBrief()
-  return <div className="question-tools"><div className="question-audiences" role="group" aria-label="Question audience">{audiences.map(role=><button key={role} aria-pressed={audience===role} onClick={()=>setAudience(role)}>{audienceNames[role]}</button>)}</div>{selected.length>0 && <button className="questions-view-brief" onClick={openBrief}>Brief · {selected.length}</button>}</div>
+  return <div className="question-tools"><div className="question-audiences" role="group" aria-label="Question audience">{audiences.map(role=><button key={role} aria-pressed={audience===role} onClick={()=>setAudience(role)} aria-label={audienceNames[role]} title={audienceNames[role]}>{role==='assurance'?'Assurance':audienceNames[role]}</button>)}</div>{selected.length>0 && <button className="questions-view-brief" onClick={openBrief}>Brief · {selected.length}</button>}</div>
 }
 function QuestionDetail({question:q}: {question:Question}) {
   return <div className="question-detail">{q.basis && <><h4>Connection to this item</h4><p>{q.basis}</p></>}<h4>Why ask?</h4><p>{q.why}</p><h4>What to ask for</h4><p>{q.askFor}</p><h4>If the answer is vague…</h4><p>{q.followUp}</p><h4>Related references</h4><ul>{q.sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.title} ↗</a></li>)}</ul></div>

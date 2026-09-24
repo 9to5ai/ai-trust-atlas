@@ -28,13 +28,13 @@ The initial audience is regulators, boards and executive leaders, with particula
 
 | Area | Purpose |
 |---|---|
-| **Universe** | The start page. A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Includes guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
-| **Questions** | Board, executive and regulator questions, built into a meeting brief |
+| **Universe** | The start page. A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Filter sources by type, legal effect, who they apply to (banks, insurers, super, public sector and more) and region. Source and section details show **what each source requires**, of whom and by when, with candidate controls. Includes five guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
+| **Questions** | Board, executive, regulator and internal audit & assurance questions, built into a meeting brief |
 | **Use cases** | Documented production deployments with the questions each one raises |
 
 One theme, **Observatory** (dark); printing uses a light palette. Press **Present** (or `S`) to fill the screen with the Universe for projectors and screen shares, pick a guided tour, and press `Esc` to finish.
 
-At this snapshot the corpus holds 104 sources across nine regions (including Hong Kong and Japan), with seven assurance standards, 40 trust concepts, the MIT risk taxonomy (7 domains, 24 risk types) and 24 candidate control objectives. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
+At this snapshot the corpus holds 109 sources across eleven regions, with seven assurance standards; 48 trust concepts in 12 domains on two axes (trust objectives and governance capabilities); 144 source requirements; one published crosswalk (NIST AI RMF ↔ ISO/IEC 42001, 37 section pairings); the MIT risk taxonomy (7 domains, 24 risk types); 24 candidate control objectives; 8 incidents and 16 production use cases. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
 
 ## Architecture at a glance
 
@@ -64,6 +64,7 @@ The application is fully static. There is no server function, model call, crawle
 | Contracts | [`src/types.ts`](src/types.ts) | Instruments, concepts, provisions, risks, controls, citations, assertions and graph nodes |
 | Source corpus | [`src/data/instruments.ts`](src/data/instruments.ts), regional/source modules and dated refresh modules | Compose the canonical source array; apply targeted corrections and section additions |
 | Ontology | [`src/data/concepts.ts`](src/data/concepts.ts), [`controls.ts`](src/data/controls.ts), [`mitRiskTaxonomy.ts`](src/data/mitRiskTaxonomy.ts) | Topics, shared concepts, risk taxonomy and candidate control objectives |
+| Requirements and crosswalks | [`src/data/requirements/`](src/data/requirements/), [`crosswalks.ts`](src/data/crosswalks.ts) | What each source expects, of whom and by when; section pairings from published crosswalks |
 | Relationships | [`src/data/relations.ts`](src/data/relations.ts), [`assertions.ts`](src/data/assertions.ts) | Source-to-source links, typed assertions, explanations and ranked risk paths |
 | Navigation models | [`src/lib/graphModel.ts`](src/lib/graphModel.ts), [`outlineModel.ts`](src/lib/outlineModel.ts), [`workspace.ts`](src/lib/workspace.ts) | Filtered graph, deterministic coordinates, tree appearances, search and bounded path exploration |
 | App shell and routes | [`src/App.tsx`](src/App.tsx), [`src/app/`](src/app/) | Page routes (`/universe`, `/questions`, `/cases`; `/` opens the Universe), section navigation, presenting mode and legacy-link redirects (retired `/library`, `/ask` and `/methodology` links open the Universe) |
@@ -113,10 +114,22 @@ flowchart TD
   Control[Candidate control objective] -->|supports| Concept
   Control -->|may address| Risk
   Control -->|synthesised from| Source
+  Section -->|states| Requirement[Requirement: who, must/should, from when]
+  Requirement -->|requires| Concept
+  Control -.->|candidate way to meet| Requirement
+  Section -->|published crosswalk| OtherSection[Section of another source]
   Source -->|typed legal or other relation| Other[Another source]
   Event[Development] -->|references| Source
   Event -->|tagged with| Topic
 ```
+
+### Concepts sit on two axes
+
+Every concept is either a **trust objective** (what trustworthy AI achieves, such as privacy, consumer outcomes or AI security) or a **governance capability** (what an organisation does to get there, such as model risk management, human oversight or independent assurance). Outcome domains share one arc of the Universe and capability domains the other. Controls and risks are separate layers; concepts do not duplicate them. Concepts retired in the September 2026 review (adversarial risk, tool use, intervention) redirect to the concept that absorbed them. "Accountability" is linked at source level only where a section supports it.
+
+### Requirements record what a source expects
+
+A `Requirement` ([`src/data/requirements/`](src/data/requirements/)) captures one expectation in a source section: who it applies to (providers, deployers, regulated entities, boards and so on), whether the source says must, should or may, when it applies, the concepts it states, and candidate control objectives that could help meet it. The requirement is paraphrased from the source, so its link to a concept is **source-authored**; its link to a control is Atlas interpretation. Requirements currently cover APRA CPS 230, 234 and 220, CPG 230, the Privacy Act, ASIC RG 234, the DTA AI policy, the FAR Act, APRA's AI letter, the EU AI Act, DORA, ISO/IEC 42001, PRA SS1/23, OSFI E-23, SR 26-2 and MAS's proposed AI risk guidelines.
 
 ### Objects have stable identities
 
@@ -169,7 +182,7 @@ Pause freezes decorative motion. Reduced-motion preferences, observed while the 
 
 ### Questions and developments
 
-The question bank is maintained in source files. `questionsForNode()` composes role-specific prompts from authored concept, risk, control and source material. Each question carries context, the question, why it matters, evidence to ask for, a follow-up and references. The build enforces coverage and distinct wording for Board, Executive and Regulator audiences.
+The question bank is maintained in source files. `questionsForNode()` composes role-specific prompts from authored concept, risk, control and source material. Each question carries context, the question, why it matters, evidence to ask for, a follow-up and references. The build enforces coverage and distinct wording for four audiences: Board, Executive, Regulator and Internal audit & assurance. Assurance prompts live in [`assuranceQuestions.ts`](src/data/assuranceQuestions.ts) and ask about criteria, evidence, testing over a period and reliance on others' work.
 
 “What’s new” reads curated development records rather than scraping the internet when opened. It filters publication dates into 30/90/120-day windows, with topic filters and links back to sources. A new source node, a newly reviewed old publication and a new real-world event are different things; old material must not become “news” merely because it was added to Git.
 
@@ -183,7 +196,7 @@ The visual design combines base styles with feature styles on a single dark colo
 
 **Source type describes form; authority depends on the claim, remit and scope.** A regulator’s binding instrument, its speech and a research paper should not inherit the same legal status because they come from a prestigious publisher.
 
-The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Assurance standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
+The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Assurance standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. Each source also carries structured metadata ([`sourceMetadata.ts`](src/data/sourceMetadata.ts)): **legal effect** (binding law, mandatory policy, supervisory expectation, voluntary or informational), **issuer type** (legislature, regulator, government agency, standard setter, intergovernmental body, industry body, professional body or research institution), a controlled list of **sectors**, and earlier versions it **replaces**. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
 
 [`sourcingPolicy.ts`](src/data/sourcingPolicy.ts) supplies one rubric to the candidate assessor:
 

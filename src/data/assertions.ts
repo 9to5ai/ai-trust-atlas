@@ -4,6 +4,8 @@ import { controlObjectives } from './controls'
 import { instruments } from './instruments'
 import { MIT_RISK_SOURCE_URL, MIT_RISK_UPDATED, riskSubdomains } from './mitRiskTaxonomy'
 import { relations } from './relations'
+import { requirements } from './requirements'
+import { crosswalkLinks, publishedCrosswalks } from './crosswalks'
 
 export const ASSERTION_MODEL_VERSION = '2026.08'
 export const ASSERTION_MODEL_VERIFIED = '2026-08-29'
@@ -39,18 +41,80 @@ const instrumentConceptAssertions = instruments.flatMap((instrument) => instrume
   inferenceDepth: 1,
 })))
 
-const provisionConceptAssertions = instruments.flatMap((instrument) => instrument.provisions.flatMap((provision) => provision.conceptIds.map((conceptId) => base({
-  id: `map:provision:${provision.id}:concept:${conceptId}`,
-  sourceNodeId: `provision:${provision.id}`,
-  predicate: 'addresses',
-  targetNodeId: `concept:${conceptId}`,
-  rationale: `${provision.ref} “${provision.title}” is associated with ${conceptById.get(conceptId)?.name ?? conceptId}.`,
-  basis: 'atlas-synthesis',
-  confidence: 'high',
-  citations: [{ sourceTitle: instrument.title, locator: provision.ref, url: provision.sourceUrl ?? instrument.officialUrl, accessedAt: provision.reviewedAt ?? instrument.lastVerified, sourceVersion: instrument.effective ?? instrument.published }],
-  createdBy: 'AI Trust Atlas',
-  inferenceDepth: 1,
-}))))
+// A section-to-concept link becomes source-authored when a recorded requirement in that section states it.
+const requirementFor = (provisionId: string, conceptId: string) => requirements.find((item) => item.provisionId === provisionId && item.conceptIds.includes(conceptId))
+const provisionConceptAssertions = instruments.flatMap((instrument) => instrument.provisions.flatMap((provision) => provision.conceptIds.map((conceptId) => {
+  const requirement = requirementFor(provision.id, conceptId)
+  return base({
+    id: `map:provision:${provision.id}:concept:${conceptId}`,
+    sourceNodeId: `provision:${provision.id}`,
+    predicate: requirement ? 'requires' : 'addresses',
+    targetNodeId: `concept:${conceptId}`,
+    rationale: requirement ? `${requirement.ref}: ${requirement.summary}` : `${provision.ref} “${provision.title}” is associated with ${conceptById.get(conceptId)?.name ?? conceptId}.`,
+    basis: requirement ? 'source-authored' : 'atlas-synthesis',
+    confidence: 'high',
+    citations: [{ sourceTitle: instrument.title, locator: requirement?.ref ?? provision.ref, url: requirement?.sourceUrl ?? provision.sourceUrl ?? instrument.officialUrl, accessedAt: requirement?.reviewedAt ?? provision.reviewedAt ?? instrument.lastVerified, sourceVersion: instrument.effective ?? instrument.published }],
+    createdBy: requirement ? 'source' : 'AI Trust Atlas',
+    inferenceDepth: requirement ? 0 : 1,
+  })
+})))
+
+// Requirements whose concepts are not already on their section (or that have no section) add their own source-authored links.
+const requirementConceptAssertions = requirements.flatMap((item) => {
+  const instrument = instruments.find((source) => source.id === item.instrumentId)
+  const provision = instrument?.provisions.find((section) => section.id === item.provisionId)
+  if (!instrument) return []
+  return item.conceptIds.filter((conceptId) => !provision?.conceptIds.includes(conceptId)).map((conceptId) => base({
+    id: `map:requirement:${item.id}:concept:${conceptId}`,
+    sourceNodeId: provision ? `provision:${provision.id}` : `instrument:${instrument.id}`,
+    predicate: 'requires',
+    targetNodeId: `concept:${conceptId}`,
+    rationale: `${item.ref}: ${item.summary}`,
+    basis: 'source-authored',
+    confidence: 'high',
+    citations: [{ sourceTitle: instrument.title, locator: item.ref, url: item.sourceUrl, accessedAt: item.reviewedAt, sourceVersion: instrument.effective ?? instrument.published }],
+    createdBy: 'source',
+    inferenceDepth: 0,
+  }))
+})
+
+// Candidate controls for a requirement are Atlas interpretation.
+const requirementControlAssertions = requirements.flatMap((item) => {
+  const instrument = instruments.find((source) => source.id === item.instrumentId)
+  if (!instrument) return []
+  const node = item.provisionId && instrument.provisions.some((section) => section.id === item.provisionId) ? `provision:${item.provisionId}` : `instrument:${instrument.id}`
+  return item.controlIds.map((controlId) => base({
+    id: `map:requirement:${item.id}:control:${controlId}`,
+    sourceNodeId: `control-objective:${controlId}`,
+    predicate: 'operationalises',
+    targetNodeId: node,
+    rationale: `A candidate way to meet ${item.ref} (${item.title}). This does not establish that the control is implemented or sufficient.`,
+    basis: 'atlas-synthesis',
+    confidence: 'medium',
+    citations: [{ sourceTitle: instrument.title, locator: item.ref, url: item.sourceUrl, accessedAt: item.reviewedAt, sourceVersion: instrument.effective ?? instrument.published }],
+    createdBy: 'AI Trust Atlas',
+    inferenceDepth: 1,
+  }))
+})
+
+// Section-to-section links taken from a published crosswalk.
+const crosswalkAssertions = crosswalkLinks.flatMap((link) => {
+  const crosswalk = publishedCrosswalks.find((item) => item.id === link.crosswalkId)
+  if (!crosswalk) return []
+  return [base({
+    id: `map:crosswalk:${link.id}`,
+    sourceNodeId: `provision:${link.from.provisionId}`,
+    predicate: 'aligns-with',
+    targetNodeId: `provision:${link.to.provisionId}`,
+    rationale: link.note ?? `${crosswalk.publisher} pairs these items in ${crosswalk.title}.`,
+    basis: 'published-crosswalk',
+    // Community crosswalks hosted without endorsement are useful but not authoritative.
+    confidence: 'medium',
+    citations: [{ sourceTitle: crosswalk.title, locator: 'Crosswalk table', url: crosswalk.url, accessedAt: '2026-09-25', sourceVersion: crosswalk.published }],
+    createdBy: 'source',
+    inferenceDepth: 0,
+  })]
+})
 
 const riskConceptAssertions = riskSubdomains.flatMap((risk) => risk.conceptIds.map((conceptId) => {
   const concept = conceptById.get(conceptId)
@@ -162,6 +226,9 @@ export const mappingAssertions: MappingAssertion[] = [
   ...riskConceptAssertions,
   ...controlAssertions,
   ...instrumentRelationAssertions,
+  ...requirementConceptAssertions,
+  ...requirementControlAssertions,
+  ...crosswalkAssertions,
 ]
 
 export const mappingAssertionById = new Map(mappingAssertions.map((assertion) => [assertion.id, assertion]))

@@ -1,8 +1,9 @@
 import { Atom, Compass, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
 import { tours } from '../data/tours'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
+import { legalEffectLabels, legalEffectOrder, sectorFilterOrder, sectorLabels } from '../data/sourceMetadata'
 import type { LayoutMode } from '../lib/graphModel'
-import type { AuthorityClass, ControlObjective, Instrument, RiskSubdomain } from '../types'
+import type { AuthorityClass, ControlObjective, Instrument, LegalEffect, RiskSubdomain, SectorId } from '../types'
 
 type Props = {
   query: string
@@ -13,6 +14,10 @@ type Props = {
   onToggleAuthority: (authority: AuthorityClass) => void
   regions: Set<Instrument['region']>
   onToggleRegion: (region: Instrument['region']) => void
+  effects: Set<LegalEffect>
+  onToggleEffect: (effect: LegalEffect) => void
+  sectors: Set<SectorId>
+  onToggleSector: (sector: SectorId) => void
   results: Instrument[]
   onSelectInstrument: (instrumentId: string) => void
   riskResults: RiskSubdomain[]
@@ -22,7 +27,7 @@ type Props = {
   onStartTour: (tourId: string) => void
 }
 
-export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
+export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, effects, onToggleEffect, sectors, onToggleSector, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
   const isRiskView = layout === 'risk'
   const isControlView = layout === 'controls'
   const resultCount = isRiskView ? riskResults.length : isControlView ? controlResults.length : results.length
@@ -79,6 +84,29 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
               <label key={authority}><input type="checkbox" checked={authorityClasses.has(authority)} onChange={() => onToggleAuthority(authority)} /><span>{authorityLabels[authority]}</span></label>
             ))}
           </div>
+        </section>
+      )}
+
+      {!isRiskView && !isControlView && (
+        <section className="control-section filter-section">
+          <div className="control-title"><span>Legal effect</span><small>{effects.size || 'all'}</small></div>
+          <div className="filter-list">
+            {legalEffectOrder.map((effect) => (
+              <label key={effect}><input type="checkbox" checked={effects.has(effect)} onChange={() => onToggleEffect(effect)} /><span>{legalEffectLabels[effect]}</span></label>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {!isRiskView && !isControlView && (
+        <section className="control-section filter-section">
+          <div className="control-title"><span>Applies to</span><small>{sectors.size || 'all'}</small></div>
+          <div className="filter-list">
+            {sectorFilterOrder.map((sector) => (
+              <label key={sector}><input type="checkbox" checked={sectors.has(sector)} onChange={() => onToggleSector(sector)} /><span>{sectorLabels[sector]}</span></label>
+            ))}
+          </div>
+          {sectors.size > 0 && <p className="control-note">Sector-specific sources only; cross-sector sources are hidden.</p>}
         </section>
       )}
 

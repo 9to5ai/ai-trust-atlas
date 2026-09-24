@@ -1,11 +1,14 @@
-import type { Audience } from './leadershipQuestions'
+import type { Audience, CoreAudience } from './leadershipQuestions'
+import { assuranceControlQuestions, assuranceRiskQuestions, assuranceSourceQuestions } from './assuranceQuestions'
 
 // Original Atlas discussion prompts. These explore the existing catalogue;
 // they are not quotations, regulatory findings or new source-verification claims.
 export type RoleQuestions = Record<Audience, string>
-const roles = (board: string, executive: string, regulator: string): RoleQuestions => ({ board, executive, regulator })
+const roles = (board: string, executive: string, regulator: string): Record<CoreAudience, string> => ({ board, executive, regulator })
+const withAssurance = (authored: Record<string, Record<CoreAudience, string>>, assurance: Record<string, string>): Record<string, RoleQuestions> =>
+  Object.fromEntries(Object.entries(authored).map(([id, questions]) => [id, { ...questions, assurance: assurance[id] ?? '' }]))
 
-export const riskQuestions: Record<string, RoleQuestions> = {
+const authoredRiskQuestions: Record<string, Record<CoreAudience, string>> = {
   'mit-risk-1-1': roles('Which groups could be treated unfairly by our AI-assisted decisions?', 'Where do outcomes differ across groups, and who investigates those differences?', 'How was unequal treatment assessed, including people missing from the test data?'),
   'mit-risk-1-2': roles('Who could encounter harmful AI content, and what protection do they need?', 'How do we detect harmful outputs and support people exposed to them?', 'What tests address harmful content for the actual users, including vulnerable groups?'),
   'mit-risk-1-3': roles('Could strong average performance hide poor outcomes for a particular group?', 'Which groups fall below our performance thresholds, and what changes follow?', 'Show the subgroup results and explain where the sample is too small to draw conclusions.'),
@@ -32,7 +35,7 @@ export const riskQuestions: Record<string, RoleQuestions> = {
   'mit-risk-7-6': roles('Could interacting AI agents create failures that individual-agent tests miss?', 'Have we tested conflicting goals, circular delegation and cascading actions between agents?', 'What evidence addresses emergent behaviour across the whole multi-agent system?'),
 }
 
-export const controlQuestions: Record<string, RoleQuestions> = {
+const authoredControlQuestions: Record<string, Record<CoreAudience, string>> = {
   'accountable-ownership': roles('Does the accountable AI owner have the authority to change or stop the system?', 'Who owns the outcome when responsibility crosses business, technology and suppliers?', 'Show how accountability is assigned and exercised for a specific AI system.'),
   'ai-inventory-classification': roles('How do we know the AI inventory includes material uses outside central technology?', 'When was the inventory reconciled against procurement, deployments and business use?', 'How are missing systems and incorrect risk classifications detected and corrected?'),
   'decision-rights-approval': roles('Which AI decisions are reserved for the board, and which are delegated?', 'Can the on-call team identify who may approve, pause or grant an exception?', 'Trace a recent approval or exception to the person with authority to make it.'),
@@ -59,7 +62,7 @@ export const controlQuestions: Record<string, RoleQuestions> = {
   'change-release-retirement': roles('Which AI changes require renewed approval before release?', 'Can we identify, test and roll back material changes, including supplier changes?', 'Trace a material update or retirement through reassessment, approval and verification.'),
 }
 
-export const sourceQuestions: Record<string, RoleQuestions> = {
+const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
   'apra-cps-230': roles('Could our critical operations stay within agreed tolerances if an AI provider failed?', 'Have AI dependencies been included in continuity exercises and material service-provider reviews?', 'What evidence supports the entity’s treatment of AI dependencies in critical operations?'),
   'apra-cps-234': roles('What assurance do we have over the security of information assets used by AI?', 'Are AI-related information assets included in classification, control testing and incident response?', 'How does the entity test information security controls across its AI systems and third parties?'),
   'apra-cps-220': roles('How are material AI risks reflected in the institution’s risk appetite and oversight?', 'Who escalates AI risk exposures that move outside appetite or existing risk processes?', 'How has the institution integrated material AI risks into its risk management framework?'),
@@ -68,3 +71,7 @@ export const sourceQuestions: Record<string, RoleQuestions> = {
   'eu-ai-act': roles('Who has determined which AI Act roles and obligations could apply to our activities?', 'Have we documented our role, the system’s intended use and relevant application dates?', 'What evidence supports the organisation’s classification and applicability assessment?'),
   'apra-ai-letter-2026': roles('What has management changed in response to APRA’s AI risk concerns?', 'Which governance or risk-management gaps identified by the letter are relevant to our AI uses?', 'How has the entity considered the letter and followed through on relevant gaps?'),
 }
+
+export const riskQuestions = withAssurance(authoredRiskQuestions, assuranceRiskQuestions)
+export const controlQuestions = withAssurance(authoredControlQuestions, assuranceControlQuestions)
+export const sourceQuestions = withAssurance(authoredSourceQuestions, assuranceSourceQuestions)
