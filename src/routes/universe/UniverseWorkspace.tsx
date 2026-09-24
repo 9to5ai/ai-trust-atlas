@@ -12,7 +12,6 @@ import { SearchDialog } from '../../components/SearchDialog'
 import { FocusList } from '../../components/FocusList'
 import { Universe } from '../../universe/Universe'
 import { TourPlayer } from '../../tour/TourPlayer'
-import { TourMenu } from '../../tour/TourMenu'
 import { PresenterDock } from '../../tour/PresenterDock'
 import { setPresenting, usePresenting } from '../../app/presenting'
 import { tourById } from '../../data/tours'
@@ -28,7 +27,6 @@ import { buildGraphModel, type LayoutMode } from '../../lib/graphModel'
 import type { AuthorityClass, Instrument } from '../../types'
 
 const publicationYears = instruments.map((instrument) => Number.parseInt(instrument.published, 10)).filter(Number.isFinite)
-const minimumPublicationYear = Math.min(...publicationYears)
 const maximumPublicationYear = Math.max(...publicationYears)
 
 export function UniverseWorkspace() {
@@ -245,6 +243,7 @@ export function UniverseWorkspace() {
             controlResults={filteredControls}
             onSelectRisk={(id) => { selectNode(`risk-subdomain:${id}`); setMobileControls(false) }}
             onSelectControl={(id) => { selectNode(`control-objective:${id}`); setMobileControls(false) }}
+            onStartTour={(id) => { setTour({ id, step: 0 }); setMobileControls(false) }}
             />
         </div>
         <Sidebar
@@ -262,13 +261,13 @@ export function UniverseWorkspace() {
           controlResults={filteredControls}
           onSelectRisk={(id) => selectNode(`risk-subdomain:${id}`)}
           onSelectControl={(id) => selectNode(`control-objective:${id}`)}
+          onStartTour={(id) => setTour({ id, step: 0 })}
         />
 
         <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
           <div className="view-actions">
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
           </div>
-          {projection === 'atlas' && !activeTour && <div className="tour-launch"><TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} /></div>}
           {(query||((layout==='ontology'||layout==='authority')&&(authorityClasses.size>0||regions.size>0||temporalActive)))&&<div className="active-filters" aria-label="Active filters">
             {query&&<button onClick={()=>setQuery('')} aria-label="Remove search filter">“{query}” <X/></button>}
             {(layout==='ontology'||layout==='authority')&&<>
@@ -345,7 +344,7 @@ export function UniverseWorkspace() {
 
       {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/>}
 
-      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} cutoff={timeCutoff} minYear={minimumPublicationYear} maxYear={maximumPublicationYear} instruments={instruments} onChange={setTimeCutoff} onClose={() => setShowTime(false)} onReset={() => setTimeCutoff(maximumPublicationYear)} />
+      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} />
 
     </main>
   )

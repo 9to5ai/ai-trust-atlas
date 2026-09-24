@@ -213,8 +213,6 @@ describe('production use case journey',()=>{
   render(<App/>)
   fireEvent.click(screen.getAllByRole('button',{name:'What’s new'})[0])
   const news=within(screen.getByRole('dialog',{name:'What’s new'}))
-  fireEvent.click(news.getByRole('button',{name:'Use cases'}))
-  expect(news.getByText('No reviewed items in this selection')).toBeInTheDocument()
   fireEvent.click(news.getByRole('button',{name:'Last 90 days'}))
   expect(news.getByRole('heading',{name:'Everyday financial assistance'})).toBeInTheDocument()
   expect(news.queryByRole('heading',{name:'Proposing new fraud rules'})).not.toBeInTheDocument()

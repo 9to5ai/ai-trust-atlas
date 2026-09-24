@@ -1,4 +1,5 @@
-import { Atom, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
+import { Atom, Compass, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
+import { tours } from '../data/tours'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
 import type { LayoutMode } from '../lib/graphModel'
 import type { AuthorityClass, ControlObjective, Instrument, RiskSubdomain } from '../types'
@@ -18,9 +19,10 @@ type Props = {
   controlResults: ControlObjective[]
   onSelectRisk: (riskSubdomainId: string) => void
   onSelectControl: (controlId: string) => void
+  onStartTour: (tourId: string) => void
 }
 
-export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl }: Props) {
+export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
   const isRiskView = layout === 'risk'
   const isControlView = layout === 'controls'
   const resultCount = isRiskView ? riskResults.length : isControlView ? controlResults.length : results.length
@@ -46,6 +48,18 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
           {resultCount === 0 && <p>No matching {isRiskView ? 'risk types' : isControlView ? 'control objectives' : 'instruments'}.</p>}
         </div>
       )}
+
+      <section className="control-section tour-section">
+        <div className="control-title"><Compass /> <span>Guided tours</span></div>
+        <div className="tour-list">
+          {tours.map((tour) => (
+            <button type="button" key={tour.id} onClick={() => onStartTour(tour.id)}>
+              <strong>{tour.title}</strong>
+              <small>{tour.steps.length} steps · about {tour.minutes} min</small>
+            </button>
+          ))}
+        </div>
+      </section>
 
       <section className="control-section">
         <div className="control-title"><Atom /> <span>Explore by</span></div>

@@ -384,7 +384,7 @@ Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts
 
 ### Incidents and the review queue
 
-The optional **Incidents** universe layer connects real events to a few relevant concepts. Open **What’s new → Incidents**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
+The optional **Incidents** universe layer connects real events to a few relevant concepts. Open **What’s new**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
 
 Approved cases include the July 2026 OpenAI / Hugging Face intrusion, the Anthropic evaluation-incident series and the Hacktron / OpenAI account-access chain. Each has case-specific classification, disclosure labels and review limitations. The original Hugging Face case draws on OpenAI's account and a scoped METR/Redwood investigation. The incident is not a regulatory source and does not increase the source count. Recent results use the substantive findings-publication date, separately labelled from the event period and Atlas review date.
 
