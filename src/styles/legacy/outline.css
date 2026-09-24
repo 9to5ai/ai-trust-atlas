@@ -44,16 +44,8 @@
 .relation-group .outline-copy strong { font-size:11px; color:var(--text-tertiary); font-weight:500; }
 .outline-child-count { padding:0 10px; font-size:10px; color:var(--text-tertiary); font-variant-numeric:tabular-nums; }
 .outline-empty { padding:25px; font-size:13px; line-height:1.7; color:var(--text-tertiary); }
-.universe-morph { position:fixed; inset:0; z-index:60; pointer-events:none; overflow:hidden; }
-.morph-node { position:absolute; left:0; top:0; width:24px; height:24px; }
-.is-outline.is-morphing .outline-node-anchor { opacity:0; }
-.is-outline.is-morphing .outline-copy { animation:outline-reveal .85s both; }
-@keyframes outline-reveal { 0%,30% { opacity:0; transform:translateX(12px); } 100% { opacity:1; transform:none; } }
 @media(max-width:860px) { .outline-heading { padding:70px 17px 18px; } .outline-heading h2 { font-size:23px; } .outline-scroll { padding:8px 10px 165px; } .outline-row { margin-left:calc(var(--depth) * 11px); gap:3px; } .outline-select { gap:8px; } .outline-child-count { padding:0 5px; } .projection-switch { right:12px; top:12px; } .mobile-details-open .universe-outline { pointer-events:none; } }
-@media(prefers-reduced-motion:reduce) { .graph-stage,.outline-expand svg { transition:none; } .is-outline.is-morphing .outline-copy { animation:none; } .is-outline.is-morphing .outline-node-anchor { opacity:1; } .universe-morph { display:none; } }
-.morph-connections { position:absolute; inset:0; width:100%; height:100%; }
-.morph-selected-label { position:absolute; top:30px; left:0; width:160px; color:var(--signal); font-size:11px; font-weight:600; text-shadow:0 1px 3px white; }
-.morph-node.selected .outline-symbol { outline:1px solid currentColor; outline-offset:5px; }
+@media(prefers-reduced-motion:reduce) { .graph-stage,.outline-expand svg { transition:none; } }
 
 /* Readability and focused browsing */
 .outline-browse { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:12px 24px; border-bottom:1px solid var(--border); }

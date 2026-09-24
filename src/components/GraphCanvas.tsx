@@ -1,6 +1,5 @@
 import { advancePresence, reconcilePresence, motionStep, type Presence } from '../lib/universeMotion'
 import { arcticAccents } from '../lib/nodeStyle'
-import type { NodeSnapshot } from './UniverseOutline'
 import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphModel, GraphNode, GraphEdge } from '../types'
@@ -279,7 +278,7 @@ function drawTrustCore(context: CanvasRenderingContext2D, cameraScale: number, e
   context.restore()
 }
 
-export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, snapshotRef, navigationRef, focusRequest = 0 }: Props) {
+export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, navigationRef, focusRequest = 0 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const lastSize = useRef({ width: 0, height: 0 })
@@ -755,19 +754,6 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       observer.disconnect()
     }
   }, [reducedMotion, inactive])
-
-  if (snapshotRef) snapshotRef.current = () => {
-    const result: NodeSnapshot = new Map()
-    const bounds = wrapRef.current?.getBoundingClientRect()
-    if (!bounds) return result
-    const camera = cameraRef.current
-    const cy = window.innerWidth <= 860 && selectedRef.current ? bounds.height * .4 : bounds.height / 2
-    modelRef.current.nodes.forEach(node => {
-      const point = projectedPositionsRef.current.get(node.id)
-      if (point) result.set(node.id, { x: bounds.left + bounds.width / 2 + (point.x + camera.x) * camera.scale, y: bounds.top + cy + (point.y + camera.y) * camera.scale, color: node.color, kind: node.kind, label: node.shortLabel })
-    })
-    return result
-  }
 
   const nodeAt = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current

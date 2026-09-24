@@ -18,7 +18,7 @@ function neighbourIds(model: GraphModel, id?: string) {
   return set
 }
 
-export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, snapshotRef, navigationRef, focusRequest = 0, highlightIds = [], onContextLost }: UniverseProps & { onContextLost?: () => void }) {
+export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSourceLabels = false, inactive = false, navigationRef, focusRequest = 0, highlightIds = [], onContextLost }: UniverseProps & { onContextLost?: () => void }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const labelsRef = useRef<HTMLDivElement>(null)
@@ -92,17 +92,6 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
     navigationRef.current = { capture: () => engineRef.current?.capture(), restore: (pose) => engineRef.current?.restore(pose) }
     return () => { navigationRef.current = null }
   }, [navigationRef])
-
-  if (snapshotRef) snapshotRef.current = () => {
-    const result = new Map()
-    const engine = engineRef.current, bounds = wrapRef.current?.getBoundingClientRect()
-    if (!engine || !bounds) return result
-    for (const point of engine.project()) {
-      const node = nodeById.get(point.id)
-      if (node && point.visible) result.set(point.id, { x: bounds.left + point.x, y: bounds.top + point.y, color: node.color, kind: node.kind, label: node.shortLabel })
-    }
-    return result
-  }
 
   /* Labels are positioned imperatively every frame to avoid React renders at 60fps. */
   function drawLabels(engine: UniverseEngine) {

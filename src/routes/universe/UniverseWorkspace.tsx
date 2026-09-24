@@ -4,7 +4,7 @@ import { pathForView, readView, viewUrl, type AtlasView } from '../../lib/viewSt
 import { RouteActions, universeRoutes } from '../../app/AppShell'
 import { authorityLabels } from '../../lib/labels'
 import { objectById } from '../../lib/workspace'
-import { UniverseOutline, UniverseMorph, type NodeSnapshot, type OutlineHandle, type Morph } from '../../components/UniverseOutline'
+import { UniverseOutline } from '../../components/UniverseOutline'
 import { CaretLeft, CaretRight, ClockCounterClockwise, Faders, MagnifyingGlass, X } from '@phosphor-icons/react'
 import { AnimatePresence } from 'motion/react'
 import { useEffect, useMemo, useState, useRef } from 'react'
@@ -56,46 +56,12 @@ export function UniverseWorkspace() {
   const [timeCutoff, setTimeCutoff] = useState(initialView.year)
   const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions' | 'use-cases'>(initialView.projection)
   const graphNavigation = useRef<UniverseNavigation | null>(null)
-  const graphSnapshot = useRef<(() => NodeSnapshot) | null>(null)
-  const outlineHandle = useRef<OutlineHandle | null>(null)
-  const morphOrigin = useRef<NodeSnapshot>(new Map())
-  const morphPending = useRef(false)
-  const morphTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  const [morph, setMorph] = useState<Morph[]>([])
-  const [reverseMorph, setReverseMorph] = useState(false)
-  const clearMorph = () => { clearTimeout(morphTimer.current); setMorph([]); morphPending.current = false }
-  useEffect(() => () => clearTimeout(morphTimer.current), [])
-  const playMorph = (from: NodeSnapshot, to: NodeSnapshot, reverse: boolean) => {
-    clearTimeout(morphTimer.current)
-    setReverseMorph(reverse)
-    const targets = [...to.values()]
-    setMorph([...from].slice(0, 180).flatMap(([id, origin]) => {
-      const destination = to.get(id) ?? targets.find(p => p.color === origin.color)
-      return destination ? [{ id, from: origin, to: destination }] : []
-    }))
-    morphTimer.current = setTimeout(() => setMorph([]), 860)
-  }
   const changeProjection = (next: 'atlas' | 'list' | 'questions' | 'use-cases') => {
     if (next === projection) return
     rememberView()
-    clearMorph()
     if(next==='questions'||projection==='questions'||next==='use-cases'||projection==='use-cases'){setProjection(next);setMobileInspectorExpanded(false);setMobileControls(false);return}
-    if (next === 'list') {
-      morphOrigin.current = graphSnapshot.current?.() ?? new Map()
-      morphPending.current = true
-    } else {
-      if (selectedNodeId && !graphModel.nodes.some(n => n.id === selectedNodeId)) setLayout(selectedNodeId.startsWith('risk-') ? 'risk' : selectedNodeId.startsWith('control-') ? 'controls' : 'ontology')
-      playMorph(outlineHandle.current?.capture() ?? new Map(), graphSnapshot.current?.() ?? new Map(), true)
-    }
+    if (next !== 'list' && selectedNodeId && !graphModel.nodes.some(n => n.id === selectedNodeId)) setLayout(selectedNodeId.startsWith('risk-') ? 'risk' : selectedNodeId.startsWith('control-') ? 'controls' : 'ontology')
     setProjection(next)
-  }
-  const outlineReady = (points: NodeSnapshot) => {
-    if (!morphPending.current) return
-    clearTimeout(morphTimer.current)
-    morphTimer.current = setTimeout(() => {
-      morphPending.current = false
-      playMorph(morphOrigin.current, outlineHandle.current?.capture() ?? points, false)
-    }, 40)
   }
   const [focusAnchorId, setFocusAnchorId] = useState<string | undefined>(initialView.anchor)
   const [mobileInspectorExpanded, setMobileInspectorExpanded] = useState(false)
@@ -138,7 +104,7 @@ export function UniverseWorkspace() {
   const currentView = (): AtlasView => ({useCases:showUseCases,incidents:showIncidents,selected:selectedNodeId, layout, projection, query, authorities:[...authorityClasses], regions:[...regions], year:timeCutoff, anchor:focusAnchorId})
   const rememberView = () => setTrail(items => [...items, {...currentView(), scroll:document.querySelector('.outline-scroll')?.scrollTop ?? 0, pose:graphNavigation.current?.capture()}].slice(-30))
   const restoreView = (view: AtlasView) => {
-    clearMorph(); setShowUseCases(view.useCases??false); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
+    setShowUseCases(view.useCases??false); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
     setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
   }
   const goBack = (index = trail.length-1) => {
@@ -306,7 +272,7 @@ export function UniverseWorkspace() {
           onSelectControl={(id) => selectNode(`control-objective:${id}`)}
         />
 
-        <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}${morph.length ? ' is-morphing' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
+        <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
           <div className="view-actions">
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
             <button className="copy-view-button" type="button" onClick={copyView}>Copy view link</button>
@@ -331,14 +297,13 @@ export function UniverseWorkspace() {
           {!activeTour && selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
-          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} highlightIds={highlightIds} />
+          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} highlightIds={highlightIds} />
           {presenting && !activeTour && projection === 'atlas' && <PresenterDock onStart={(id) => setTour({ id, step: 0 })} onExit={() => setPresenting(false)} />}
           {activeTour && tour && <TourPlayer tour={activeTour} step={tour.step} onStep={(step) => setTour({ id: activeTour.id, step: Math.max(0, Math.min(activeTour.steps.length - 1, step)) })} onExit={() => setTour(undefined)} />}
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
           <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
-          <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} handle={outlineHandle} onReady={outlineReady} />
-          {morph.length > 0 && <UniverseMorph key={reverseMorph ? 'reverse' : 'forward'} nodes={morph} edges={graphModel.edges} reverse={reverseMorph} selected={selectedNodeId} />}
+          <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} />
           <AnimatePresence mode="wait">
             {projection === 'focus' && focusAnchorId && (
               <FocusList

@@ -1,5 +1,4 @@
 import type { RefObject } from 'react'
-import type { NodeSnapshot } from '../components/UniverseOutline'
 import type { GraphModel } from '../types'
 
 /* Shared contract for the WebGL universe and the 2D fallback canvas. */
@@ -10,7 +9,6 @@ export type UniverseProps = {
   onSelect: (nodeId?: string) => void
   showSourceLabels?: boolean
   navigationRef?: RefObject<UniverseNavigation | null>
-  snapshotRef?: RefObject<(() => NodeSnapshot) | null>
   inactive?: boolean
   focusRequest?: number
   highlightIds?: string[]

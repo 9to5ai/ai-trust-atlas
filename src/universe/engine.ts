@@ -15,7 +15,8 @@ import { curvePoints, easeInOutCubic, nodeSize, nodeStyle, pickNode, worldPositi
 
 export type UniversePose = { kind: 'webgl'; position: [number, number, number]; target: [number, number, number] }
 type NodeState = { node: GraphNode; pos: Vec3; target: Vec3; alpha: number; targetAlpha: number; size: number; emphasis: number; targetEmphasis: number; removing: boolean }
-type Flight = { fromPos: Vector3; toPos: Vector3; fromTarget: Vector3; toTarget: Vector3; start: number; duration: number }
+type Flight = { fromPos: Vector3; toPos: Vector3; fromTarget: Vector3; toTarget: Vector3; start: number; duration: number; ease?: (t: number) => number }
+const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
 
 const synthesisBases = new Set(['atlas-synthesis', 'cross-framework-synthesis'])
 const segments = 12
@@ -146,6 +147,9 @@ export class UniverseEngine {
   private reducedMotion: boolean
   private paused = false
   private inactive = false
+  // While inactive, keep rendering until this time so the zoom-through can finish before the loop sleeps.
+  private sleepAt = 0
+  private resume?: { position: Vector3; target: Vector3 }
   private flight?: Flight
   private frame = 0
   private last = 0
@@ -248,7 +252,26 @@ export class UniverseEngine {
   setShowSynthesis(value: boolean) { this.showSynthesis = value; this.settle(200) }
   setEmphasiseSources(value: boolean) { this.emphasiseSources = value; this.settle(100) }
   setPaused(value: boolean) { this.paused = value; this.invalidate() }
-  setInactive(value: boolean) { this.inactive = value; if (!value) this.invalidate() }
+  /* Zoom-through: glide towards the centre as another view covers the map, then pull back to where the viewer was. */
+  setInactive(value: boolean) {
+    if (value === this.inactive) return
+    this.inactive = value
+    if (value) {
+      if (this.reducedMotion) return
+      const target = this.controls.target.clone()
+      this.resume = { position: this.camera.position.clone(), target }
+      this.sleepAt = performance.now() + 560
+      this.fly(target, target.clone().add(this.camera.position.clone().sub(target).multiplyScalar(0.45)), 520, easeOutCubic)
+      return
+    }
+    const resume = this.resume
+    this.resume = undefined
+    // A camera move requested while the map was covered (such as a selection made in the List) wins over the pull-back.
+    if (this.flight && this.flight.start > this.sleepAt) { this.flight.start = performance.now(); this.flight.fromPos.copy(this.camera.position); this.flight.fromTarget.copy(this.controls.target) }
+    else if (resume && !this.reducedMotion) this.fly(resume.target, resume.position, 620, easeOutCubic)
+    this.invalidate()
+  }
+  private asleep() { return this.inactive && performance.now() >= this.sleepAt }
   setReducedMotion(value: boolean) { this.reducedMotion = value; this.invalidate() }
 
   resize(width: number, height: number) {
@@ -371,7 +394,7 @@ export class UniverseEngine {
   /* Exactly one animation-frame loop: requests made during a tick are folded into the next frame. */
   invalidate() {
     this.dirty = true
-    if (this.ticking || this.frame || this.disposed || this.inactive) return
+    if (this.ticking || this.frame || this.disposed || this.asleep()) return
     this.frame = requestAnimationFrame(this.tick)
   }
 
@@ -393,11 +416,11 @@ export class UniverseEngine {
 
   private settle(ms: number) { this.edgesDirty = true; this.settleUntil = Math.max(this.settleUntil, performance.now() + ms); this.invalidate() }
 
-  private fly(target: Vector3, position: Vector3, duration = 1100) {
+  private fly(target: Vector3, position: Vector3, duration = 1100, ease?: (t: number) => number) {
     if (this.reducedMotion) {
       this.controls.target.copy(target); this.camera.position.copy(position); this.controls.update(); this.invalidate(); return
     }
-    this.flight = { fromPos: this.camera.position.clone(), toPos: position, fromTarget: this.controls.target.clone(), toTarget: target, start: performance.now(), duration }
+    this.flight = { fromPos: this.camera.position.clone(), toPos: position, fromTarget: this.controls.target.clone(), toTarget: target, start: performance.now(), duration, ease }
     this.invalidate()
   }
 
@@ -603,7 +626,7 @@ export class UniverseEngine {
 
   private tick = (time: number) => {
     this.frame = 0
-    if (this.disposed || this.inactive) return
+    if (this.disposed || this.asleep()) return
     this.ticking = true
     this.dirty = false
     const dt = this.last ? Math.min(64, time - this.last) : 16
@@ -611,7 +634,7 @@ export class UniverseEngine {
     let animating = false
     if (this.flight) {
       const progress = Math.min(1, (time - this.flight.start) / this.flight.duration)
-      const eased = easeInOutCubic(progress)
+      const eased = (this.flight.ease ?? easeInOutCubic)(progress)
       this.camera.position.lerpVectors(this.flight.fromPos, this.flight.toPos, eased)
       this.controls.target.lerpVectors(this.flight.fromTarget, this.flight.toTarget, eased)
       if (progress >= 1) this.flight = undefined

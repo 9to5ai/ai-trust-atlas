@@ -369,6 +369,85 @@
     }
   }
 
+  /* Universe ⇄ List: zoom through. The camera glides in (engine) while the map fades and the list rises. */
+  .graph-stage {
+    transition: opacity var(--dur-3) var(--ease-out), filter var(--dur-3) var(--ease-out);
+  }
+  .is-outline .graph-stage {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  .universe-outline.entering {
+    animation: outline-in 0.4s var(--ease-out) 0.06s both;
+  }
+  .universe-outline.entering :is(.outline-heading, .outline-browse, .outline-breadcrumb) {
+    animation: outline-rise 0.45s var(--ease-out) 0.1s both;
+  }
+  .universe-outline.entering .outline-row {
+    animation: outline-rise 0.45s var(--ease-out) both;
+    animation-delay: calc(0.16s + var(--i, 0) * 32ms);
+  }
+  .universe-outline.leaving {
+    pointer-events: none;
+    animation: outline-out 0.28s var(--ease-in-out) both;
+  }
+  @keyframes outline-in {
+    from { opacity: 0; }
+  }
+  @keyframes outline-rise {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  @keyframes outline-out {
+    to { opacity: 0; transform: scale(0.985); }
+  }
+
+  /* Universe/List switch: one highlight that slides between the two options */
+  .projection-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .projection-switch::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--signal) 14%, var(--surface-1));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--signal) 35%, transparent);
+    transition: transform var(--dur-3) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+  }
+  .projection-switch:has(button:last-child[aria-pressed='true'])::before {
+    transform: translateX(100%);
+  }
+  .projection-switch:not(:has(button[aria-pressed='true']))::before {
+    opacity: 0;
+  }
+  .projection-switch button {
+    position: relative;
+    text-align: center;
+    transition: color var(--dur-3) var(--ease-out);
+  }
+  .projection-switch button[aria-pressed='true'] {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .graph-stage {
+      filter: none !important;
+    }
+    .universe-outline.entering,
+    .universe-outline.entering *,
+    .universe-outline.leaving {
+      animation: none;
+    }
+    .projection-switch::before {
+      transition: none;
+    }
+  }
+
   /* List view: keep the view actions clear of the outline header */
   .graph-region.is-outline .view-actions {
     top: 20px;
