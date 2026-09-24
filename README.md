@@ -47,7 +47,7 @@ flowchart TD
   Corpus --> Assertions[Typed mapping assertions]
   Corpus --> UI[React application]
   Assertions --> UI
-  UI --> Universe[Canvas Universe]
+  UI --> Universe[WebGL Universe]
   UI --> List[Hierarchical List]
   UI --> Inspector[Source details and questions]
   UI --> News[Recent developments]
@@ -55,7 +55,7 @@ flowchart TD
 
 **The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not query a graph database or call a model. The graph is assembled from arrays and maps in the browser.
 
-The application is fully static. There is no server function, model call, crawler, vector database, shared organisation database or automatic legal decision engine. Shortlists and meeting briefs stay in the user's browser. (Ask the Atlas, a Gemini-backed Q&A feature, was removed in October 2026 and can be restored from Git history, commit `b2a3d57`.)
+The application is fully static. There is no server function, model call, crawler, vector database, shared organisation database or automatic legal decision engine. Shortlists and meeting briefs stay in the user's browser. (Ask the Atlas, a Gemini-backed Q&A feature, was removed in September 2026 and can be restored from Git history, commit `b2a3d57`.)
 
 ### Main layers and files
 
@@ -66,10 +66,11 @@ The application is fully static. There is no server function, model call, crawle
 | Ontology | [`src/data/concepts.ts`](src/data/concepts.ts), [`controls.ts`](src/data/controls.ts), [`mitRiskTaxonomy.ts`](src/data/mitRiskTaxonomy.ts) | Topics, shared concepts, risk taxonomy and candidate control objectives |
 | Relationships | [`src/data/relations.ts`](src/data/relations.ts), [`assertions.ts`](src/data/assertions.ts) | Source-to-source links, typed assertions, explanations and ranked risk paths |
 | Navigation models | [`src/lib/graphModel.ts`](src/lib/graphModel.ts), [`outlineModel.ts`](src/lib/outlineModel.ts), [`workspace.ts`](src/lib/workspace.ts) | Filtered graph, deterministic coordinates, tree appearances, search and bounded path exploration |
-| App shell and routes | [`src/App.tsx`](src/App.tsx), [`src/app/`](src/app/) | Page routes (`/`, `/universe`, `/questions`, `/cases`, `/methodology`), section navigation, legacy-link redirects |
+| App shell and routes | [`src/App.tsx`](src/App.tsx), [`src/app/`](src/app/) | Page routes (`/universe`, `/questions`, `/cases`; `/` opens the Universe), section navigation, presenting mode and legacy-link redirects (retired `/library`, `/ask` and `/methodology` links open the Universe) |
 | Universe state | [`src/routes/universe/UniverseWorkspace.tsx`](src/routes/universe/UniverseWorkspace.tsx) | Selection, filters, view transitions, dialogs and URL history |
 | Design system | [`src/styles/`](src/styles/) | Tokens, base styles, the fenced `legacy` layer and the `bridge` layer that re-skins legacy screens |
-| Rendering | [`GraphCanvas.tsx`](src/components/GraphCanvas.tsx), [`UniverseOutline.tsx`](src/components/UniverseOutline.tsx), [`Inspector.tsx`](src/components/Inspector.tsx) | Universe, List and source-detail experiences |
+| Rendering | [`src/universe/`](src/universe/) (three.js engine), [`GraphCanvas.tsx`](src/components/GraphCanvas.tsx) (2D fallback), [`UniverseOutline.tsx`](src/components/UniverseOutline.tsx), [`Inspector.tsx`](src/components/Inspector.tsx) | Universe, List and source-detail experiences |
+| Guided tours | [`src/data/tours.ts`](src/data/tours.ts), [`src/tour/`](src/tour/) | Scripted demo tours started from the Explore panel, and the presenting dock |
 | Questions | [`leadershipQuestions.ts`](src/data/leadershipQuestions.ts), [`nodeQuestionPrompts.ts`](src/data/nodeQuestionPrompts.ts), [`nodeQuestions.ts`](src/data/nodeQuestions.ts) | Authored prompts and audience-specific composition |
 | Developments | [`src/data/developments.ts`](src/data/developments.ts), [`TemporalLens.tsx`](src/components/TemporalLens.tsx) | Event metadata and recent-development feed |
 | Editorial operations | [`research/sourcing/`](research/sourcing/), [`scripts/source-review.ts`](scripts/source-review.ts) | Discovery register, candidate decisions and review completeness checks |
@@ -89,7 +90,7 @@ Open the local URL printed by Vite. No API key is required.
 
 ```bash
 npm run typecheck          # TypeScript checks
-npm test                   # Vitest: data, model, UI and endpoint tests
+npm test                   # Vitest: data, model and UI tests
 npm run questions:check    # All required cards and audiences have complete questions
 npm run build              # Question gate, TypeScript and Vite output
 npm run preview            # Serve the built static app locally
@@ -153,18 +154,18 @@ A source-to-risk path often travels through a concept or section. Path ranking i
 
 1. `UniverseWorkspace.tsx` holds filters, the active lens and canonical selected ID.
 2. `buildGraphModel()` selects relevant records and creates deterministic target coordinates and edges. Stable hashing helps preserve layout between renders.
-3. `GraphCanvas` projects x/y/z coordinates onto Canvas 2D, applies camera scale and rotation, draws depth-aware nodes and labels, and handles hit testing and keyboard navigation. This is custom projected geometry, not a Three.js scene or a force-directed graph database.
+3. The Universe in [`src/universe/`](src/universe/) renders those coordinates with three.js: shader-drawn nodes, curved links, bloom and orbit controls, with hit testing and keyboard navigation. [`GraphCanvas`](src/components/GraphCanvas.tsx) is the 2D fallback for browsers without WebGL2 (or `?renderer=2d`). Neither uses a force-directed layout or a graph database.
 4. `buildOutline()` makes the corresponding topic, risk or control hierarchy. Source browsing can instead use a flat alphabetical source directory with expandable sections.
-5. Universe and List capture visible node screen positions. A Motion overlay animates matching canonical IDs between views; remaining rows and nodes transition into place. Selected objects continue to use the same inspector.
+5. Switching between Universe and List is a zoom-through: the camera glides into the map while it fades and the list rows rise in; switching back pulls the camera out to where the reader was. Selected objects continue to use the same inspector.
 6. Reduced-motion preferences, tree keyboard controls and mobile sheet dismissal support different ways of navigating.
 
 Search indexes the compiled objects and uses text matching, not embeddings. The List ranks sources within a concept partly by the number of supporting sections; direct source browsing is alphabetical. Neither ranking should be read as an authority assessment.
 
 ### Motion that supports exploration
 
-The centre has a restrained 6.4-second halo cycle. Separate detail and ambient clocks let hover or selection stabilise the orbit while the halo and selection accents remain responsive. Selecting or hovering an item produces a single 1.5-second light cue along up to twelve visible connections; it is a selection aid, not a claim about semantic direction or live activity.
+Rendering is on demand through a single animation loop, and it sleeps while the List or another view covers the map. Labels are an HTML layer placed each frame so they never collide. Selecting a node flies the camera to its neighbourhood (about 1.1 seconds) and pulses its connections; with no selection and six seconds without interaction, the map rotates slowly. Light cues are selection aids, not claims about semantic direction or live activity.
 
-Filtered nodes and edges crossfade over roughly 360 milliseconds. Exiting objects are retained only for drawing, not hit testing, and quick filter reversals reuse their current opacity and position. Pause freezes decorative motion; reduced-motion preferences settle transitions immediately and disable the reveal cue. Reduced-motion changes are observed while the app is open. The hidden List view stops the Canvas loop.
+Pause freezes decorative motion. Reduced-motion preferences, observed while the app is open, remove camera flights, pulses and view transitions.
 
 ### Questions and developments
 
@@ -174,7 +175,7 @@ The question bank is maintained in source files. `questionsForNode()` composes r
 
 ### State and styling
 
-Ordinary navigation is React state with URL-based selection. Theme and audience preferences use browser storage. Meeting preparation and other UI state should be treated as local rather than a shared service.
+Ordinary navigation is React state with URL-based selection. Audience preferences use browser storage. Meeting preparation and other UI state should be treated as local rather than a shared service.
 
 The visual design combines base styles with feature styles on a single dark colour system. Canvas colours are coordinated with CSS tokens. For a new topic, preserve accessible contrast and stable category colours rather than giving every node a new decorative style.
 
@@ -182,7 +183,7 @@ The visual design combines base styles with feature styles on a single dark colo
 
 **Source type describes form; authority depends on the claim, remit and scope.** A regulator’s binding instrument, its speech and a research paper should not inherit the same legal status because they come from a prestigious publisher.
 
-The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
+The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Assurance standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
 
 [`sourcingPolicy.ts`](src/data/sourcingPolicy.ts) supplies one rubric to the candidate assessor:
 
@@ -332,7 +333,7 @@ Some topic-specific assumptions are spread across the code: MIT risk identifiers
 
 ## Verification, limits and next steps
 
-The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, theme behavior and sheet dismissal. At this documentation snapshot, 105 tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
+The test suite covers corpus IDs and references, legal foundations, assertion/path behavior, outline identity, source assessment gates, event windows, audience coverage, UI interactions, presenting mode and sheet dismissal, with Playwright smoke, legacy-link and accessibility checks on top. At this documentation snapshot, 139 unit tests pass. Tests check structure and behavior; they cannot prove that an external publication is current or that a legal interpretation is correct.
 
 Known operational limits:
 
@@ -364,7 +365,7 @@ URL validation and round trips, familiar-language retrieval, and filter/back res
 
 ### Audience question workspace
 
-Choose **Questions** beside Universe and List to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The audience selector sits directly above the questions. The workspace includes all authored concept and development questions for the selected audience and topics. Development prompts show publication and Atlas addition dates separately.
+Open **Questions** in the top navigation to prepare a discussion without opening graph nodes. Select Board, Executive or Regulator, then any combination of topics. The audience selector sits directly above the questions. The workspace includes all authored concept and development questions for the selected audience and topics. Development prompts show publication and Atlas addition dates separately.
 
 On desktop, a side panel holds the shortlist. On mobile, a bottom action opens the meeting brief. Questions can be reordered, removed, copied with references or printed to PDF. Switching audiences retains each selected question's original audience label. Stable IDs prevent duplicate selections across topics.
 
@@ -380,11 +381,11 @@ flowchart LR
   B --> G[Explore in Universe]
 ```
 
-Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts` handles browsing, starter sets and canonical restore; `LeadershipQuestions.tsx` owns shared selection and exports. Open directly with `?view=questions`. No model generation, compliance scoring or effectiveness conclusions are involved. Tests cover starter sets, publication dates, multi-topic deduplication, canonical persistence, remount restoration, ordering, clearing and exports.
+Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts` handles browsing, starter sets and canonical restore; `LeadershipQuestions.tsx` owns shared selection and exports. Open directly at `/questions` (older `?view=questions` links still work). No model generation, compliance scoring or effectiveness conclusions are involved. Tests cover starter sets, publication dates, multi-topic deduplication, canonical persistence, remount restoration, ordering, clearing and exports.
 
 ### Incidents and the review queue
 
-The optional **Incidents** universe layer connects real events to a few relevant concepts. Open **What’s new**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
+Incidents connect real events to a few relevant concepts and appear on the map when opened. Open **What’s new**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
 
 Approved cases include the July 2026 OpenAI / Hugging Face intrusion, the Anthropic evaluation-incident series and the Hacktron / OpenAI account-access chain. Each has case-specific classification, disclosure labels and review limitations. The original Hugging Face case draws on OpenAI's account and a scoped METR/Redwood investigation. The incident is not a regulatory source and does not increase the source count. Recent results use the substantive findings-publication date, separately labelled from the event period and Atlas review date.
 
@@ -403,7 +404,7 @@ A Codex app heartbeat named **Atlas incident review** is scheduled for Mondays a
 
 ## Production use cases
 
-[Browse use cases](https://ai-trust-atlas.vercel.app/?view=use-cases) · [Selection and evidence policy](research/use-cases/README.md)
+[Browse use cases](https://ai-trust-atlas.vercel.app/cases) · [Selection and evidence policy](research/use-cases/README.md)
 
 `src/data/useCases.ts` holds ten initial deployment snapshots: five financial-services operators and five technology, retail and logistics operators. Each record separates deployment status, evidence basis, publication date (nullable), review date, AI actions, disclosed human role, reported value, limitations, and authored concept/control connections. Public disclosure of production use is not independent verification of current operation or effectiveness.
 
@@ -418,6 +419,6 @@ flowchart LR
   Case --> News[What's new: publication date only]
 ```
 
-`UseCasesView` supports browsing and shortlisting without opening graph nodes. `UseCaseDetail` reuses the inspector and mobile dismissal. `useCasesForNode` exposes related deployments on topic, concept and control cards. `workspace` includes them in global search; `nodeQuestions` and `questionCatalogue` make their questions persistable in the existing brief. `buildGraphModel` hides the layer by default, shows the selected case on demand, and limits optional nodes to relevant cases when a topic/concept/control is selected. `?view=use-cases` shares the browse view; `#/use-case/<id>` shares a specific case. `?useCases=1` enables the optional layer.
+`UseCasesView` supports browsing and shortlisting without opening graph nodes. `UseCaseDetail` reuses the inspector and mobile dismissal. `useCasesForNode` exposes related deployments on topic, concept and control cards. `workspace` includes them in global search; `nodeQuestions` and `questionCatalogue` make their questions persistable in the existing brief. `buildGraphModel` hides the layer by default, shows the selected case on demand, and limits optional nodes to relevant cases when a topic/concept/control is selected. `/cases` shares the browse view; `#/use-case/<id>` shares a specific case. `?useCases=1` shows the optional layer on the map.
 
 The initial collection includes older, clearly dated deployments to establish workflow coverage. Cases with unknown exact publication days do not enter rolling-day news filters. Review dates never manufacture recency. No use-case monitoring job, cron, or automated publication has been created; the user will review the experience before agreeing a schedule.
