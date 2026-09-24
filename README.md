@@ -2,7 +2,7 @@
 
 **A source-linked knowledge map that turns a complex topic into something people can explore, question and use.**
 
-[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Ask the Atlas](docs/ASK_ATLAS.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
+[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
 
 AI Trust Atlas connects AI governance concepts with laws, guidance, standards, research, risks and candidate controls. Its Universe makes the landscape explorable; its hierarchical List makes it readable. Source cards explain the material, role-specific questions help prepare conversations, and meeting briefs help readers prepare evidence-based discussions.
 
@@ -29,10 +29,8 @@ The initial audience is regulators, boards and executive leaders, with particula
 | Area | Purpose |
 |---|---|
 | **Universe** | The start page. A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Includes guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
-| **Library** | Every source with its authority, status and mapped sections. Source pages list key dates, related sources and role questions. **Compare** sets up to three sources side by side and exports to Excel |
 | **Questions** | Board, executive and regulator questions, built into a meeting brief |
 | **Use cases** | Documented production deployments with the questions each one raises |
-| **Ask the Atlas** | Answers powered by Gemini, grounded only in Atlas records, with every claim cited (⌘J from anywhere) |
 
 One theme, **Observatory** (dark); printing uses a light palette. Press **Present** (or `S`) to fill the screen with the Universe for projectors and screen shares, pick a guided tour, and press `Esc` to finish.
 
@@ -55,9 +53,9 @@ flowchart TD
   UI --> News[Recent developments]
 ```
 
-**The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not query a graph database; only Ask the Atlas calls a model. The graph is assembled from arrays and maps in the browser.
+**The core is a compiled knowledge application.** Content is maintained as TypeScript and JSON in Git, built by Vite, and delivered as static assets. Browsing does not query a graph database or call a model. The graph is assembled from arrays and maps in the browser.
 
-The application is static apart from one optional serverless function: `/api/ask`, which powers Ask the Atlas. It retrieves Atlas records in memory, asks Gemini to answer only from them, and strips any citation to a record it did not supply (see [docs/ASK_ATLAS.md](docs/ASK_ATLAS.md)). Browsing, the Crosswalk, Horizon and Assess never call a model. There is no crawler inside the web app, vector database, shared organisation database or automatic legal decision engine. Assessments stay in the user's browser.
+The application is fully static. There is no server function, model call, crawler, vector database, shared organisation database or automatic legal decision engine. Shortlists and meeting briefs stay in the user's browser. (Ask the Atlas, a Gemini-backed Q&A feature, was removed in October 2026 and can be restored from Git history, commit `b2a3d57`.)
 
 ### Main layers and files
 
@@ -97,7 +95,6 @@ npm run build              # Question gate, TypeScript and Vite output
 npm run preview            # Serve the built static app locally
 npm run test:e2e           # Playwright smoke, legacy-link and accessibility checks (after build)
 npm run content:check      # Timeline and draft-content gates
-npm run ask:eval           # Ask the Atlas golden questions (model calls only if a key is set)
 npm run sources:review     # Validate the ledger and report due checks; no research occurs
 ```
 
@@ -301,7 +298,7 @@ vercel git connect https://github.com/YOUR-ACCOUNT/YOUR-ATLAS.git
 
 No application environment variables are required. Do not commit `.vercel`, `.env`, build output or credentials.
 
-`vercel.json` configures security headers and SPA rewrites that exclude `/api/`, so removed API routes return a not-found response. The Vercel build runs tests and the normal build so production does not rely solely on a separate GitHub check finishing first. GitHub branch protection or Vercel deployment checks are separate account settings; this README does not imply they have been enabled. The source-review completeness gate is an editorial publication step, not a global code-deployment gate: unrelated UI fixes can ship without pretending a research run completed.
+`vercel.json` configures security headers and SPA rewrites. The Vercel build runs tests and the normal build so production does not rely solely on a separate GitHub check finishing first. GitHub branch protection or Vercel deployment checks are separate account settings; this README does not imply they have been enabled. The source-review completeness gate is an editorial publication step, not a global code-deployment gate: unrelated UI fixes can ship without pretending a research run completed.
 
 ## Build an Atlas on another topic
 
@@ -356,7 +353,7 @@ The diagrams above use Mermaid, which [GitHub renders in Markdown](https://docs.
 
 ### Finding, sharing and retracing a view
 
-The top of the map and list shows removable filter chips and a **Copy view link** action. Links encode the selected node, source types, regions, search text, publication cutoff and Universe/List mode in the URL; invalid values are discarded on load. The clipboard action provides a selectable URL if browser permissions prevent copying. No account or server storage is needed.
+The top of the map and list shows removable filter chips. The browser URL always encodes the current view, so sharing it shares the view: links encode the selected node, source types, regions, search text, publication cutoff and Universe/List mode in the URL; invalid values are discarded on load. No account or server storage is needed.
 
 **Back** restores the previous selection, filters, mode, map camera and list scroll position within the current session. The detail trail shows recently visited items, rather than implying a legal or conceptual hierarchy. History is bounded to 30 views and is not persisted between visits. Shared links reproduce the content context, not the sender's camera or complete browsing history.
 

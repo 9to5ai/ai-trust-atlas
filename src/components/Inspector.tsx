@@ -8,7 +8,6 @@ import { QuestionsPanel } from './LeadershipQuestions'
 import { ArrowRight, ArrowSquareOut, CaretDown, CaretUp, CheckCircle, GitBranch, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
 import { TracePanel } from './TracePanel'
 import { DraftBadge } from '../ui/Kit'
-import { Link as RouteLink } from '../app/router'
 import { AnimatePresence, motion } from 'motion/react'
 import { assertionsForNode, inferProvisionGranularity, riskPathsForInstrument, riskPathsForProvision, specificConceptIds } from '../data/assertions'
 import { concepts, domainById, domains } from '../data/concepts'
@@ -141,7 +140,6 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
       {incident&&<IncidentDetail item={incident} onSelect={onSelectNode}/>}
       {linkedIncidents.length>0&&<section className="inspector-section incident-links"><h3>Related incidents</h3>{linkedIncidents.map(i=><button key={i.id} onClick={()=>onSelectNode(`incident:${i.id}`)}>{i.shortTitle} →</button>)}</section>}
       {!incident&&!useCase&&onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
-      {instrument && <RouteLink className="inspector-source-page" to={`/library/${instrument.id}`}>Open the full source page <ArrowRight /></RouteLink>}
       {!incident&&!useCase&&selectedNodeId&&onTrace&&<TracePanel key={selectedNodeId} from={selectedNodeId} onShow={onTrace} onSelect={onSelectNode} />}
 
       {(kind === 'risk-domain' || kind === 'risk-subdomain') && <p className="section-boundary">Counts use the bundled December 2025 snapshot. MIT’s website describes 1,700+ risks as of our 7 September 2026 review; that newer database has not been imported. <a href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">See current MIT repository</a>.</p>}

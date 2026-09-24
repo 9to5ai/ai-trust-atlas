@@ -17,7 +17,7 @@ for (const [path, meta] of Object.entries(shareablePages)) {
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escape(meta.description)}" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${escape(meta.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${escape(meta.description)}" />`)
-  // /library/eu-ai-act → dist/library/eu-ai-act.html, which Vercel serves at the clean URL.
+  // /questions → dist/questions.html, which Vercel serves at the clean URL.
   const file = join(dist, `${path.slice(1)}.html`)
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, html)

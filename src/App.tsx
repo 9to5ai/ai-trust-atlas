@@ -5,18 +5,10 @@ import { QuestionsProvider } from './components/LeadershipQuestions'
 import { legacyRedirect } from './lib/legacyUrls'
 import { NotFound } from './routes/NotFound'
 import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
-import { LibraryPage } from './routes/library/LibraryPage'
-import { SourcePage } from './routes/library/SourcePage'
-import { ComparePage } from './routes/library/ComparePage'
-import { AskPage } from './ask/AskPage'
 
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
-  if (pathname === '/library') return <LibraryPage />
-  if (pathname === '/library/compare') return <ComparePage />
-  if (pathname.startsWith('/library/')) return <SourcePage key={pathname} id={decodeURIComponent(pathname.slice('/library/'.length))} />
-  if (pathname === '/ask') return <AskPage />
   return <NotFound />
 }
 

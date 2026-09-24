@@ -246,9 +246,9 @@ describe('pages and browser history',()=>{
   render(<App/>)
   expect(window.location.pathname).toBe('/universe')
   expect(screen.getByLabelText(/Interactive orbital map/)).toBeInTheDocument()
-  fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Library'}))
-  expect(window.location.pathname).toBe('/library')
-  expect(screen.getByRole('heading',{level:1})).toBeInTheDocument()
+  fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Use cases'}))
+  expect(window.location.pathname).toBe('/cases')
+  expect(screen.getByRole('heading',{level:1,name:/See how the work is changing/})).toBeInTheDocument()
  })
 })
 

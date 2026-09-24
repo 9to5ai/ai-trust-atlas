@@ -5,10 +5,6 @@ const routes = [
   { path: '/universe', label: /Interactive orbital map/ },
   { path: '/questions', region: 'Questions workspace' },
   { path: '/cases', heading: /See how the work is changing/ },
-  { path: '/library', heading: 'Every source, one shelf' },
-  { path: '/library/eu-ai-act', heading: 'EU AI Act' },
-  { path: '/library/compare?ids=apra-cps-230,eu-dora', heading: /Shared themes/ },
-  { path: '/ask', heading: /Questions, answered/ },
 ]
 
 const collectErrors = (page: Page) => {
@@ -29,6 +25,13 @@ for (const route of routes) {
   })
 }
 
+test('retired pages open the Universe', async ({ page }) => {
+  await page.goto('/library/apra-cps-230')
+  await expect(page).toHaveURL(/\/universe(\?[^#]*)?#\/instrument\/apra-cps-230$/)
+  await page.goto('/ask')
+  await expect(page).toHaveURL(/\/universe/)
+})
+
 test('legacy shared links land on the matching page', async ({ page }) => {
   await page.goto('/?view=questions')
   await expect(page).toHaveURL(/\/questions$|\/questions\?/)
@@ -41,15 +44,15 @@ test('section navigation and browser Back work without reloads', async ({ page, 
   await page.goto('/')
   await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
   if (isMobile) await page.getByRole('button', { name: 'Open sections menu' }).click()
-  await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Library' }).click()
-  await expect(page).toHaveURL(/\/library$/)
+  await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Use cases' }).click()
+  await expect(page).toHaveURL(/\/cases(\?[^#]*)?$/)
   await page.goBack()
   await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
 })
 
 test('presenting fills the screen and offers the guided tours', async ({ page, isMobile }) => {
   test.skip(isMobile, 'Presenting is a desktop and projector feature')
-  await page.goto('/library')
+  await page.goto('/cases')
   await page.getByRole('button', { name: 'Present the Universe' }).click()
   await expect(page).toHaveURL(/\/universe/)
   await expect(page.locator('html')).toHaveAttribute('data-stage', '')
@@ -63,7 +66,7 @@ test('presenting fills the screen and offers the guided tours', async ({ page, i
   await expect(page.locator('html')).not.toHaveAttribute('data-stage', '')
 })
 
-for (const path of ['/universe', '/library', '/ask']) {
+for (const path of ['/universe', '/questions', '/cases']) {
   test(`${path} has no serious accessibility violations`, async ({ page }) => {
     await page.goto(path)
     await page.waitForTimeout(1200)
@@ -116,24 +119,4 @@ test.describe('WebGL universe', () => {
     await expect(page.locator('.universe-webgl')).toHaveCount(0)
     await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
   })
-})
-
-test('Ask the Atlas streams a cited answer', async ({ page, isMobile }) => {
-  await page.route('**/api/ask', (route) => route.fulfill({
-    status: 200,
-    headers: { 'content-type': 'text/event-stream' },
-    body: [
-      ['meta', { provider: 'gemini', model: 'gemini-test', records: [{ id: 'instrument:apra-cps-230', title: 'APRA CPS 230', kind: 'Source', draft: false }] }],
-      ['delta', { text: 'CPS 230 sets expectations for material service providers [[instrument:apra-cps-230]].' }],
-      ['done', { cited: ['instrument:apra-cps-230'], dropped: [], uncited: false, conclusiveLanguage: false }],
-    ].map(([event, data]) => `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`).join(''),
-  }))
-  await page.goto('/')
-  if (isMobile) await page.goto('/ask')
-  else await page.getByRole('button', { name: 'Ask the Atlas' }).click()
-  await page.getByLabel('Your question').fill('What does CPS 230 say about service providers?')
-  await page.getByRole('button', { name: 'Ask', exact: true }).click()
-  await expect(page.getByRole('link', { name: 'Source 1: APRA CPS 230' })).toBeVisible()
-  await page.getByRole('link', { name: 'Source 1: APRA CPS 230' }).click()
-  await expect(page).toHaveURL(/\/library\/apra-cps-230$/)
 })

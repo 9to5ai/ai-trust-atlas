@@ -36,8 +36,6 @@ export function UniverseWorkspace() {
   const readTour = (url: URL) => { const id = url.searchParams.get('tour'); const tour = id ? tourById.get(id) : undefined; if (!tour) return undefined; const step = Number(url.searchParams.get('step') ?? 0); return { id: tour.id, step: Number.isInteger(step) && step >= 0 && step < tour.steps.length ? step : 0 } }
   const [tour, setTour] = useState(() => readTour(new URL(window.location.href)))
   const [trail, setTrail] = useState<(AtlasView & { scroll: number; pose?: unknown })[]>([])
-  const [copyStatus, setCopyStatus] = useState('')
-  const [shareFallback, setShareFallback] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const presenting = usePresenting()
   const [searchOpen, setSearchOpen] = useState(false)
@@ -113,12 +111,6 @@ export function UniverseWorkspace() {
     requestAnimationFrame(()=>{ if(view.pose)graphNavigation.current?.restore(view.pose); const list=document.querySelector('.outline-scroll'); if(list)list.scrollTop=view.scroll })
   }
   const clearFilters = () => {setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setTimeCutoff(maximumPublicationYear)}
-  const copyView = async () => {
-    const url=new URL(window.location.pathname+viewUrl(currentView()),window.location.origin).href
-    try {await navigator.clipboard.writeText(url);setCopyStatus('Link copied')}
-    catch {setShareFallback(url);setCopyStatus('Copy the link below')}
-  }
-  useEffect(()=>{if(!copyStatus)return;const timer=setTimeout(()=>setCopyStatus(''),3500);return()=>clearTimeout(timer)},[copyStatus])
   const selectNode = (nodeId?: string) => {
     if(nodeId !== selectedNodeId) rememberView()
     if(nodeId?.startsWith('use-case:')){setLayout('ontology');setProjection('atlas');setNewsFocus(n=>n+1)}
@@ -275,13 +267,8 @@ export function UniverseWorkspace() {
         <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
           <div className="view-actions">
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
-            <button className="copy-view-button" type="button" onClick={copyView}>Copy view link</button>
-            {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showIncidents} onClick={()=>{setLayout('ontology');setShowIncidents(v=>!v);if(selectedNodeId?.startsWith('incident:'))selectNode(undefined)}}>Incidents</button>}
-            {projection==='atlas'&&<button className="incident-toggle" aria-pressed={showUseCases||selectedNodeId?.startsWith('use-case:')||false} onClick={()=>{setLayout('ontology');setShowUseCases(v=>!v);if(selectedNodeId?.startsWith('use-case:')){setShowUseCases(false);selectNode(undefined)}}}>Use case nodes</button>}
-            {projection === 'atlas' && <TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} />}
-            <span role="status">{copyStatus}</span>
           </div>
-          {shareFallback&&<div className="share-fallback"><label>View link<input readOnly value={shareFallback} onFocus={e=>e.target.select()}/></label><button onClick={()=>setShareFallback('')} aria-label="Close link"><X/></button></div>}
+          {projection === 'atlas' && !activeTour && <div className="tour-launch"><TourMenu activeId={tour?.id} onStart={(id) => setTour({ id, step: 0 })} /></div>}
           {(query||((layout==='ontology'||layout==='authority')&&(authorityClasses.size>0||regions.size>0||temporalActive)))&&<div className="active-filters" aria-label="Active filters">
             {query&&<button onClick={()=>setQuery('')} aria-label="Remove search filter">“{query}” <X/></button>}
             {(layout==='ontology'||layout==='authority')&&<>
