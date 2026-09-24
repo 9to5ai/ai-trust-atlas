@@ -18,7 +18,7 @@
 @media(min-width:1200px){.use-case-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:860px){
  .projection-switch{max-width:calc(100% - 24px);right:12px!important;top:12px!important;left:auto!important}.projection-switch button{padding:8px 10px!important;font-size:11px!important}
- .view-actions{top:62px!important;left:12px!important;right:12px!important;justify-content:flex-start;flex-wrap:wrap}.questions-mode .view-actions{top:58px!important}.questions-mode .view-actions .copy-view-button{display:none}
+ .view-actions{top:16px!important;left:12px!important;right:150px!important;justify-content:flex-start;flex-wrap:nowrap}.questions-mode .view-actions{top:58px!important}.questions-mode .view-actions .copy-view-button{display:none}
  .use-cases-workspace{padding:96px 16px 96px}.use-cases-heading{display:block;margin-bottom:20px}.use-case-universe{margin-top:16px}.use-case-workflows{flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding-right:16px}.use-case-workflows button{white-space:nowrap;flex-shrink:0}.use-case-tools{gap:10px}.use-case-search{max-width:none;flex-basis:180px}.use-case-tools .question-tools{order:3}.use-case-tools .use-case-brief{order:4}.use-case-sector{flex:1}.use-case-sector select{width:100%}.use-case-results{font-size:10px;line-height:1.6}.use-case-grid{grid-template-columns:minmax(0,1fr);gap:14px}.use-case-card{padding:20px}.use-case-card-top{margin-bottom:18px}.use-case-card h3{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){.use-case-card{transition:none}}

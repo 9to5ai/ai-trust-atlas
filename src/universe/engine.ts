@@ -1,5 +1,5 @@
 import {
-  AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, Color, Group, LineDashedMaterial, LineLoop, LineSegments, MathUtils, NormalBlending, PerspectiveCamera,
+  AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, Color, Group, LineDashedMaterial, LineLoop, LineSegments, MathUtils, PerspectiveCamera,
   Points, Scene, ShaderMaterial, Sprite, SpriteMaterial, SRGBColorSpace, Vector2, Vector3, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -10,11 +10,9 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js'
 import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js'
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js'
-import { arcticAccents } from '../lib/nodeStyle'
 import type { GraphEdge, GraphModel, GraphNode } from '../types'
 import { curvePoints, easeInOutCubic, nodeSize, nodeStyle, pickNode, worldPosition, type ScreenNode, type Vec3 } from './geometry'
 
-export type Theme = 'dark' | 'light'
 export type UniversePose = { kind: 'webgl'; position: [number, number, number]; target: [number, number, number] }
 type NodeState = { node: GraphNode; pos: Vec3; target: Vec3; alpha: number; targetAlpha: number; size: number; emphasis: number; targetEmphasis: number; removing: boolean }
 type Flight = { fromPos: Vector3; toPos: Vector3; fromTarget: Vector3; toTarget: Vector3; start: number; duration: number }
@@ -145,7 +143,6 @@ export class UniverseEngine {
   private highlight = new Set<string>()
   private showSynthesis = true
   private emphasiseSources = false
-  private theme: Theme
   private reducedMotion: boolean
   private paused = false
   private inactive = false
@@ -163,8 +160,7 @@ export class UniverseEngine {
   private ticking = false
   private activeCurves: { curve: Vec3[]; path: boolean; offset: number }[] = []
 
-  constructor(canvas: HTMLCanvasElement, options: { theme: Theme; reducedMotion: boolean }) {
-    this.theme = options.theme
+  constructor(canvas: HTMLCanvasElement, options: { reducedMotion: boolean }) {
     this.reducedMotion = options.reducedMotion
     this.renderer = new WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: false })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
@@ -176,7 +172,7 @@ export class UniverseEngine {
     this.controls.screenSpacePanning = true
     this.controls.zoomToCursor = true
     this.controls.minDistance = 90
-    this.controls.maxDistance = 3600
+    this.controls.maxDistance = 6000
     this.controls.maxPolarAngle = MathUtils.degToRad(82)
     this.controls.rotateSpeed = 0.55
     this.controls.autoRotateSpeed = 0.35
@@ -253,7 +249,6 @@ export class UniverseEngine {
   setEmphasiseSources(value: boolean) { this.emphasiseSources = value; this.settle(100) }
   setPaused(value: boolean) { this.paused = value; this.invalidate() }
   setInactive(value: boolean) { this.inactive = value; if (!value) this.invalidate() }
-  setTheme(theme: Theme) { if (theme === this.theme) return; this.theme = theme; this.applyTheme(); this.settle(100) }
   setReducedMotion(value: boolean) { this.reducedMotion = value; this.invalidate() }
 
   resize(width: number, height: number) {
@@ -264,6 +259,8 @@ export class UniverseEngine {
     this.camera.aspect = this.width / this.height
     this.camera.updateProjectionMatrix()
     this.activeMaterial.resolution.set(this.width, this.height)
+    // Small screens get a gentler bloom so dense clusters stay legible.
+    if (this.bloom) this.bloom.strength = this.width < 640 ? 0.38 : 0.62
     const scale = (this.height * this.renderer.getPixelRatio()) / (2 * Math.tan(MathUtils.degToRad(this.camera.fov / 2)))
     this.nodeMaterial.uniforms.uScale.value = scale
     this.pulseMaterial.uniforms.uScale.value = scale
@@ -292,8 +289,9 @@ export class UniverseEngine {
     let radius = 420
     for (const state of this.nodes.values()) if (!state.removing) radius = Math.max(radius, Math.hypot(state.target.x, state.target.y) + 40)
     const vertical = MathUtils.degToRad(this.camera.fov / 2)
-    const horizontal = Math.atan(Math.tan(vertical) * Math.max(this.camera.aspect, 0.5))
-    const distance = (radius / Math.sin(Math.min(vertical, horizontal))) * 0.92
+    const horizontal = Math.atan(Math.tan(vertical) * this.camera.aspect)
+    // Portrait phones frame the whole map edge to edge; wider screens crop the empty outer ring slightly.
+    const distance = (radius / Math.sin(Math.min(vertical, horizontal))) * (this.camera.aspect < 0.8 ? 1 : 0.92)
     const target = new Vector3(0, 0, 0)
     const position = new Vector3(0, -Math.sin(polar) * distance, Math.cos(polar) * distance)
     if (animate) this.fly(target, position)
@@ -358,13 +356,13 @@ export class UniverseEngine {
     out.height = source.height + Math.round(64 * this.renderer.getPixelRatio())
     const context = out.getContext('2d')!
     const ratio = this.renderer.getPixelRatio()
-    context.fillStyle = this.theme === 'dark' ? '#05080f' : '#f5f3ec'
+    context.fillStyle = '#05080f'
     context.fillRect(0, 0, out.width, out.height)
     context.drawImage(source, 0, 0)
-    context.fillStyle = this.theme === 'dark' ? '#eef2fb' : '#0f1522'
+    context.fillStyle = '#eef2fb'
     context.font = `600 ${16 * ratio}px "Inter Variable", Inter, system-ui, sans-serif`
     context.fillText(caption, 20 * ratio, source.height + 28 * ratio)
-    context.fillStyle = this.theme === 'dark' ? '#8b98b8' : '#56607a'
+    context.fillStyle = '#8b98b8'
     context.font = `${12 * ratio}px "JetBrains Mono Variable", ui-monospace, monospace`
     context.fillText('AI Trust Atlas · source-linked reference, not legal advice', 20 * ratio, source.height + 50 * ratio)
     return out.toDataURL('image/png')
@@ -404,30 +402,25 @@ export class UniverseEngine {
   }
 
   private applyTheme() {
-    const dark = this.theme === 'dark'
     // With the bloom composer the clear colour is encoded to sRGB twice (background, then OutputPass).
-    const clear = linear(dark ? '#05080f' : '#f2efe6')
-    if (dark) clear.convertSRGBToLinear()
+    const clear = linear('#05080f')
+    clear.convertSRGBToLinear()
     this.renderer.setClearColor(clear, 1)
-    this.nodeMaterial.blending = dark ? AdditiveBlending : NormalBlending
-    // Paper: crisp flat marks with hollow rings; Observatory: glowing marks.
-    this.nodeMaterial.uniforms.uGlow.value = dark ? 0.32 : 0
-    this.nodeMaterial.uniforms.uCoreLift.value = dark ? 0.05 : 0
-    this.nodeMaterial.uniforms.uRingFill.value = dark ? 0.22 : 0
-    this.nodeMaterial.uniforms.uEmphasisGlow.value = dark ? 0.45 : 0.18
+    this.nodeMaterial.blending = AdditiveBlending
+    this.nodeMaterial.uniforms.uGlow.value = 0.32
+    this.nodeMaterial.uniforms.uCoreLift.value = 0.05
+    this.nodeMaterial.uniforms.uRingFill.value = 0.22
+    this.nodeMaterial.uniforms.uEmphasisGlow.value = 0.45
     this.nodeMaterial.needsUpdate = true
     const webMaterial = this.web.material as ShaderMaterial
-    webMaterial.blending = dark ? AdditiveBlending : NormalBlending
+    webMaterial.blending = AdditiveBlending
     webMaterial.needsUpdate = true
-    this.activeMaterial.blending = dark ? AdditiveBlending : NormalBlending
-    this.stars.visible = dark
-    for (const sprite of this.nebulae) sprite.visible = dark
-    for (const ring of this.rings) (ring.material as LineDashedMaterial).color.set(dark ? '#5c7bb0' : '#8b93a8')
-    ;this.core.visible = dark
-    if (dark && !this.composer) {
+    this.activeMaterial.blending = AdditiveBlending
+    for (const ring of this.rings) (ring.material as LineDashedMaterial).color.set('#5c7bb0')
+    if (!this.composer) {
       this.composer = new EffectComposer(this.renderer)
       this.composer.addPass(new RenderPass(this.scene, this.camera))
-      this.bloom = new UnrealBloomPass(new Vector2(this.width, this.height), 0.62, 0.42, 0.32)
+      this.bloom = new UnrealBloomPass(new Vector2(this.width, this.height), this.width < 640 ? 0.38 : 0.62, 0.42, 0.32)
       this.composer.addPass(this.bloom)
       this.composer.addPass(new OutputPass())
       this.composer.setSize(this.width, this.height)
@@ -454,7 +447,7 @@ export class UniverseEngine {
   }
 
   private colorFor(node: GraphNode) {
-    return new Color(this.theme === 'dark' ? node.color : arcticAccents[node.color] ?? node.color)
+    return new Color(node.color)
   }
 
   private neighbours() {
@@ -536,7 +529,6 @@ export class UniverseEngine {
   }
 
   private buildEdges() {
-    const dark = this.theme === 'dark'
     const focus = this.selected
     const highlightPairs = new Set<string>()
     const path = [...this.highlight]
@@ -544,9 +536,9 @@ export class UniverseEngine {
     const webPositions: number[] = [], webColors: number[] = [], webAlpha: number[] = []
     const activePositions: number[] = [], activeColors: number[] = []
     this.activeCurves = []
-    const baseAlpha = dark ? (focus ? 0.035 : 0.075) : focus ? 0.05 : 0.11
+    const baseAlpha = focus ? 0.035 : 0.075
     const a = new Color(), b = new Color(), c1 = new Color(), c2 = new Color()
-    const accent = new Color(dark ? '#5ee4ff' : '#1c49c9'), aurora = new Color(dark ? '#a78bfa' : '#7059e0')
+    const accent = new Color('#5ee4ff'), aurora = new Color('#a78bfa')
     for (const edge of this.visibleEdges()) {
       const source = this.nodes.get(edge.sourceId), target = this.nodes.get(edge.targetId)
       if (!source || !target) continue
@@ -593,7 +585,7 @@ export class UniverseEngine {
     const curves = moving ? this.activeCurves : []
     const count = curves.length
     const positions = new Float32Array(count * 3), colors = new Float32Array(count * 3)
-    const accent = new Color(this.theme === 'dark' ? '#9ef0ff' : '#1c49c9'), aurora = new Color(this.theme === 'dark' ? '#c4b5fd' : '#7059e0')
+    const accent = new Color('#9ef0ff'), aurora = new Color('#c4b5fd')
     curves.forEach(({ curve, path, offset }, item) => {
       const t = (time * 0.00032 + offset) % 1
       const index = Math.min(segments - 1, Math.floor(t * segments)), local = t * segments - index
@@ -643,7 +635,7 @@ export class UniverseEngine {
     const pulsing = this.writePulses(time)
     this.starMaterial.uniforms.uTime.value = time
     this.core.scale.setScalar(110 + (this.reducedMotion || this.paused ? 0 : Math.sin(time * 0.0014) * 8))
-    if (this.theme === 'dark' && this.composer) this.composer.render()
+    if (this.composer) this.composer.render()
     else this.renderer.render(this.scene, this.camera)
     this.onFrame?.()
     return pulsing

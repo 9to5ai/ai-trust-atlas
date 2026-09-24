@@ -1,0 +1,108 @@
+@layer components {
+  .dock {
+    position: absolute;
+    z-index: 30;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%);
+    width: min(920px, calc(100% - 32px));
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-strong);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 82%, transparent), color-mix(in srgb, var(--surface-1) 90%, transparent));
+    backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: var(--shadow-3), 0 0 60px -20px color-mix(in srgb, var(--signal) 40%, transparent);
+    animation: enter var(--dur-3) var(--ease-out) both;
+  }
+  @keyframes enter {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+  }
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+  .exit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: var(--step--1);
+    cursor: pointer;
+  }
+  .exit:hover {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+  .exit kbd {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+  }
+  .tours {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3);
+  }
+  .tour {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: var(--space-4);
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+    color: var(--text-primary);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+  }
+  .tour:hover,
+  .tour:focus-visible {
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+    background: var(--signal-soft);
+  }
+  .tour strong {
+    font-size: var(--step-0);
+    font-weight: 650;
+  }
+  .tour span {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .tour small {
+    font-size: var(--step--2);
+    color: var(--text-tertiary);
+  }
+  .hint {
+    margin: var(--space-3) 0 0;
+    font-size: var(--step--2);
+    color: var(--text-tertiary);
+  }
+  @media (max-width: 860px) {
+    .dock {
+      bottom: 16px;
+      max-height: 60dvh;
+      overflow-y: auto;
+    }
+  }
+}

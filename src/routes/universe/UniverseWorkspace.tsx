@@ -13,6 +13,8 @@ import { FocusList } from '../../components/FocusList'
 import { Universe } from '../../universe/Universe'
 import { TourPlayer } from '../../tour/TourPlayer'
 import { TourMenu } from '../../tour/TourMenu'
+import { PresenterDock } from '../../tour/PresenterDock'
+import { setPresenting, usePresenting } from '../../app/presenting'
 import { tourById } from '../../data/tours'
 import { findPaths } from '../../lib/workspace'
 import type { UniverseNavigation } from '../../universe/shared'
@@ -37,6 +39,7 @@ export function UniverseWorkspace() {
   const [copyStatus, setCopyStatus] = useState('')
   const [shareFallback, setShareFallback] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const presenting = usePresenting()
   const [searchOpen, setSearchOpen] = useState(false)
   const [layout, setLayout] = useState<LayoutMode>(initialView.layout)
   const causalLens: CausalLens = 'all'
@@ -259,11 +262,11 @@ export function UniverseWorkspace() {
   const temporalActive = timeCutoff < maximumPublicationYear
 
   return (
-    <main className={`atlas-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
+    <main className={`atlas-shell${sidebarCollapsed || presenting ? ' sidebar-collapsed' : ''}${presenting ? ' is-presenting' : ''}${activeTour ? ' is-touring' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
       <a className="skip-link" href="#atlas-graph">Skip to the map</a>
       <RouteActions>
         <button className="shell-action" type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16}/><span>Search</span><kbd>⌘K</kbd></button>
-        <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
+        <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} aria-label={`What’s new${temporalActive ? ` · ${timeCutoff}` : ''}`} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
         {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}
       </RouteActions>
 
@@ -329,6 +332,7 @@ export function UniverseWorkspace() {
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
           <Universe navigationRef={graphNavigation} focusRequest={newsFocus} snapshotRef={graphSnapshot} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} highlightIds={highlightIds} />
+          {presenting && !activeTour && projection === 'atlas' && <PresenterDock onStart={(id) => setTour({ id, step: 0 })} onExit={() => setPresenting(false)} />}
           {activeTour && tour && <TourPlayer tour={activeTour} step={tour.step} onStep={(step) => setTour({ id: activeTour.id, step: Math.max(0, Math.min(activeTour.steps.length - 1, step)) })} onExit={() => setTour(undefined)} />}
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
           <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>

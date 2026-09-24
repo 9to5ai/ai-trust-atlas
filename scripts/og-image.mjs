@@ -2,7 +2,6 @@
 import { chromium } from '@playwright/test'
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 2 })
-await page.addInitScript(() => { localStorage.setItem('atlas-theme', 'dark'); localStorage.setItem('atlas-stage', '0') })
 await page.goto(process.argv[2] ?? 'http://127.0.0.1:4173/', { waitUntil: 'networkidle' })
 await page.addStyleTag({ content: '[class*="_searchTrigger_"],[class*="_tourLink_"],[class*="_stats_"]{display:none!important}[class*="_hero_"]{min-height:630px!important}' })
 await page.waitForTimeout(2200)

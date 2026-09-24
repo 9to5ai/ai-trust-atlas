@@ -8,7 +8,7 @@ describe('legacy shared links', () => {
     expect(at('/')).toBe('/universe')
     expect(at('/?utm_source=newsletter')).toBe('/universe?utm_source=newsletter')
     expect(at('/universe?view=list')).toBeNull()
-    expect(at('/methodology')).toBeNull()
+    expect(at('/methodology')).toBe('/library')
   })
 
   it('sends selections, filters and display modes to the Universe', () => {

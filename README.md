@@ -33,11 +33,10 @@ The initial audience is regulators, boards and executive leaders, with particula
 | **Questions** | Board, executive and regulator questions, built into a meeting brief |
 | **Use cases** | Documented production deployments with the questions each one raises |
 | **Ask the Atlas** | Answers powered by Gemini, grounded only in Atlas records, with every claim cited (⌘J from anywhere) |
-| **Methodology** | How sources are selected, verified and connected |
 
-Themes: **Observatory** (dark, default) and **Paper** (light, print). Press `S` for Stage mode on projectors.
+One theme, **Observatory** (dark); printing uses a light palette. Press **Present** (or `S`) to fill the screen with the Universe for projectors and screen shares, pick a guided tour, and press `Esc` to finish.
 
-At this snapshot the corpus holds 86 sources, including seven assurance standards, 40 trust concepts, the MIT risk taxonomy (7 domains, 24 risk types) and 24 candidate control objectives. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
+At this snapshot the corpus holds 104 sources across nine regions (including Hong Kong and Japan), with seven assurance standards, 40 trust concepts, the MIT risk taxonomy (7 domains, 24 risk types) and 24 candidate control objectives. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
 
 ## Architecture at a glance
 
@@ -180,7 +179,7 @@ The question bank is maintained in source files. `questionsForNode()` composes r
 
 Ordinary navigation is React state with URL-based selection. Theme and audience preferences use browser storage. Meeting preparation and other UI state should be treated as local rather than a shared service.
 
-The visual design combines base styles with feature styles and an Arctic/light and dark colour system. Canvas colours are coordinated with CSS through theme-aware rendering. For a new topic, preserve accessible contrast and stable category colours rather than giving every node a new decorative style.
+The visual design combines base styles with feature styles on a single dark colour system. Canvas colours are coordinated with CSS tokens. For a new topic, preserve accessible contrast and stable category colours rather than giving every node a new decorative style.
 
 ## Source selection and authority
 
@@ -188,7 +187,7 @@ The visual design combines base styles with feature styles and an Arctic/light a
 
 The current source types are Laws & regulations, Treaties, Policy & guidance, Standards, Frameworks, Testing & tools, and Research & databases. The `authorityClass` field is a historical code name for that classification; read it alongside `authorityNote`, scope and status. For example, an APRA prudential standard can be binding within its scope, while APRA commentary is not itself the same kind of instrument.
 
-[`sourcingPolicy.ts`](src/data/sourcingPolicy.ts) supplies one rubric to the Methodology UI and candidate assessor:
+[`sourcingPolicy.ts`](src/data/sourcingPolicy.ts) supplies one rubric to the candidate assessor:
 
 | Factor | Weight | Question |
 |---|---:|---|

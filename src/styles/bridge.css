@@ -308,6 +308,67 @@
     text-underline-offset: 4px;
   }
 
+  /* Presenting: full-screen map, larger type, no working chrome */
+  :root[data-stage] {
+    --header-height: 0px;
+  }
+  :root[data-stage] .atlas-shell.is-presenting {
+    --header-height: 0px;
+  }
+  .is-presenting .universe-hint,
+  .is-presenting .graph-hint,
+  .is-presenting.is-touring .inspector,
+  .is-presenting .view-actions,
+  .is-presenting .projection-switch,
+  .is-presenting .sidebar-collapse,
+  .is-presenting .active-filters,
+  .is-presenting .semantic-key,
+  .is-presenting .graph-controls,
+  .is-presenting .path-narrative,
+  .is-presenting .mobile-atlas-tools {
+    display: none !important;
+  }
+  .is-presenting .universe-label {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .is-presenting .universe-label[data-rank='0'],
+  .is-presenting .universe-label[data-state='selected'] {
+    font-size: 16px;
+  }
+  .is-presenting .inspector {
+    font-size: 17px;
+  }
+  /* During a tour the narration carries the story, so the map takes the full width. */
+  .is-presenting.is-touring .atlas-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .is-presenting [aria-label^='Guided tour'] {
+    bottom: 32px;
+  }
+
+  /* Meeting brief: sit above the map controls, clear of the details panel */
+  @media (min-width: 861px) {
+    body:has(.atlas-shell:not(.questions-mode)) .brief-launcher {
+      bottom: 88px;
+    }
+    body:has(.atlas-workspace.has-selection) .brief-launcher {
+      right: calc(var(--inspector-width) + 22px);
+    }
+  }
+  body:has(.is-presenting) .brief-launcher {
+    display: none;
+  }
+
+  /* Phones: one toolbar row beside the Universe/List switch, and one selection summary */
+  @media (max-width: 860px) {
+    .atlas-shell:not(.questions-mode) .view-actions > .copy-view-button,
+    .atlas-shell:not(.questions-mode) .view-actions > .incident-toggle,
+    .atlas-workspace.has-selection .path-narrative {
+      display: none;
+    }
+  }
+
   /* List view: keep the view actions clear of the outline header */
   .graph-region.is-outline .view-actions {
     top: 20px;

@@ -14,9 +14,8 @@ const views = [
   ['list', '/?view=list'],
   ['questions', '/?view=questions'],
   ['use-cases', '/?view=use-cases'],
-  ['methodology', '/methodology'],
 ]
-const themes = (process.env.THEMES ?? 'dark,light').split(',')
+const themes = (process.env.THEMES ?? 'dark').split(',')
 const browser = await chromium.launch()
 for (const theme of themes) {
   for (const [name, path] of views) {

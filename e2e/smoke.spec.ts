@@ -5,7 +5,6 @@ const routes = [
   { path: '/universe', label: /Interactive orbital map/ },
   { path: '/questions', region: 'Questions workspace' },
   { path: '/cases', heading: /See how the work is changing/ },
-  { path: '/methodology', heading: 'How the Atlas is curated' },
   { path: '/library', heading: 'Every source, one shelf' },
   { path: '/library/eu-ai-act', heading: 'EU AI Act' },
   { path: '/library/compare?ids=apra-cps-230,eu-dora', heading: /Shared themes/ },
@@ -42,31 +41,36 @@ test('section navigation and browser Back work without reloads', async ({ page, 
   await page.goto('/')
   await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
   if (isMobile) await page.getByRole('button', { name: 'Open sections menu' }).click()
-  await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Methodology' }).click()
-  await expect(page).toHaveURL(/\/methodology$/)
+  await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Library' }).click()
+  await expect(page).toHaveURL(/\/library$/)
   await page.goBack()
   await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
 })
 
-test('theme choice persists across visits', async ({ page }) => {
-  await page.goto('/methodology')
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-  await page.getByRole('button', { name: 'Switch to light mode' }).click()
-  await page.reload()
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+test('presenting fills the screen and offers the guided tours', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Presenting is a desktop and projector feature')
+  await page.goto('/library')
+  await page.getByRole('button', { name: 'Present the Universe' }).click()
+  await expect(page).toHaveURL(/\/universe/)
+  await expect(page.locator('html')).toHaveAttribute('data-stage', '')
+  await expect(page.getByRole('navigation', { name: 'Atlas sections' })).toBeHidden()
+  const dock = page.getByRole('region', { name: 'Presenting' })
+  await expect(dock).toBeVisible()
+  await dock.getByRole('button').nth(1).click()
+  await expect(page.getByRole('region', { name: /Guided tour/ })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await page.getByRole('button', { name: /Stop presenting/ }).click()
+  await expect(page.locator('html')).not.toHaveAttribute('data-stage', '')
 })
 
-for (const theme of ['dark', 'light']) {
-  for (const path of ['/methodology', '/library', '/ask']) {
-    test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
-      await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
-      await page.goto(path)
-      await page.waitForTimeout(1200)
-      const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()
-      const serious = results.violations.filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
-      expect(serious.map((violation) => `${violation.id}: ${violation.nodes.slice(0, 3).map((node) => node.target.join(' ')).join(', ')}`)).toEqual([])
-    })
-  }
+for (const path of ['/universe', '/library', '/ask']) {
+  test(`${path} has no serious accessibility violations`, async ({ page }) => {
+    await page.goto(path)
+    await page.waitForTimeout(1200)
+    const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()
+    const serious = results.violations.filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
+    expect(serious.map((violation) => `${violation.id}: ${violation.nodes.slice(0, 3).map((node) => node.target.join(' ')).join(', ')}`)).toEqual([])
+  })
 }
 
 test.describe('WebGL universe', () => {

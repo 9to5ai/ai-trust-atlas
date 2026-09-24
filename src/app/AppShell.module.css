@@ -158,8 +158,7 @@
     border-radius: 6px;
     border: 1px solid var(--border-subtle);
   }
-  .actions > :global(.theme-toggle),
-  .actions > :global(.stage-toggle),
+  .present,
   .iconLink,
   .menu {
     display: inline-grid;
@@ -174,14 +173,13 @@
     cursor: pointer;
     transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
   }
-  .actions > :global(.theme-toggle:hover),
-  .actions > :global(.stage-toggle:hover),
+  .present:hover,
   .iconLink:hover,
   .menu:hover {
     color: var(--text-primary);
     background: var(--signal-soft);
   }
-  .actions > :global(.stage-toggle[aria-pressed='true']) {
+  .present[aria-pressed='true'] {
     color: var(--signal);
     border-color: color-mix(in srgb, var(--signal) 45%, transparent);
     background: var(--signal-soft);
@@ -222,7 +220,7 @@
       display: inline-grid;
     }
     .iconLink,
-    .actions > :global(.stage-toggle) {
+    .present {
       display: none;
     }
     .nav {
@@ -277,7 +275,11 @@
       display: none;
     }
   }
-  :global(:root[data-stage]) .iconLink {
+  /* Presenting: the Universe takes the whole screen */
+  .presenting {
+    --shell-height: 0px;
+  }
+  .presenting .bar {
     display: none;
   }
   @media print {

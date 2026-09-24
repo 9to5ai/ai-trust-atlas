@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { AppShell, universeRoutes } from './app/AppShell'
 import { usePathname } from './app/router'
 import { QuestionsProvider } from './components/LeadershipQuestions'
-import { Methodology } from './components/Methodology'
 import { legacyRedirect } from './lib/legacyUrls'
 import { NotFound } from './routes/NotFound'
 import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
@@ -14,7 +13,6 @@ import { AskPage } from './ask/AskPage'
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
-  if (pathname === '/methodology') return <Methodology />
   if (pathname === '/library') return <LibraryPage />
   if (pathname === '/library/compare') return <ComparePage />
   if (pathname.startsWith('/library/')) return <SourcePage key={pathname} id={decodeURIComponent(pathname.slice('/library/'.length))} />

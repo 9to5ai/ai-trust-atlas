@@ -12,7 +12,6 @@ const staticPages: Record<string, PageMeta> = {
   '/questions': { title: `Questions for boards and executives · ${brand}`, description: 'Role-specific questions about AI for boards, executives and regulators, ready to build into a meeting brief.' },
   '/cases': { title: `AI in production · ${brand}`, description: 'Company-reported production AI deployments with the questions they raise.' },
   '/ask': { title: `Ask the Atlas · ${brand}`, description: 'Answers drawn only from the Atlas’s reviewed records, with every claim cited.' },
-  '/methodology': { title: `Methodology · ${brand}`, description: 'How the Atlas selects, verifies and connects sources, and the boundaries it keeps.' },
 }
 
 const dynamicPages: Record<string, PageMeta> = Object.fromEntries([

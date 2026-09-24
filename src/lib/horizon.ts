@@ -26,8 +26,6 @@ export function recentEvents(today: string, months = 12, events = timelineEvents
   return events.filter((event) => { const age = monthsBetween(eventTime(event), now); return age >= 0 && age <= months }).sort((a, b) => eventTime(b) - eventTime(a))
 }
 
-export const horizonRegions = ['Australia', 'Europe', 'Global', 'United States', 'United Kingdom', 'Singapore', 'Canada'] as const
-
 export const formatEventDate = (event: Pick<TimelineEvent, 'date' | 'precision'>) => {
   const date = new Date(eventTime(event))
   return date.toLocaleDateString('en-AU', event.precision === 'day' ? { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' } : event.precision === 'month' ? { month: 'short', year: 'numeric', timeZone: 'UTC' } : { year: 'numeric', timeZone: 'UTC' })

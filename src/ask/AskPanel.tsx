@@ -77,7 +77,7 @@ export function AskPanel({ variant, onNavigate }: { variant: 'drawer' | 'page'; 
           {busy ? <button type="button" className={styles.send} onClick={stop} aria-label="Stop answering"><Stop size={16} weight="fill" /></button> : <button type="submit" className={styles.send} disabled={!draft.trim()} aria-label="Ask"><ArrowUp size={16} weight="bold" /></button>}
         </div>
       </form>
-      {variant === 'drawer' && <p className={styles.more}><Link to="/ask" onClick={onNavigate}>Open full page</Link> · <Link to="/methodology" onClick={onNavigate}>How answers are grounded</Link></p>}
+      {variant === 'drawer' && <p className={styles.more}><Link to="/ask" onClick={onNavigate}>Open full page</Link></p>}
     </section>
   )
 }

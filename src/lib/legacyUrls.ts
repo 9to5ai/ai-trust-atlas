@@ -4,6 +4,7 @@
  * working because the Universe reads the same parameters.
  */
 export function legacyRedirect(url: URL): string | null {
+  if (url.pathname === '/methodology') return '/library'
   if (url.pathname !== '/' && url.pathname !== '/index.html') return null
   const params = new URLSearchParams(url.searchParams)
   const view = params.get('view')

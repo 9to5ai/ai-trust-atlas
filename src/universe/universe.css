@@ -85,11 +85,6 @@
     text-align: center;
     line-height: 1.1;
   }
-  :root[data-theme='light'] .universe-core {
-    background: var(--surface-2);
-    border-color: var(--signal);
-    box-shadow: 0 2px 12px rgba(15, 21, 34, 0.12);
-  }
   .universe-tooltip {
     position: absolute;
     left: 0;

@@ -1,11 +1,8 @@
 # Design system
 
-The Atlas has two themes built on one set of semantic tokens:
+The Atlas has one screen theme, **Observatory** (dark), built on semantic tokens. Printing switches to a light palette.
 
-- **Observatory** (dark) is the default.
-- **Paper** (light) is used for reading and printing.
-
-Stage mode (`S`) enlarges type for projectors and screen shares.
+Presenting (`S`, or the projector button) fills the screen with the Universe, hides working chrome, enlarges labels and offers the guided tours. `src/app/presenting.ts` holds the state and sets `data-stage` on the document.
 
 ## Layers
 
@@ -19,7 +16,7 @@ A later layer wins regardless of selector specificity.
 
 | Layer | Where | Purpose |
 |---|---|---|
-| tokens | `src/styles/tokens.css` | Primitives, semantic tokens per theme, print palette, Stage mode |
+| tokens | `src/styles/tokens.css` | Primitives, semantic tokens, print palette |
 | base | `src/styles/base.css` | Element defaults, focus ring, selection, reduced motion |
 | legacy | `src/styles/legacy/*.css` | Pre-overhaul styles, fenced so new work always wins. Shrinking: a ratchet test (`legacy.test.ts`) fails if `!important`, raw colours or rule counts grow |
 | bridge | `src/styles/bridge.css` | Re-skins legacy screens (Universe workspace, Inspector, dialogs) with tokens until each is rebuilt |

@@ -1,12 +1,11 @@
 import { ArrowsOut, DownloadSimple, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphModel } from '../types'
-import { UniverseEngine, type Theme } from './engine'
+import { UniverseEngine } from './engine'
 import { nodeStyle, placeLabels, type LabelCandidate } from './geometry'
 import { connectionSummary, type UniverseProps } from './shared'
 import './universe.css'
 
-const currentTheme = (): Theme => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
 const prefersReducedMotion = () => typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 function neighbourIds(model: GraphModel, id?: string) {
@@ -39,7 +38,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
   useEffect(() => {
     const canvas = canvasRef.current, wrap = wrapRef.current
     if (!canvas || !wrap) return
-    const engine = new UniverseEngine(canvas, { theme: currentTheme(), reducedMotion: prefersReducedMotion() })
+    const engine = new UniverseEngine(canvas, { reducedMotion: prefersReducedMotion() })
     engineRef.current = engine
     // Layout size, not getBoundingClientRect: the List transition scales the stage with a CSS transform.
     const resize = () => engine.resize(wrap.clientWidth, wrap.clientHeight)
@@ -50,15 +49,13 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
     engine.onFrame = () => drawLabels(engine)
     const observer = new ResizeObserver(resize)
     observer.observe(wrap)
-    const themeObserver = new MutationObserver(() => engine.setTheme(currentTheme()))
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
     const motion = typeof window.matchMedia === 'function' ? window.matchMedia('(prefers-reduced-motion: reduce)') : undefined
     const onMotion = () => engine.setReducedMotion(prefersReducedMotion())
     motion?.addEventListener('change', onMotion)
     const lost = (event: Event) => { event.preventDefault(); onContextLost?.() }
     canvas.addEventListener('webglcontextlost', lost)
     return () => {
-      observer.disconnect(); themeObserver.disconnect(); motion?.removeEventListener('change', onMotion); canvas.removeEventListener('webglcontextlost', lost)
+      observer.disconnect(); motion?.removeEventListener('change', onMotion); canvas.removeEventListener('webglcontextlost', lost)
       engine.dispose(); engineRef.current = null
       labelPool.current.forEach((label) => label.remove()); labelPool.current.clear()
     }
@@ -126,6 +123,10 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
     const distance = engine.cameraDistance()
     const candidates: LabelCandidate[] = []
     const hovered = hoverRef.current
+    // Presenting enlarges type for projectors; narrow screens show fewer labels and none cut off at the edge.
+    const scale = document.documentElement.hasAttribute('data-stage') ? 1.25 : 1
+    const viewWidth = wrapRef.current?.clientWidth ?? 0
+    const narrow = viewWidth < 640
     for (const point of engine.project()) {
       if (!point.visible || point.alpha < 0.35) continue
       const node = nodes.get(point.id)
@@ -141,9 +142,12 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
       else if (rank === 2 && (sources || distance < 720)) priority = 200
       else if (rank === 3 && distance < 520) priority = 100
       if (priority < 0) continue
-      candidates.push({ id: node.id, x: point.x, y: point.y, radius: point.radius, text: node.shortLabel, priority: priority + point.radius, charWidth: rank === 0 || node.id === selected ? 8.2 : 6.6 })
+      const charWidth = (rank === 0 || node.id === selected ? 8.2 : 6.6) * scale
+      const halfWidth = (node.shortLabel.length * charWidth + 14) / 2
+      if (priority < 900 && (point.x - halfWidth < 4 || point.x + halfWidth > viewWidth - 4)) continue
+      candidates.push({ id: node.id, x: point.x, y: point.y, radius: point.radius, text: node.shortLabel, priority: priority + point.radius, charWidth })
     }
-    const placed = placeLabels(candidates, 46)
+    const placed = placeLabels(candidates, narrow ? 16 : scale > 1 ? 34 : 46, 7 * scale, 18 * scale)
     const seen = new Set<string>()
     for (const label of placed) {
       seen.add(label.id)
