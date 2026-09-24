@@ -147,6 +147,8 @@ export type SourceRecord = {
   provisions: SourceProvision[]
   detailAvailability: 'full-public-text' | 'public-summary' | 'licensed-standard'
   editorialStatus?: EditorialStatus
+  /* Optional explicit legal effect; otherwise taken from sourceMetadata.ts. */
+  legalEffect?: LegalEffect
 }
 
 export type Instrument = SourceRecord & {
@@ -155,6 +157,38 @@ export type Instrument = SourceRecord & {
   sectorIds: SectorId[]
   supersedes?: PriorVersion[]
 }
+
+/*
+ * Requirement layer (2026-09 ontology review): what a source section expects, of whom and by when.
+ * The requirement itself is taken from the source; its links to control objectives are Atlas interpretation.
+ */
+export type Addressee = 'provider' | 'deployer' | 'regulated-entity' | 'board' | 'senior-management' | 'accountable-person' | 'government-agency' | 'supervisor' | 'any-organisation'
+export type Modality = 'must' | 'should' | 'may'
+export type Requirement = {
+  id: string
+  instrumentId: string
+  /* The source section this requirement comes from, when the Atlas records one. */
+  provisionId?: string
+  /* Locator in the source, for example "Article 14(4)" or "Paragraph 34". */
+  ref: string
+  title: string
+  /* Original paraphrase of the requirement; never licensed text. */
+  summary: string
+  addressees: Addressee[]
+  /* Normative strength as the source expresses it. */
+  modality: Modality
+  /* YYYY-MM-DD when the requirement applies, if the source states it. */
+  appliesFrom?: string
+  conceptIds: string[]
+  /* Candidate control objectives that could help meet the requirement (Atlas interpretation). */
+  controlIds: string[]
+  sourceUrl: string
+  reviewedAt: string
+  editorialStatus: EditorialStatus
+}
+
+export type PublishedCrosswalk = { id: string; title: string; publisher: string; url: string; published: string; note: string }
+export type CrosswalkLink = { id: string; crosswalkId: string; from: { instrumentId: string; provisionId: string }; to: { instrumentId: string; provisionId: string }; note?: string }
 
 export type MappingBasis = 'source-authored' | 'published-crosswalk' | 'atlas-synthesis'
 export type MappingStatus = 'active' | 'provisional' | 'retired'

@@ -112,7 +112,7 @@ export const supersededVersions: Record<string, PriorVersion[]> = {
 }
 
 export function enrichSource(record: SourceRecord) {
-  const legalEffect = legalEffectById[record.id]
+  const legalEffect = record.legalEffect ?? legalEffectById[record.id]
   if (!legalEffect) throw new Error(`No legal effect recorded for source "${record.id}". Add it to legalEffectById in sourceMetadata.ts.`)
   return { ...record, legalEffect, issuerType: issuerTypeFor(record.issuer), sectorIds: normaliseSectors(record.sectors), ...(supersededVersions[record.id] ? { supersedes: supersededVersions[record.id] } : {}) }
 }

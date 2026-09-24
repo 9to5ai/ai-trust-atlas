@@ -7,6 +7,8 @@ import { septemberSources, septemberSections } from './septemberRefresh.js'
 import type { Instrument, SourceRecord } from '../types.js'
 import { enrichSource } from './sourceMetadata'
 import { applyConceptModel } from './ontologyMappings'
+import { regionSources } from './regionSources'
+import { financialSections } from './deepening/financial'
 import { deepenedProvisions } from './deepenedProvisions.js'
 import { australianInstruments } from './australia.js'
 import { globalInstruments } from './global.js'
@@ -152,7 +154,8 @@ const sourceRecords: SourceRecord[] = [
   ...globalInstruments,
   ...standardsAndTestingInstruments,
   ...reviewInstruments,
-].filter(instrument => !retiredSourceIds.has(instrument.id)).map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], ...reviewCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(reviewSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
+  ...regionSources,
+].filter(instrument => !retiredSourceIds.has(instrument.id)).map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], ...reviewCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(reviewSections[instrument.id] ?? []), ...(financialSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
 
 export const instruments: Instrument[] = sourceRecords.map(applyConceptModel).map(enrichSource)
 

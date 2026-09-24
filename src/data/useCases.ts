@@ -1,3 +1,4 @@
+import { reviewUseCases } from './useCasesReview'
 import type { Audience, Question } from './leadershipQuestions'
 export const useCaseWorkflows = {customers:'Serve customers', employees:'Support employees & advisers', software:'Build software', risk:'Detect fraud & manage risk', operations:'Run operations', products:'Create products & revenue'} as const
 export type UseCaseWorkflow = keyof typeof useCaseWorkflows
@@ -10,7 +11,7 @@ export type UseCase = {
  prompts:Record<Audience,{text:string;askFor:string;followUp:string}>;
 }
 // Authored evidence snapshots. Publication dates never inherit the review date.
-export const useCases:UseCase[] = [
+const baseUseCases:UseCase[] = [
   {
     "id": "cba-fraud-agent",
     "company": "Commonwealth Bank",
@@ -592,6 +593,7 @@ export const useCases:UseCase[] = [
     }
   }
 ]
+export const useCases:UseCase[] = [...baseUseCases, ...reviewUseCases]
 export const useCaseById = new Map(useCases.map(item=>[item.id,item]))
 export function useCaseQuestion(item:UseCase,audience:Audience):Question {
  return {id:`use-case:${item.id}:${audience}`,audience,context:`${item.company} · ${item.title}`,basis:item.summary,why:item.connections.map(c=>c.reason).join(' '),sources:item.sources,...item.prompts[audience]}

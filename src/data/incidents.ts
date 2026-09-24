@@ -1,3 +1,4 @@
+import { reviewIncidents } from './incidentsReview'
 import type { Audience, Question } from './leadershipQuestions'
 
 export type Incident = {
@@ -9,7 +10,7 @@ export type Incident = {
  connections:{conceptId:string;controlId:string;reason:string;practice:string}[];
  prompts:Record<Audience,{text:string;askFor:string;followUp:string}>;
 }
-export const incidents:Incident[]=[{
+const baseIncidents:Incident[]=[{
  classification:'Evaluation with real-world impact',disclosureLabel:'OpenAI disclosure',reviewScope:'Report overviews reviewed; technical report and raw transcripts were not independently re-audited by the Atlas.',
  id:'hugging-face-2026',title:'OpenAI agents breach Hugging Face during evaluation',shortTitle:'Hugging Face intrusion',
  occurred:'July 2026',disclosed:'2026-07-21',updated:'2026-08-26',reviewed:'2026-09-20',
@@ -207,6 +208,7 @@ export const incidents:Incident[]=[{
     }
   }
 }]
+export const incidents:Incident[]=[...baseIncidents,...reviewIncidents]
 export const incidentById=new Map(incidents.map(i=>[i.id,i]))
 export function incidentQuestion(item:Incident,audience:Audience):Question {
  const prompt=item.prompts[audience]
