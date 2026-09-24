@@ -22,17 +22,7 @@ export const australianInstruments = [
     "Critical infrastructure",
     "Financial services"
   ],
-  "conceptIds": [
-    "agent-authority",
-    "tool-use",
-    "runtime-guardrails",
-    "access-control",
-    "traceability",
-    "human-oversight",
-    "supply-chain",
-    "continuous-monitoring",
-    "ai-security"
-  ],
+  "conceptIds": ["agent-authority","runtime-guardrails","access-control","traceability","human-oversight","supply-chain","continuous-monitoring","ai-security"],
   "detailAvailability": "full-public-text",
   "provisions": [
     {
@@ -40,13 +30,7 @@ export const australianInstruments = [
       "ref": "Executive summary and Harness components",
       "title": "Treat the harness as the governable control surface",
       "summary": "The harness supplies context, tools, permissions, execution, memory, connectors and observability, and should be assessed separately from the replaceable language model.",
-      "conceptIds": [
-        "agent-authority",
-        "tool-use",
-        "access-control",
-        "traceability",
-        "ai-security"
-      ],
+      "conceptIds": ["agent-authority","access-control","traceability","ai-security"],
       "sourceUrl": "https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/agentic-ai-harnesses",
       "reviewedAt": "2026-09-22",
       "note": "Original Atlas synopsis of the reviewed public sections; concept placement is Atlas interpretation."
@@ -103,7 +87,7 @@ export const australianInstruments = [
   makeInstrument({
     id: 'au-ai-adoption-guidance', title: 'Guidance for AI Adoption: Implementation Guidance', shortTitle: 'AI Adoption Guidance', issuer: 'Australian Government National AI Centre', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: "Guidance; see scope below", status: 'active', published: '2026-05-05', officialUrl: 'https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance',
     summary: 'Six essential practices for accountable, transparent and risk-based adoption of complex and higher-risk AI.', applicability: 'Voluntary economy-wide guidance. It is not a compliance standard or regulator-approved control assessment.', sectors: ['Cross-sector'],
-    conceptIds: ['accountability', 'impact-assessment', 'inventory', 'evaluation', 'continuous-monitoring', 'human-oversight', 'intervention', 'third-party-risk'], detailAvailability: 'full-public-text',
+    conceptIds: ['accountability', 'impact-assessment', 'inventory', 'evaluation', 'continuous-monitoring', 'human-oversight', 'third-party-risk'], detailAvailability: 'full-public-text',
     provisions: [{ id: 'adoption-six-practices', ref: 'Six essential practices', title: 'Practical adoption baseline', summary: 'Covers accountability, stakeholder safeguards, risk management, transparency, testing and human control.', conceptIds: ['accountability', 'impact-assessment', 'inventory', 'evaluation', 'human-oversight'] }],
   }),
   makeInstrument({
@@ -115,13 +99,13 @@ export const australianInstruments = [
   makeInstrument({
     id: 'dta-agentic-addendum', title: 'Agentic AI Addendum to the AI Technical Standard', shortTitle: 'DTA Agentic Addendum', issuer: 'Digital Transformation Agency', jurisdiction: 'Australian Government', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: "Government implementation guidance; agencies are expected to apply it", status: 'active', published: '2026-06-04', officialUrl: 'https://www.digital.gov.au/policy/ai/agentic-ai-addendum',
     summary: 'Adds governance and technical practices for autonomy, memory, tool access, observability and failure containment.', applicability: 'Government implementation guidance. It is conceptually useful outside government but not a private-sector legal requirement.', sectors: ['Government', 'Cross-sector reference'],
-    conceptIds: ['agent-authority', 'tool-use', 'access-control', 'runtime-guardrails', 'human-oversight', 'traceability', 'intervention'], detailAvailability: 'full-public-text',
-    provisions: [{ id: 'dta-agentic-controls', ref: 'Agentic controls', title: 'Bound autonomy and observable execution', summary: 'Addresses autonomy tiers, memory, permissions, checkpoints, monitoring, containment and decommissioning.', conceptIds: ['agent-authority', 'tool-use', 'runtime-guardrails', 'traceability', 'intervention'] }],
+    conceptIds: ['agent-authority', 'access-control', 'runtime-guardrails', 'human-oversight', 'traceability'], detailAvailability: 'full-public-text',
+    provisions: [{ id: 'dta-agentic-controls', ref: 'Agentic controls', title: 'Bound autonomy and observable execution', summary: 'Addresses autonomy tiers, memory, permissions, checkpoints, monitoring, containment and decommissioning.', conceptIds: ['agent-authority', 'runtime-guardrails', 'traceability', 'human-oversight'] }],
   }),
   makeInstrument({
     id: 'asd-secure-ai-development', title: 'Guidelines for Secure AI System Development', shortTitle: 'ASD Secure AI', issuer: 'Australian Signals Directorate and international partners', jurisdiction: 'Australia and international partners', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: "Informational reference", status: 'active', published: '2023-11-27', officialUrl: 'https://www.cyber.gov.au/business-government/secure-design/artificial-intelligence/guidelines-for-secure-ai-system-development',
     summary: 'Secure-by-design guidance across AI design, development, deployment and operation.', applicability: 'Technical security guidance, not law and not evidence that a particular control operates.', sectors: ['Cross-sector'],
-    conceptIds: ['ai-security', 'adversarial-risk', 'supply-chain', 'red-teaming', 'continuous-monitoring', 'incident-response'], detailAvailability: 'full-public-text',
+    conceptIds: ['ai-security', 'supply-chain', 'red-teaming', 'continuous-monitoring', 'incident-response'], detailAvailability: 'full-public-text',
     provisions: [{ id: 'asd-ai-lifecycle', ref: 'Secure lifecycle', title: 'Design through operation', summary: 'Covers threat modelling, supply chain, data/model protection, logging, testing and incident management.', conceptIds: ['lifecycle-governance', 'ai-security', 'supply-chain', 'red-teaming', 'incident-response'] }],
   }),
   makeInstrument({
@@ -133,7 +117,7 @@ export const australianInstruments = [
   makeInstrument({
     id: 'asd-frontier-board', title: 'Frontier AI Cyber Threat Considerations for Boards of Directors', shortTitle: 'Frontier AI Board Guide', issuer: 'Australian Signals Directorate and Australian Institute of Company Directors', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: "Informational reference", status: 'active', published: '2026-08-05', officialUrl: 'https://www.cyber.gov.au/business-government/protecting-business-leaders/cyber-security-for-business-leaders/frontier-ai-cyber-threat-considerations-for-boards-of-directors',
     summary: 'Board-level guidance for machine-speed vulnerability discovery, agentic attack, critical services and recovery.', applicability: 'Official threat guidance. It is not a prudential standard or evidence of an organisation\'s exposure.', sectors: ['Cross-sector', 'Financial services'],
-    conceptIds: ['accountability', 'adversarial-risk', 'access-control', 'operational-resilience', 'incident-response', 'third-party-risk', 'intervention'], detailAvailability: 'full-public-text',
+    conceptIds: ['accountability', 'ai-security', 'access-control', 'operational-resilience', 'incident-response', 'third-party-risk', 'human-oversight'], detailAvailability: 'full-public-text',
     provisions: [{ id: 'frontier-board-challenge', ref: 'Board considerations', title: 'Can controls work at machine speed?', summary: 'Prompts directors to challenge attack-surface, privilege, continuity, supplier and recovery assumptions.', conceptIds: ['accountability', 'access-control', 'operational-resilience', 'third-party-risk'] }],
   }),
   makeInstrument({

@@ -72,12 +72,14 @@ const edgeFromAssertion = (assertion: MappingAssertion, semanticFamily: GraphEdg
 })
 
 const addDomainsAndConcepts = (nodes: GraphNode[], edges: GraphEdge[], mode: LayoutMode) => {
-  const domainAngles = new Map(domains.map((domain, index) => [domain.id, (index / domains.length) * Math.PI * 2 - Math.PI / 2]))
+  // Trust outcomes share one arc of the ring and governance capabilities the other, so the two axes read at a glance.
+  const ordered = [...domains.filter((domain) => domain.role === 'trust-outcome'), ...domains.filter((domain) => domain.role !== 'trust-outcome')]
+  const domainAngles = new Map(ordered.map((domain, index) => [domain.id, (index / ordered.length) * Math.PI * 2 - Math.PI / 2]))
   for (const domain of domains) {
     const angle = domainAngles.get(domain.id) ?? 0
     const point = polar(angle, mode === 'risk' ? 168 : 205)
-    const depth = domain.role === 'context-facet' ? -24 : 36
-    nodes.push({ id: `domain:${domain.id}`, label: domain.name, shortLabel: domain.shortName, kind: 'domain', domainId: domain.id, x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: domain.role === 'context-facet' ? 13 : 17, color: domain.color })
+    const depth = domain.role === 'trust-outcome' ? 36 : -12
+    nodes.push({ id: `domain:${domain.id}`, label: domain.name, shortLabel: domain.shortName, kind: 'domain', domainId: domain.id, x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: 17, color: domain.color })
   }
 
   const conceptsByDomain = new Map<string, typeof concepts>()

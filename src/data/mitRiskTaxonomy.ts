@@ -57,7 +57,7 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-1-2', ref: '1.2', name: 'Exposure to toxic content', riskDomainId: 'mit-risk-1',
     definition: 'AI exposing users to harmful, abusive, unsafe or inappropriate content, including content that encourages harmful action or violates community norms.',
-    conceptIds: ['human-rights', 'risk-treatment', 'human-oversight', 'evaluation'], recordCount: 116,
+    conceptIds: ['content-safety', 'human-rights', 'evaluation', 'risk-treatment', 'continuous-monitoring'], recordCount: 116,
     causalProfile: profile({ AI: 64, Human: 7, Other: 5, Uncoded: 40 }, { Unintentional: 20, Other: 49, Intentional: 7, Uncoded: 40 }, { 'Post-deployment': 64, 'Pre-deployment': 4, Other: 8, Uncoded: 40 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium',
   },
   {
@@ -75,7 +75,7 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-2-2', ref: '2.2', name: 'AI system security vulnerabilities and attacks', riskDomainId: 'mit-risk-2',
     definition: 'Exploitable vulnerabilities in AI systems, development toolchains or hardware that enable unauthorized access, breaches or unsafe manipulation.',
-    conceptIds: ['ai-security', 'adversarial-risk', 'access-control', 'supply-chain', 'incident-response'], recordCount: 112,
+    conceptIds: ['ai-security', 'access-control', 'supply-chain', 'incident-response', 'red-teaming'], recordCount: 112,
     causalProfile: profile({ Human: 87, Other: 18, AI: 6, Uncoded: 1 }, { Intentional: 83, Unintentional: 16, Other: 12, Uncoded: 1 }, { 'Post-deployment': 64, 'Pre-deployment': 25, Other: 22, Uncoded: 1 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
@@ -87,36 +87,36 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-3-2', ref: '3.2', name: 'Pollution of information ecosystem and loss of consensus reality', riskDomainId: 'mit-risk-3',
     definition: 'Personalized AI-generated misinformation creating filter bubbles that weaken shared reality, social cohesion and political processes.',
-    conceptIds: ['systemic-risk', 'human-rights', 'provenance', 'impact-assessment', 'continuous-monitoring'], recordCount: 22,
+    conceptIds: ['content-authenticity', 'systemic-risk', 'human-rights', 'impact-assessment', 'continuous-monitoring'], recordCount: 22,
     causalProfile: profile({ AI: 8, Human: 5, Other: 9 }, { Unintentional: 8, Intentional: 1, Other: 13 }, { 'Post-deployment': 17, Other: 5 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium',
   },
   {
     id: 'mit-risk-4-1', ref: '4.1', name: 'Disinformation, surveillance, and influence at scale', riskDomainId: 'mit-risk-4',
     definition: 'Using AI for large-scale disinformation, malicious surveillance, automated censorship or propaganda to manipulate opinion and behaviour.',
-    conceptIds: ['adversarial-risk', 'ai-security', 'systemic-risk', 'human-rights', 'provenance'], recordCount: 84,
+    conceptIds: ['content-authenticity', 'ai-security', 'systemic-risk', 'human-rights', 'privacy'], recordCount: 84,
     causalProfile: profile({ Human: 59, Other: 14, AI: 9, Uncoded: 2 }, { Intentional: 73, Other: 9, Uncoded: 2 }, { 'Post-deployment': 74, Other: 8, Uncoded: 2 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high', controlScope: 'societal' },
   {
     id: 'mit-risk-4-2', ref: '4.2', name: 'Cyberattacks, weapon development or use, and mass harm', riskDomainId: 'mit-risk-4',
     definition: 'Using AI to develop or operate cyber weapons, physical weapons or other capabilities capable of causing mass harm.',
-    conceptIds: ['adversarial-risk', 'ai-security', 'agent-authority', 'tool-use', 'systemic-risk'], recordCount: 82,
+    conceptIds: ['ai-security', 'agent-authority', 'systemic-risk', 'red-teaming'], recordCount: 82,
     causalProfile: profile({ Human: 61, AI: 11, Other: 8, Uncoded: 2 }, { Intentional: 68, Other: 10, Unintentional: 2, Uncoded: 2 }, { 'Post-deployment': 71, 'Pre-deployment': 2, Other: 7, Uncoded: 2 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-4-3', ref: '4.3', name: 'Fraud, scams, and targeted manipulation', riskDomainId: 'mit-risk-4',
     definition: 'Using AI for cheating, fraud, scams, blackmail, impersonation or targeted manipulation of beliefs and behaviour.',
-    conceptIds: ['adversarial-risk', 'ai-security', 'provenance', 'human-rights', 'transparency-disclosure'], recordCount: 77,
+    conceptIds: ['ai-security', 'content-authenticity', 'consumer-outcomes', 'human-rights', 'transparency-disclosure'], recordCount: 77,
     causalProfile: profile({ Human: 62, AI: 5, Other: 10 }, { Intentional: 63, Unintentional: 1, Other: 13 }, { 'Post-deployment': 72, Other: 5 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-5-1', ref: '5.1', name: 'Overreliance and unsafe use', riskDomainId: 'mit-risk-5',
     definition: 'Users anthropomorphizing, trusting or relying on AI in ways that create dependence, inappropriate expectations or harm in critical situations.',
-    conceptIds: ['human-oversight', 'competence', 'transparency-disclosure', 'materiality', 'contestability'], recordCount: 60,
+    conceptIds: ['human-oversight', 'competence', 'transparency-disclosure', 'consumer-outcomes', 'contestability'], recordCount: 60,
     causalProfile: profile({ Human: 27, Other: 19, AI: 14 }, { Unintentional: 35, Other: 18, Intentional: 7 }, { 'Post-deployment': 53, Other: 7 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-5-2', ref: '5.2', name: 'Loss of human agency and autonomy', riskDomainId: 'mit-risk-5',
     definition: 'Delegating key decisions to AI, or AI decisions diminishing meaningful human control, autonomy and capacity to shape outcomes.',
-    conceptIds: ['human-oversight', 'decision-rights', 'agent-authority', 'intervention', 'human-rights'], recordCount: 46,
+    conceptIds: ['human-oversight', 'decision-rights', 'agent-authority', 'human-rights'], recordCount: 46,
     causalProfile: profile({ Other: 23, Human: 12, AI: 11 }, { Other: 22, Unintentional: 18, Intentional: 6 }, { 'Post-deployment': 31, Other: 15 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
@@ -128,13 +128,13 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-6-2', ref: '6.2', name: 'Increased inequality and decline in employment quality', riskDomainId: 'mit-risk-6',
     definition: 'Widespread AI use increasing inequality through job automation, declining employment quality or exploitative dependencies.',
-    conceptIds: ['human-rights', 'impact-assessment', 'materiality', 'fairness-bias', 'competence'], recordCount: 55,
+    conceptIds: ['workforce-impact', 'human-rights', 'impact-assessment', 'fairness-bias', 'competence'], recordCount: 55,
     causalProfile: profile({ Human: 25, AI: 18, Other: 11, Uncoded: 1 }, { Other: 23, Intentional: 19, Unintentional: 12, Uncoded: 1 }, { 'Post-deployment': 40, 'Pre-deployment': 6, Other: 8, Uncoded: 1 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium',
   },
   {
     id: 'mit-risk-6-3', ref: '6.3', name: 'Economic and cultural devaluation of human effort', riskDomainId: 'mit-risk-6',
     definition: 'AI-generated economic or cultural value destabilizing systems that rely on human effort and reducing appreciation for human skills or creativity.',
-    conceptIds: ['human-rights', 'provenance', 'transparency-disclosure', 'impact-assessment'], recordCount: 31,
+    conceptIds: ['intellectual-property', 'workforce-impact', 'human-rights', 'content-authenticity'], recordCount: 31,
     causalProfile: profile({ Human: 15, AI: 11, Other: 5 }, { Other: 14, Intentional: 11, Unintentional: 6 }, { 'Post-deployment': 18, 'Pre-deployment': 4, Other: 9 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium', controlScope: 'societal' },
   {
     id: 'mit-risk-6-4', ref: '6.4', name: 'Competitive dynamics', riskDomainId: 'mit-risk-6',
@@ -145,31 +145,31 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-6-5', ref: '6.5', name: 'Governance failure', riskDomainId: 'mit-risk-6',
     definition: 'Regulation and oversight failing to keep pace with AI development, leading to ineffective governance and inability to manage risk.',
-    conceptIds: ['accountability', 'decision-rights', 'lifecycle-governance', 'assurance', 'auditability'], recordCount: 61,
+    conceptIds: ['accountability', 'senior-accountability', 'decision-rights', 'ai-policy-appetite', 'assurance'], recordCount: 61,
     causalProfile: profile({ Human: 31, Other: 16, AI: 11, Uncoded: 3 }, { Unintentional: 31, Other: 25, Intentional: 2, Uncoded: 3 }, { 'Pre-deployment': 23, 'Post-deployment': 16, Other: 19, Uncoded: 3 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-6-6', ref: '6.6', name: 'Environmental harm', riskDomainId: 'mit-risk-6',
     definition: 'AI development and operation causing environmental harm through energy, carbon, water or material impacts.',
-    conceptIds: ['impact-assessment', 'data-governance', 'third-party-risk', 'evidence-quality', 'materiality'], recordCount: 57,
+    conceptIds: ['environmental-impact', 'impact-assessment', 'materiality', 'third-party-risk', 'evidence-quality'], recordCount: 57,
     causalProfile: profile({ AI: 24, Human: 15, Other: 13, Uncoded: 5 }, { Unintentional: 35, Intentional: 5, Other: 12, Uncoded: 5 }, { 'Post-deployment': 20, 'Pre-deployment': 8, Other: 24, Uncoded: 5 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium',
   },
   {
     id: 'mit-risk-7-1', ref: '7.1', name: 'AI pursuing its own goals in conflict with human goals or values', riskDomainId: 'mit-risk-7',
     definition: 'AI acting against human goals, user intent or ethical standards through misalignment, goal misgeneralisation, reward hacking or power-seeking behaviour.',
-    conceptIds: ['agent-authority', 'runtime-guardrails', 'human-oversight', 'intervention', 'red-teaming'], recordCount: 100,
+    conceptIds: ['agent-authority', 'runtime-guardrails', 'human-oversight', 'red-teaming'], recordCount: 100,
     causalProfile: profile({ AI: 73, Other: 18, Human: 8, Uncoded: 1 }, { Intentional: 51, Other: 34, Unintentional: 14, Uncoded: 1 }, { 'Post-deployment': 33, 'Pre-deployment': 18, Other: 48, Uncoded: 1 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-7-2', ref: '7.2', name: 'AI possessing dangerous capabilities', riskDomainId: 'mit-risk-7',
     definition: 'AI developing or receiving capabilities that increase its potential for mass harm, including deception, cyber-offence, weapons, persuasion or self-proliferation.',
-    conceptIds: ['agent-authority', 'tool-use', 'access-control', 'runtime-guardrails', 'red-teaming'], recordCount: 77,
+    conceptIds: ['agent-authority', 'access-control', 'runtime-guardrails', 'red-teaming', 'human-oversight'], recordCount: 77,
     causalProfile: profile({ AI: 66, Human: 5, Other: 2, Uncoded: 4 }, { Intentional: 51, Other: 12, Unintentional: 10, Uncoded: 4 }, { 'Post-deployment': 33, 'Pre-deployment': 7, Other: 33, Uncoded: 4 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
     id: 'mit-risk-7-3', ref: '7.3', name: 'Lack of capability or robustness', riskDomainId: 'mit-risk-7',
     definition: 'AI failing to perform reliably or effectively across varying conditions, exposing people and systems to consequential errors and failures.',
-    conceptIds: ['reliability', 'evaluation', 'operational-resilience', 'continuous-monitoring', 'change-management'], recordCount: 126,
+    conceptIds: ['reliability', 'evaluation', 'model-risk', 'operational-resilience', 'continuous-monitoring'], recordCount: 126,
     causalProfile: profile({ AI: 81, Human: 22, Other: 20, Uncoded: 3 }, { Unintentional: 89, Other: 28, Intentional: 6, Uncoded: 3 }, { 'Post-deployment': 64, 'Pre-deployment': 27, Other: 32, Uncoded: 3 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
   {
@@ -187,7 +187,7 @@ export const riskSubdomains: RiskSubdomain[] = [
   {
     id: 'mit-risk-7-6', ref: '7.6', name: 'Multi-agent risks', riskDomainId: 'mit-risk-7',
     definition: 'Multi-agent interactions creating conflict, collusion, cascading failures, selection pressures, security vulnerabilities or loss of shared information and trust.',
-    conceptIds: ['agent-authority', 'tool-use', 'operational-resilience', 'ai-security', 'continuous-monitoring', 'intervention'], recordCount: 53,
+    conceptIds: ['agent-authority', 'operational-resilience', 'ai-security', 'continuous-monitoring', 'human-oversight'], recordCount: 53,
     causalProfile: profile({ AI: 35, Other: 15, Human: 3 }, { Unintentional: 23, Intentional: 15, Other: 15 }, { 'Post-deployment': 44, 'Pre-deployment': 1, Other: 8 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
   },
 ]

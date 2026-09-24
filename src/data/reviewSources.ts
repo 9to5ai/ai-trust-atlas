@@ -102,9 +102,9 @@ export const reviewInstruments: SourceRecord[] = [
     ...draft, id: 'au-scams-prevention-framework', title: 'Scams Prevention Framework Act 2025', shortTitle: 'Scams Prevention Framework', issuer: 'Australian Parliament', jurisdiction: 'Australia - designated sectors', region: 'Australia', authorityClass: 'law', authorityNote: 'Legislation; obligations apply to designated sectors through rules and codes', status: 'phased', published: '2025-02', effective: 'Sector rules and codes in development (exposure drafts May 2026)',
     officialUrl: 'https://www.legislation.gov.au/C2025A00015/asmade/text',
     summary: 'Requires regulated businesses, starting with banks, telcos and some digital platforms, to take reasonable steps to prevent, detect, report, disrupt and respond to scams, with penalties of up to $50 million. AI-enabled impersonation raises the bar for what counts as reasonable.', applicability: 'Applies to sectors designated by the Minister, with detail set by rules and sector codes.', sectors: ['Banking', 'Telecommunications', 'Digital platforms'],
-    conceptIds: ['adversarial-risk', 'incident-response', 'accountability', 'continuous-monitoring'], detailAvailability: 'full-public-text',
+    conceptIds: ['ai-security', 'incident-response', 'accountability', 'continuous-monitoring'], detailAvailability: 'full-public-text',
     provisions: [
-      section('spf-principles', 'SPF principles', 'Prevent, detect, report, disrupt, respond', 'Sets overarching principles for governance, prevention, detection, reporting, disruption and response, enforced through rules and sector codes.', ['adversarial-risk', 'incident-response', 'continuous-monitoring']),
+      section('spf-principles', 'SPF principles', 'Prevent, detect, report, disrupt, respond', 'Sets overarching principles for governance, prevention, detection, reporting, disruption and response, enforced through rules and sector codes.', ['ai-security', 'incident-response', 'continuous-monitoring']),
     ],
   }),
   makeInstrument({
@@ -216,9 +216,9 @@ export const reviewInstruments: SourceRecord[] = [
     ...draft, id: 'boe-fsif-ai', title: 'Financial Stability in Focus: Artificial intelligence in the financial system', shortTitle: 'BoE AI Financial Stability', issuer: 'Bank of England Financial Policy Committee', jurisdiction: 'United Kingdom', region: 'United Kingdom', authorityClass: 'research-database', authorityNote: 'Central bank analysis; not rules', status: 'active', published: '2025-04',
     officialUrl: 'https://www.bankofengland.co.uk/financial-stability-in-focus/2025/april-2025',
     summary: 'Sets out four channels through which AI could affect financial stability: banks’ and insurers’ core decisions, financial markets, operational reliance on AI service providers, and AI-enabled cyber threats.', applicability: 'Macroprudential analysis that informs Bank of England and PRA supervision.', sectors: ['Banking', 'Insurance', 'Capital markets'],
-    conceptIds: ['systemic-risk', 'third-party-risk', 'operational-resilience', 'adversarial-risk'], detailAvailability: 'full-public-text',
+    conceptIds: ['systemic-risk', 'third-party-risk', 'operational-resilience', 'ai-security'], detailAvailability: 'full-public-text',
     provisions: [
-      section('boe-ai-channels', 'Transmission channels', 'How AI could threaten stability', 'Correlated model behaviour, concentration in a few AI providers and faster, cheaper cyber attacks are the main channels of concern.', ['systemic-risk', 'third-party-risk', 'adversarial-risk']),
+      section('boe-ai-channels', 'Transmission channels', 'How AI could threaten stability', 'Correlated model behaviour, concentration in a few AI providers and faster, cheaper cyber attacks are the main channels of concern.', ['systemic-risk', 'third-party-risk', 'ai-security']),
     ],
   }),
   makeInstrument({

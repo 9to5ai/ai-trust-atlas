@@ -16,7 +16,7 @@ export const septemberSources: SourceRecord[] = [
     officialUrl: 'https://genai.owasp.org/resource/genai-security-industry-framework-crosswalk/',
     summary: 'A published crosswalk connecting GenAI security risks with security and governance frameworks.',
     applicability: 'A navigation aid for comparing frameworks. The overview was reviewed; individual crosswalk rows have not been imported or validated. Mappings do not establish equivalence, applicability or effective risk reduction.',
-    sectors: ['Cross-sector'], conceptIds: ['ai-security', 'adversarial-risk', 'risk-treatment', 'evidence-quality'], detailAvailability: 'public-summary',
+    sectors: ['Cross-sector'], conceptIds: ['ai-security', 'risk-treatment', 'evidence-quality'], detailAvailability: 'public-summary',
     provisions: [{id: 'owasp-crosswalk-overview', ref: 'Official overview', title: 'Find related framework controls', summary: 'OWASP describes connections between GenAI vulnerabilities and frameworks including NIST, ISO, MITRE ATLAS and the EU AI Act. Inspect the published crosswalk for individual mappings.', conceptIds: ['ai-security', 'risk-treatment', 'evidence-quality'], sourceUrl: 'https://genai.owasp.org/resource/genai-security-industry-framework-crosswalk/', reviewedAt, note}],
   },
   {

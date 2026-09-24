@@ -64,7 +64,7 @@ export const globalInstruments = [
   makeInstrument({
     id: 'imda-agentic-framework', title: 'Model AI Governance Framework for Agentic AI', shortTitle: 'IMDA Agentic Framework', issuer: 'Singapore Infocomm Media Development Authority', jurisdiction: 'Singapore and voluntary global reference', region: 'Singapore', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'living', published: '2026-01-22', officialUrl: 'https://www.sgpc.gov.sg/detail?HomePage=home&page=%2Fdetail&url=%2Fmedia_releases%2Fimda%2Fpress_release%2FP-20260122-2',
     summary: 'Governance framework for bounding agent autonomy, tool and data access, human checkpoints and lifecycle risk.', applicability: 'Voluntary framework. Ultimate accountability remains with people and organisations.', sectors: ['Cross-sector'],
-    conceptIds: ['agent-authority', 'tool-use', 'runtime-guardrails', 'human-oversight', 'intervention', 'lifecycle-governance', 'transparency-disclosure'], detailAvailability: 'public-summary',
+    conceptIds: ['agent-authority', 'runtime-guardrails', 'human-oversight', 'lifecycle-governance', 'transparency-disclosure'], detailAvailability: 'public-summary',
     provisions: [{ id: 'imda-agentic-dimensions', ref: 'Four governance dimensions', title: 'Bound, oversee and communicate agent behaviour', summary: 'Addresses risk bounding, meaningful human accountability, lifecycle controls and transparency.', conceptIds: ['agent-authority', 'runtime-guardrails', 'human-oversight', 'lifecycle-governance'] }],
   }),
   makeInstrument({

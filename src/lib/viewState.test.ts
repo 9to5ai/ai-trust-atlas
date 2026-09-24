@@ -29,3 +29,11 @@ describe('page routes for workspaces',()=>{
   expect(pathForView({projection:'list'})).toBe('/universe')
  })
 })
+
+describe('retired concept links', () => {
+  it('open the concept that absorbed them', () => {
+    expect(readView(new URL('https://atlas.example/universe#/concept/intervention'), 2026).selected).toBe('concept:human-oversight')
+    expect(readView(new URL('https://atlas.example/universe#/concept/tool-use'), 2026).selected).toBe('concept:agent-authority')
+    expect(readView(new URL('https://atlas.example/universe#/concept/adversarial-risk'), 2026).selected).toBe('concept:ai-security')
+  })
+})

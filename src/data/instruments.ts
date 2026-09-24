@@ -6,6 +6,7 @@ import { legalFoundationInstruments } from './legalFoundations.js'
 import { septemberSources, septemberSections } from './septemberRefresh.js'
 import type { Instrument, SourceRecord } from '../types.js'
 import { enrichSource } from './sourceMetadata'
+import { applyConceptModel } from './ontologyMappings'
 import { deepenedProvisions } from './deepenedProvisions.js'
 import { australianInstruments } from './australia.js'
 import { globalInstruments } from './global.js'
@@ -64,7 +65,7 @@ const coreInstruments: SourceRecord[] = [
     conceptIds: ['materiality', 'inventory', 'lifecycle-governance', 'documentation', 'data-governance', 'transparency-disclosure', 'human-oversight', 'evaluation', 'continuous-monitoring', 'incident-response'], detailAvailability: 'full-public-text',
     provisions: [
       { id: 'eu-ai-act-9', ref: 'Article 9', title: 'Risk management system', summary: 'Requires an iterative lifecycle risk-management system for high-risk AI systems.', conceptIds: ['lifecycle-governance', 'impact-assessment', 'risk-treatment', 'continuous-monitoring'] },
-      { id: 'eu-ai-act-14', ref: 'Article 14', title: 'Human oversight', summary: 'High-risk systems must support effective oversight by appropriately competent people.', conceptIds: ['human-oversight', 'intervention', 'competence'] },
+      { id: 'eu-ai-act-14', ref: 'Article 14', title: 'Human oversight', summary: 'High-risk systems must support effective oversight by appropriately competent people.', conceptIds: ['human-oversight', 'competence'] },
       { id: 'eu-ai-act-15', ref: 'Article 15', title: 'Accuracy, robustness and cybersecurity', summary: 'High-risk systems must achieve appropriate accuracy, robustness and cybersecurity throughout the lifecycle.', conceptIds: ['reliability', 'ai-security', 'operational-resilience'] },
     ],
   },
@@ -84,9 +85,9 @@ const coreInstruments: SourceRecord[] = [
     id: 'nist-genai-profile', title: 'Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile', shortTitle: 'NIST GenAI Profile', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'active', published: '2024-07', lastVerified: verified,
     officialUrl: 'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence',
     summary: 'Companion profile describing generative-AI risks and actions aligned to the NIST AI RMF.', applicability: 'Voluntary profile for generative-AI risk management.', sectors: ['Cross-sector'],
-    conceptIds: ['provenance', 'transparency-disclosure', 'adversarial-risk', 'evaluation', 'human-oversight', 'third-party-risk', 'incident-response'], detailAvailability: 'full-public-text',
+    conceptIds: ['provenance', 'transparency-disclosure', 'ai-security', 'evaluation', 'human-oversight', 'third-party-risk', 'incident-response'], detailAvailability: 'full-public-text',
     provisions: [
-      { id: 'nist-genai-risks', ref: 'Section 2', title: 'Generative-AI risk profile', summary: 'Describes risks including confabulation, information integrity, privacy, bias, security and ecosystem effects.', conceptIds: ['reliability', 'provenance', 'privacy', 'fairness-bias', 'adversarial-risk', 'systemic-risk'] },
+      { id: 'nist-genai-risks', ref: 'Section 2', title: 'Generative-AI risk profile', summary: 'Describes risks including confabulation, information integrity, privacy, bias, security and ecosystem effects.', conceptIds: ['reliability', 'provenance', 'privacy', 'fairness-bias', 'ai-security', 'systemic-risk'] },
     ],
   },
   {
@@ -133,9 +134,9 @@ const coreInstruments: SourceRecord[] = [
     id: 'mitre-atlas', title: 'Adversarial Threat Landscape for Artificial-Intelligence Systems', shortTitle: 'MITRE ATLAS', issuer: 'MITRE', jurisdiction: 'Global knowledge base', region: 'Global', authorityClass: 'research-database', authorityNote: "Informational reference", status: 'living', published: '2020', lastVerified: verified,
     officialUrl: 'https://atlas.mitre.org/',
     summary: 'Knowledge base of adversary tactics and techniques for machine-learning, generative-AI and AI-enabled systems.', applicability: 'Threat knowledge for security analysis and testing. It is not law, a control framework or proof of exposure.', sectors: ['Cross-sector'],
-    conceptIds: ['adversarial-risk', 'ai-security', 'supply-chain', 'red-teaming', 'incident-response', 'agent-authority'], detailAvailability: 'full-public-text',
+    conceptIds: ['ai-security', 'supply-chain', 'red-teaming', 'incident-response', 'agent-authority'], detailAvailability: 'full-public-text',
     provisions: [
-      { id: 'atlas-tactics', ref: 'Tactics and techniques', title: 'AI adversary behaviours', summary: 'Structures adversary objectives and techniques to support threat modelling and testing.', conceptIds: ['adversarial-risk', 'red-teaming', 'ai-security'] },
+      { id: 'atlas-tactics', ref: 'Tactics and techniques', title: 'AI adversary behaviours', summary: 'Structures adversary objectives and techniques to support threat modelling and testing.', conceptIds: ['ai-security', 'red-teaming'] },
     ],
   },
 ]
@@ -153,6 +154,6 @@ const sourceRecords: SourceRecord[] = [
   ...reviewInstruments,
 ].filter(instrument => !retiredSourceIds.has(instrument.id)).map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], ...reviewCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(reviewSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
 
-export const instruments: Instrument[] = sourceRecords.map(enrichSource)
+export const instruments: Instrument[] = sourceRecords.map(applyConceptModel).map(enrichSource)
 
 export const instrumentById = new Map(instruments.map((instrument) => [instrument.id, instrument]))

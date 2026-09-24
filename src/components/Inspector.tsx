@@ -46,15 +46,11 @@ const reviewPurpose: Record<AuthorityClass, string> = {
 const domainRoleLabels = {
   'trust-outcome': 'Trust outcome',
   'governance-capability': 'Governance capability',
-  'context-facet': 'Context facet',
 } as const
 
 const conceptRoleLabels = {
   'trust-objective': 'Trust objective',
   'governance-capability': 'Governance capability',
-  'control-family': 'Control mechanism',
-  'assurance-construct': 'Assurance construct',
-  context: 'Context',
 } as const
 
 function CausalProfileBars({ values, total }: { values: Record<string, number>; total: number }) {

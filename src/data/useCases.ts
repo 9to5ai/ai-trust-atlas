@@ -394,7 +394,7 @@ export const useCases:UseCase[] = [
         "reason": "Coordinated routing can concentrate disruption if the optimisation service fails."
       },
       {
-        "conceptId": "intervention",
+        "conceptId": "human-oversight",
         "controlId": "human-intervention-safe-stop",
         "reason": "Physical operations require usable intervention and safe fallback."
       }

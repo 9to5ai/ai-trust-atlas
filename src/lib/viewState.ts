@@ -1,3 +1,4 @@
+import { conceptAliases } from '../data/concepts'
 import { authorityOrder, regionOrder } from './labels'
 import { objectById } from './workspace'
 import type { AuthorityClass, Instrument } from '../types'
@@ -8,7 +9,10 @@ export const pathForView = (view: Pick<AtlasView, 'projection'>) => view.project
 export function readView(url: URL, maxYear: number): AtlasView {
   const p=url.searchParams
   const routed=url.pathname===projectionRoutes.questions?'questions':url.pathname===projectionRoutes['use-cases']?'use-cases':undefined
-  const raw=url.hash.replace(/^#\//,'').replace(/^clause\//,'provision/').replace('/',':')
+  const hashId=url.hash.replace(/^#\//,'').replace(/^clause\//,'provision/').replace('/',':')
+  // Concepts retired in the 2026-09 ontology review open the concept that absorbed them.
+  const retired=hashId.match(/^concept:(.+)$/)?.[1]
+  const raw=retired&&conceptAliases[retired]?`concept:${conceptAliases[retired]}`:hashId
   const selected=objectById.has(raw)?raw:undefined
   const mode=p.get('mode')
   const layout:LayoutMode=mode==='risk'||mode==='controls'||mode==='authority'?mode:selected?.startsWith('risk-')?'risk':selected?.startsWith('control-')?'controls':'ontology'

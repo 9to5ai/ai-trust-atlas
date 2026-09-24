@@ -237,7 +237,7 @@ export const conceptPrompts: ConceptPrompt[] = [
     },
     "why": "A human approval step can be ineffective when reviewers lack capacity or authority.",
     "askFor": "Workload, override records, reviewer training and observed review exercises.",
-    "followUp": "When did a reviewer last reject the AI recommendation, and what happened next?"
+    "followUp": "When was the stop, rollback or isolation path last tested, and which actions cannot be reversed?"
   },
   {
     "conceptId": "ai-security",
@@ -260,17 +260,6 @@ export const conceptPrompts: ConceptPrompt[] = [
     "why": "An agent can turn overly broad permissions into a fast route to consequential actions.",
     "askFor": "Permission inventories, access approvals and denied-action tests.",
     "followUp": "Can an agent use another tool or identity to bypass the intended restriction?"
-  },
-  {
-    "conceptId": "adversarial-risk",
-    "questions": {
-      "board": "Which credible attacks could cause the most consequential AI failure?",
-      "executive": "What adversarial scenarios are we testing, and who owns unresolved weaknesses?",
-      "regulator": "Show how threat scenarios are selected and validated against the deployed AI system."
-    },
-    "why": "Attack testing is most useful when it reflects the actual deployment and attacker opportunities.",
-    "askFor": "Threat models, adversarial test cases and remediation records.",
-    "followUp": "What happens when an attacker combines weaknesses that were tested separately?"
   },
   {
     "conceptId": "reliability",
@@ -416,17 +405,6 @@ export const conceptPrompts: ConceptPrompt[] = [
     "followUp": "Can the agent achieve an allowed goal through an unauthorised action?"
   },
   {
-    "conceptId": "tool-use",
-    "questions": {
-      "board": "Could an agent’s access to business tools create consequences beyond the approved use?",
-      "executive": "Who approves tool access, transaction limits and restrictions on external actions?",
-      "regulator": "Show how tool permissions and execution limits are enforced for a selected agent."
-    },
-    "why": "Tool access can turn an incorrect output into a real transaction or system change.",
-    "askFor": "Tool inventories, execution policies and approval or denial records.",
-    "followUp": "Can several individually permitted actions combine into a prohibited outcome?"
-  },
-  {
     "conceptId": "runtime-guardrails",
     "questions": {
       "board": "Which consequential AI behaviours can we actually prevent during operation?",
@@ -438,15 +416,125 @@ export const conceptPrompts: ConceptPrompt[] = [
     "followUp": "What happens if the policy service fails or a tool bypasses it?"
   },
   {
-    "conceptId": "intervention",
+    "conceptId": "senior-accountability",
     "questions": {
-      "board": "Who can stop an AI system immediately, and what happens to work already underway?",
-      "executive": "When was the stop, rollback or isolation mechanism last tested end to end?",
-      "regulator": "Demonstrate a safe intervention, including in-flight actions and recovery."
+      "board": "Which director or senior executive answers for our most material AI systems, and does their accountability statement say so?",
+      "executive": "Do the accountability maps of named executives cover AI systems they rely on but do not build?",
+      "regulator": "Show where AI risk sits in the accountability statements of accountable persons, and how they take reasonable steps."
     },
-    "why": "A stop button may halt new requests while leaving irreversible actions in progress.",
-    "askFor": "Stop procedures, authorisations and observed intervention exercises.",
-    "followUp": "Which actions cannot be reversed after intervention?"
+    "why": "Accountability regimes such as FAR and SMCR hold named individuals responsible; AI can fall between their maps.",
+    "askFor": "Accountability maps and statements, delegations and evidence of reasonable steps for material AI.",
+    "followUp": "Which material AI system has no accountable person named in writing?"
+  },
+  {
+    "conceptId": "ai-policy-appetite",
+    "questions": {
+      "board": "Has the board approved an AI policy and risk appetite, and which uses fall outside it?",
+      "executive": "How do teams test a proposed AI use against the risk appetite before committing money?",
+      "regulator": "Show the board-approved AI risk appetite and a decision where it changed the outcome."
+    },
+    "why": "Without a stated appetite, approvals default to whoever is most enthusiastic.",
+    "askFor": "The approved AI policy, appetite statements with metrics, and exceptions granted.",
+    "followUp": "Which appetite limit has been breached, and what happened next?"
+  },
+  {
+    "conceptId": "model-risk",
+    "questions": {
+      "board": "Are AI models, including generative AI, inside our model risk framework, or managed somewhere else?",
+      "executive": "Which material models have not been independently validated, and why are they still in use?",
+      "regulator": "Demonstrate how the model inventory, tiering and independent validation cover AI and vendor models."
+    },
+    "why": "Model risk frameworks predate generative AI; some supervisors now place it outside traditional model guidance.",
+    "askFor": "Model inventory and tiering, validation reports, open findings and the approach for generative AI.",
+    "followUp": "Which validation finding is overdue, and who accepted the risk?"
+  },
+  {
+    "conceptId": "use-case-intake",
+    "questions": {
+      "board": "How does a new AI idea become an approved use, and how many bypass that route?",
+      "executive": "How long does intake take, and what makes a proposal high-risk?",
+      "regulator": "Walk through the intake record for a recent higher-risk AI use, from triage to approval."
+    },
+    "why": "Intake is where unrecorded AI enters the organisation; slow intake drives workarounds.",
+    "askFor": "Intake criteria, triage outcomes, turnaround times and discovered unregistered uses.",
+    "followUp": "What did we find the last time we searched for AI used outside intake?"
+  },
+  {
+    "conceptId": "intellectual-property",
+    "questions": {
+      "board": "Could our AI use expose us to intellectual property claims, or put our own IP at risk?",
+      "executive": "Which models, datasets and outputs have unclear licences or ownership?",
+      "regulator": "Explain how you confirm rights to training data and how customers’ content is protected."
+    },
+    "why": "Unlicensed data and unclear output ownership create legal and reputational exposure.",
+    "askFor": "Licence registers, supplier indemnities, data-use terms and output-ownership positions.",
+    "followUp": "Which supplier contract is silent on training use of our data?"
+  },
+  {
+    "conceptId": "content-authenticity",
+    "questions": {
+      "board": "Could a deepfake of an executive or customer defeat our controls, and how would we know?",
+      "executive": "Where do we label AI-generated content, and how do we verify inbound voice and video instructions?",
+      "regulator": "Show how AI-generated content is disclosed to customers and how impersonation attempts are detected."
+    },
+    "why": "Synthetic media makes impersonation and misinformation cheap; labelling duties are expanding.",
+    "askFor": "Labelling practices, call-back and verification controls, and impersonation incident records.",
+    "followUp": "When did we last test a payment approval against a synthetic voice or video?"
+  },
+  {
+    "conceptId": "consumer-outcomes",
+    "questions": {
+      "board": "How do we know AI is producing good outcomes for customers, including vulnerable customers?",
+      "executive": "Which customer outcome measures would show an AI system is causing harm, and who reviews them?",
+      "regulator": "Demonstrate outcome testing for an AI-supported product, including complaints and remediation."
+    },
+    "why": "Conduct duties are judged on outcomes, not on the controls around the model.",
+    "askFor": "Outcome metrics, vulnerable-customer analysis, complaints themes and remediation.",
+    "followUp": "Which customer cohort gets a worse outcome since AI was introduced?"
+  },
+  {
+    "conceptId": "content-safety",
+    "questions": {
+      "board": "Could our AI say something harmful to a customer or employee, and how quickly would we act?",
+      "executive": "Which harmful-output categories do we test and filter, and what gets through?",
+      "regulator": "Show the harmful-content testing, filters and escalation path for a customer-facing AI system."
+    },
+    "why": "Toxic or unsafe outputs cause direct harm and reputational damage even when rare.",
+    "askFor": "Safety test results, filter policies, escalations and a sample of blocked outputs.",
+    "followUp": "What harmful output reached a user in the last quarter?"
+  },
+  {
+    "conceptId": "workforce-impact",
+    "questions": {
+      "board": "How will AI change our workforce, and have we consulted the people affected?",
+      "executive": "Which roles change most, and what reskilling and redeployment is funded?",
+      "regulator": "Explain how workforce impacts of AI are assessed, consulted on and monitored."
+    },
+    "why": "Workforce change affects capability, culture and social licence, and may trigger consultation duties.",
+    "askFor": "Role impact assessments, consultation records, reskilling plans and attrition data.",
+    "followUp": "Which capability are we at risk of losing as AI takes over routine work?"
+  },
+  {
+    "conceptId": "environmental-impact",
+    "questions": {
+      "board": "Do we know the energy and emissions footprint of our AI use, and does it fit our climate commitments?",
+      "executive": "Which AI workloads drive most energy use, and what data do suppliers give us?",
+      "regulator": "Explain how AI energy and emissions are measured and reflected in sustainability reporting."
+    },
+    "why": "AI workloads can materially change emissions and water use, and feed climate disclosures.",
+    "askFor": "Workload energy estimates, supplier emissions data and sustainability reporting inputs.",
+    "followUp": "Which AI use would we pause if it breached our emissions targets?"
+  },
+  {
+    "conceptId": "secure-development",
+    "questions": {
+      "board": "Is security designed into our AI systems from the start, or checked just before launch?",
+      "executive": "Which AI systems went live without threat modelling or a security review of their models and dependencies?",
+      "regulator": "Show the secure development practices applied to a recent AI system, including dependencies and secrets."
+    },
+    "why": "Late security review leaves structural weaknesses in data pipelines, prompts and integrations.",
+    "askFor": "Threat models, secure development standards, dependency scans and pre-release security sign-off.",
+    "followUp": "Which open security finding did we accept to meet a launch date?"
   }
 ]
 const sourcePreference = ['apra-ai-letter-2026', 'dta-agentic-addendum', 'nist-ai-rmf', 'eu-ai-act', 'csa-aicm-1-1']

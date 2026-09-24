@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { concepts, domains } from './concepts'
+import { conceptAliases, concepts, domains } from './concepts'
 import { mappingAssertions, riskPathsForInstrument } from './assertions'
 import { controlFamilies, controlObjectives } from './controls'
 import { instruments } from './instruments'
@@ -80,8 +80,7 @@ describe('AI Trust Atlas corpus', () => {
 
   it('keeps domain and concept roles explicit instead of mixing ontological levels silently', () => {
     expect(domains.filter((domain) => domain.role === 'trust-outcome')).toHaveLength(5)
-    expect(domains.filter((domain) => domain.role === 'governance-capability')).toHaveLength(5)
-    expect(domains.filter((domain) => domain.role === 'context-facet')).toHaveLength(2)
+    expect(domains.filter((domain) => domain.role === 'governance-capability')).toHaveLength(7)
     expect(concepts.every((concept) => Boolean(concept.role))).toBe(true)
   })
 
@@ -178,5 +177,27 @@ describe('structured source metadata (ontology review)', () => {
   it('marks societal-scale risks that have no organisational control objectives', () => {
     const uncontrolled = riskSubdomains.filter((risk) => !controlObjectives.some((control) => control.riskIds.includes(risk.id)))
     expect(uncontrolled.every((risk) => risk.controlScope === 'societal')).toBe(true)
+  })
+})
+
+describe('two-axis concept model (ontology review)', () => {
+  it('types every concept as a trust objective or a governance capability, with no retired IDs left', () => {
+    expect(new Set(concepts.map((concept) => concept.role))).toEqual(new Set(['trust-objective', 'governance-capability']))
+    const ids = new Set(concepts.map((concept) => concept.id))
+    for (const [retired, target] of Object.entries(conceptAliases)) {
+      expect(ids.has(retired), retired).toBe(false)
+      expect(ids.has(target), target).toBe(true)
+    }
+    const used = [...instruments.flatMap((source) => [...source.conceptIds, ...source.provisions.flatMap((provision) => provision.conceptIds)]), ...riskSubdomains.flatMap((risk) => risk.conceptIds), ...controlObjectives.flatMap((control) => control.conceptIds)]
+    expect(used.filter((id) => !ids.has(id))).toEqual([])
+  })
+  it('gives every domain at least three concepts and every concept at least one source', () => {
+    for (const domain of domains) expect(concepts.filter((concept) => concept.domainId === domain.id).length, domain.id).toBeGreaterThanOrEqual(3)
+    for (const concept of concepts) expect(instruments.some((source) => source.conceptIds.includes(concept.id)), concept.id).toBe(true)
+  })
+  it('keeps source-level accountability only where a section supports it', () => {
+    for (const source of instruments.filter((item) => item.conceptIds.includes('accountability'))) {
+      expect(source.provisions.some((provision) => provision.conceptIds.includes('accountability')), source.id).toBe(true)
+    }
   })
 })

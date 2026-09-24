@@ -45,8 +45,8 @@ export type RelationType =
 export type EvidenceBasis = 'explicit' | 'cross-framework-synthesis'
 export type Confidence = 'high' | 'medium'
 
-export type DomainRole = 'trust-outcome' | 'governance-capability' | 'context-facet'
-export type ConceptRole = 'trust-objective' | 'governance-capability' | 'control-family' | 'assurance-construct' | 'context'
+export type DomainRole = 'trust-outcome' | 'governance-capability'
+export type ConceptRole = 'trust-objective' | 'governance-capability'
 export type NavigationFamily = 'decide-and-govern' | 'protect-people-and-information' | 'build-and-operate-safely' | 'verify-and-assure'
 
 export type ConceptDomain = {
@@ -66,7 +66,6 @@ export type Concept = {
   domainId: string
   definition: string
   role: ConceptRole
-  facets?: string[]
   aliases?: string[]
 }
 
