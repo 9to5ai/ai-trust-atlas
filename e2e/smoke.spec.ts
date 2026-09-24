@@ -2,7 +2,6 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 const routes = [
-  { path: '/', heading: /The map of/ },
   { path: '/universe', label: /Interactive orbital map/ },
   { path: '/questions', region: 'Questions workspace' },
   { path: '/cases', heading: /See how the work is changing/ },
@@ -10,13 +9,7 @@ const routes = [
   { path: '/library', heading: 'Every source, one shelf' },
   { path: '/library/eu-ai-act', heading: 'EU AI Act' },
   { path: '/library/compare?ids=apra-cps-230,eu-dora', heading: /Shared themes/ },
-  { path: '/crosswalk', heading: /One control/ },
-  { path: '/crosswalk/impact-risk-assessment', heading: 'Assess impacts and risks' },
-  { path: '/horizon', heading: /What’s coming/ },
-  { path: '/assess', heading: /Readiness/ },
   { path: '/ask', heading: /Questions, answered/ },
-  { path: '/implement', heading: /From obligation to operating control/ },
-  { path: '/implement/agentic-guardrails', heading: /runtime guardrails/ },
 ]
 
 const collectErrors = (page: Page) => {
@@ -47,11 +40,12 @@ test('legacy shared links land on the matching page', async ({ page }) => {
 
 test('section navigation and browser Back work without reloads', async ({ page, isMobile }) => {
   await page.goto('/')
+  await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
   if (isMobile) await page.getByRole('button', { name: 'Open sections menu' }).click()
   await page.getByRole('navigation', { name: 'Atlas sections' }).getByRole('link', { name: 'Methodology' }).click()
   await expect(page).toHaveURL(/\/methodology$/)
   await page.goBack()
-  await expect(page.getByRole('heading', { level: 1, name: /The map of/ })).toBeVisible()
+  await expect(page).toHaveURL(/\/universe(\?[^#]*)?$/)
 })
 
 test('theme choice persists across visits', async ({ page }) => {
@@ -63,7 +57,7 @@ test('theme choice persists across visits', async ({ page }) => {
 })
 
 for (const theme of ['dark', 'light']) {
-  for (const path of ['/', '/methodology', '/library', '/crosswalk', '/horizon', '/assess', '/ask', '/implement']) {
+  for (const path of ['/methodology', '/library', '/ask']) {
     test(`${path} has no serious accessibility violations in the ${theme} theme`, async ({ page }) => {
       await page.addInitScript((value) => localStorage.setItem('atlas-theme', value), theme)
       await page.goto(path)
@@ -138,15 +132,4 @@ test('Ask the Atlas streams a cited answer', async ({ page, isMobile }) => {
   await expect(page.getByRole('link', { name: 'Source 1: APRA CPS 230' })).toBeVisible()
   await page.getByRole('link', { name: 'Source 1: APRA CPS 230' }).click()
   await expect(page).toHaveURL(/\/library\/apra-cps-230$/)
-})
-
-test('assessment example exports a board pack and a workbook', async ({ page, isMobile }) => {
-  test.skip(isMobile, 'Downloads covered on desktop')
-  await page.goto('/assess')
-  await page.getByRole('button', { name: /Load an example/ }).click()
-  await expect(page.getByRole('heading', { name: 'Priority gaps' })).toBeVisible()
-  const [pptx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /Board pack/ }).click()])
-  expect(pptx.suggestedFilename()).toMatch(/board-pack\.pptx$/)
-  const [xlsx] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /Workbook/ }).click()])
-  expect(xlsx.suggestedFilename()).toMatch(/assessment\.xlsx$/)
 })

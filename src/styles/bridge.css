@@ -308,6 +308,21 @@
     text-underline-offset: 4px;
   }
 
+  /* List view: keep the view actions clear of the outline header */
+  .graph-region.is-outline .view-actions {
+    top: 20px;
+    right: 220px;
+  }
+
+  /* Inspector lists: readable size and theme-aware text */
+  .inspector .plain-list li {
+    color: var(--text-secondary);
+    background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+    border-color: var(--border);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+
   /* Print: plain paper, no chrome */
   @media print {
     :root,

@@ -8,6 +8,5 @@ export function recordLink(id: string) {
   const key = rest.join(':')
   if (kind === 'instrument') return `/library/${key}`
   if (kind === 'provision') { const owner = provisionOwner.get(key); return owner ? `/library/${owner}#section-${key}` : `/universe#/provision/${key}` }
-  if (kind === 'control-objective') return `/crosswalk/${key}`
   return `/universe#/${kind}/${key}`
 }

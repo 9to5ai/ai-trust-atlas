@@ -34,7 +34,7 @@ const nodeVertex = /* glsl */ `
     vColor = color; vAlpha = alpha; vShape = shape; vRing = ring; vEmphasis = emphasis;
   }`
 const nodeFragment = /* glsl */ `
-  uniform float uGlow; uniform float uCoreLift;
+  uniform float uGlow; uniform float uCoreLift; uniform float uRingFill; uniform float uEmphasisGlow;
   varying vec3 vColor; varying float vAlpha; varying float vShape; varying float vRing; varying float vEmphasis;
   float sdHex(vec2 p, float r) { p = abs(p); return max(dot(p, vec2(0.8660254, 0.5)), p.y) - r; }
   float sdOct(vec2 p, float r) { p = abs(p); return max(max(p.x, p.y), (p.x + p.y) * 0.7071) - r; }
@@ -50,8 +50,8 @@ const nodeFragment = /* glsl */ `
     float aa = 0.09;
     float fill = 1.0 - smoothstep(-aa, aa, d);
     float edge = 1.0 - smoothstep(0.0, aa * 1.5, abs(d + 0.09) - 0.1);
-    float core = vRing > 0.5 ? max(edge, fill * 0.22) : fill;
-    float glow = exp(-max(d, 0.0) * 1.9) * (uGlow + vEmphasis * 0.45) * (1.0 - fill);
+    float core = vRing > 0.5 ? max(edge, fill * uRingFill) : fill;
+    float glow = exp(-max(d, 0.0) * 1.9) * (uGlow + vEmphasis * uEmphasisGlow) * (1.0 - fill);
     vec3 color = vColor * (core * (1.0 + uCoreLift)) + vColor * glow + vec3(1.0) * fill * vEmphasis * 0.12;
     float a = max(core, glow) * vAlpha;
     if (a < 0.01) discard;
@@ -183,7 +183,7 @@ export class UniverseEngine {
     this.controls.addEventListener('start', () => { this.lastInteraction = performance.now(); this.flight = undefined })
     this.controls.addEventListener('change', () => this.invalidate())
 
-    this.nodeMaterial = new ShaderMaterial({ vertexShader: nodeVertex, fragmentShader: nodeFragment, transparent: true, depthWrite: false, uniforms: { uScale: { value: 1 }, uGlow: { value: 0.5 }, uCoreLift: { value: 0.2 } } })
+    this.nodeMaterial = new ShaderMaterial({ vertexShader: nodeVertex, fragmentShader: nodeFragment, transparent: true, depthWrite: false, uniforms: { uScale: { value: 1 }, uGlow: { value: 0.5 }, uCoreLift: { value: 0.2 }, uRingFill: { value: 0.22 }, uEmphasisGlow: { value: 0.45 } } })
     this.nodePoints = new Points(new BufferGeometry(), this.nodeMaterial)
     this.nodePoints.frustumCulled = false
     this.nodePoints.renderOrder = 3
@@ -193,7 +193,7 @@ export class UniverseEngine {
     this.active = new LineSegments2(new LineSegmentsGeometry(), this.activeMaterial)
     this.active.frustumCulled = false
     this.active.renderOrder = 2
-    this.pulseMaterial = new ShaderMaterial({ vertexShader: nodeVertex, fragmentShader: nodeFragment, transparent: true, depthWrite: false, blending: AdditiveBlending, uniforms: { uScale: { value: 1 }, uGlow: { value: 1.2 }, uCoreLift: { value: 0.6 } } })
+    this.pulseMaterial = new ShaderMaterial({ vertexShader: nodeVertex, fragmentShader: nodeFragment, transparent: true, depthWrite: false, blending: AdditiveBlending, uniforms: { uScale: { value: 1 }, uGlow: { value: 1.2 }, uCoreLift: { value: 0.6 }, uRingFill: { value: 0.22 }, uEmphasisGlow: { value: 0.45 } } })
     this.pulses = new Points(new BufferGeometry(), this.pulseMaterial)
     this.pulses.frustumCulled = false
     this.pulses.renderOrder = 4
@@ -337,6 +337,15 @@ export class UniverseEngine {
   }
 
   pick(x: number, y: number) { return pickNode(this.project(), x, y) }
+
+  /* Screen position of a world point and how many CSS pixels one world unit spans there. */
+  projectPoint(point: Vec3) {
+    const vector = new Vector3(point.x, point.y, point.z)
+    const distance = vector.distanceTo(this.camera.position)
+    vector.project(this.camera)
+    const scale = this.height / (2 * Math.tan(MathUtils.degToRad(this.camera.fov / 2)))
+    return { x: (vector.x + 1) * 0.5 * this.width, y: (1 - vector.y) * 0.5 * this.height, visible: vector.z > -1 && vector.z < 1, unit: scale / distance }
+  }
   nodeState(id: string) { return this.nodes.get(id) }
   cameraDistance() { return this.camera.position.distanceTo(this.controls.target) }
 
@@ -401,8 +410,11 @@ export class UniverseEngine {
     if (dark) clear.convertSRGBToLinear()
     this.renderer.setClearColor(clear, 1)
     this.nodeMaterial.blending = dark ? AdditiveBlending : NormalBlending
-    this.nodeMaterial.uniforms.uGlow.value = dark ? 0.32 : 0.14
+    // Paper: crisp flat marks with hollow rings; Observatory: glowing marks.
+    this.nodeMaterial.uniforms.uGlow.value = dark ? 0.32 : 0
     this.nodeMaterial.uniforms.uCoreLift.value = dark ? 0.05 : 0
+    this.nodeMaterial.uniforms.uRingFill.value = dark ? 0.22 : 0
+    this.nodeMaterial.uniforms.uEmphasisGlow.value = dark ? 0.45 : 0.18
     this.nodeMaterial.needsUpdate = true
     const webMaterial = this.web.material as ShaderMaterial
     webMaterial.blending = dark ? AdditiveBlending : NormalBlending
@@ -411,7 +423,7 @@ export class UniverseEngine {
     this.stars.visible = dark
     for (const sprite of this.nebulae) sprite.visible = dark
     for (const ring of this.rings) (ring.material as LineDashedMaterial).color.set(dark ? '#5c7bb0' : '#8b93a8')
-    ;(this.core.material as SpriteMaterial).opacity = dark ? 0.8 : 0.3
+    ;this.core.visible = dark
     if (dark && !this.composer) {
       this.composer = new EffectComposer(this.renderer)
       this.composer.addPass(new RenderPass(this.scene, this.camera))

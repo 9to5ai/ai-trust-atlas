@@ -23,6 +23,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const labelsRef = useRef<HTMLDivElement>(null)
+  const coreRef = useRef<HTMLDivElement>(null)
   const engineRef = useRef<UniverseEngine | null>(null)
   const labelPool = useRef(new Map<string, HTMLSpanElement>())
   const pointer = useRef({ x: 0, y: 0, down: false, moved: false })
@@ -110,6 +111,15 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
   function drawLabels(engine: UniverseEngine) {
     const container = labelsRef.current
     if (!container) return
+    const core = coreRef.current
+    if (core) {
+      const origin = engine.projectPoint({ x: 0, y: 0, z: 0 })
+      const size = Math.max(44, Math.min(140, origin.unit * 70))
+      core.hidden = !origin.visible
+      core.style.transform = `translate(${Math.round(origin.x - size / 2)}px, ${Math.round(origin.y - size / 2)}px)`
+      core.style.width = core.style.height = `${Math.round(size)}px`
+      core.style.fontSize = `${Math.round(Math.max(9, size * 0.14))}px`
+    }
     const { model: current, nodeById: nodes, selectedNodeId: selected, showSourceLabels: sources, highlightIds: path } = state.current
     const near = neighbourIds(current, selected)
     const pathSet = new Set(path)
@@ -246,7 +256,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
           if (id) { onSelect(id); engine.flyTo(id) }
         }}
       />
-      <div className="universe-labels" ref={labelsRef} aria-hidden="true" />
+      <div className="universe-labels" ref={labelsRef} aria-hidden="true"><div className="universe-core" ref={coreRef}><span>AI Trust</span></div></div>
       <p className="sr-only" id="graph-accessible-description" aria-live="polite">{summary}</p>
       {hoverNode && hover && (
         <div className="universe-tooltip" role="status" style={{ transform: `translate(${Math.round(hover.x + 16)}px, ${Math.round(hover.y + 16)}px)` }}>

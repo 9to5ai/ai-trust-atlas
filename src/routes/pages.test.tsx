@@ -35,7 +35,6 @@ describe('library', () => {
     open('/library/eu-ai-act')
     expect(screen.getByRole('heading', { level: 1, name: 'EU AI Act' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /Record-keeping/ })).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: /ATC-16/ }).length).toBeGreaterThan(0)
     expect(screen.getByText('EU AI Act: Annex III high-risk rules apply')).toBeInTheDocument()
     expect(screen.getAllByText('Draft · awaiting review').length).toBeGreaterThan(0)
   })
@@ -43,28 +42,5 @@ describe('library', () => {
     open('/library/compare?ids=apra-cps-230,eu-dora')
     expect(screen.getByRole('columnheader', { name: 'APRA CPS 230' })).toBeInTheDocument()
     expect(screen.getByRole('rowheader', { name: 'Operational resilience' })).toBeInTheDocument()
-  })
-})
-
-describe('crosswalk and horizon', () => {
-  it('shows every control objective against five frameworks and filters by family', () => {
-    open('/crosswalk')
-    expect(screen.getByRole('heading', { level: 1, name: /One control/ })).toBeInTheDocument()
-    expect(screen.getAllByRole('rowheader').length).toBe(24)
-    fireEvent.click(screen.getByRole('button', { name: 'Protect' }))
-    expect(screen.getAllByRole('rowheader').length).toBe(4)
-  })
-  it('explains a control objective and where it maps', () => {
-    open('/crosswalk/records-traceability')
-    expect(screen.getByRole('heading', { level: 1, name: 'Preserve records and traceability' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Article 12 Record-keeping/ })).toHaveAttribute('href', '/library/eu-ai-act#section-eu-ai-act-12')
-    expect(screen.getAllByText(/No mapping recorded/).length).toBeGreaterThan(0)
-  })
-  it('lists upcoming obligations nearest first', () => {
-    open('/horizon')
-    const list = screen.getByRole('heading', { name: 'Next on the horizon' }).parentElement!
-    const titles = within(list).getAllByRole('link').map((link) => link.textContent ?? '')
-    expect(titles[0]).toContain('FSB')
-    expect(titles.some((title) => title.includes('Annex I high-risk'))).toBe(true)
   })
 })

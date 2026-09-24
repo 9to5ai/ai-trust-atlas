@@ -6,8 +6,8 @@
 .incident-connection p{font-size:13px;line-height:1.65}.incident-connection button:last-child{font-size:12px}
 .incident-source-role{display:block;color:var(--text-muted);margin-top:5px}.incident-detail summary{cursor:pointer}
 .incident-toggle[aria-pressed=true]{color:var(--accent);border-color:var(--accent)}
-.incident-card{border-left:3px solid #b77949}.incident-card .news-explore{margin-top:12px}
+.incident-card{border-left:3px solid var(--caution)}.incident-card .news-explore{margin-top:12px}
 
-.shape-incident{background:#b77949;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.shape-incident{background:var(--caution);clip-path:polygon(50% 0,100% 100%,0 100%)}
 
 }

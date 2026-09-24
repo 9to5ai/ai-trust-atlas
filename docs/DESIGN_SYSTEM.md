@@ -55,7 +55,7 @@ Icons are Phosphor: regular weight by default, duotone for feature icons.
 - Charts follow one method: form first, colour last, validated palettes, and a legend plus direct labels.
 - Categorical colours come from the validated reference palette (blue, orange, aqua, yellow). Each theme has its own steps.
 - Magnitude uses a single hue, `--signal`.
-- Every chart has a text or table equivalent nearby: Horizon has the upcoming list, the Assess report has the gap list, and the crosswalk has its matrix.
+- Every chart has a text or table equivalent nearby. The Universe's equivalent is the List view.
 - The WebGL Universe reads theme colours through `src/universe/engine.ts`. It falls back to the 2D canvas without WebGL2 or with `?renderer=2d`, and the List view is its accessible equivalent.
 
 ## Accessibility and motion

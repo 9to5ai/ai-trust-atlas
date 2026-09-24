@@ -64,6 +64,32 @@
     text-shadow: none;
     box-shadow: 0 0 18px color-mix(in srgb, var(--signal) 55%, transparent);
   }
+  .universe-core {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in srgb, var(--signal) 70%, transparent);
+    background: radial-gradient(circle, color-mix(in srgb, var(--surface-0) 70%, transparent) 55%, transparent 72%);
+    box-shadow: 0 0 24px -6px var(--signal), inset 0 0 18px -8px var(--signal);
+    will-change: transform;
+  }
+  .universe-core span {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-align: center;
+    line-height: 1.1;
+  }
+  :root[data-theme='light'] .universe-core {
+    background: var(--surface-2);
+    border-color: var(--signal);
+    box-shadow: 0 2px 12px rgba(15, 21, 34, 0.12);
+  }
   .universe-tooltip {
     position: absolute;
     left: 0;

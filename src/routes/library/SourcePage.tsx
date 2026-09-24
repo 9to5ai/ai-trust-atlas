@@ -1,13 +1,10 @@
 import { ArrowSquareOut, Planet, Scales } from '@phosphor-icons/react'
-import { useMemo } from 'react'
 import { Link } from '../../app/router'
 import { QuestionsPanel } from '../../components/LeadershipQuestions'
 import { conceptById } from '../../data/concepts'
-import { controlObjectives } from '../../data/controls'
 import { instrumentById } from '../../data/instruments'
 import { relations } from '../../data/relations'
 import { timelineEvents, timelineKindLabels } from '../../data/timeline'
-import { crosswalkForInstrument } from '../../lib/crosswalk'
 import { formatEventDate } from '../../lib/horizon'
 import { authorityLabels, relationLabels } from '../../lib/labels'
 import { Badge, Button, Callout, DraftBadge } from '../../ui/Kit'
@@ -17,7 +14,6 @@ import { authorityIcons } from './authorityIcons'
 import { statusLabels } from './LibraryPage'
 import styles from './Library.module.css'
 
-const controlById = new Map(controlObjectives.map((control) => [control.id, control]))
 const detailLabels = { 'full-public-text': 'Full public text reviewed', 'public-summary': 'Public summary reviewed', 'licensed-standard': 'Licensed standard — metadata and original synopses only' }
 
 /* Natural order for references such as "Article 9" before "Article 14". */
@@ -25,13 +21,11 @@ const refKey = (ref: string) => ref.replace(/\d+/g, (digits) => digits.padStart(
 
 export function SourcePage({ id }: { id: string }) {
   const instrument = instrumentById.get(id)
-  const links = useMemo(() => (instrument ? crosswalkForInstrument(instrument.id) : []), [instrument])
   if (!instrument) return <NotFound />
   const Icon = authorityIcons[instrument.authorityClass]
   const provisions = [...instrument.provisions].sort((a, b) => refKey(a.ref).localeCompare(refKey(b.ref)))
   const related = relations.filter((relation) => relation.sourceId === instrument.id || relation.targetId === instrument.id)
   const events = timelineEvents.filter((event) => event.instrumentId === instrument.id && event.kind !== 'development')
-  const controlsFor = (provisionId: string) => links.filter((link) => link.provision.id === provisionId)
 
   return (
     <Page labelledBy="source-title" wide>
@@ -71,7 +65,6 @@ export function SourcePage({ id }: { id: string }) {
                     <p>{provision.summary}</p>
                     <div className={styles.tags}>
                       {provision.conceptIds.map((conceptId) => <Link key={conceptId} to={`/universe#/concept/${conceptId}`}>{conceptById.get(conceptId)?.name ?? conceptId}</Link>)}
-                      {controlsFor(provision.id).map((link) => { const control = controlById.get(link.assertion.sourceNodeId.replace('control-objective:', '')); return control ? <Link key={link.assertion.id} className={styles.control} to={`/crosswalk/${control.id}`} title={link.assertion.rationale}>{control.code} · {control.shortName}</Link> : null })}
                     </div>
                   </div>
                 </li>
@@ -104,7 +97,6 @@ export function SourcePage({ id }: { id: string }) {
               <ul className={styles.miniList}>
                 {events.map((event) => <li key={event.id}><small>{formatEventDate(event)} · {timelineKindLabels[event.kind]}</small><span>{event.title}</span></li>)}
               </ul>
-              <p style={{ margin: 'var(--space-3) 0 0' }}><Link to="/horizon">See the full horizon →</Link></p>
             </div>
           )}
           {related.length > 0 && (

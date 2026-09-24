@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 // Ratchet: legacy CSS may shrink but never grow. Lower these ceilings as screens are rebuilt.
-const ceilings = { important: 75, hex: 328, rules: 1047 }
+const ceilings = { important: 75, hex: 75, rules: 1047 }
 const legacyDir = join(__dirname, 'legacy')
 const legacy = readdirSync(legacyDir).filter((file) => file.endsWith('.css')).map((file) => readFileSync(join(legacyDir, file), 'utf8')).join('\n')
 

@@ -4,11 +4,11 @@ import { legacyRedirect } from './legacyUrls'
 const at = (path: string) => legacyRedirect(new URL(path, 'https://atlas.example'))
 
 describe('legacy shared links', () => {
-  it('leaves the new home page and new routes alone', () => {
-    expect(at('/')).toBeNull()
+  it('opens the Universe from the site root and leaves other routes alone', () => {
+    expect(at('/')).toBe('/universe')
+    expect(at('/?utm_source=newsletter')).toBe('/universe?utm_source=newsletter')
     expect(at('/universe?view=list')).toBeNull()
     expect(at('/methodology')).toBeNull()
-    expect(at('/?utm_source=newsletter')).toBeNull()
   })
 
   it('sends selections, filters and display modes to the Universe', () => {

@@ -19,7 +19,7 @@ Ask the Atlas answers questions from the Atlas's own records and cites every cla
    - whether it used conclusive language.
 
    The client shows a caution banner in the last two cases.
-4. **Render safely.** The client (`src/ask/`) renders paragraphs, bullets and bold text as React elements. It never inserts model HTML. Citations become numbered chips that open the record in the Library, the Crosswalk or the Universe. **Show in Universe** highlights the cited records on the 3D map.
+4. **Render safely.** The client (`src/ask/`) renders paragraphs, bullets and bold text as React elements. It never inserts model HTML. Citations become numbered chips that open the record in the Library or the Universe. **Show in Universe** highlights the cited records on the 3D map.
 
 ## Configuration
 
@@ -41,7 +41,7 @@ Also set a quota cap in Google Cloud as the hard spending ceiling. Consider addi
 ## Privacy
 
 - The Ask interface asks users not to enter client or personal information. Only the question and up to six prior turns are sent to the model.
-- Assessments and briefcase contents are never sent. They stay in the browser (see `docs/ASSESSMENT_POLICY.md`).
+- Shortlists and meeting briefs are never sent. They stay in the browser.
 - Server logs record metadata only: a hashed client identifier, record and citation counts, latency and token counts. Question text is never logged.
 - Tell the firm's risk team which provider and region are used before public launch.
 

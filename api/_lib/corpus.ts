@@ -8,7 +8,6 @@ import { riskDomains, riskSubdomains } from '../../src/data/mitRiskTaxonomy'
 import { relations } from '../../src/data/relations'
 import { timelineEvents } from '../../src/data/timeline'
 import { useCases } from '../../src/data/useCases'
-import { crosswalkForInstrument } from '../../src/lib/crosswalk'
 import { authorityLabels, relationLabels } from '../../src/lib/labels'
 import { searchAliases } from '../../src/lib/workspace'
 
@@ -35,20 +34,14 @@ const instrumentChunks: Chunk[] = instruments.map((instrument) => {
   }
 })
 
-const provisionChunks: Chunk[] = instruments.flatMap((instrument) => {
-  const mapped = crosswalkForInstrument(instrument.id)
-  return instrument.provisions.map((provision) => {
-    const controls = mapped.filter((link) => link.provision.id === provision.id).map((link) => link.assertion.sourceNodeId.replace('control-objective:', ''))
-    return {
-      id: `provision:${provision.id}`,
-      kind: 'Section',
-      title: `${instrument.shortTitle} ${provision.ref} — ${provision.title}`,
-      text: [provision.summary, provision.note ?? '', controls.length ? `Atlas crosswalk (interpretation): may be addressed by control objectives ${controls.join(', ')}.` : ''].filter(Boolean).join(' '),
-      url: provision.sourceUrl ?? instrument.officialUrl,
-      draft: provision.editorialStatus === 'draft',
-    }
-  })
-})
+const provisionChunks: Chunk[] = instruments.flatMap((instrument) => instrument.provisions.map((provision) => ({
+  id: `provision:${provision.id}`,
+  kind: 'Section',
+  title: `${instrument.shortTitle} ${provision.ref} — ${provision.title}`,
+  text: [provision.summary, provision.note ?? ''].filter(Boolean).join(' '),
+  url: provision.sourceUrl ?? instrument.officialUrl,
+  draft: provision.editorialStatus === 'draft',
+})))
 
 const conceptChunks: Chunk[] = concepts.map((concept) => ({ id: `concept:${concept.id}`, kind: 'Trust concept', title: concept.name, text: `${concept.definition} Theme: ${domains.find((domain) => domain.id === concept.domainId)?.name}.`, interpretation: true }))
 const domainChunks: Chunk[] = domains.map((domain) => ({ id: `domain:${domain.id}`, kind: 'Trust theme', title: domain.name, text: domain.definition, interpretation: true }))
@@ -101,5 +94,5 @@ export function retrieve(question: string, limit = 24, budget = 26000): Chunk[] 
 export const atlasMap = [
   `The Atlas holds ${instruments.length} sources, ${concepts.length} trust concepts in ${domains.length} themes, ${riskSubdomains.length} MIT risk types and ${controlObjectives.length} candidate control objectives.`,
   `Themes: ${domains.map((domain) => domain.name).join('; ')}.`,
-  'Areas: Universe (map), Library (sources), Crosswalk (controls to provisions), Horizon (dates), Questions (role-based questions), Use cases.',
+  'Areas: Universe (map), Library (sources), Questions (role-based questions), Use cases.',
 ].join(' ')

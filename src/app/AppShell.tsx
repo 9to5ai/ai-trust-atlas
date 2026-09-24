@@ -12,11 +12,8 @@ import styles from './AppShell.module.css'
 export const navItems = [
   { to: '/universe', label: 'Universe', match: ['/universe'] },
   { to: '/library', label: 'Library', match: ['/library'] },
-  { to: '/crosswalk', label: 'Crosswalk', match: ['/crosswalk'] },
-  { to: '/horizon', label: 'Horizon', match: ['/horizon'] },
-  { to: '/assess', label: 'Assess', match: ['/assess'] },
-  { to: '/implement', label: 'Implement', match: ['/implement', '/cases'] },
   { to: '/questions', label: 'Questions', match: ['/questions'] },
+  { to: '/cases', label: 'Use cases', match: ['/cases'] },
   { to: '/methodology', label: 'Methodology', match: ['/methodology'] },
 ] as const
 
@@ -66,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={styles.shell} data-route={pathname}>
       <header className={styles.bar}>
-        <Link to="/" className={styles.brand} aria-label="AI Trust Atlas home">
+        <Link to="/universe" className={styles.brand} aria-label="AI Trust Atlas — open the Universe">
           <span className={styles.mark}><AtlasMark size={26} /></span>
           <span className={styles.wordmark}>AI Trust <em>Atlas</em></span>
         </Link>

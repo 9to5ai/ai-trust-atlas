@@ -2,20 +2,20 @@
 @layer legacy {
 /* Compact navigation and filter context, shared by both views and themes. */
 .view-actions {position:absolute;top:20px;left:52px;right:205px;z-index:33;display:flex;align-items:center;gap:8px;min-height:32px}
-.view-actions button,.active-filters button,.atlas-empty button,.detail-navigation>button,.share-fallback button {display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--surface,#fff);color:var(--text-muted);font-size:12px;cursor:pointer}
+.view-actions button,.active-filters button,.atlas-empty button,.detail-navigation>button,.share-fallback button {display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:var(--surface,var(--surface-2));color:var(--text-muted);font-size:12px;cursor:pointer}
 .view-actions button {white-space:nowrap}
 .view-actions span {font-size:11px;color:var(--text-muted)}
 .active-filters {position:absolute;top:65px;left:20px;right:20px;z-index:33;display:flex;gap:6px;overflow-x:auto;max-width:100%;padding:3px 0 7px;scrollbar-width:thin}
-.active-filters button {flex-shrink:0;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--surface,#fff)}
+.active-filters button {flex-shrink:0;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--surface,var(--surface-2))}
 .active-filters svg {flex-shrink:0;width:12px}
 .graph-region:has(.active-filters) .outline-heading {padding-top:120px}
-.atlas-empty {position:absolute;z-index:30;left:50%;top:50%;transform:translate(-50%,-50%);width:min(360px,calc(100% - 36px));padding:24px;text-align:center;border:1px solid var(--line);border-radius:16px;background:var(--surface,#fff);color:var(--text);box-shadow:0 8px 28px #0000000a}
+.atlas-empty {position:absolute;z-index:30;left:50%;top:50%;transform:translate(-50%,-50%);width:min(360px,calc(100% - 36px));padding:24px;text-align:center;border:1px solid var(--line);border-radius:16px;background:var(--surface,var(--surface-2));color:var(--text);box-shadow:0 8px 28px var(--shadow-tint)}
 .atlas-empty strong {font-size:18px}.atlas-empty p {font-size:13px;color:var(--text-muted)}
 .detail-navigation {padding:0 46px 12px 0;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .detail-trail {display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:11px;color:var(--text-muted)}
 .detail-trail button {display:inline-flex;align-items:center;gap:4px;border:0;padding:3px 0;background:none;color:var(--accent);font:inherit;text-align:left;cursor:pointer}
 .detail-trail span {font-weight:600}.detail-trail svg {flex-shrink:0}
-.share-fallback {position:absolute;z-index:40;top:60px;left:20px;right:20px;display:flex;align-items:center;gap:8px;padding:12px;background:var(--surface,#fff);border:1px solid var(--line);border-radius:10px;color:var(--text)}
+.share-fallback {position:absolute;z-index:40;top:60px;left:20px;right:20px;display:flex;align-items:center;gap:8px;padding:12px;background:var(--surface,var(--surface-2));border:1px solid var(--line);border-radius:10px;color:var(--text)}
 .share-fallback label {flex:1;min-width:0;font-size:12px}.share-fallback input {width:100%;margin-top:6px}
 @media(max-width:860px){
  .view-actions {left:12px;right:180px;top:18px;gap:5px;flex-wrap:wrap}.view-actions button{font-size:11px;padding:7px}.view-actions span{position:absolute;top:35px}

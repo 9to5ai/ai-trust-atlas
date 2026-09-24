@@ -200,7 +200,7 @@ describe('production use case journey',()=>{
   window.history.replaceState(null,'','/?view=use-cases')
   render(<App/>)
   expect(window.location.pathname).toBe('/cases')
-  expect(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Implement'})).toHaveAttribute('aria-current','page')
+  expect(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Use cases'})).toHaveAttribute('aria-current','page')
   fireEvent.click(screen.getByRole('button',{name:'Detect fraud & manage risk'}))
   fireEvent.click(screen.getByRole('button',{name:'Proposing new fraud rules'}))
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
@@ -241,10 +241,11 @@ describe('pages and browser history',()=>{
   await waitFor(()=>expect(window.location.hash).toBe('#/instrument/apra-cps-234'))
   await waitFor(()=>expect(screen.getByLabelText('Selected node details')).toHaveTextContent('APRA CPS 234'))
  })
- it('opens the home page at the site root and navigates to sections without reloading',()=>{
+ it('opens the Universe at the site root and navigates to sections without reloading',()=>{
   window.history.replaceState(null,'','/')
   render(<App/>)
-  expect(screen.getByRole('heading',{level:1})).toBeInTheDocument()
+  expect(window.location.pathname).toBe('/universe')
+  expect(screen.getByLabelText(/Interactive orbital map/)).toBeInTheDocument()
   fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Methodology'}))
   expect(window.location.pathname).toBe('/methodology')
   expect(screen.getByRole('heading',{level:1,name:'How the Atlas is curated'})).toBeInTheDocument()

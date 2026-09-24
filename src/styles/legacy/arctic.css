@@ -13,10 +13,10 @@
 .sidebar button[aria-pressed=true],.sidebar button.active {background:color-mix(in srgb, var(--signal) 6%, var(--surface-2));color:var(--signal);border-color:var(--border)}
 .graph-region,.graph-stage {background:color-mix(in srgb, var(--signal) 6%, var(--surface-2))}
 .observatory-frame,.graph-region::before,.graph-region::after {display:none!important}
-.projection-switch {border:1px solid var(--border);border-radius:9px;background:var(--surface-2);box-shadow:0 3px 10px var(--signal)}
+.projection-switch {border:1px solid var(--border);border-radius:9px;background:var(--surface-2);box-shadow:0 3px 10px var(--shadow-tint)}
 .projection-switch button {font-family:inherit;font-size:11px;color:var(--text-tertiary);border-radius:6px;min-height:33px}
 .projection-switch button[aria-pressed=true] {color:var(--signal);background:var(--surface-1);box-shadow:none}
-.graph-controls {background:var(--surface-2);border-color:var(--border);box-shadow:0 4px 16px var(--signal)}
+.graph-controls {background:var(--surface-2);border-color:var(--border);box-shadow:0 4px 16px var(--shadow-tint)}
 .graph-controls button {background:var(--surface-2);color:var(--signal);border-color:transparent}
 .graph-controls button:hover,.graph-controls button[aria-pressed=true] {background:var(--surface-1);color:var(--signal);border-color:var(--border-subtle)}
 .graph-controls .source-lens-control,.graph-controls .source-lens-control[aria-pressed=true] {color:var(--signal);border-color:var(--border);background:var(--surface-1)}
@@ -24,7 +24,7 @@
 .semantic-key {background:var(--surface-1);border-radius:6px;padding:6px 8px}
 .path-narrative {border-color:var(--signal);background:var(--surface-1);border-radius:8px;padding:12px 15px;max-width:350px}
 .path-narrative span {color:var(--signal);font-size:9px}.path-narrative strong{font-family:inherit;color:var(--text-secondary);font-size:17px}.path-narrative small{color:var(--text-tertiary);font-size:11px}
-.universe-hover-card {background:var(--surface-2);border-color:var(--border);box-shadow:0 10px 30px var(--signal)}
+.universe-hover-card {background:var(--surface-2);border-color:var(--border);box-shadow:0 10px 30px var(--shadow-tint)}
 .universe-hover-card span {color:var(--signal)}.universe-hover-card strong{color:var(--text-secondary)}.universe-hover-card small{color:var(--text-tertiary)}
 .atlas-workspace.has-selection .inspector,.inspector {background:var(--surface-2);border-color:var(--border);color:var(--text-secondary)}
 .inspector h2,.focus-list-title h2 {font-family:var(--font-sans)!important;font-weight:500!important;letter-spacing:-.04em;color:var(--text-secondary)}
@@ -35,12 +35,12 @@
 .inspector-close {color:var(--text-secondary);background:var(--surface-1);border-color:var(--border);border-radius:7px}
 .focus-list {background:var(--surface-1)}.focus-row{background:var(--surface-2);border-color:var(--border)}.focus-row:hover{background:var(--surface-1)}
 .focus-row-title strong{color:var(--signal)}.focus-row-subtitle,.focus-connection{color:var(--text-tertiary)}
-.atlas-search-dialog {background:var(--surface-2);color:var(--text-secondary);border-color:var(--border);box-shadow:0 20px 80px var(--signal)}
+.atlas-search-dialog {background:var(--surface-2);color:var(--text-secondary);border-color:var(--border);box-shadow:0 20px 80px var(--shadow-tint)}
 .atlas-search-dialog::backdrop {background:var(--signal-soft);backdrop-filter:blur(8px)}
 .command-input {border-color:var(--border)}.command-input input{color:var(--text-secondary)}.command-input button,.command-caption,.command-results small,.atlas-search-dialog footer{color:var(--text-tertiary)}
 .command-results button{color:var(--text-secondary)}.command-results p{color:var(--text-secondary)}.command-results button.active,.command-results button:hover{background:var(--surface-1);border-color:var(--border)}
 .atlas-search-dialog footer {border-color:var(--border)}
-@media(max-width:860px){.atlas-workspace.has-selection .inspector,.atlas-workspace.has-selection .inspector.mobile-expanded{background:var(--surface-2);border-color:var(--border);box-shadow:0 -6px 30px var(--signal)}.mobile-inspector-peek,.inspector.mobile-expanded .mobile-inspector-peek{background:var(--surface-1);color:var(--text-secondary)}.mobile-inspector-peek strong,.mobile-inspector-peek>b{color:var(--signal)}.mobile-atlas-tools button{background:var(--surface-2);color:var(--text-secondary);border-color:var(--border);border-radius:7px}.mobile-atlas-tools svg,.mobile-atlas-tools small{color:var(--signal)}.path-narrative{bottom:92px;max-width:calc(100% - 24px);padding:9px 12px}.path-narrative strong{font-size:14px}}
+@media(max-width:860px){.atlas-workspace.has-selection .inspector,.atlas-workspace.has-selection .inspector.mobile-expanded{background:var(--surface-2);border-color:var(--border);box-shadow:0 -6px 30px var(--shadow-tint)}.mobile-inspector-peek,.inspector.mobile-expanded .mobile-inspector-peek{background:var(--surface-1);color:var(--text-secondary)}.mobile-inspector-peek strong,.mobile-inspector-peek>b{color:var(--signal)}.mobile-atlas-tools button{background:var(--surface-2);color:var(--text-secondary);border-color:var(--border);border-radius:7px}.mobile-atlas-tools svg,.mobile-atlas-tools small{color:var(--signal)}.path-narrative{bottom:92px;max-width:calc(100% - 24px);padding:9px 12px}.path-narrative strong{font-size:14px}}
 .graph-hint {display:none}
 /* Keep the selected universe clear and the evidence hierarchy consistent. */
 .inspector h3 {font-family:inherit;font-size:14px;font-weight:600}
@@ -52,7 +52,7 @@
 .inspector details>summary small {font-size:10px;font-weight:400;color:var(--text-tertiary);margin-left:8px}
 .inspector details[open]>summary {margin-bottom:14px}
 /* Collapse only the left panel; selected-item details remain available. */
-.sidebar-collapse {position:absolute;left:-15px;top:18px;z-index:25;width:30px;height:34px;display:grid;place-items:center;border:1px solid var(--border);border-radius:8px;background:var(--surface-2);color:var(--text-secondary);cursor:pointer;box-shadow:0 2px 8px var(--signal)}
+.sidebar-collapse {position:absolute;left:-15px;top:18px;z-index:25;width:30px;height:34px;display:grid;place-items:center;border:1px solid var(--border);border-radius:8px;background:var(--surface-2);color:var(--text-secondary);cursor:pointer;box-shadow:0 2px 8px var(--shadow-tint)}
 .sidebar-collapse:hover {color:var(--signal);background:var(--surface-1)}
 .graph-region {overflow:visible}
 .sidebar-collapsed .atlas-workspace>.sidebar {display:none}

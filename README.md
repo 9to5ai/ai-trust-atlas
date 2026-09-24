@@ -2,7 +2,7 @@
 
 **A source-linked knowledge map that turns a complex topic into something people can explore, question and use.**
 
-[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Ask the Atlas](docs/ASK_ATLAS.md) · [Assessment policy](docs/ASSESSMENT_POLICY.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
+[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Ask the Atlas](docs/ASK_ATLAS.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
 
 AI Trust Atlas connects AI governance concepts with laws, guidance, standards, research, risks and candidate controls. Its Universe makes the landscape explorable; its hierarchical List makes it readable. Source cards explain the material, role-specific questions help prepare conversations, and meeting briefs help readers prepare evidence-based discussions.
 
@@ -28,14 +28,10 @@ The initial audience is regulators, boards and executive leaders, with particula
 
 | Area | Purpose |
 |---|---|
-| **Home** | Orientation: what the Atlas covers, six starting questions, the latest developments and coverage by jurisdiction |
-| **Universe** | A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Includes guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
+| **Universe** | The start page. A cinematic WebGL map of sources, concepts, risks and controls. Nodes glow, links bundle, and the camera flies to each selection. Includes guided tours for live demos, path tracing between any two records, and PNG export. A 2D canvas and an accessible List view are the fallbacks |
 | **Library** | Every source with its authority, status and mapped sections. Source pages list key dates, related sources and role questions. **Compare** sets up to three sources side by side and exports to Excel |
-| **Crosswalk** | Twenty-four candidate control objectives mapped to the EU AI Act, ISO/IEC 42001, NIST AI RMF, APRA CPS 230/234 and Australia’s six AI practices, with Excel export |
-| **Horizon** | A radar and regional timeline of dated obligations, commencements and transitions |
-| **Assess** | A private, browser-only readiness self-assessment with a report, an editable PowerPoint board pack, an Excel workbook and PDF |
-| **Implement** | Five playbooks, a catalogue of open tools, and production use cases and incidents |
 | **Questions** | Board, executive and regulator questions, built into a meeting brief |
+| **Use cases** | Documented production deployments with the questions each one raises |
 | **Ask the Atlas** | Answers powered by Gemini, grounded only in Atlas records, with every claim cited (⌘J from anywhere) |
 | **Methodology** | How sources are selected, verified and connected |
 
@@ -101,7 +97,7 @@ npm run questions:check    # All required cards and audiences have complete ques
 npm run build              # Question gate, TypeScript and Vite output
 npm run preview            # Serve the built static app locally
 npm run test:e2e           # Playwright smoke, legacy-link and accessibility checks (after build)
-npm run content:check      # Crosswalk, timeline and draft-content gates
+npm run content:check      # Timeline and draft-content gates
 npm run ask:eval           # Ask the Atlas golden questions (model calls only if a key is set)
 npm run sources:review     # Validate the ledger and report due checks; no research occurs
 ```
