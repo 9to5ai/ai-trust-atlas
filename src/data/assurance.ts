@@ -1,4 +1,4 @@
-import type { Instrument, InstrumentRelation } from '../types.js'
+import type { SourceRecord, InstrumentRelation } from '../types.js'
 import { makeInstrument } from './makeInstrument'
 
 /*
@@ -10,7 +10,7 @@ import { makeInstrument } from './makeInstrument'
 const drafted = '2026-09-24'
 const note = 'Draft prepared for editorial review. Original synopsis; confirm scope and edition against the issuer’s current text before relying on it.'
 
-export const assuranceInstruments: Instrument[] = [
+export const assuranceInstruments: SourceRecord[] = [
   makeInstrument({
     id: 'isae-3000', title: 'ISAE 3000 (Revised) Assurance Engagements Other than Audits or Reviews of Historical Financial Information', shortTitle: 'ISAE 3000 (Revised)', issuer: 'International Auditing and Assurance Standards Board (IAASB)', jurisdiction: 'International', region: 'Global', authorityClass: 'assurance-standard', authorityNote: 'Professional standard for assurance practitioners; applies to the engagement, not to the entity being assured', status: 'active', published: '2013-12', effective: 'Assurance reports dated on or after 15 December 2015', lastVerified: drafted, editorialStatus: 'draft',
     officialUrl: 'https://www.iaasb.org/publications/international-standard-assurance-engagements-isae-3000-revised-assurance-engagements-other-audits-or-0',

@@ -1,7 +1,7 @@
-import type { Instrument } from '../types.js'
+import type { SourceRecord } from '../types.js'
 
 // Targeted official-overview review; see research/2026-09-08-expanded-briefing.md.
-export const frontierSources: Instrument[] = [
+export const frontierSources: SourceRecord[] = [
   {
     "id": "apra-asic-frontier-roundtables-2026",
     "title": "Insights from the APRA-ASIC Industry Roundtables: Resilience at Frontier AI Speed",

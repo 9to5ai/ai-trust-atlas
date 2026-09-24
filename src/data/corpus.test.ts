@@ -153,3 +153,30 @@ describe('prudential legal foundations', () => {
     expect(instruments.find(i => i.id === 'apra-cps-230')?.effective).toBe('2026-07-01')
   })
 })
+
+describe('structured source metadata (ontology review)', () => {
+  it('records legal effect, issuer type and controlled sectors for every source', () => {
+    for (const source of instruments) {
+      expect(source.legalEffect, source.id).toBeTruthy()
+      expect(source.issuerType, source.id).toBeTruthy()
+      expect(source.sectorIds.length, source.id).toBeGreaterThan(0)
+    }
+    expect(instruments.find((source) => source.id === 'apra-cps-230')?.legalEffect).toBe('binding-law')
+    expect(instruments.find((source) => source.id === 'apra-ai-letter-2026')?.legalEffect).toBe('supervisory-expectation')
+    expect(instruments.find((source) => source.id === 'nist-ai-rmf')?.issuerType).toBe('government')
+    expect(instruments.find((source) => source.id === 'iso-42001')?.issuerType).toBe('standard-setter')
+    expect(instruments.find((source) => source.id === 'fsb-ai-stability')?.issuerType).toBe('standard-setter')
+    expect(instruments.find((source) => source.id === 'owasp-llm-top-10')?.issuerType).toBe('industry-body')
+  })
+  it('links every source to at least one other source and records known supersessions', () => {
+    const linked = new Set(relations.flatMap((relation) => [relation.sourceId, relation.targetId]))
+    expect(instruments.filter((source) => !linked.has(source.id)).map((source) => source.id)).toEqual([])
+    expect(instruments.find((source) => source.id === 'us-sr-26-2')?.supersedes?.map((prior) => prior.title)).toEqual(expect.arrayContaining([expect.stringContaining('SR 11-7')]))
+    // Vague "complements" links stay a small minority; prefer a specific relationship type.
+    expect(relations.filter((relation) => relation.type === 'complements').length / relations.length).toBeLessThan(0.15)
+  })
+  it('marks societal-scale risks that have no organisational control objectives', () => {
+    const uncontrolled = riskSubdomains.filter((risk) => !controlObjectives.some((control) => control.riskIds.includes(risk.id)))
+    expect(uncontrolled.every((risk) => risk.controlScope === 'societal')).toBe(true)
+  })
+})

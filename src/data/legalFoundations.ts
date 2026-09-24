@@ -1,4 +1,4 @@
-import type { Instrument, InstrumentRelation } from '../types.js'
+import type { SourceRecord, InstrumentRelation } from '../types.js'
 
 const reviewed = '2026-09-07'
 const apraActUrl = 'https://www.legislation.gov.au/C2004A00310/latest/text'
@@ -51,7 +51,7 @@ const industryActs = [
   }
 ]
 
-export const legalFoundationInstruments: Instrument[] = [
+export const legalFoundationInstruments: SourceRecord[] = [
   {
     id: 'au-apra-act', title: 'Australian Prudential Regulation Authority Act 1998', shortTitle: 'APRA Act',
     issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law',
@@ -61,7 +61,7 @@ export const legalFoundationInstruments: Instrument[] = [
     sectors: ['Financial services'], conceptIds: ['accountability'], detailAvailability: 'public-summary',
     provisions: [{ id: 'apra-act-establishment', ref: 'Sections 7–9', title: 'Establishment and mandate', summary: 'Establishes APRA and sets out its purpose and functions.', conceptIds: ['accountability'], sourceUrl: apraActUrl, reviewedAt: reviewed, note: 'Selected institutional provisions and official APRA explanation reviewed; not a whole-Act analysis.' }],
   },
-  ...industryActs.map((act): Instrument => ({
+  ...industryActs.map((act): SourceRecord => ({
     id: act.id, title: act.title, shortTitle: act.shortTitle, issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law',
     authorityNote: 'Enabling legislation for prudential standards within its scope', status: 'in-force', published: act.published, lastVerified: reviewed,
     officialUrl: `https://www.legislation.gov.au/Series/${act.registerId}`,

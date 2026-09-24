@@ -1,8 +1,8 @@
-import type { Instrument, SourceProvision } from '../types.js'
+import type { SourceRecord, SourceProvision } from '../types.js'
 const reviewedAt = '2026-09-07'
 const note = 'Targeted source-page review on 7 September 2026. Original synopsis; topic connections are Atlas interpretation.'
 
-export const septemberSources: Instrument[] = [
+export const septemberSources: SourceRecord[] = [
   {
     id: 'owasp-agent-control-standard', title: 'OWASP Agent Control Standard (ACS)', shortTitle: 'OWASP ACS', issuer: 'OWASP GenAI Security Project', jurisdiction: 'Global community reference', region: 'Global', authorityClass: 'testing-tool', authorityNote: "Voluntary implementation specification and tooling", status: 'living', published: '2026-09-01', lastVerified: reviewedAt,
     officialUrl: 'https://genai.owasp.org/resource/agent-control-standard-acs/',

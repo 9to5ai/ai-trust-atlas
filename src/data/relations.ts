@@ -1,5 +1,6 @@
 import { assuranceRelations } from './assurance'
 import { retiredSourceIds, reviewRelations } from './reviewSources'
+import { ontologyRelations, relationTypeOverrides } from './ontologyRelations'
 import { legalFoundationRelations } from './legalFoundations'
 import type { InstrumentRelation } from '../types'
 import { expandedRelations } from './expandedRelations'
@@ -19,5 +20,6 @@ const coreRelations: InstrumentRelation[] = [
   { id: 'privacy-apra-ai', sourceId: 'apra-ai-letter-2026', targetId: 'au-privacy-act', type: 'complements', explanation: 'Prudential AI governance sits alongside existing privacy obligations where personal information is involved.', basis: 'cross-framework-synthesis', confidence: 'high', sourceAnchors: ['APRA AI Letter', 'Privacy Act 1988'] },
 ]
 
-export const relations: InstrumentRelation[] = [...coreRelations, ...expandedRelations, ...legalFoundationRelations, ...assuranceRelations, ...reviewRelations]
+export const relations: InstrumentRelation[] = [...coreRelations, ...expandedRelations, ...legalFoundationRelations, ...assuranceRelations, ...reviewRelations, ...ontologyRelations]
   .filter((relation) => !retiredSourceIds.has(relation.sourceId) && !retiredSourceIds.has(relation.targetId))
+  .map((relation) => relationTypeOverrides[relation.id] ? { ...relation, ...relationTypeOverrides[relation.id] } : relation)

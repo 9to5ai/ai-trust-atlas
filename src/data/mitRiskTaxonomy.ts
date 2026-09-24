@@ -94,8 +94,7 @@ export const riskSubdomains: RiskSubdomain[] = [
     id: 'mit-risk-4-1', ref: '4.1', name: 'Disinformation, surveillance, and influence at scale', riskDomainId: 'mit-risk-4',
     definition: 'Using AI for large-scale disinformation, malicious surveillance, automated censorship or propaganda to manipulate opinion and behaviour.',
     conceptIds: ['adversarial-risk', 'ai-security', 'systemic-risk', 'human-rights', 'provenance'], recordCount: 84,
-    causalProfile: profile({ Human: 59, Other: 14, AI: 9, Uncoded: 2 }, { Intentional: 73, Other: 9, Uncoded: 2 }, { 'Post-deployment': 74, Other: 8, Uncoded: 2 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high',
-  },
+    causalProfile: profile({ Human: 59, Other: 14, AI: 9, Uncoded: 2 }, { Intentional: 73, Other: 9, Uncoded: 2 }, { 'Post-deployment': 74, Other: 8, Uncoded: 2 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'high', controlScope: 'societal' },
   {
     id: 'mit-risk-4-2', ref: '4.2', name: 'Cyberattacks, weapon development or use, and mass harm', riskDomainId: 'mit-risk-4',
     definition: 'Using AI to develop or operate cyber weapons, physical weapons or other capabilities capable of causing mass harm.',
@@ -136,8 +135,7 @@ export const riskSubdomains: RiskSubdomain[] = [
     id: 'mit-risk-6-3', ref: '6.3', name: 'Economic and cultural devaluation of human effort', riskDomainId: 'mit-risk-6',
     definition: 'AI-generated economic or cultural value destabilizing systems that rely on human effort and reducing appreciation for human skills or creativity.',
     conceptIds: ['human-rights', 'provenance', 'transparency-disclosure', 'impact-assessment'], recordCount: 31,
-    causalProfile: profile({ Human: 15, AI: 11, Other: 5 }, { Other: 14, Intentional: 11, Unintentional: 6 }, { 'Post-deployment': 18, 'Pre-deployment': 4, Other: 9 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium',
-  },
+    causalProfile: profile({ Human: 15, AI: 11, Other: 5 }, { Other: 14, Intentional: 11, Unintentional: 6 }, { 'Post-deployment': 18, 'Pre-deployment': 4, Other: 9 }), mappingBasis: 'atlas-synthesis', mappingConfidence: 'medium', controlScope: 'societal' },
   {
     id: 'mit-risk-6-4', ref: '6.4', name: 'Competitive dynamics', riskDomainId: 'mit-risk-6',
     definition: 'AI races among developers or states increasing pressure to release unsafe or error-prone systems for strategic or economic advantage.',

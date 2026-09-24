@@ -1,7 +1,7 @@
-import type { Instrument } from '../types.js'
+import type { SourceRecord } from '../types.js'
 import type { Development } from './developments.js'
 // Individually verified changes. Full monitoring coverage is recorded separately.
-export const methodologySources: Instrument[] = [
+export const methodologySources: SourceRecord[] = [
   {
     "id": "nist-agent-security-responses",
     "title": "Security Considerations for AI Agents: Summary Analysis of RFI Responses",
@@ -132,7 +132,7 @@ export const methodologyDevelopments: Development[] = [
     "url": "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai"
   }
 ]
-export const methodologyCorrections: Record<string, Partial<Instrument>> = {
+export const methodologyCorrections: Record<string, Partial<SourceRecord>> = {
   "nist-critical-infrastructure-concept": {
     "published": "2026-04-06"
   },

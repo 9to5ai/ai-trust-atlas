@@ -12,7 +12,6 @@ export type InstrumentStatus =
   | 'in-force'
   | 'active'
   | 'phased'
-  | 'voluntary'
   | 'consultation'
   | 'closed-consultation'
   | 'future-effective'
@@ -99,6 +98,8 @@ export type RiskSubdomain = {
   causalProfile: CausalProfile
   mappingBasis: 'atlas-synthesis'
   mappingConfidence: Confidence
+  /* 'societal' risks are largely outside a single organisation's control; the Atlas lists no organisational control objectives for them. */
+  controlScope?: 'organisational' | 'societal'
 }
 
 export type SourceGranularity = 'article' | 'clause' | 'section' | 'principle' | 'outcome' | 'practice' | 'summary'
@@ -119,13 +120,20 @@ export type SourceProvision = {
 
 export type EditorialStatus = 'draft' | 'reviewed'
 
-export type Instrument = {
+/* Structured source metadata (2026-09 ontology review). */
+export type LegalEffect = 'binding-law' | 'mandatory-policy' | 'supervisory-expectation' | 'voluntary' | 'informational'
+export type IssuerType = 'legislature' | 'regulator' | 'government' | 'standard-setter' | 'intergovernmental' | 'industry-body' | 'professional-body' | 'research'
+export type SectorId = 'cross-sector' | 'financial-services' | 'banking' | 'insurance' | 'superannuation' | 'capital-markets' | 'payments' | 'financial-advice' | 'credit' | 'public-sector' | 'technology-providers' | 'critical-infrastructure' | 'telecommunications' | 'digital-platforms' | 'media' | 'corporations' | 'consumer'
+export type PriorVersion = { title: string; note: string; url?: string }
+
+/* A source as authored in the data modules; `Instrument` adds derived, structured metadata. */
+export type SourceRecord = {
   id: string
   title: string
   shortTitle: string
   issuer: string
   jurisdiction: string
-  region: 'Australia' | 'Global' | 'Europe' | 'United States' | 'United Kingdom' | 'Singapore' | 'Hong Kong' | 'Japan' | 'Canada'
+  region: 'Australia' | 'Global' | 'Europe' | 'United States' | 'United Kingdom' | 'Singapore' | 'Hong Kong' | 'Japan' | 'New Zealand' | 'South Korea' | 'Canada'
   authorityClass: AuthorityClass
   authorityNote: string
   status: InstrumentStatus
@@ -140,6 +148,13 @@ export type Instrument = {
   provisions: SourceProvision[]
   detailAvailability: 'full-public-text' | 'public-summary' | 'licensed-standard'
   editorialStatus?: EditorialStatus
+}
+
+export type Instrument = SourceRecord & {
+  legalEffect: LegalEffect
+  issuerType: IssuerType
+  sectorIds: SectorId[]
+  supersedes?: PriorVersion[]
 }
 
 export type MappingBasis = 'source-authored' | 'published-crosswalk' | 'atlas-synthesis'

@@ -1,4 +1,4 @@
-import type { Instrument, InstrumentRelation, SourceProvision } from '../types.js'
+import type { SourceRecord, InstrumentRelation, SourceProvision } from '../types.js'
 import { makeInstrument } from './makeInstrument'
 
 /*
@@ -12,7 +12,7 @@ const note = 'Draft prepared for editorial review. Original synopsis; confirm sc
 const draft = { editorialStatus: 'draft' as const, lastVerified: drafted }
 const section = (id: string, ref: string, title: string, summary: string, conceptIds: string[]): SourceProvision => ({ id, ref, title, summary, conceptIds, granularity: 'section', editorialStatus: 'draft', reviewedAt: drafted, note })
 
-export const reviewInstruments: Instrument[] = [
+export const reviewInstruments: SourceRecord[] = [
   /* Australia */
   makeInstrument({
     ...draft, id: 'au-national-ai-plan', title: 'National AI Plan', shortTitle: 'National AI Plan', issuer: 'Department of Industry, Science and Resources', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'policy-guidance', authorityNote: 'Government policy; not legislation', status: 'active', published: '2025-12-02',
@@ -256,7 +256,7 @@ export const reviewRelations: InstrumentRelation[] = [
 ]
 
 /* Corrections to existing records (section C of the review). */
-export const reviewCorrections: Record<string, Partial<Instrument>> = {
+export const reviewCorrections: Record<string, Partial<SourceRecord>> = {
   'au-ai-adoption-guidance': { published: '2025-10-21', effective: 'Updated 5 May 2026', applicability: 'Voluntary economy-wide guidance that replaced the 2024 Voluntary AI Safety Standard. It is not a compliance standard or regulator-approved control assessment.' },
   'eu-ai-act': { applicability: 'Applies based on provider, deployer, product, location and market criteria. The Digital Omnibus on AI (in force 27 July 2026) moved high-risk dates to 2 December 2027 (Annex III) and 2 August 2028 (Annex I). Legal advice is needed for specific scope.' },
   'uk-ai-white-paper': { authorityNote: 'Current UK policy framework; the government has said there will be no horizontal AI bill in the short to medium term' },

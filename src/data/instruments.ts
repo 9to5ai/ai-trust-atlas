@@ -4,7 +4,8 @@ import { methodologySources, methodologyCorrections } from './methodologyRefresh
 import { frontierSources } from './frontierRefresh.js'
 import { legalFoundationInstruments } from './legalFoundations.js'
 import { septemberSources, septemberSections } from './septemberRefresh.js'
-import type { Instrument } from '../types.js'
+import type { Instrument, SourceRecord } from '../types.js'
+import { enrichSource } from './sourceMetadata'
 import { deepenedProvisions } from './deepenedProvisions.js'
 import { australianInstruments } from './australia.js'
 import { globalInstruments } from './global.js'
@@ -13,7 +14,7 @@ import { retiredSourceIds, reviewCorrections, reviewInstruments, reviewSections 
 
 const verified = '2026-08-28'
 
-const coreInstruments: Instrument[] = [
+const coreInstruments: SourceRecord[] = [
   {
     id: 'au-privacy-act', title: 'Privacy Act 1988', shortTitle: 'Privacy Act', issuer: 'Australian Parliament', jurisdiction: 'Australia', region: 'Australia', authorityClass: 'law', authorityNote: "Legally binding within its scope", status: 'in-force', published: '1988', lastVerified: verified,
     officialUrl: 'https://www.legislation.gov.au/C2004A03712/latest/text',
@@ -68,7 +69,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'voluntary', published: '2023-01', lastVerified: verified,
+    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'active', published: '2023-01', lastVerified: verified,
     officialUrl: 'https://www.nist.gov/itl/ai-risk-management-framework',
     summary: 'Voluntary framework organising AI risk work through Govern, Map, Measure and Manage.', applicability: 'Voluntary and non-sector-specific. It does not certify compliance or operating effectiveness.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'materiality', 'impact-assessment', 'lifecycle-governance', 'evaluation', 'continuous-monitoring', 'risk-treatment', 'human-oversight'], detailAvailability: 'full-public-text',
@@ -80,7 +81,7 @@ const coreInstruments: Instrument[] = [
     ],
   },
   {
-    id: 'nist-genai-profile', title: 'Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile', shortTitle: 'NIST GenAI Profile', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'voluntary', published: '2024-07', lastVerified: verified,
+    id: 'nist-genai-profile', title: 'Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile', shortTitle: 'NIST GenAI Profile', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'active', published: '2024-07', lastVerified: verified,
     officialUrl: 'https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence',
     summary: 'Companion profile describing generative-AI risks and actions aligned to the NIST AI RMF.', applicability: 'Voluntary profile for generative-AI risk management.', sectors: ['Cross-sector'],
     conceptIds: ['provenance', 'transparency-disclosure', 'adversarial-risk', 'evaluation', 'human-oversight', 'third-party-risk', 'incident-response'], detailAvailability: 'full-public-text',
@@ -139,7 +140,7 @@ const coreInstruments: Instrument[] = [
   },
 ]
 
-export const instruments: Instrument[] = [
+const sourceRecords: SourceRecord[] = [
   ...assuranceInstruments,
   ...methodologySources,
   ...coreInstruments,
@@ -151,5 +152,7 @@ export const instruments: Instrument[] = [
   ...standardsAndTestingInstruments,
   ...reviewInstruments,
 ].filter(instrument => !retiredSourceIds.has(instrument.id)).map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], ...reviewCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(reviewSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
+
+export const instruments: Instrument[] = sourceRecords.map(enrichSource)
 
 export const instrumentById = new Map(instruments.map((instrument) => [instrument.id, instrument]))
