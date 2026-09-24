@@ -125,7 +125,7 @@ export type Instrument = {
   shortTitle: string
   issuer: string
   jurisdiction: string
-  region: 'Australia' | 'Global' | 'Europe' | 'United States' | 'United Kingdom' | 'Singapore' | 'Canada'
+  region: 'Australia' | 'Global' | 'Europe' | 'United States' | 'United Kingdom' | 'Singapore' | 'Hong Kong' | 'Japan' | 'Canada'
   authorityClass: AuthorityClass
   authorityNote: string
   status: InstrumentStatus

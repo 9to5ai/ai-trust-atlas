@@ -56,7 +56,7 @@ export const relationLabels: Record<RelationType, string> = {
   'provides-assurance-basis-for': 'Provides an assurance basis for',
 }
 
-export const regionOrder: Instrument['region'][] = ['Australia', 'Global', 'Europe', 'United States', 'United Kingdom', 'Singapore', 'Canada']
+export const regionOrder: Instrument['region'][] = ['Australia', 'Global', 'Europe', 'United States', 'United Kingdom', 'Singapore', 'Hong Kong', 'Japan', 'Canada']
 
 export const legalRelationLabel = (type: RelationType, outgoing: boolean): string => {
   if (type === 'made-under') return outgoing ? 'Made under' : 'Authorises'

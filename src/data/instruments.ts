@@ -9,6 +9,7 @@ import { deepenedProvisions } from './deepenedProvisions.js'
 import { australianInstruments } from './australia.js'
 import { globalInstruments } from './global.js'
 import { standardsAndTestingInstruments } from './standards.js'
+import { retiredSourceIds, reviewCorrections, reviewInstruments, reviewSections } from './reviewSources'
 
 const verified = '2026-08-28'
 
@@ -148,6 +149,7 @@ export const instruments: Instrument[] = [
   ...australianInstruments,
   ...globalInstruments,
   ...standardsAndTestingInstruments,
-].map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
+  ...reviewInstruments,
+].filter(instrument => !retiredSourceIds.has(instrument.id)).map(instrument => ({...instrument, ...methodologyCorrections[instrument.id], ...reviewCorrections[instrument.id], provisions: [...instrument.provisions, ...(septemberSections[instrument.id] ?? []), ...(reviewSections[instrument.id] ?? []), ...(draftProvisions[instrument.id] ?? []), ...(deepenedProvisions[instrument.id] ?? []).map(p => ({...p, note: 'Selected public passage reviewed 5 September 2026. Original synopsis; concept mappings are Atlas interpretation. The rest of this source record has not been reverified in this targeted review.'}))]}))
 
 export const instrumentById = new Map(instruments.map((instrument) => [instrument.id, instrument]))

@@ -339,5 +339,1087 @@
     "decision": "exclude",
     "reason": "Duplicate announcement; use the original published roundtable notes instead.",
     "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-au-national-ai-plan",
+    "title": "National AI Plan",
+    "url": "https://www.industry.gov.au/publications/national-ai-plan",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "au-national-ai-plan",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Government policy; not legislation",
+    "scope": "Australia. Sets government direction. It creates no obligations itself; sector laws, regulator guidance and any future amendments do.",
+    "publicationDate": "2025-12-02",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Government policy; not legislation",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The Australian Government’s plan to capture AI opportunities, spread the benefits and keep Australians safe. It relies on existing laws and sector regulators, voluntary guidance and a new AI Safety Institute rather than a standalone AI Act.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "au-national-ai-plan"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-apra-cpg-230",
+    "title": "Prudential Practice Guide CPG 230 Operational Risk Management",
+    "url": "https://www.apra.gov.au/operational-risk-management",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-cpg-230",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Prudential practice guidance; not binding, but shows how APRA expects CPS 230 to be met",
+    "scope": "Australia - APRA-regulated entities. Guidance for APRA-regulated entities. It explains better practice; the binding requirements are in CPS 230.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2026-04; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Prudential practice guidance; not binding, but shows how APRA expects CPS 230 to be met",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "APRA’s guidance on meeting CPS 230: operational risk frameworks, critical operations, tolerance levels, business continuity and management of material service providers. Updated alongside the 2026 CPS 230 amendments.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "apra-cpg-230"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-oaic-genai-training",
+    "title": "Guidance on privacy and developing and training generative AI models",
+    "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-developing-and-training-generative-ai-models",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "oaic-genai-training",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulator guidance on applying the Privacy Act",
+    "scope": "Australia. Applies to APP entities that develop AI models or provide personal information to developers. The companion guide covers using commercial AI products.",
+    "publicationDate": "2024-10-21",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator guidance on applying the Privacy Act",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "How the Australian Privacy Principles apply when organisations design, train, fine-tune or supply data for generative AI models, including scraped and third-party datasets.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "oaic-genai-training"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-oaic-adm-transparency",
+    "title": "Guidance on transparency in automated decision-making: issues paper",
+    "url": "https://www.oaic.gov.au/engage-with-us/consultations/consultation-on-guidance-for-transparency-in-automated-decision-making",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "oaic-adm-transparency",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulator consultation; final guidance pending",
+    "scope": "Australia. Consultation closed 15 June 2026. Replace this record with the final guidance when the OAIC publishes it.",
+    "publicationDate": "2026-05-18",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator consultation; final guidance pending",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The OAIC’s consultation on guidance for the new APP 1 automated decision-making obligation. From 10 December 2026, privacy policies must describe personal information used in, and decisions made by, computer programs that could significantly affect individuals.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "oaic-adm-transparency"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-aicd-hti-director-guide",
+    "title": "A Director’s Guide to AI Governance (Version 2)",
+    "url": "https://www.aicd.com.au/news-media/research-and-reports/a-directors-guide-to-ai-governance.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "aicd-hti-director-guide",
+    "sourceType": "framework",
+    "authorityNote": "Industry guidance for directors; not regulatory",
+    "scope": "Australia. Practical guidance for boards. It does not change directors’ legal duties, which come from the Corporations Act and general law.",
+    "publicationDate": "2026-06-29",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Industry guidance for directors; not regulatory",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Board-level guidance on overseeing AI: strategy and opportunity, accountability, risk, people and stakeholder impact. Version 2 updates the 2024 guide for agentic AI and maturing governance practice, with an SME and not-for-profit checklist.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "aicd-hti-director-guide"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-asic-rg-234",
+    "title": "Regulatory Guide 234 Advertising financial products and services (including credit)",
+    "url": "https://www.asic.gov.au/regulatory-resources/find-a-document/regulatory-guides/rg-234-advertising-financial-products-and-services-including-credit",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "asic-rg-234",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulatory guidance on existing misleading-conduct laws",
+    "scope": "Australia - promoters and publishers of financial products and credit. Guidance on obligations not to mislead under the ASIC Act and Corporations Act. It consolidates the withdrawn RG 53 on past performance.",
+    "publicationDate": "2026-06-09",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulatory guidance on existing misleading-conduct laws",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "ASIC’s first rewrite of its advertising guidance since 2012. It applies whatever the technology, including AI-generated content, and cautions against overstating what AI-enabled tools can do.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "asic-rg-234"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-dta-ai-technical-standard",
+    "title": "Australian Government AI technical standard",
+    "url": "https://www.digital.gov.au/policy/ai/AI-technical-standard",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "dta-ai-technical-standard",
+    "sourceType": "standard",
+    "authorityNote": "Non-legislative technical standard for government agencies",
+    "scope": "Australia - Commonwealth agencies. Written for Commonwealth agencies under the AI policy. Private organisations can use it as a reference for control design.",
+    "publicationDate": "2025-07-31",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Non-legislative technical standard for government agencies",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Lifecycle requirements for AI systems used by Australian Government agencies: 42 statements and 148 implementation criteria from design through to decommissioning.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "dta-ai-technical-standard"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-nsw-ai-assessment-framework",
+    "title": "NSW Artificial Intelligence Assessment Framework",
+    "url": "https://www.digital.nsw.gov.au/policy/artificial-intelligence/ai-governance-assurance-and-frameworks/nsw-ai-assessment-framework",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "nsw-ai-assessment-framework",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Mandatory for NSW Government agencies under Circular DCS-2026-02",
+    "scope": "Australia - NSW Government agencies. Binding on NSW Government agencies through policy. A useful reference for other organisations’ risk triage.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2026-01; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Mandatory for NSW Government agencies under Circular DCS-2026-02",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The self-assessment every NSW Government agency must apply to AI use across the lifecycle. The 2026 revision is faster, aligned to standards and covers generative AI, with higher-risk uses referred to an AI Review Committee.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "nsw-ai-assessment-framework"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-treasury-ai-acl-review",
+    "title": "Review of AI and the Australian Consumer Law: final report",
+    "url": "https://treasury.gov.au/publication/p2025-702329",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "treasury-ai-acl-review",
+    "sourceType": "research-database",
+    "authorityNote": "Government review; recommendations, not law",
+    "scope": "Australia. Policy findings. Any amendments would require separate legislation.",
+    "publicationDate": "2025-10-03",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Government review; recommendations, not law",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Finds the Australian Consumer Law broadly able to protect consumers of AI-enabled goods and services, and proposes targeted clarifications such as who counts as a manufacturer in AI supply chains.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "treasury-ai-acl-review"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-au-scams-prevention-framework",
+    "title": "Scams Prevention Framework Act 2025",
+    "url": "https://www.legislation.gov.au/C2025A00015/asmade/text",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "au-scams-prevention-framework",
+    "sourceType": "law",
+    "authorityNote": "Legislation; obligations apply to designated sectors through rules and codes",
+    "scope": "Australia - designated sectors. Applies to sectors designated by the Minister, with detail set by rules and sector codes.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-02; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Legislation; obligations apply to designated sectors through rules and codes",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Requires regulated businesses, starting with banks, telcos and some digital platforms, to take reasonable steps to prevent, detect, report, disrupt and respond to scams, with penalties of up to $50 million. AI-enabled impersonation raises the bar for what counts as reasonable.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "au-scams-prevention-framework"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-apra-cpg-234",
+    "title": "Prudential Practice Guide CPG 234 Information Security",
+    "url": "https://www.apra.gov.au/practice-guides/cpg-234",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-cpg-234",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Prudential practice guidance; not binding",
+    "scope": "Australia - APRA-regulated entities. Guidance for APRA-regulated entities. The binding requirements are in CPS 234.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2019-06; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Prudential practice guidance; not binding",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "APRA’s guidance on implementing CPS 234: information security roles, capability, controls, testing, incident management and assurance, including over third parties.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "apra-cpg-234"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-mas-airm-guidelines-cp",
+    "title": "Consultation Paper on Guidelines on Artificial Intelligence Risk Management",
+    "url": "https://www.mas.gov.sg/-/media/mas-media-library/publications/consultations/bd/2025/final_consultation_paper_on_guidelines_on_ai_risk_management_forrelease.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "mas-airm-guidelines-cp",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Proposed supervisory guidelines; final version pending",
+    "scope": "Singapore - all financial institutions. Consultation closed 31 January 2026. MAS said in August 2026 the guidelines would be finalised soon; update this record when they are.",
+    "publicationDate": "2025-11-13",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Proposed supervisory guidelines; final version pending",
+      "relevance": "Singapore coverage for the Atlas's priority audiences.",
+      "impact": "Proposed MAS expectations for how every financial institution governs AI, including generative and agentic AI: board and senior management oversight, an AI inventory with risk materiality, lifecycle controls and the capability to manage AI.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "mas-airm-guidelines-cp"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-iosco-ai-toolkit",
+    "title": "Supervisory Toolkit for AI Use in Capital Markets: Final Report",
+    "url": "https://www.iosco.org/library/pubdocs/pdf/IOSCOPD823.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iosco-ai-toolkit",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Non-binding supervisory toolkit for member regulators",
+    "scope": "International - securities regulators. Written for regulators, but shows firms what supervisors are likely to ask. It is not a binding standard.",
+    "publicationDate": "2026-05-25",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Non-binding supervisory toolkit for member regulators",
+      "relevance": "Global coverage for the Atlas's priority audiences.",
+      "impact": "Practical, lifecycle-wide tools for securities regulators supervising firms’ AI, from traditional machine learning to generative and agentic AI. Builds on IOSCO’s March 2025 report on AI use cases, risks and challenges.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "iosco-ai-toolkit"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-iais-ai-application-paper",
+    "title": "Application Paper on the supervision of artificial intelligence",
+    "url": "https://www.iais.org/uploads/2025/07/Application-Paper-on-the-supervision-of-artificial-intelligence.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iais-ai-application-paper",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory guidance on applying the Insurance Core Principles",
+    "scope": "International - insurance supervisors. Guidance for supervisors, applied proportionately. It does not create new standards.",
+    "publicationDate": "2025-07-02",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory guidance on applying the Insurance Core Principles",
+      "relevance": "Global coverage for the Atlas's priority audiences.",
+      "impact": "How insurance supervisors and insurers apply existing Insurance Core Principles to AI: governance and accountability, robustness and security, transparency and explainability, and fairness to customers.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "iais-ai-application-paper"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-eiopa-ai-opinion",
+    "title": "Opinion on Artificial Intelligence governance and risk management",
+    "url": "https://www.eiopa.europa.eu/publications/opinion-artificial-intelligence-governance-and-risk-management_en",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "eiopa-ai-opinion",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory opinion addressed to national authorities",
+    "scope": "European Union - insurance. Interpretive guidance for supervisors; it introduces no new rules. High-risk life and health pricing systems fall under the AI Act instead.",
+    "publicationDate": "2025-08-06",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory opinion addressed to national authorities",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "Explains how existing insurance law (Solvency II, IDD, DORA) applies to AI systems that are not prohibited or high-risk under the AI Act: risk-based governance, fairness, data, documentation, explainability and human oversight.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "eiopa-ai-opinion"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-fca-mills-review",
+    "title": "The Mills Review: the long-term impact of AI on retail financial services",
+    "url": "https://www.fca.org.uk/publications/calls-input/review-long-term-impact-ai-retail-financial-services-mills-review",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "fca-mills-review",
+    "sourceType": "research-database",
+    "authorityNote": "Regulator-commissioned review; recommendations, not rules",
+    "scope": "United Kingdom. Sets direction for FCA policy. Existing rules such as the Consumer Duty continue to apply to AI.",
+    "publicationDate": "2026-07-06",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator-commissioned review; recommendations, not rules",
+      "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
+      "impact": "Looks at how AI could reshape retail financial services by 2030, including AI agents acting for consumers, and sets seven priority recommendations for the FCA’s response.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "fca-mills-review"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-hkma-genai-consumer-protection",
+    "title": "Consumer Protection in respect of Use of Generative Artificial Intelligence",
+    "url": "https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20241107-1-EN",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "hkma-genai-consumer-protection",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory circular to authorized institutions",
+    "scope": "Hong Kong - authorized institutions. Applies to authorized institutions in Hong Kong using GenAI with customers.",
+    "publicationDate": "2024-08-19",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory circular to authorized institutions",
+      "relevance": "Hong Kong coverage for the Atlas's priority audiences.",
+      "impact": "Guiding principles for banks using generative AI in customer-facing applications, extending the HKMA’s 2019 big data and AI principles: governance, fairness, transparency, data protection, output monitoring and human review.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "hkma-genai-consumer-protection"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-sfc-genai-circular",
+    "title": "Circular to licensed corporations: Use of generative AI language models",
+    "url": "https://apps.sfc.hk/edistributionWeb/gateway/EN/circular/doc?refNo=24EC55",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "sfc-genai-circular",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory circular to licensed corporations",
+    "scope": "Hong Kong - licensed corporations. Applies to SFC-licensed corporations using AI language models in regulated activities.",
+    "publicationDate": "2024-11-12",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory circular to licensed corporations",
+      "relevance": "Hong Kong coverage for the Atlas's priority audiences.",
+      "impact": "Expectations for licensed corporations using generative AI language models, built or bought: senior management oversight, model risk management, cyber security and data, and third-party risk, with extra safeguards for high-risk uses such as investment advice.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "sfc-genai-circular"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-naic-ai-model-bulletin",
+    "title": "Model Bulletin: Use of Artificial Intelligence Systems by Insurers",
+    "url": "https://content.naic.org/sites/default/files/legal-adoption-map-ai-model-bulletin.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "naic-ai-model-bulletin",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Model bulletin; effect depends on each state’s adoption",
+    "scope": "United States - adopting states. Applies in states that issue it. Other states rely on existing insurance law or their own AI rules.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2023-12; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Model bulletin; effect depends on each state’s adoption",
+      "relevance": "United States coverage for the Atlas's priority audiences.",
+      "impact": "Expects insurers to run a written AI systems program covering governance, risk management, internal controls and third-party systems, so AI-supported decisions comply with unfair-trade and unfair-discrimination laws. About 25 states and territories had adopted it by mid-2026.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "naic-ai-model-bulletin"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-eba-ai-act-mapping",
+    "title": "AI Act implications for the EU banking and payments sector",
+    "url": "https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "eba-ai-act-mapping",
+    "sourceType": "research-database",
+    "authorityNote": "Supervisory analysis; not guidelines",
+    "scope": "European Union - banking and payments. Analysis to support consistent supervision; it does not change obligations.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-11; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory analysis; not guidelines",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "Maps AI Act high-risk requirements, especially for creditworthiness assessment and credit scoring, against EU banking and payments law. Finds no significant contradictions and no immediate need for new EBA guidelines.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "eba-ai-act-mapping"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-esma-ai-statement",
+    "title": "Public Statement on AI and investment services",
+    "url": "https://www.esma.europa.eu/document/public-statement-ai-and-investment-services",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "esma-ai-statement",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory statement on MiFID II obligations",
+    "scope": "European Union - investment firms. Initial guidance for firms providing investment services to retail clients.",
+    "publicationDate": "2024-05-30",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory statement on MiFID II obligations",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "How MiFID II obligations apply when investment firms use AI with retail clients: acting in clients’ best interests, clear disclosure of AI use, management accountability, and ongoing checks on AI-produced information.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "esma-ai-statement"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-boe-fsif-ai",
+    "title": "Financial Stability in Focus: Artificial intelligence in the financial system",
+    "url": "https://www.bankofengland.co.uk/financial-stability-in-focus/2025/april-2025",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "boe-fsif-ai",
+    "sourceType": "research-database",
+    "authorityNote": "Central bank analysis; not rules",
+    "scope": "United Kingdom. Macroprudential analysis that informs Bank of England and PRA supervision.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-04; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Central bank analysis; not rules",
+      "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
+      "impact": "Sets out four channels through which AI could affect financial stability: banks’ and insurers’ core decisions, financial markets, operational reliance on AI service providers, and AI-enabled cyber threats.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "boe-fsif-ai"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-japan-fsa-ai-discussion-paper",
+    "title": "AI Discussion Paper: Preliminary Discussion Points for Promoting the Sound Utilization of AI in the Financial Sector",
+    "url": "https://www.fsa.go.jp/en/news/2026/20260303/aidp.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "japan-fsa-ai-discussion-paper",
+    "sourceType": "research-database",
+    "authorityNote": "Supervisory discussion paper; not rules",
+    "scope": "Japan. Discussion points informed by a public-private forum; not binding guidance.",
+    "publicationDate": "2025-03-04",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory discussion paper; not rules",
+      "relevance": "Japan coverage for the Atlas's priority audiences.",
+      "impact": "The FSA’s supervisory stance on AI in finance, encouraging adoption while addressing governance, risk management and how existing rules apply. It highlights the “risk of inaction” from falling behind.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "japan-fsa-ai-discussion-paper"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-retire-apra-frontier-speech-2026",
+    "title": "Reassess apra-frontier-speech-2026 as a permanent source",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-member-therese-mccarthy-hockeys-remarks-2026-afia-risk-summit",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-frontier-speech-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A speech; kept as a What’s new item linked to the APRA AI letter.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A speech; kept as a What’s new item linked to the APRA AI letter. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-apra-asic-frontier-roundtables-2026",
+    "title": "Reassess apra-asic-frontier-roundtables-2026 as a permanent source",
+    "url": "https://www.apra.gov.au/news-and-publications/insights-apra-asic-industry-roundtables",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-asic-frontier-roundtables-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-fsb-frontier-letter-2026",
+    "title": "Reassess fsb-frontier-letter-2026 as a permanent source",
+    "url": "https://www.fsb.org/2026/08/fsb-chairs-letter-to-g20-finance-ministers-and-central-bank-governors-august-2026/",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "fsb-frontier-letter-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-five-eyes-frontier-statement",
+    "title": "Reassess five-eyes-frontier-statement as a permanent source",
+    "url": "https://www.cyber.gov.au/about-us/view-all-content/news/five-eyes-cyber-security-agencies-statement",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "five-eyes-frontier-statement",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-iso-tr-24028",
+    "title": "Reassess iso-tr-24028 as a permanent source",
+    "url": "https://www.iso.org/standard/77608.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iso-tr-24028",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A 2020 overview report superseded in practice by ISO/IEC 42001, 23894 and 42005; low decision value.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "exclude",
+    "reason": "A 2020 overview report superseded in practice by ISO/IEC 42001, 23894 and 42005; low decision value. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
   }
 ]

@@ -155,14 +155,14 @@ describe('focused reference workflow', () => {
     fireEvent.click(within(history).getByRole('button', { name: 'Last 120 days' }))
     expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
     fireEvent.click(within(apra).getByRole('button', { name: 'Explore in Atlas' }))
-    expect(window.location.hash).toBe('#/instrument/apra-asic-frontier-roundtables-2026')
+    expect(window.location.hash).toBe('#/instrument/asic-ai-cyber-letter')
   })
 })
 
 
 describe('view navigation', () => {
   it('opens a shared filtered list, removes chips, and restores context after a search', async () => {
-    window.history.replaceState(null,'','/?view=list&type=standard&region=Australia&year=2026')
+    window.history.replaceState(null,'','/?view=list&type=treaty&region=Australia&year=2026')
     render(<App />)
     expect(screen.getByRole('button',{name:'List'})).toHaveAttribute('aria-pressed','true')
     expect(screen.getByText(/No sources match these filters/)).toBeInTheDocument()
@@ -171,10 +171,10 @@ describe('view navigation', () => {
     selectOversight()
     expect(window.location.hash).toContain('human-oversight')
     fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
-    expect(screen.getByRole('button',{name:'Remove Standards filter'})).toBeInTheDocument()
+    expect(screen.getByRole('button',{name:'Remove Treaties filter'})).toBeInTheDocument()
     expect(screen.getByRole('button',{name:'List'})).toHaveAttribute('aria-pressed','true')
     expect(window.location.hash).toBe('')
-    expect(window.location.search).toContain('type=standard')
+    expect(window.location.search).toContain('type=treaty')
   })
 })
 
@@ -246,9 +246,9 @@ describe('pages and browser history',()=>{
   render(<App/>)
   expect(window.location.pathname).toBe('/universe')
   expect(screen.getByLabelText(/Interactive orbital map/)).toBeInTheDocument()
-  fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Methodology'}))
-  expect(window.location.pathname).toBe('/methodology')
-  expect(screen.getByRole('heading',{level:1,name:'How the Atlas is curated'})).toBeInTheDocument()
+  fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Library'}))
+  expect(window.location.pathname).toBe('/library')
+  expect(screen.getByRole('heading',{level:1})).toBeInTheDocument()
  })
 })
 

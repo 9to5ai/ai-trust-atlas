@@ -1,6 +1,6 @@
 # Library completeness review: 24 September 2026
 
-**Scope:** Australian depth and global financial regulators, as requested. **Status:** proposal only. No corpus changes have been made. Once you approve, each accepted item gets a candidate decision in `candidate-decisions.json` and carries `editorialStatus: 'draft'` until you review it.
+**Scope:** Australian depth and global financial regulators, as requested. **Status:** approved by the owner and applied on 24 September 2026, including the new Hong Kong and Japan regions. Decisions are recorded in `candidate-decisions.json` (`review-2026-09-24-*`). Every added record carries `editorialStatus: 'draft'` until it is reviewed. One change was dropped: the CPS 230 record already explains that 1 July 2026 is the amended determination, and citations depend on that date.
 
 **Method:** I inventoried all 86 sources, then checked official and secondary sources on the web on 24 September 2026. Items marked *verify on apply* were confirmed only through secondary reporting. Their official text must be read before they are added.
 

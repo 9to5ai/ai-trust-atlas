@@ -109,7 +109,7 @@ export const methodologyDevelopments: Development[] = [
       "third-party"
     ],
     "sourceId": "apra-cps-230",
-    "backgroundSourceId": "apra-asic-frontier-roundtables-2026",
+    "backgroundSourceId": "apra-ai-letter-2026",
     "url": "https://www.apra.gov.au/news-and-publications/apra-and-asic-host-superannuation-ceo-roundtables-june-2026"
   },
   {
