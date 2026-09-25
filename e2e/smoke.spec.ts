@@ -7,8 +7,9 @@ const routes = [
   { path: '/cases', heading: /See how the work is changing/ },
 ]
 
-test('Medicare incident shared link opens evidence and role questions', async ({ page }) => {
+test('Medicare incident shared link opens evidence and role questions', async ({ page, isMobile }) => {
   await page.goto('/universe?incidents=1#/incident/openai-medicare-2026')
+  if (isMobile) await page.getByRole('button', { name: /Medicare statistics portal Read details/ }).click()
   const details = page.getByLabel('Selected node details')
   await expect(details).toContainText('Medicare statistics portal')
   await expect(details).toContainText('18 June 2026')
