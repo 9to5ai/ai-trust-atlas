@@ -4,11 +4,13 @@ import { usePathname } from './app/router'
 import { QuestionsProvider } from './components/LeadershipQuestions'
 import { legacyRedirect } from './lib/legacyUrls'
 import { NotFound } from './routes/NotFound'
+import { TermsPage } from './routes/TermsPage'
 import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
 
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
+  if (pathname === '/terms') return <TermsPage />
   return <NotFound />
 }
 

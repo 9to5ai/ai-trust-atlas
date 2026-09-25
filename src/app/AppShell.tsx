@@ -1,4 +1,4 @@
-import { GithubLogo, List as MenuIcon, MagnifyingGlass, ProjectorScreen, X } from '@phosphor-icons/react'
+import { GithubLogo, Info, List as MenuIcon, MagnifyingGlass, ProjectorScreen, X } from '@phosphor-icons/react'
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AtlasMark } from '../components/AtlasMark'
@@ -78,6 +78,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {!routeOwnsSearch && <button type="button" className={styles.search} onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16} /><span>Search</span><kbd>⌘K</kbd></button>}
           <div className={styles.routeActions} ref={setSlot} />
           <button type="button" className={styles.present} aria-pressed={presenting} onClick={present} aria-label="Present the Universe" title="Present (S)"><ProjectorScreen size={18} /></button>
+          <Link to="/terms" className={styles.iconLink} aria-label="Licence and terms" title="Licence and terms"><Info size={18} /></Link>
           <a className={styles.iconLink} href="https://github.com/9to5ai/ai-trust-atlas" target="_blank" rel="noreferrer" aria-label="Source code on GitHub" title="Source code"><GithubLogo size={18} /></a>
           <button type="button" className={styles.menu} aria-expanded={menuOpen} aria-controls="atlas-sections" aria-label={menuOpen ? 'Close sections menu' : 'Open sections menu'} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={18} /> : <MenuIcon size={18} />}</button>
         </div>

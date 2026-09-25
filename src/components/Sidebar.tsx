@@ -1,3 +1,4 @@
+import { Link } from '../app/router'
 import { Atom, Compass, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
 import { tours } from '../data/tours'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
@@ -120,6 +121,7 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       </section>}
 
 
+      <p className="sidebar-licence">© 2026 Momo &amp; Ray · <Link to="/terms">Licence and terms</Link></p>
     </aside>
   )
 }

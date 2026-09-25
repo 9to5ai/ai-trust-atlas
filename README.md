@@ -2,7 +2,7 @@
 
 **A source-linked knowledge map that turns a complex topic into something people can explore, question and use.**
 
-[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [MIT licence](LICENSE)
+[Open the Atlas](https://ai-trust-atlas.vercel.app) · [Design system](docs/DESIGN_SYSTEM.md) · [Source methodology](research/sourcing/README.md) · [Monitoring playbook](MONITORING.md) · [Prompt catalogue](docs/PROMPTS.md) · [Licence and terms](https://ai-trust-atlas.vercel.app/terms)
 
 AI Trust Atlas connects AI governance concepts with laws, guidance, standards, research, risks and candidate controls. Its Universe makes the landscape explorable; its hierarchical List makes it readable. Source cards explain the material, role-specific questions help prepare conversations, and meeting briefs help readers prepare evidence-based discussions.
 
@@ -360,7 +360,15 @@ Useful next steps are source-version snapshots and meaningful diffs, review queu
 
 ## Licence and attribution
 
-Application code is provided under the [MIT licence](LICENSE). Third-party publications, taxonomies, standards, brands and source material retain their own terms. The app licence does not grant rights to reproduce licensed standards or redistribute an entire external dataset. Follow each source’s permissions, retain attribution and prefer links plus original summaries.
+© 2026 Momo & Ray.
+
+- **Content** — the curated records and text (source summaries, sections, requirements, concepts, mappings, controls, questions, tours, incidents, use cases, research and docs) — is licensed under [CC BY-NC-SA 4.0](LICENSE-CONTENT). You may share and adapt it with credit, for non-commercial purposes, and must share adaptations under the same licence.
+- **Code** is licensed under the [Apache License 2.0](LICENSE).
+- **Name and logo:** "AI Trust Atlas" and its logo are trade marks of Momo & Ray and are not licensed. Forks and adaptations must use a different name and must not imply endorsement. See [NOTICE](NOTICE).
+- **Citation:** see [CITATION.cff](CITATION.cff), or cite "AI Trust Atlas by Momo & Ray, https://ai-trust-atlas.vercel.app, CC BY-NC-SA 4.0".
+- **Earlier versions:** versions published before 26 September 2026 were released under the MIT licence; that grant is unchanged for those versions.
+
+Third-party publications, taxonomies, standards, brands and source material retain their own terms. The MIT AI Risk Repository taxonomy is used under CC BY 4.0. Licensed standards are represented only by short original paraphrases. Follow each source's permissions and prefer links plus original summaries.
 
 The diagrams above use Mermaid, which [GitHub renders in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams). Their source remains editable with the documentation.
 

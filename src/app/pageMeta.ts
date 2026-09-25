@@ -6,6 +6,7 @@ export const defaultMeta: PageMeta = { title: brand, description: 'A source-link
 export const shareablePages: Record<string, PageMeta> = {
   '/universe': { title: `The Universe · ${brand}`, description: 'An interactive 3D map of AI laws, standards, risks and controls, with every connection traceable to its source.' },
   '/questions': { title: `Questions for boards and executives · ${brand}`, description: 'Role-specific questions about AI for boards, executives and regulators, ready to build into a meeting brief.' },
+  '/terms': { title: `Licence and terms · ${brand}`, description: 'The AI Trust Atlas content is licensed under CC BY-NC-SA 4.0 and the code under Apache 2.0. © 2026 Momo & Ray.' },
   '/cases': { title: `AI in production · ${brand}`, description: 'Company-reported production AI deployments with the questions they raise.' },
 }
 export const metaFor = (pathname: string): PageMeta => shareablePages[pathname] ?? defaultMeta

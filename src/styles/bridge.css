@@ -368,6 +368,15 @@
     }
   }
 
+  .sidebar-licence {
+    margin: var(--space-4) 0 var(--space-2);
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  .sidebar-licence a {
+    color: var(--text-secondary);
+  }
+
   /* Guided tours in the Explore panel */
   .tour-list {
     display: grid;

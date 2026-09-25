@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test'
 const routes = [
   { path: '/universe', label: /Interactive orbital map/ },
   { path: '/questions', region: 'Questions workspace' },
+  { path: '/terms', heading: 'Licence and terms' },
   { path: '/cases', heading: /See how the work is changing/ },
 ]
 
@@ -77,7 +78,7 @@ test('presenting fills the screen and offers the guided tours', async ({ page, i
   await expect(page.locator('html')).not.toHaveAttribute('data-stage', '')
 })
 
-for (const path of ['/universe', '/questions', '/cases']) {
+for (const path of ['/universe', '/questions', '/cases', '/terms']) {
   test(`${path} has no serious accessibility violations`, async ({ page }) => {
     await page.goto(path)
     await page.waitForTimeout(1200)
