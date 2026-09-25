@@ -9,8 +9,16 @@ import {inDateWindow} from './developments'
 
 describe('incident evidence and integration',()=>{
  it('has only approved incidents and resolvable interpretive connections',()=>{
-  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal'])
+  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal','openai-medicare-2026'])
   for(const i of incidents){expect(i.sources.length).toBeGreaterThan(1);expect(i.limitations).toBeTruthy();for(const f of i.findings)expect(i.sources[f.source]).toBeDefined();for(const c of i.connections){expect(concepts.some(x=>x.id===c.conceptId)).toBe(true);expect(controlObjectives.some(x=>x.id===c.controlId)).toBe(true);expect(c.reason).toBeTruthy()}}
+ })
+ it('keeps Medicare occurrence separate from public disclosure and review',()=>{
+  const item=incidents.find(i=>i.id==='openai-medicare-2026')!
+  expect(item.occurred).toBe('18 June 2026')
+  expect(item.disclosed).toBe('2026-09-24')
+  expect(inDateWindow(item.updated,30,'2026-09-25')).toBe(true)
+  expect(incidentsForNode('control-objective','incident-response-reporting')).toContain(item)
+  expect(incidentQuestion(item,'assurance').text).toContain('independently reconstruct')
  })
  it('keeps incidents optional, with real graph edges and shareable selection',()=>{
   const filters={query:'',authorityClasses:new Set<never>(),regions:new Set<never>()}
@@ -22,9 +30,9 @@ describe('incident evidence and integration',()=>{
   expect(view.selected).toBe('incident:hugging-face-2026');expect(viewUrl(view)).toContain('incidents=1')
  })
  it('restores sourced incident questions for all roles and dates by findings, not ingestion',()=>{
-  for(const item of incidents)for(const role of ['board','executive','regulator'] as const){const q=incidentQuestion(item,role);expect(catalogue(role).some(e=>e.question.id===q.id)).toBe(true);expect(readBrief(JSON.stringify({version:1,ids:[q.id]})).selected).toEqual([q])}
+  for(const item of incidents)for(const role of ['board','executive','regulator','assurance'] as const){const q=incidentQuestion(item,role);expect(catalogue(role).some(e=>e.question.id===q.id)).toBe(true);expect(readBrief(JSON.stringify({version:1,ids:[q.id]})).selected).toEqual([q])}
   expect(inDateWindow(incidents[0].updated,30,'2026-09-20')).toBe(true)
   expect(inDateWindow(incidents[0].updated,30,'2026-10-20')).toBe(false)
-  expect(incidentsForNode('concept','agent-authority')).toHaveLength(3)
+  expect(incidentsForNode('concept','agent-authority')).toHaveLength(4)
  })
 })

@@ -34,7 +34,7 @@ The initial audience is regulators, boards and executive leaders, with particula
 
 One theme, **Observatory** (dark); printing uses a light palette. Press **Present** (or `S`) to fill the screen with the Universe for projectors and screen shares, pick a guided tour, and press `Esc` to finish.
 
-At this snapshot the corpus holds 109 sources across eleven regions, with seven assurance standards; 48 trust concepts in 12 domains on two axes (trust objectives and governance capabilities); 144 source requirements; one published crosswalk (NIST AI RMF ↔ ISO/IEC 42001, 37 section pairings); the MIT risk taxonomy (7 domains, 24 risk types); 24 candidate control objectives; 8 incidents and 16 production use cases. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
+At this snapshot the corpus holds 109 sources across eleven regions, with seven assurance standards; 48 trust concepts in 12 domains on two axes (trust objectives and governance capabilities); 144 source requirements; one published crosswalk (NIST AI RMF ↔ ISO/IEC 42001, 37 section pairings); the MIT risk taxonomy (7 domains, 24 risk types); 24 candidate control objectives; 9 incidents and 16 production use cases. Content drafted in September 2026 carries a **Draft · awaiting review** badge until an editor approves it. `npm run content:check` reports how much remains.
 
 ## Architecture at a glance
 
@@ -398,9 +398,9 @@ Implementation: `QuestionsView.tsx` renders the workspace; `questionCatalogue.ts
 
 ### Incidents and the review queue
 
-Incidents connect real events to a few relevant concepts and appear on the map when opened. Open **What’s new**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator questions. These questions also appear in Questions and can be saved in meeting briefs.
+Incidents connect real events to a few relevant concepts and appear on the map when opened. Open **What’s new**, search an incident name, or use related incidents on concept, topic and control cards. Incident details separate reported findings, source roles, limits and Atlas interpretations, then link to practices and Board / Executive / Regulator / Assurance questions. These questions also appear in Questions and can be saved in meeting briefs.
 
-Approved cases include the July 2026 OpenAI / Hugging Face intrusion, the Anthropic evaluation-incident series and the Hacktron / OpenAI account-access chain. Each has case-specific classification, disclosure labels and review limitations. The original Hugging Face case draws on OpenAI's account and a scoped METR/Redwood investigation. The incident is not a regulatory source and does not increase the source count. Recent results use the substantive findings-publication date, separately labelled from the event period and Atlas review date.
+Approved cases include the July 2026 OpenAI / Hugging Face intrusion, the Anthropic evaluation-incident series and the Hacktron / OpenAI account-access chain. The Medicare statistics portal incident was added on 25 September 2026 following the user’s approval, using government transcripts and ABC reporting; it retains the distinction between the June event, September public disclosure and provisional investigation findings. Each has case-specific classification, disclosure labels and review limitations. The original Hugging Face case draws on OpenAI's account and a scoped METR/Redwood investigation. The incident is not a regulatory source and does not increase the source count. Recent results use the substantive findings-publication date, separately labelled from the event period and Atlas review date.
 
 ```mermaid
 flowchart LR

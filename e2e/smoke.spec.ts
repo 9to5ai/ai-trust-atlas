@@ -7,6 +7,16 @@ const routes = [
   { path: '/cases', heading: /See how the work is changing/ },
 ]
 
+test('Medicare incident shared link opens evidence and role questions', async ({ page }) => {
+  await page.goto('/universe?incidents=1#/incident/openai-medicare-2026')
+  const details = page.getByLabel('Selected node details')
+  await expect(details).toContainText('Medicare statistics portal')
+  await expect(details).toContainText('18 June 2026')
+  await expect(details).toContainText('Government public disclosure')
+  await details.getByText('Sources and limits', { exact: true }).click()
+  await expect(details.getByRole('link', { name: /Marles and Gallagher/ })).toHaveAttribute('href', 'https://www.minister.defence.gov.au/transcripts/2026-09-24/press-conference-sydney')
+})
+
 const collectErrors = (page: Page) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
