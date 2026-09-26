@@ -40,10 +40,13 @@ describe('practice content validation', () => {
     ]))
   })
 
-  it('only lets a practice be approved once it meets the quality bar', () => {
+  it('needs an editor review date to approve, and keeps the rest of the quality bar as follow-ups', () => {
     const practice = clone(fixture.practices[0])
     practice.status = 'approved'
-    expect(validateCorpus([practice], fixture.sources).errors.length).toBeGreaterThan(0)
+    expect(validateCorpus([practice], fixture.sources).errors.map((finding) => finding.message)).toEqual(['approved but no editor review date'])
+    practice.lastReviewed = '2026-09-26'
+    expect(validateCorpus([practice], fixture.sources).errors).toEqual([])
+    expect(qualityGaps(practice).length).toBeGreaterThan(0)
     for (const prompt of Object.values(practice.prompts)) prompt.testedIn = [{ tool: 'Claude', date: '2026-09-26' }, { tool: 'Gemini', date: '2026-09-26' }]
     practice.practitionerReview = { by: 'External reviewer', date: '2026-09-26' }
     practice.lastReviewed = '2026-09-26'

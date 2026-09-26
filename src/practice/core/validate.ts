@@ -41,7 +41,7 @@ export function validateCorpus(practices: Practice[], sources: Source[], atlas?:
       }
     }
 
-    if (practice.status === 'approved') for (const gap of qualityGaps(practice)) error(`approved but ${gap}`)
+    if (practice.status === 'approved') for (const gap of approvalBlockers(practice)) error(`approved but ${gap}`)
   }
 
   for (const practice of practices) for (const prerequisite of practice.prerequisites) {
@@ -60,7 +60,7 @@ export function citedSourceIds(practice: Practice) {
   ].flatMap((item) => item.sources).concat(practice.sources).map(citationSource))
 }
 
-/* The spec's quality bar for going live. Drafts may have gaps; approved practices may not. */
+/* The spec's full quality bar. Drafts may have any gaps; approved practices may carry only follow-ups. */
 export function qualityGaps(practice: Practice): string[] {
   const gaps: string[] = []
   const prompts = Object.entries(practice.prompts)
@@ -69,6 +69,12 @@ export function qualityGaps(practice: Practice): string[] {
   if (practice.wave === 1 && !practice.practitionerReview) gaps.push('no external practitioner read-through recorded')
   if (!practice.lastReviewed) gaps.push('no editor review date')
   return gaps
+}
+
+/* The owner decided (26 Sep 2026) that an editor's review date is enough to approve. Prompt testing and
+ * the practitioner read-through follow approval, and the check report lists them until recorded. */
+export function approvalBlockers(practice: Practice): string[] {
+  return practice.lastReviewed ? [] : ['no editor review date']
 }
 
 export function compareVersions(a: string, b: string) {

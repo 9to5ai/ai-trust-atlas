@@ -32,10 +32,12 @@ if (problems.length) {
 }
 
 const byStatus = (status: string) => practices.filter((practice) => practice.status === status).length
+const followUps = practices.filter((practice) => practice.status === 'approved' && qualityGaps(practice).length).map((practice) => `${practice.id}: ${qualityGaps(practice).join('; ')}`)
 const backlog = practices.filter((practice) => practice.status !== 'approved').map((practice) => `${practice.id} (${practice.status}): ${qualityGaps(practice).join('; ') || 'ready for approval'}`)
 console.log(`Practice content (${origin}): ${practices.length} practices — ${byStatus('approved')} approved, ${byStatus('under-review')} under review, ${byStatus('draft')} draft; ${sources.length} sources.`)
 if (checkOnly) {
   if (backlog.length) console.log(`Awaiting approval:\n  ${backlog.join('\n  ')}`)
+  if (followUps.length) console.log(`Approved with follow-ups:\n  ${followUps.join('\n  ')}`)
   process.exit(0)
 }
 
