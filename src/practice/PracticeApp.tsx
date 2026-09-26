@@ -4,6 +4,7 @@ import { NotFound } from '../routes/NotFound'
 import { getSession, loadCorpus } from './api'
 import type { Corpus } from './core/schema'
 import { Home } from './ui/Home'
+import { PageSky, pageContentClass } from './ui/PageSky'
 import { PracticePage } from './ui/PracticePage'
 import { Threshold } from './ui/Threshold'
 import styles from './ui/Practice.module.css'
@@ -38,6 +39,10 @@ export default function PracticeApp() {
   }, [])
   useEffect(() => { void open() }, [open])
 
+  return <><PageSky /><div className={pageContentClass}><PracticeRoutes state={state} pathname={pathname} open={open} /></div></>
+}
+
+function PracticeRoutes({ state, pathname, open }: { state: State; pathname: string; open: () => void }) {
   if (state.status === 'checking') return <div className={styles.loading} role="status" aria-live="polite">Checking access…</div>
   if (state.status === 'locked') return <Threshold onEnter={open} />
   if (state.status === 'unconfigured') return <Threshold unavailable="AI Trust Practice is not open on this deployment yet." />

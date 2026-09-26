@@ -85,7 +85,7 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
   let order = 0
   return (
     <div className={styles.map} ref={wrap} data-active={active ? '' : undefined} onMouseLeave={() => setActive(undefined)}>
-      <Starfield className={styles.sky} />
+      <Starfield className={styles.sky} quietLeft />
       <svg className={styles.orbits} viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <g className={styles.orbitSpin}>
           {[210, 330, 450].map((radius) => <circle key={radius} cx="760" cy="180" r={radius} />)}

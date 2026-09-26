@@ -1,0 +1,75 @@
+@layer components {
+  .sky {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  /* Practice content sits above the sky. */
+  .content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .nebula {
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(34% 30% at 12% 20%, rgba(112, 89, 224, 0.1), transparent 70%),
+      radial-gradient(30% 28% at 88% 82%, rgba(34, 198, 240, 0.07), transparent 70%),
+      radial-gradient(22% 20% at 70% 18%, rgba(244, 182, 124, 0.04), transparent 70%);
+    animation: drift 80s ease-in-out infinite alternate;
+  }
+  .orbit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(70vw, 900px);
+    height: min(70vw, 900px);
+  }
+  .orbit circle {
+    fill: none;
+    stroke: #5c7bb0;
+    stroke-width: 1;
+    stroke-dasharray: 6 14;
+    opacity: 0.22;
+    vector-effect: non-scaling-stroke;
+  }
+  .spin {
+    transform-origin: 1000px 0;
+    animation: spin 300s linear infinite;
+  }
+  .stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @keyframes drift {
+    from {
+      transform: translate3d(-1.5%, -1%, 0);
+    }
+    to {
+      transform: translate3d(1.5%, 1.5%, 0) scale(1.05);
+    }
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nebula,
+    .spin {
+      animation: none;
+    }
+  }
+  @media print {
+    .sky {
+      display: none;
+    }
+  }
+}

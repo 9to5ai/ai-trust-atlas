@@ -10,7 +10,22 @@ type Meteor = { x: number; y: number; vx: number; vy: number; life: number; age:
 const STAR_COLOUR = '207, 232, 255' // #cfe8ff, the Universe star colour
 const AURORA = '196, 181, 253' // #c4b5fd, the Universe path pulse colour
 
-export function Starfield({ className }: { className?: string }) {
+type Options = {
+  className?: string
+  /* Screen area per star, in square pixels: larger is sparser. */
+  spacing?: number
+  /* Overall star brightness, 0–1. */
+  intensity?: number
+  /* Milliseconds between shooting stars: [minimum, random extra]. */
+  meteorEvery?: [number, number]
+  /* Keep the left third faint, where text sits. */
+  quietLeft?: boolean
+  /* Drift stars slightly as the page scrolls, for depth. */
+  scrollParallax?: boolean
+}
+
+export function Starfield({ className, spacing = 8500, intensity = 1, meteorEvery, quietLeft = false, scrollParallax = false }: Options) {
+  const [meteorMin, meteorExtra] = meteorEvery ?? [5000, 9000]
   const canvas = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -21,11 +36,11 @@ export function Starfield({ className }: { className?: string }) {
     let width = 0, height = 0, ratio = 1, frame = 0, visible = true, last = 0
     let stars: Star[] = []
     const meteors: Meteor[] = []
-    let nextMeteor = performance.now() + 2500
+    let nextMeteor = performance.now() + meteorMin * 0.5
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 }
 
     const seed = () => {
-      const count = Math.round((width * height) / 8500)
+      const count = Math.round((width * height) / spacing)
       stars = Array.from({ length: count }, () => {
         const depth = Math.random()
         return { x: Math.random() * width, y: Math.random() * height, depth, size: 0.3 + depth * depth * 1.15, phase: Math.random() * Math.PI * 2, speed: 0.4 + Math.random() * 1.4 }
@@ -49,11 +64,12 @@ export function Starfield({ className }: { className?: string }) {
       pointer.y += (pointer.ty - pointer.y) * 0.05
       for (const star of stars) {
         const twinkle = reduced ? 0.75 : 0.55 + 0.45 * Math.sin(time * 0.001 * star.speed + star.phase)
+        const scroll = scrollParallax ? (window.scrollY * star.depth * 0.06) % height : 0
         const x = star.x + pointer.x * star.depth * 14
-        const y = star.y + pointer.y * star.depth * 10
+        const y = (((star.y - scroll + pointer.y * star.depth * 10) % height) + height) % height
         // Stars behind the practice titles stay faint so the text reads cleanly.
-        const behindText = x < width * 0.32 ? 0.35 : 1
-        const alpha = (0.22 + star.depth * 0.6) * twinkle * behindText
+        const behindText = quietLeft && x < width * 0.32 ? 0.35 : 1
+        const alpha = (0.22 + star.depth * 0.6) * twinkle * behindText * intensity
         context.fillStyle = `rgba(${STAR_COLOUR}, ${alpha.toFixed(3)})`
         context.beginPath()
         context.arc(x, y, star.size, 0, Math.PI * 2)
@@ -69,7 +85,7 @@ export function Starfield({ className }: { className?: string }) {
       if (time > nextMeteor) {
         const fromLeft = Math.random() < 0.5
         meteors.push({ x: fromLeft ? Math.random() * width * 0.5 : width * (0.5 + Math.random() * 0.5), y: Math.random() * height * 0.35, vx: (fromLeft ? 1 : -1) * (0.55 + Math.random() * 0.35), vy: 0.22 + Math.random() * 0.18, life: 1100 + Math.random() * 600, age: 0 })
-        nextMeteor = time + 5000 + Math.random() * 9000
+        nextMeteor = time + meteorMin + Math.random() * meteorExtra
       }
       for (let index = meteors.length - 1; index >= 0; index--) {
         const meteor = meteors[index]
@@ -79,7 +95,7 @@ export function Starfield({ className }: { className?: string }) {
         const x = meteor.x + meteor.vx * meteor.age, y = meteor.y + meteor.vy * meteor.age
         const fade = Math.sin(progress * Math.PI)
         const gradient = context.createLinearGradient(x, y, x - meteor.vx * 140, y - meteor.vy * 140)
-        gradient.addColorStop(0, `rgba(${STAR_COLOUR}, ${(0.9 * fade).toFixed(3)})`)
+        gradient.addColorStop(0, `rgba(${STAR_COLOUR}, ${(0.9 * fade * Math.max(intensity, 0.6)).toFixed(3)})`)
         gradient.addColorStop(0.3, `rgba(${AURORA}, ${(0.35 * fade).toFixed(3)})`)
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
         context.strokeStyle = gradient
@@ -118,7 +134,7 @@ export function Starfield({ className }: { className?: string }) {
       intersection.disconnect()
       window.removeEventListener('pointermove', onPointer)
     }
-  }, [])
+  }, [spacing, intensity, meteorMin, meteorExtra, quietLeft, scrollParallax])
 
   return <canvas ref={canvas} className={className} aria-hidden="true" />
 }
