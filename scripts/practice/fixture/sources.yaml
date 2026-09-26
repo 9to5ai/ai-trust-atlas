@@ -1,0 +1,15 @@
+- id: fixture-source
+  title: Example source for pipeline tests
+  publisher: AI Trust Atlas fixture
+  url: https://example.org/fixture
+  kind: framework
+  jurisdiction: Global
+  lastVerified: 2026-09-26
+- id: fixture-au-source
+  title: Example Australian source for pipeline tests
+  publisher: AI Trust Atlas fixture
+  url: https://example.org/fixture-au
+  kind: government-guidance
+  jurisdiction: Australia
+  lastVerified: 2026-09-26
+  atlasSource: au-ai-adoption-guidance

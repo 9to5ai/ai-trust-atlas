@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run questions:check && npm run content:check && tsc -b && vite build && vite-node scripts/prerender-heads.ts && vite-node scripts/check-bundle.ts",
+    "build": "npm run questions:check && npm run content:check && npm run practice:build && tsc -b && vite build && vite-node scripts/prerender-heads.ts && vite-node scripts/check-bundle.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -13,7 +13,9 @@
     "typecheck": "tsc -b --pretty false",
     "sources:review": "vite-node scripts/source-review.ts",
     "questions:check": "vite-node scripts/check-question-coverage.ts",
-    "content:check": "vite-node scripts/check-content-gates.ts"
+    "content:check": "vite-node scripts/check-content-gates.ts",
+    "practice:build": "vite-node scripts/practice/build-corpus.ts",
+    "practice:check": "vite-node scripts/practice/build-corpus.ts --check"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -23,7 +25,9 @@
     "motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "three": "^0.186.0"
+    "three": "^0.186.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

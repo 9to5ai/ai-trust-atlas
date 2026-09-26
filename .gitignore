@@ -13,3 +13,7 @@ dist
 test-results/
 playwright-report/
 .scratch/
+
+# Private practice content and its compiled output never enter this repository.
+.practice-content/
+.practice-build/

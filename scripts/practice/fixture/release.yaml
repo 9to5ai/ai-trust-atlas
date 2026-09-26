@@ -1,0 +1,3 @@
+# Synthetic fixture used when the private content repository is unavailable (CI, forks).
+# It exercises the schema and pipeline and contains no real practice content.
+version: 2026.0.1

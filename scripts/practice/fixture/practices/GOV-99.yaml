@@ -1,0 +1,90 @@
+id: GOV-99
+title: Fixture governance practice
+version: 0.1.0
+status: draft
+wave: 1
+quick: true
+lastVerified: 2026-09-26
+domain: governance
+stages: [organisation-wide]
+systemTypes: [traditional-ml, genai]
+riskWeight: 2
+summary: Synthetic practice GOV-99 used to test the pipeline.
+purpose: Fixture purpose sentence for GOV-99, used only by automated tests. It carries no guidance.
+outcome: The pipeline builds, validates and serves this fixture.
+prerequisites: []
+steps:
+  foundations:
+    - { id: F1, title: First fixture step, detail: Placeholder detail., sources: [fixture-source] }
+    - { id: F2, title: Second fixture step, detail: Placeholder detail., sources: [{ source: fixture-source, at: s 1 }] }
+  implementation:
+    - { id: I1, title: First implementation step, detail: Placeholder detail., sources: [fixture-source] }
+    - { id: I2, title: Second implementation step, detail: Placeholder detail., sources: [fixture-source] }
+checkpoints:
+  - { id: C1, decision: Approve the fixture output, who: executive, why: A person owns the decision. }
+roles:
+  accountable: executive
+  accountableTitle: Fixture owner
+  contributors: [{ role: builders, title: Fixture contributor }]
+artefacts:
+  - name: Fixture artefact
+    description: Placeholder artefact.
+    templates: [{ title: Example template, publisher: Fixture, url: https://example.org/template }]
+evidenceTests:
+  - { id: E1, test: Inspect the fixture record., method: inspect, evidence: Fixture record }
+  - { id: E2, test: Reperform the fixture step., method: reperform, evidence: Fixture output }
+  - { id: E3, test: Ask the fixture owner., method: inquire, evidence: Interview note }
+maturity:
+  - { level: 1, criteria: [Nothing is done.] }
+  - { level: 2, criteria: [It is written down with an owner.] }
+  - { level: 3, criteria: [It runs routinely with records.] }
+  - { level: 4, criteria: [It is independently tested.] }
+variations:
+  genai: [Fixture GenAI variation.]
+australia:
+  sixPractices: ['1']
+  guardrails: [1]
+  obligations:
+    - { kind: guidance, text: Fixture Australian guidance note., sources: [fixture-au-source], atlas: { sections: [ai6-accountable] } }
+  keyDates:
+    - { date: 2026-12-10, label: Fixture key date, sources: [fixture-au-source] }
+crosswalks:
+  nistAiRmf: [GOVERN 1]
+  iso42001: [Clause 6]
+atlas:
+  controls: [accountable-ownership]
+  sections: [ai6-accountable]
+  sources: [au-ai-adoption-guidance]
+  concepts: [accountability]
+prompts:
+  draft:
+    title: Fixture draft prompt
+    task: Produce a fixture draft artefact.
+    inputs: [Fixture input]
+    sections: [Section one, Section two]
+    version: 0.1.0
+  adapt:
+    title: Fixture adapt prompt
+    task: Produce a fixture adapt artefact.
+    inputs: [Fixture input]
+    sections: [Section one, Section two]
+    version: 0.1.0
+  review:
+    title: Fixture review prompt
+    task: Produce a fixture review artefact.
+    inputs: [Fixture input]
+    sections: [Section one, Section two]
+    version: 0.1.0
+  communicate:
+    title: Fixture communicate prompt
+    task: Produce a fixture communicate artefact.
+    inputs: [Fixture input]
+    sections: [Section one, Section two]
+    version: 0.1.0
+agent:
+  interview: [Fixture question one?, Fixture question two?, Fixture question three?]
+  stopAt: [C1]
+  done: [Fixture done one., Fixture done two.]
+sources: [fixture-source]
+changelog:
+  - { version: 0.1.0, date: 2026-09-26, summary: Fixture created. }
