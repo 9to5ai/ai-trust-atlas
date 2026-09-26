@@ -603,9 +603,6 @@
     border: 1px solid color-mix(in srgb, var(--signal) 35%, transparent);
     background: radial-gradient(600px 200px at 0% 0%, var(--signal-soft), transparent 70%), var(--surface-1);
   }
-  .handoff .tabs {
-    margin-bottom: 0;
-  }
   .handoffActions {
     display: flex;
     flex-wrap: wrap;

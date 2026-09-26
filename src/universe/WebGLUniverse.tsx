@@ -1,5 +1,6 @@
 import { ArrowsOut, DownloadSimple, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { navigate } from '../app/router'
 import type { GraphModel } from '../types'
 import { UniverseEngine } from './engine'
 import { nodeStyle, placeLabels, type LabelCandidate } from './geometry'
@@ -26,6 +27,26 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
   const engineRef = useRef<UniverseEngine | null>(null)
   const labelPool = useRef(new Map<string, HTMLSpanElement>())
   const pointer = useRef({ x: 0, y: 0, down: false, moved: false })
+  const coreTaps = useRef<number[]>([])
+
+  /* Three quick taps on the centre "AI Trust" core open AI Trust Practice. Each tap makes the core flare. */
+  function tapCore(event: { clientX: number; clientY: number }) {
+    const core = coreRef.current
+    if (!core || core.hidden) return false
+    const box = core.getBoundingClientRect()
+    if (Math.hypot(event.clientX - (box.left + box.width / 2), event.clientY - (box.top + box.height / 2)) > box.width / 2) return false
+    const now = performance.now()
+    coreTaps.current = [...coreTaps.current.filter((time) => now - time < 1500), now]
+    core.classList.remove('universe-core-tap')
+    void core.offsetWidth
+    core.classList.add('universe-core-tap')
+    if (coreTaps.current.length >= 3) {
+      coreTaps.current = []
+      core.classList.add('universe-core-open')
+      window.setTimeout(() => navigate('/practice'), 420)
+    }
+    return true
+  }
   const [hover, setHover] = useState<{ id: string; x: number; y: number } | undefined>()
   const [paused, setPaused] = useState(false)
   const [showSynthesis, setShowSynthesis] = useState(true)
@@ -236,6 +257,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
           const wasClick = pointer.current.down && !pointer.current.moved
           pointer.current.down = false
           if (!engine || !wasClick || event.button !== 0) return
+          if (tapCore(event)) return
           const point = localPoint(event)
           const id = engine.pick(point.x, point.y)
           if (id || selectedNodeId) onSelect(id)

@@ -107,7 +107,7 @@ describe('workspace', () => {
 
 describe('markdown and agent brief', () => {
   it('renders the practice with agent instructions, checkpoints and cited sources', async () => {
-    const { agentBrief, agentBrowserInstruction, practiceMarkdown } = await import('./markdown')
+    const { agentBrief, practiceMarkdown } = await import('./markdown')
     const markdown = practiceMarkdown(practices[0], sources)
     expect(markdown).toMatch(/^# GOV-99 Fixture governance practice/)
     expect(markdown).toContain('## Instructions for AI agents')
@@ -117,7 +117,6 @@ describe('markdown and agent brief', () => {
     const brief = agentBrief(practices[0], sources, profile)
     expect(brief).toMatch(/^Please help me put the AI Trust Practice below in place/)
     expect(brief).toContain('Organisation: Example Mutual')
-    expect(agentBrowserInstruction(practices[0], 'https://atlas.example')).toContain('Open https://atlas.example/practice/p/GOV-99 in my browser')
     expect(markdown).toContain('### Drafting guides')
   })
 })

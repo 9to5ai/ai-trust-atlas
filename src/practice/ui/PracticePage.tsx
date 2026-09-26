@@ -1,11 +1,11 @@
 import { Check, Copy, DownloadSimple } from '@phosphor-icons/react'
-import { Fragment, useId, useMemo, useState, type ReactNode } from 'react'
+import { Fragment, useMemo, useState, type ReactNode } from 'react'
 import { Link } from '../../app/router'
 import { Badge } from '../../ui/Kit'
 import { Eyebrow, Page } from '../../ui/Page'
 import { atlasRefs } from '../atlasRefs'
 import { domains, maturityLevels, roles, sixPractices, stages, systemTypeIds, systemTypes, type RoleId } from '../core/facets'
-import { agentBrief, agentBrowserInstruction, agentGuide } from '../core/markdown'
+import { agentBrief, agentGuide } from '../core/markdown'
 import { citationLocator, citationSource, type Citation, type Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
 import { toggleStep, useWorkspace } from '../store'
@@ -63,7 +63,7 @@ export function PracticePage({ practice }: { practice: Practice }) {
             {practice.prerequisites.length > 0 && <p className={styles.muted}>Builds on {practice.prerequisites.map((id, index) => <span key={id}>{index > 0 && ', '}{byId.has(id) ? <Link to={`/practice/p/${id}`}>{id} {byId.get(id)!.title}</Link> : id}</span>)}.</p>}
           </Block>
 
-          <Block id="agents" title="Work on this with your AI agent" intro="Give this practice to Claude, ChatGPT, Copilot or an agent you run. It reads the practice, interviews you about your organisation, drafts the artefacts with you and stops at each decision that needs a person.">
+          <Block id="agents" title="Work on this with your AI agent" intro="Copy this instruction into Claude, ChatGPT, Copilot or any AI assistant. It reads the practice, interviews you about your organisation, drafts the artefacts with you and stops at each decision that needs a person.">
             <AgentHandoff practice={practice} />
           </Block>
 
@@ -240,13 +240,9 @@ function AtlasChips({ links }: { links: Parameters<typeof atlasRefs>[0] }) {
 function AgentHandoff({ practice }: { practice: Practice }) {
   const corpus = useCorpus()
   const workspace = useWorkspace()
-  const [mode, setMode] = useState<'paste' | 'browser'>('paste')
   const [copied, setCopied] = useState(false)
-  const id = useId()
   const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
-  const text = mode === 'paste'
-    ? agentBrief(practice, corpus.sources, hasProfile ? workspace.profile : undefined)
-    : agentBrowserInstruction(practice, window.location.origin)
+  const text = agentBrief(practice, corpus.sources, hasProfile ? workspace.profile : undefined)
   const copy = async () => {
     try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { setCopied(false) }
   }
@@ -259,24 +255,12 @@ function AgentHandoff({ practice }: { practice: Practice }) {
   const words = text.split(/\s+/).length
   return (
     <div className={styles.handoff}>
-      <div className={styles.tabs} role="tablist" aria-label="How your agent gets the practice">
-        <button type="button" role="tab" id={`${id}-paste`} aria-selected={mode === 'paste'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('paste'); setCopied(false) }}>
-          Paste into any AI assistant<span className={styles.tabNote}>The instructions and the whole practice in one message</span>
-        </button>
-        <button type="button" role="tab" id={`${id}-browser`} aria-selected={mode === 'browser'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('browser'); setCopied(false) }}>
-          Agent that uses your browser<span className={styles.tabNote}>A short instruction; the agent opens this page while you are signed in</span>
-        </button>
+      <div className={styles.handoffActions}>
+        <button type="button" className={styles.copyInline} onClick={copy} aria-live="polite">{copied ? <><Check size={16} /> Copied</> : <><Copy size={16} /> Copy instruction</>}</button>
+        <button type="button" className={styles.secondaryInline} onClick={download}><DownloadSimple size={16} /> Download as a file</button>
+        <span className={styles.muted}>Paste it into any AI assistant. About {Math.round(words / 50) * 50} words: the instructions and the whole practice{hasProfile ? ', with your organisation profile filled in' : ''}.</span>
       </div>
-      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${mode}`}>
-        <div className={styles.handoffActions}>
-          <button type="button" className={styles.copyInline} onClick={copy} aria-live="polite">{copied ? <><Check size={16} /> Copied</> : <><Copy size={16} /> Copy instruction</>}</button>
-          {mode === 'paste' && <button type="button" className={styles.secondaryInline} onClick={download}><DownloadSimple size={16} /> Download as a file</button>}
-          <span className={styles.muted}>{mode === 'paste'
-            ? `About ${Math.round(words / 50) * 50} words${hasProfile ? ', with your organisation profile filled in' : ''}`
-            : 'For agents that browse in your own signed-in browser, such as Claude in Chrome or ChatGPT agent. Other agents cannot get past the password, so use the paste option for them.'}</span>
-        </div>
-        <pre className={`${styles.handoffText}${mode === 'browser' ? ` ${styles.handoffShort}` : ''}`} tabIndex={0} aria-label="Instruction for your agent">{mode === 'paste' ? text.split('\n').slice(0, 30).join('\n') + '\n…' : text}</pre>
-      </div>
+      <pre className={styles.handoffText} tabIndex={0} aria-label="Instruction for your agent">{text.split('\n').slice(0, 30).join('\n') + '\n…'}</pre>
       <a className={styles.handoffLink} href="#agent-instructions">See the instructions your agent will follow</a>
     </div>
   )

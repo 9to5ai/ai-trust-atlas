@@ -123,15 +123,6 @@ export function practiceMarkdown(practice: Practice, sources: Source[], { includ
   return `${blocks.join('\n\n')}\n`
 }
 
-/* The short instruction for agents that work in the user's own signed-in browser. */
-export function agentBrowserInstruction(practice: Practice, origin: string) {
-  return [
-    `Help me put the AI Trust Practice "${practice.title}" (${practice.id}) in place in our organisation.`,
-    `Open ${origin}/practice/p/${practice.id} in my browser (I am already signed in) and read the whole page.`,
-    `Then follow the section headed "Instructions for AI agents": interview me first, stop at every checkpoint for a person to decide, and check your work against the "Done when" list before you tell me you have finished.`,
-  ].join(' ')
-}
-
 /* The self-contained brief: instructions plus the full practice, for any AI assistant (no web access needed). */
 export function agentBrief(practice: Practice, sources: Source[], profile?: Profile) {
   const opener = `Please help me put the AI Trust Practice below in place in our organisation. Read all of it, then follow its "Instructions for AI agents" section, starting with the interview.`
