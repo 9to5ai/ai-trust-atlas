@@ -17,6 +17,10 @@ export const navItems = [
 /* AI Trust Practice: the gated inner room. Its routes swap the Atlas sections for the Practice ones. */
 export const practiceNavItems = [
   { to: '/practice', label: 'Practices', match: ['/practice', '/practice/p'] },
+  { to: '/practice/assess', label: 'Assess', match: ['/practice/assess'] },
+  { to: '/practice/roadmap', label: 'Roadmap', match: ['/practice/roadmap', '/practice/board-summary'] },
+  { to: '/practice/evidence', label: 'Evidence', match: ['/practice/evidence'] },
+  { to: '/practice/profile', label: 'Profile', match: ['/practice/profile'] },
 ] as const
 export const isPracticeRoute = (pathname: string) => pathname === '/practice' || pathname.startsWith('/practice/')
 
@@ -79,7 +83,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </Link>
         <nav className={`${styles.nav}${menuOpen ? ` ${styles.navOpen}` : ''}`} aria-label={inPractice ? 'Practice sections' : 'Atlas sections'} id="atlas-sections">
           {sections.map((item) => {
-            const current = item.match.some((match) => pathname === match || pathname.startsWith(`${match}/`))
+            const current = item.match.some((match) => pathname === match || (match !== '/practice' && pathname.startsWith(`${match}/`)))
             return <Link key={item.to} to={item.to} className={styles.navLink} aria-current={current ? 'page' : undefined}>{item.label}</Link>
           })}
           {inPractice && <Link to="/universe" className={styles.navLink}>Atlas</Link>}

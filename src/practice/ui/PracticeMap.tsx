@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Link } from '../../app/router'
-import { domainIds, domains, stageIds, stages, type DomainId } from '../core/facets'
+import { domainIds, domains, maturityLevels, stageIds, stages, type DomainId, type Level } from '../core/facets'
 import type { Practice } from '../core/schema'
 import styles from './PracticeMap.module.css'
 import { Starfield } from './Starfield'
@@ -44,7 +44,7 @@ function comet(practice: Practice) {
 
 type Arc = { d: string; color: string }
 
-export function PracticeMap({ practices, progress }: { practices: Practice[]; progress: (practice: Practice) => string | undefined }) {
+export function PracticeMap({ practices, progress, levels }: { practices: Practice[]; progress: (practice: Practice) => string | undefined; levels?: Record<string, Level | undefined> }) {
   const wrap = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<string>()
   const [arcs, setArcs] = useState<Arc[]>([])
@@ -124,6 +124,7 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
                       data-lane={practice.id}
                       data-on={practice.id === active || undefined}
                       data-prerequisite={prerequisites.has(practice.id) || undefined}
+                      data-unrated={levels && !levels[practice.id] ? '' : undefined}
                       style={{ '--n': order++ } as CSSProperties}
                       onMouseEnter={() => setActive(practice.id)}
                     >
@@ -132,6 +133,7 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
                         <span className={styles.title}>{practice.title}</span>
                         <span className={styles.srOnly}> — {practice.stages.map((stage) => stages[stage].name).join(', ')}{note ? `. ${note}` : ''}</span>
                         {note && <span className={styles.done} aria-hidden="true" />}
+                        {levels && <Pips level={levels[practice.id]} />}
                       </Link>
                       <div className={styles.track} aria-hidden="true">
                         {segments(practice).map((segment, index) => (
@@ -160,5 +162,15 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
           : 'Each star is a lifecycle stage a practice covers. Point at a practice to trace it; dashed arcs lead to the practices it builds on.'}
       </p>
     </div>
+  )
+}
+
+/* Four pips showing an assessed maturity level. */
+function Pips({ level }: { level?: Level }) {
+  return (
+    <span className={styles.pips} title={level ? `Level ${level}: ${maturityLevels[level - 1].name}` : 'Not assessed'}>
+      {[1, 2, 3, 4].map((step) => <span key={step} data-on={level && step <= level ? '' : undefined} />)}
+      <span className={styles.srOnly}>{level ? `, level ${level} of 4 (${maturityLevels[level - 1].name})` : ', not assessed'}</span>
+    </span>
   )
 }

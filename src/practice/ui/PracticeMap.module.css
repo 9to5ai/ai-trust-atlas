@@ -256,6 +256,30 @@
     color: var(--text-tertiary);
   }
 
+  .pips {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: auto;
+    align-self: center;
+    flex: none;
+  }
+  .pips > span:not(.srOnly) {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
+  }
+  .pips > span[data-on] {
+    background: var(--c);
+    box-shadow: 0 0 6px var(--c);
+  }
+  .lane[data-unrated] .star,
+  .lane[data-unrated] .segment {
+    opacity: 0.35;
+  }
+  .lane[data-unrated] .label {
+    color: var(--text-tertiary);
+  }
   /* Trails and stars */
   .track {
     position: relative;

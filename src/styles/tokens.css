@@ -129,6 +129,17 @@
     --focus-ring: 0 0 0 2px var(--surface-0), 0 0 0 4px #f4b67c;
   }
 
+  @media print {
+    [data-route^='/practice'] {
+      --signal: var(--amber-700);
+      --signal-strong: var(--amber-700);
+      --signal-contrast: #ffffff;
+      --signal-soft: rgba(154, 91, 6, 0.08);
+      --glow: none;
+      --glow-soft: none;
+    }
+  }
+
   /* Printing always uses the Paper palette. */
   @media print {
     :root,

@@ -14,7 +14,7 @@ export const roadmapRules = [
   'Gap: target level minus current level. Practices not yet assessed count as Ad hoc (level 1). The default target is Operating (level 3).',
   'Priority = gap × risk weight (1–3, set per practice) × relevance, plus deadline, dependency and sector points.',
   'Relevance is 1 when the practice applies to an AI system type you use, and 0.5 when it does not. With no system types in your profile, every practice counts as relevant.',
-  'Deadline points apply when an Australian key date falls within 12 months (+1.5) or 6 months (+3), or has passed within the last 12 months (+3), and your profile includes Australia.',
+  'Deadline points apply when an Australian key date falls within 12 months (+1.5) or 6 months (+3), or has passed within the last 12 months (+3), and your profile includes Australia. Dates that only bind some organisations (for example Commonwealth agencies or WA public entities) count only when your profile says they apply.',
   'Dependency points: +0.5 for each other roadmap practice that lists this one as a prerequisite.',
   'Sector points: +1 when the practice has a note for a regulated sector in your profile (for example APRA-regulated entities).',
   'The highest-priority items fill Now (up to 5), then Next (up to 7), then Later. A practice is never scheduled before its prerequisites.',
@@ -78,7 +78,7 @@ export function buildRoadmap({ corpus, result, targets = {}, profile, today, cap
     reasons.push(`Risk weight ${practice.riskWeight} of 3.`)
 
     if (inAustralia) {
-      const deadline = deadlinePoints(practice, todayTime)
+      const deadline = deadlinePoints(practice, todayTime, profile)
       if (deadline) { priority += deadline.points; reasons.push(deadline.reason) }
     }
     const dependants = corpus.practices.filter((other) => other.id !== practice.id && onRoadmap.has(other.id) && other.prerequisites.includes(practice.id))
@@ -112,9 +112,18 @@ export function buildRoadmap({ corpus, result, targets = {}, profile, today, cap
   return topologicalWithin(ranked, byId)
 }
 
-function deadlinePoints(practice: Practice, todayTime: number) {
+/* Dates written for a particular kind of organisation only count when the profile says they apply. */
+export function keyDateApplies(label: string, profile: Profile) {
+  if (/^Commonwealth agencies/i.test(label) && !profile.regulated.includes('commonwealth-agency')) return false
+  if (/\bWA\b|Western Australia/i.test(label) && !profile.jurisdictions.includes('AU-WA')) return false
+  if (/^APRA/i.test(label) && !profile.regulated.includes('apra')) return false
+  return true
+}
+
+function deadlinePoints(practice: Practice, todayTime: number, profile: Profile) {
   let best: { points: number; reason: string } | undefined
   for (const keyDate of practice.australia.keyDates) {
+    if (!keyDateApplies(keyDate.label, profile)) continue
     const days = Math.round((Date.parse(`${keyDate.date}T00:00:00Z`) - todayTime) / DAY)
     const candidate = days >= 0 && days <= 180 ? { points: 3, reason: `Australian key date in ${days} days: ${keyDate.label} (${keyDate.date}).` }
       : days > 180 && days <= 365 ? { points: 1.5, reason: `Australian key date within 12 months: ${keyDate.label} (${keyDate.date}).` }

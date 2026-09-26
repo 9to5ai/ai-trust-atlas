@@ -1,7 +1,8 @@
-import type { CSSProperties } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 import { Link } from '../../app/router'
 import { Page, PageHero } from '../../ui/Page'
 import { domainIds, domains } from '../core/facets'
+import { scoreAssessment } from '../core/assessment'
 import type { Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
 import { useWorkspace } from '../store'
@@ -12,6 +13,9 @@ import styles from './Practice.module.css'
 export function Home() {
   const corpus = useCorpus()
   const workspace = useWorkspace()
+  const result = useMemo(() => scoreAssessment(corpus, workspace.answers), [corpus, workspace.answers])
+  const assessed = result.overall.rated > 0
+  const levels = assessed ? Object.fromEntries(Object.entries(result.practices).map(([id, score]) => [id, score.level])) : undefined
   const progress = (practice: Practice) => {
     const done = workspace.steps[practice.id]?.length ?? 0
     const total = practice.steps.foundations.length + practice.steps.implementation.length
@@ -27,7 +31,14 @@ export function Home() {
         lede="Browse by domain or lifecycle stage. Each practice sets out what to do, what evidence to check, and how the work changes as your program matures."
       />
 
-      <PracticeMap practices={corpus.practices} progress={progress} />
+      <div className={styles.homeActions}>
+        {assessed
+          ? <><Link to="/practice/roadmap" className={styles.homePrimary}>See your roadmap</Link><Link to="/practice/assess" className={styles.homeSecondary}>Update your assessment ({result.overall.rated} of {result.overall.total} rated)</Link></>
+          : <><Link to="/practice/assess" className={styles.homePrimary}>Take the quick assessment</Link><span className={styles.muted}>About 10 minutes. Your answers stay in this browser.</span></>}
+        {!workspace.profile.orgName && !workspace.profile.sector && <Link to="/practice/profile" className={styles.homeSecondary}>Set up your organisation profile</Link>}
+      </div>
+
+      <PracticeMap practices={corpus.practices} progress={progress} levels={levels} />
 
       <div className={styles.domainList}>
         {domainIds.map((domain) => {

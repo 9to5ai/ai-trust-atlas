@@ -665,3 +665,38 @@
 
 @layer components {
 }
+
+@layer components {
+  .homeActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin: calc(var(--space-5) * -1) 0 var(--space-6);
+  }
+  .homePrimary,
+  .homeSecondary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: var(--radius-pill);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .homePrimary {
+    background: var(--signal);
+    color: var(--signal-contrast);
+    box-shadow: var(--glow-soft);
+  }
+  .homeSecondary {
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  .homePrimary:focus-visible,
+  .homeSecondary:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}

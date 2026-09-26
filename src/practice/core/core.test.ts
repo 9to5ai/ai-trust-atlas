@@ -120,3 +120,49 @@ describe('markdown and agent brief', () => {
     expect(markdown).toContain('### Drafting guides')
   })
 })
+
+describe('evidence pack and exports', () => {
+  it('compiles status, provenance gaps and roadmap from the workspace', async () => {
+    const { compileEvidencePack, evidencePackMarkdown, roadmapCsv } = await import('./evidence')
+    const workspace = {
+      ...emptyWorkspace(new Date('2026-09-26T00:00:00Z')),
+      profile,
+      answers: { 'GOV-99': answer(2) },
+      evidence: [
+        { id: 'GOV-99-E1', practiceId: 'GOV-99', testId: 'E1', title: 'Record', status: 'reviewed' as const, location: 'https://intranet/record', updatedAt: '2026-09-26' },
+        { id: 'GOV-99-E2', practiceId: 'GOV-99', testId: 'E2', title: 'Output', status: 'collected' as const, provenance: { tool: 'Claude', model: 'claude-opus-5-5', date: '2026-09-26' }, updatedAt: '2026-09-26' },
+      ],
+    }
+    const pack = compileEvidencePack(corpus, workspace, { today: '2026-09-26' })
+    expect(pack.practices.map((practice) => practice.id)).toEqual(['GOV-99'])
+    expect(pack.counts).toEqual({ none: 1, planned: 0, collected: 1, reviewed: 1 })
+    expect(pack.aiProduced).toBe(1)
+    expect(pack.gaps).toEqual(expect.arrayContaining(['GOV-99 E2: AI-produced evidence has no named reviewer.', 'GOV-99 E3: no evidence recorded yet.', 'GOV-99: at Defined, target Operating.']))
+    const markdown = evidencePackMarkdown(pack)
+    expect(markdown).toContain('# AI trust evidence pack: Example Mutual')
+    expect(markdown).toContain('Claude, claude-opus-5-5, 2026-09-26, not yet reviewed')
+    const csv = roadmapCsv(pack.roadmap)
+    expect(csv.split('\r\n')[0]).toBe('Bucket,Practice,Title,Domain,Current level,Target level,Gap,Priority,Suggested owner,Prerequisites,Why it is ranked here')
+    expect(csv).toContain('GOV-99')
+  })
+
+  it('neutralises spreadsheet formulas in CSV cells', async () => {
+    const { roadmapCsv } = await import('./evidence')
+    const csv = roadmapCsv([{ practiceId: 'X-01', title: '=HYPERLINK("evil")', domain: 'governance', target: 3, gap: 2, priority: 1, bucket: 'now', owner: '@owner', prerequisites: [], reasons: ['ok'] }])
+    expect(csv).toContain(`"'=HYPERLINK(""evil"")"`)
+    expect(csv).toContain(`'@owner`)
+  })
+})
+
+describe('key dates by organisation type', () => {
+  it('counts agency and WA dates only for organisations they bind', async () => {
+    const { keyDateApplies } = await import('./roadmap')
+    const bank: Profile = { jurisdictions: ['AU'], regulated: ['apra'], systemTypes: [] }
+    const agency: Profile = { jurisdictions: ['AU', 'AU-WA'], regulated: ['commonwealth-agency'], systemTypes: [] }
+    expect(keyDateApplies('Commonwealth agencies — 12-month deadline', bank)).toBe(false)
+    expect(keyDateApplies('Commonwealth agencies — 12-month deadline', agency)).toBe(true)
+    expect(keyDateApplies('WA PRIS Act commences for WA public entities', bank)).toBe(false)
+    expect(keyDateApplies('WA PRIS Act commences for WA public entities', agency)).toBe(true)
+    expect(keyDateApplies('APP 1.7–1.9 commence', bank)).toBe(true)
+  })
+})

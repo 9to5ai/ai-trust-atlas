@@ -1,12 +1,19 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { usePathname } from '../app/router'
 import { NotFound } from '../routes/NotFound'
 import { getSession, loadCorpus } from './api'
 import type { Corpus } from './core/schema'
+import { RouteActions } from '../app/AppShell'
+import { Assess } from './ui/Assess'
+import { BoardSummary } from './ui/BoardSummary'
+import { Evidence } from './ui/Evidence'
 import { Home } from './ui/Home'
 import { PageSky, pageContentClass } from './ui/PageSky'
 import { PracticePage } from './ui/PracticePage'
+import { Profile } from './ui/Profile'
+import { Roadmap } from './ui/Roadmap'
 import { Threshold } from './ui/Threshold'
+import { SaveReminder, WorkspaceMenu } from './ui/WorkspaceMenu'
 import styles from './ui/Practice.module.css'
 
 /*
@@ -50,9 +57,19 @@ function PracticeRoutes({ state, pathname, open }: { state: State; pathname: str
 
   const practiceMatch = /^\/practice\/p\/([A-Z]{2,3}-\d{2})$/.exec(pathname)
   const practice = practiceMatch && state.corpus.practices.find((item) => item.id === practiceMatch[1])
+  const pages: Record<string, () => ReactNode> = {
+    '/practice': () => <Home />,
+    '/practice/assess': () => <Assess />,
+    '/practice/roadmap': () => <Roadmap />,
+    '/practice/evidence': () => <Evidence />,
+    '/practice/profile': () => <Profile />,
+    '/practice/board-summary': () => <BoardSummary />,
+  }
   return (
     <CorpusContext.Provider value={state.corpus}>
-      {pathname === '/practice' ? <Home /> : practice ? <PracticePage key={practice.id} practice={practice} /> : <NotFound />}
+      <RouteActions><WorkspaceMenu /></RouteActions>
+      {pages[pathname]?.() ?? (practice ? <PracticePage key={practice.id} practice={practice} /> : <NotFound />)}
+      {pathname !== '/practice/board-summary' && <SaveReminder />}
     </CorpusContext.Provider>
   )
 }
