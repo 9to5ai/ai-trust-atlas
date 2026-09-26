@@ -5,7 +5,7 @@ import { Badge } from '../../ui/Kit'
 import { Eyebrow, Page } from '../../ui/Page'
 import { atlasRefs } from '../atlasRefs'
 import { domains, maturityLevels, roles, sixPractices, stages, systemTypeIds, systemTypes, type RoleId } from '../core/facets'
-import { agentBrief, agentGuide } from '../core/markdown'
+import { agentBrief } from '../core/markdown'
 import { citationLocator, citationSource, type Citation, type Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
 import { toggleStep, useWorkspace } from '../store'
@@ -15,7 +15,7 @@ import styles from './Practice.module.css'
 const sections = [
   ['why', 'Why it matters'], ['agents', 'Work with your agent'], ['steps', 'Steps'], ['checkpoints', 'Human checkpoints'], ['roles', 'Roles'], ['artefacts', 'Artefacts'],
   ['evidence', 'Evidence tests'], ['maturity', 'Maturity levels'], ['variations', 'Variations'], ['australia', 'In Australia'],
-  ['crosswalks', 'Crosswalks'], ['agent-instructions', 'Agent instructions'], ['sources', 'Sources'],
+  ['crosswalks', 'Crosswalks'], ['sources', 'Sources'],
 ] as const
 
 const roleName = (who: string) => (who in roles ? roles[who as RoleId].name : who)
@@ -191,10 +191,6 @@ export function PracticePage({ practice }: { practice: Practice }) {
             </ul>
           </Block>
 
-          <Block id="agent-instructions" title="Instructions for AI agents" intro="If you are an AI agent helping someone with this practice, follow these instructions. People can read them too: this is exactly what your agent will do.">
-            <AgentInstructions practice={practice} />
-          </Block>
-
           <Block id="sources" title="Sources">
             <ul className={styles.sources}>
               {practice.sources.map(citationSource).map((id) => sourceById.get(id)).filter((source) => !!source).map((source) => (
@@ -261,31 +257,6 @@ function AgentHandoff({ practice }: { practice: Practice }) {
         <span className={styles.muted}>Paste it into any AI assistant. About {Math.round(words / 50) * 50} words: the instructions and the whole practice{hasProfile ? ', with your organisation profile filled in' : ''}.</span>
       </div>
       <pre className={styles.handoffText} tabIndex={0} aria-label="Instruction for your agent">{text.split('\n').slice(0, 30).join('\n') + '\n…'}</pre>
-      <a className={styles.handoffLink} href="#agent-instructions">See the instructions your agent will follow</a>
-    </div>
-  )
-}
-
-function AgentInstructions({ practice }: { practice: Practice }) {
-  const workspace = useWorkspace()
-  const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
-  const guide = agentGuide(practice, hasProfile ? workspace.profile : undefined)
-  return (
-    <div className={styles.instructions}>
-      <p>{guide.intro}</p>
-      <ol className={styles.list}>{guide.steps.map((step) => <li key={step}>{step}</li>)}</ol>
-      <h3 className={styles.minor}>Rules</h3>
-      <ul className={styles.list}>{guide.rules.map((rule) => <li key={rule}>{rule}</li>)}</ul>
-      {guide.context && <><h3 className={styles.minor}>What we already know about the organisation</h3><ul className={styles.list}>{guide.context.map((line) => <li key={line}>{line}</li>)}</ul></>}
-      <div className={styles.agentGrid}>
-        <section><h3 className={styles.minor}>Interview questions</h3><ol className={styles.list}>{guide.interview.map((question) => <li key={question}>{question}</li>)}</ol></section>
-        <section><h3 className={styles.minor}>Stop for a person at</h3><ul className={styles.list}>{guide.checkpoints.map((line) => <li key={line}>{line}</li>)}</ul></section>
-        <section><h3 className={styles.minor}>Done when</h3><ul className={styles.list}>{guide.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
-      </div>
-      <h3 className={styles.minor}>Drafting guides</h3>
-      <ul className={styles.drafting}>
-        {guide.drafting.map((item) => <li key={item.title}><strong>{item.title}.</strong> {item.task}<span className={styles.muted}>Sections: {item.sections.join('; ')}.</span></li>)}
-      </ul>
     </div>
   )
 }
