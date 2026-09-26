@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { access, accessConfigured } from './auth'
-import { checkRateLimit, clientAddress, hashClient, type Env } from './guard'
+import { access, accessConfigured } from './auth.js'
+import { checkRateLimit, clientAddress, hashClient, type Env } from './guard.js'
 
 /* Shared response helpers. Every gated response is private, uncached and kept out of search indexes. */
 export const privateHeaders = { 'cache-control': 'private, no-store', 'x-robots-tag': 'noindex, nofollow' }

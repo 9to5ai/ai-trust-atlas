@@ -1,6 +1,6 @@
-import { access, accessConfigured } from './_lib/auth'
-import type { Env } from './_lib/guard'
-import { json } from './_lib/http'
+import { access, accessConfigured } from './_lib/auth.js'
+import type { Env } from './_lib/guard.js'
+import { json } from './_lib/http.js'
 
 /* GET /api/practice/session — whether this browser has access. Reveals nothing else. */
 export function handleSession(request: Request, env: Env = process.env) {

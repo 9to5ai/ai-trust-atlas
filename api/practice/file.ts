@@ -1,5 +1,5 @@
-import type { Env } from './_lib/guard'
-import { file, gated, json, readBuild } from './_lib/http'
+import type { Env } from './_lib/guard.js'
+import { file, gated, json, readBuild } from './_lib/http.js'
 
 /*
  * GET /api/practice/file?path=… — the readable layer at stable URLs (see the rewrites in vercel.json):

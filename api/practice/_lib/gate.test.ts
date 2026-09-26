@@ -1,11 +1,11 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it } from 'vitest'
-import { createSession, verifySession } from './auth'
-import { resetGuardMemory } from './guard'
-import { handleCorpus } from '../corpus'
-import { handleFile } from '../file'
-import { handleLogin } from '../login'
-import { handleSession } from '../session'
+import { createSession, verifySession } from './auth.js'
+import { resetGuardMemory } from './guard.js'
+import { handleCorpus } from '../corpus.js'
+import { handleFile } from '../file.js'
+import { handleLogin } from '../login.js'
+import { handleSession } from '../session.js'
 
 const env = { PRACTICE_PASSWORD: 'correct horse battery staple', PRACTICE_SESSION_SECRET: 's'.repeat(40), PRACTICE_AGENT_KEY: 'k'.repeat(32) }
 const url = 'https://atlas.example/api/practice'

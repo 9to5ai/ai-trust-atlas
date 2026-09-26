@@ -1,5 +1,5 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto'
-import type { Env } from './guard'
+import type { Env } from './guard.js'
 
 /*
  * Access to AI Trust Practice: one shared password for people (a signed session cookie) and a

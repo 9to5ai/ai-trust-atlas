@@ -1,6 +1,6 @@
-import { checkPassword, createSession, sessionCookies } from './_lib/auth'
-import { checkRateLimit, clientAddress, hashClient, type Env } from './_lib/guard'
-import { json } from './_lib/http'
+import { checkPassword, createSession, sessionCookies } from './_lib/auth.js'
+import { checkRateLimit, clientAddress, hashClient, type Env } from './_lib/guard.js'
+import { json } from './_lib/http.js'
 
 /* POST /api/practice/login — checks the shared password and sets a signed 30-day session cookie. */
 export async function handleLogin(request: Request, env: Env = process.env) {

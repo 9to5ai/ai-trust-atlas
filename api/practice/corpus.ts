@@ -1,5 +1,5 @@
-import type { Env } from './_lib/guard'
-import { file, gated, json, readBuild } from './_lib/http'
+import type { Env } from './_lib/guard.js'
+import { file, gated, json, readBuild } from './_lib/http.js'
 
 /* GET /api/practice/corpus — the full compiled corpus for the web app and agents. */
 export function handleCorpus(request: Request, env: Env = process.env) {

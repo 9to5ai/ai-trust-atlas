@@ -1,5 +1,5 @@
-import type { Env } from './_lib/guard'
-import { file, gated, readBuild } from './_lib/http'
+import type { Env } from './_lib/guard.js'
+import { file, gated, readBuild } from './_lib/http.js'
 
 /* GET /api/practice/atlas-index — Atlas node IDs mapped to the practices that serve them (traversal markers). */
 export function handleAtlasIndex(request: Request, env: Env = process.env) {
