@@ -27,7 +27,7 @@ export function locateContent(): { dir: string; origin: 'env' | 'clone' | 'sibli
   if (token) {
     const target = join(root, '.practice-content')
     rmSync(target, { recursive: true, force: true })
-    const repo = process.env.PRACTICE_CONTENT_REPO ?? '9to5ai/ai-trust-practice-content'
+    const repo = process.env.PRACTICE_CONTENT_REPO ?? '9to5ai/ai-trust-practice'
     const ref = process.env.PRACTICE_CONTENT_REF ?? 'main'
     try {
       execFileSync('git', ['clone', '--quiet', '--depth', '1', '--branch', ref, `https://x-access-token:${token}@github.com/${repo}.git`, target], { stdio: 'pipe' })
