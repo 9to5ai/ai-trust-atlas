@@ -1,0 +1,481 @@
+/* The practice map: a star chart of the AI lifecycle, continuing the Atlas Universe. */
+@layer components {
+  .map {
+    --pad: 28px;
+    --label: 300px;
+    --cols: 8;
+    position: relative;
+    isolation: isolate;
+    padding: 0 var(--pad);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-subtle);
+    background:
+      radial-gradient(900px 420px at 18% -10%, rgba(112, 89, 224, 0.18), transparent 70%),
+      radial-gradient(700px 380px at 92% 110%, rgba(34, 198, 240, 0.1), transparent 70%),
+      radial-gradient(520px 300px at 68% 35%, rgba(244, 182, 124, 0.07), transparent 70%),
+      var(--void-1000);
+    box-shadow: var(--shadow-3), inset 0 1px 0 rgba(148, 178, 255, 0.06);
+    overflow: hidden;
+  }
+  .sky {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      radial-gradient(1px 1px at 32.4% 15.1%, rgba(231, 236, 247, 0.45), transparent),
+      radial-gradient(1px 1px at 7.2% 53.6%, rgba(231, 236, 247, 0.38), transparent),
+      radial-gradient(1px 1px at 5.8% 50.7%, rgba(231, 236, 247, 0.29), transparent),
+      radial-gradient(1px 1px at 43.4% 7.0%, rgba(231, 236, 247, 0.30), transparent),
+      radial-gradient(1px 1px at 42.5% 82.7%, rgba(231, 236, 247, 0.31), transparent),
+      radial-gradient(1px 1px at 22.3% 62.7%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 57.7% 39.7%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 4.7% 85.8%, rgba(231, 236, 247, 0.35), transparent),
+      radial-gradient(1px 1px at 14.4% 11.8%, rgba(231, 236, 247, 0.36), transparent),
+      radial-gradient(1px 1px at 81.6% 18.1%, rgba(231, 236, 247, 0.43), transparent),
+      radial-gradient(1px 1px at 63.9% 37.2%, rgba(231, 236, 247, 0.43), transparent),
+      radial-gradient(1px 1px at 6.3% 6.0%, rgba(231, 236, 247, 0.33), transparent),
+      radial-gradient(1px 1px at 68.0% 42.8%, rgba(231, 236, 247, 0.36), transparent),
+      radial-gradient(1px 1px at 58.6% 45.3%, rgba(231, 236, 247, 0.36), transparent),
+      radial-gradient(1px 1px at 79.4% 69.9%, rgba(231, 236, 247, 0.34), transparent),
+      radial-gradient(1px 1px at 57.4% 52.5%, rgba(231, 236, 247, 0.52), transparent),
+      radial-gradient(1px 1px at 72.9% 28.8%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 11.8% 41.8%, rgba(231, 236, 247, 0.48), transparent),
+      radial-gradient(1px 1px at 15.2% 48.9%, rgba(231, 236, 247, 0.29), transparent),
+      radial-gradient(1px 1px at 66.8% 76.5%, rgba(231, 236, 247, 0.43), transparent),
+      radial-gradient(1px 1px at 87.5% 31.4%, rgba(231, 236, 247, 0.47), transparent),
+      radial-gradient(1px 1px at 59.4% 58.0%, rgba(231, 236, 247, 0.40), transparent),
+      radial-gradient(1px 1px at 84.0% 94.5%, rgba(231, 236, 247, 0.41), transparent),
+      radial-gradient(1px 1px at 66.4% 6.1%, rgba(231, 236, 247, 0.47), transparent),
+      radial-gradient(1px 1px at 64.7% 99.3%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 28.5% 38.6%, rgba(231, 236, 247, 0.46), transparent),
+      radial-gradient(1px 1px at 2.3% 46.2%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 11.7% 5.9%, rgba(231, 236, 247, 0.49), transparent),
+      radial-gradient(1px 1px at 12.9% 24.8%, rgba(231, 236, 247, 0.38), transparent),
+      radial-gradient(1px 1px at 87.1% 8.1%, rgba(231, 236, 247, 0.40), transparent),
+      radial-gradient(1px 1px at 54.9% 88.3%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 86.4% 27.8%, rgba(231, 236, 247, 0.39), transparent),
+      radial-gradient(1px 1px at 35.9% 88.4%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 15.1% 17.6%, rgba(231, 236, 247, 0.34), transparent),
+      radial-gradient(1px 1px at 23.3% 48.5%, rgba(231, 236, 247, 0.44), transparent),
+      radial-gradient(1px 1px at 26.3% 0.4%, rgba(231, 236, 247, 0.39), transparent),
+      radial-gradient(1px 1px at 36.9% 56.6%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 69.0% 51.5%, rgba(231, 236, 247, 0.44), transparent),
+      radial-gradient(1px 1px at 67.6% 5.4%, rgba(231, 236, 247, 0.52), transparent),
+      radial-gradient(1px 1px at 78.0% 87.5%, rgba(231, 236, 247, 0.49), transparent),
+      radial-gradient(1px 1px at 39.2% 39.9%, rgba(231, 236, 247, 0.30), transparent),
+      radial-gradient(1px 1px at 63.4% 6.2%, rgba(231, 236, 247, 0.29), transparent),
+      radial-gradient(1px 1px at 20.9% 16.2%, rgba(231, 236, 247, 0.37), transparent),
+      radial-gradient(1px 1px at 5.3% 0.0%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 10.1% 36.4%, rgba(231, 236, 247, 0.28), transparent),
+      radial-gradient(1px 1px at 87.4% 61.4%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 25.2% 34.7%, rgba(231, 236, 247, 0.38), transparent),
+      radial-gradient(1px 1px at 12.3% 84.9%, rgba(231, 236, 247, 0.55), transparent),
+      radial-gradient(1px 1px at 46.6% 48.4%, rgba(231, 236, 247, 0.30), transparent),
+      radial-gradient(1px 1px at 10.2% 34.3%, rgba(231, 236, 247, 0.35), transparent),
+      radial-gradient(1px 1px at 82.9% 16.1%, rgba(231, 236, 247, 0.28), transparent),
+      radial-gradient(1px 1px at 95.1% 52.8%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 54.3% 2.7%, rgba(231, 236, 247, 0.42), transparent),
+      radial-gradient(1px 1px at 97.9% 86.3%, rgba(231, 236, 247, 0.47), transparent),
+      radial-gradient(1px 1px at 26.1% 36.7%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 77.2% 53.3%, rgba(231, 236, 247, 0.49), transparent),
+      radial-gradient(1px 1px at 33.0% 22.3%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 98.5% 85.3%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 81.8% 74.0%, rgba(231, 236, 247, 0.34), transparent),
+      radial-gradient(1px 1px at 51.8% 35.6%, rgba(231, 236, 247, 0.28), transparent),
+      radial-gradient(1px 1px at 2.8% 27.9%, rgba(231, 236, 247, 0.35), transparent),
+      radial-gradient(1px 1px at 69.3% 95.7%, rgba(231, 236, 247, 0.40), transparent),
+      radial-gradient(1px 1px at 93.7% 98.8%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1px 1px at 36.5% 22.0%, rgba(231, 236, 247, 0.34), transparent),
+      radial-gradient(1px 1px at 19.7% 20.4%, rgba(231, 236, 247, 0.45), transparent),
+      radial-gradient(1px 1px at 90.0% 84.0%, rgba(231, 236, 247, 0.41), transparent),
+      radial-gradient(1px 1px at 65.3% 80.0%, rgba(231, 236, 247, 0.30), transparent),
+      radial-gradient(1px 1px at 66.1% 91.0%, rgba(231, 236, 247, 0.49), transparent),
+      radial-gradient(1px 1px at 75.0% 47.8%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 78.9% 33.3%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 97.2% 39.6%, rgba(231, 236, 247, 0.39), transparent),
+      radial-gradient(1px 1px at 94.7% 72.5%, rgba(231, 236, 247, 0.32), transparent),
+      radial-gradient(1px 1px at 12.7% 15.1%, rgba(231, 236, 247, 0.52), transparent),
+      radial-gradient(1px 1px at 80.7% 14.6%, rgba(231, 236, 247, 0.50), transparent),
+      radial-gradient(1px 1px at 98.0% 65.7%, rgba(231, 236, 247, 0.37), transparent),
+      radial-gradient(1px 1px at 54.9% 13.1%, rgba(231, 236, 247, 0.28), transparent),
+      radial-gradient(1px 1px at 97.1% 65.0%, rgba(231, 236, 247, 0.42), transparent),
+      radial-gradient(1px 1px at 93.4% 43.4%, rgba(231, 236, 247, 0.51), transparent),
+      radial-gradient(1px 1px at 82.6% 21.1%, rgba(231, 236, 247, 0.34), transparent),
+      radial-gradient(1px 1px at 29.3% 24.1%, rgba(231, 236, 247, 0.44), transparent);
+  }
+  .sky::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(1.6px 1.6px at 25.9% 41.9%, rgba(231, 236, 247, 0.48), transparent),
+      radial-gradient(1.6px 1.6px at 91.0% 35.4%, rgba(231, 236, 247, 0.62), transparent),
+      radial-gradient(1.6px 1.6px at 58.3% 90.4%, rgba(231, 236, 247, 0.60), transparent),
+      radial-gradient(1.6px 1.6px at 91.8% 50.2%, rgba(231, 236, 247, 0.65), transparent),
+      radial-gradient(1.6px 1.6px at 52.4% 1.9%, rgba(231, 236, 247, 0.61), transparent),
+      radial-gradient(1.6px 1.6px at 18.3% 0.4%, rgba(231, 236, 247, 0.76), transparent),
+      radial-gradient(1.6px 1.6px at 17.2% 47.3%, rgba(231, 236, 247, 0.73), transparent),
+      radial-gradient(1.6px 1.6px at 55.6% 32.6%, rgba(231, 236, 247, 0.65), transparent),
+      radial-gradient(1.6px 1.6px at 55.5% 78.4%, rgba(231, 236, 247, 0.47), transparent),
+      radial-gradient(1.6px 1.6px at 56.0% 24.8%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1.6px 1.6px at 77.2% 50.8%, rgba(231, 236, 247, 0.66), transparent),
+      radial-gradient(1.6px 1.6px at 76.0% 91.2%, rgba(231, 236, 247, 0.61), transparent),
+      radial-gradient(1.6px 1.6px at 61.3% 50.6%, rgba(231, 236, 247, 0.64), transparent),
+      radial-gradient(1.6px 1.6px at 69.3% 45.2%, rgba(231, 236, 247, 0.65), transparent),
+      radial-gradient(1.6px 1.6px at 47.8% 94.2%, rgba(231, 236, 247, 0.72), transparent),
+      radial-gradient(1.6px 1.6px at 87.7% 94.2%, rgba(231, 236, 247, 0.54), transparent),
+      radial-gradient(1.6px 1.6px at 56.0% 94.3%, rgba(231, 236, 247, 0.78), transparent),
+      radial-gradient(1.6px 1.6px at 13.7% 12.2%, rgba(231, 236, 247, 0.61), transparent),
+      radial-gradient(1.6px 1.6px at 7.3% 24.1%, rgba(231, 236, 247, 0.46), transparent),
+      radial-gradient(1.6px 1.6px at 66.9% 78.4%, rgba(231, 236, 247, 0.81), transparent),
+      radial-gradient(1.6px 1.6px at 15.4% 71.6%, rgba(231, 236, 247, 0.71), transparent),
+      radial-gradient(1.6px 1.6px at 14.3% 88.3%, rgba(231, 236, 247, 0.84), transparent),
+      radial-gradient(1.6px 1.6px at 22.0% 95.3%, rgba(231, 236, 247, 0.59), transparent),
+      radial-gradient(1.6px 1.6px at 48.7% 99.0%, rgba(231, 236, 247, 0.78), transparent),
+      radial-gradient(1.6px 1.6px at 16.1% 43.2%, rgba(231, 236, 247, 0.64), transparent),
+      radial-gradient(1.6px 1.6px at 33.9% 19.6%, rgba(231, 236, 247, 0.56), transparent);
+    animation: twinkle 7s ease-in-out infinite alternate;
+  }
+  .guides {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--pad) + var(--label));
+    right: var(--pad);
+    z-index: -1;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    pointer-events: none;
+  }
+  .guides > span {
+    position: relative;
+  }
+  .guides > span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(244, 182, 124, 0.18), rgba(148, 178, 255, 0.05) 30%, rgba(148, 178, 255, 0.03));
+  }
+  .guides > span.orgWide {
+    border-left: 1px dashed rgba(167, 139, 250, 0.2);
+  }
+  .guides > span.orgWide::before {
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0.24), rgba(167, 139, 250, 0.04));
+  }
+
+  /* Lifecycle horizon */
+  .horizon {
+    display: grid;
+    grid-template-columns: var(--label) 1fr;
+    align-items: end;
+    padding: var(--space-6) 0 var(--space-4);
+  }
+  .horizonLabel,
+  .stageName {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .horizonLabel {
+    padding: 0 0 2px 22px;
+  }
+  .stageRow {
+    position: relative;
+    display: grid;
+    align-items: stretch;
+    grid-template-columns: repeat(var(--cols), 1fr);
+  }
+  .stageRow::after {
+    content: '';
+    position: absolute;
+    left: calc(100% / var(--cols) / 2);
+    right: calc(100% / var(--cols) * 1.5);
+    bottom: 4px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(244, 182, 124, 0.15), rgba(244, 182, 124, 0.7), rgba(244, 182, 124, 0.15));
+    box-shadow: 0 0 10px rgba(244, 182, 124, 0.5);
+  }
+  .stage {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: end;
+    justify-items: center;
+    gap: 12px;
+    text-align: center;
+    animation: rise var(--dur-4) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+  .stageNode {
+    position: relative;
+    z-index: 1;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 3px rgba(244, 182, 124, 0.14), 0 0 14px rgba(244, 182, 124, 0.8);
+  }
+  .stage.orgWide .stageName {
+    color: var(--aurora);
+  }
+  .stage.orgWide .stageNode {
+    background: var(--void-1000);
+    border: 1px solid var(--aurora);
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
+  }
+
+  /* Domains and lanes */
+  .domain {
+    padding: var(--space-3) 0 var(--space-2);
+    border-top: 1px solid rgba(148, 178, 255, 0.07);
+  }
+  .domainName {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 4px;
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .orb {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff 0 8%, var(--c) 45%, color-mix(in srgb, var(--c) 30%, transparent) 100%);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--c) 75%, transparent);
+  }
+  .code {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.1em;
+    color: var(--c);
+  }
+  .lanes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .lane {
+    display: grid;
+    grid-template-columns: var(--label) 1fr;
+    align-items: center;
+    min-height: 34px;
+    border-radius: var(--radius-s);
+    transition: opacity var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+    animation: appear var(--dur-4) var(--ease-out) both;
+    animation-delay: calc(150ms + var(--n, 0) * 35ms);
+  }
+  .lane:hover,
+  .lane[data-on] {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--c) 10%, transparent), color-mix(in srgb, var(--c) 3%, transparent));
+  }
+  .map[data-active] .lane:not([data-on]):not([data-prerequisite]) {
+    opacity: 0.3;
+  }
+  .label {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 12px 6px 22px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.84rem;
+    line-height: 1.3;
+    border-radius: var(--radius-s);
+  }
+  .label:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  .lane:hover .label,
+  .lane[data-on] .label,
+  .lane[data-prerequisite] .label {
+    color: var(--text-primary);
+  }
+  .id {
+    flex: none;
+    width: 50px;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.04em;
+    color: var(--c);
+  }
+  .title {
+    min-width: 0;
+  }
+  .done {
+    align-self: center;
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--positive);
+    box-shadow: 0 0 6px var(--positive);
+  }
+  .srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .empty {
+    margin: 0 0 var(--space-2);
+    padding-left: 22px;
+    font-size: var(--step--1);
+    color: var(--text-tertiary);
+  }
+
+  /* Trails and stars */
+  .track {
+    position: relative;
+    height: 34px;
+  }
+  .segment {
+    position: absolute;
+    top: 50%;
+    left: calc((var(--from) + 0.5) / var(--cols) * 100%);
+    width: calc((var(--to) - var(--from)) / var(--cols) * 100%);
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 2px;
+    transition: box-shadow var(--dur-2), opacity var(--dur-2);
+  }
+  .solid {
+    background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 60%, transparent));
+    opacity: 0.7;
+  }
+  .gap {
+    background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--c) 70%, transparent) 0 4px, transparent 4px 9px);
+    opacity: 0.55;
+  }
+  .span {
+    height: 8px;
+    margin-top: -4px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 16%, transparent) 10%, color-mix(in srgb, var(--c) 16%, transparent) 86%, color-mix(in srgb, var(--c) 40%, transparent));
+    border-radius: 8px;
+  }
+  .lane:hover .solid,
+  .lane[data-on] .solid,
+  .lane:hover .gap,
+  .lane[data-on] .gap {
+    opacity: 1;
+    box-shadow: 0 0 10px var(--c);
+  }
+  .lane[data-on] .span,
+  .lane:hover .span {
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 30%, transparent) 10%, color-mix(in srgb, var(--c) 30%, transparent) 86%, color-mix(in srgb, var(--c) 60%, transparent));
+  }
+  .star {
+    position: absolute;
+    top: 50%;
+    left: calc((var(--col) + 0.5) / var(--cols) * 100%);
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff 0 10%, var(--c) 55%);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--c) 80%, transparent);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2);
+  }
+  .orgStar {
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    background: var(--void-1000);
+    border: 2px solid var(--c);
+  }
+  .lane:hover .star,
+  .lane[data-on] .star {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent), 0 0 18px var(--c);
+  }
+  .lane[data-prerequisite] .star {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent), 0 0 12px var(--c);
+  }
+
+  /* Prerequisite arcs */
+  .arcs {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .arcs path {
+    fill: none;
+    stroke-width: 1.3;
+    stroke-dasharray: 4 5;
+    stroke-linecap: round;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 3px currentColor);
+    animation: fade 400ms var(--ease-out) both;
+  }
+  .legend {
+    margin: var(--space-2) calc(var(--pad) * -1) 0;
+    padding: var(--space-3) var(--pad) var(--space-4);
+    border-top: 1px solid rgba(148, 178, 255, 0.07);
+    font-size: var(--step--1);
+    color: var(--text-tertiary);
+  }
+  .legend strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  @keyframes twinkle {
+    from {
+      opacity: 0.35;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: translateX(-6px);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sky::after,
+    .lane,
+    .stage,
+    .arcs path {
+      animation: none;
+    }
+  }
+  @media (max-width: 1080px) {
+    .map {
+      --label: 250px;
+      --pad: 18px;
+    }
+  }
+  @media (max-width: 860px) {
+    .map {
+      display: none;
+    }
+  }
+}

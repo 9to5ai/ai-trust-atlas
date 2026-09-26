@@ -104,3 +104,19 @@ describe('workspace', () => {
     expect(parseWorkspace({ ...workspace, answers: { 'GOV-99': { level: 7, at: '2026-09-26' } } }).ok).toBe(false)
   })
 })
+
+describe('markdown and agent brief', () => {
+  it('renders the practice with agent instructions, checkpoints and cited sources', async () => {
+    const { agentBrief, agentFetchInstruction, practiceMarkdown } = await import('./markdown')
+    const markdown = practiceMarkdown(practices[0], sources)
+    expect(markdown).toMatch(/^# GOV-99 Fixture governance practice/)
+    expect(markdown).toContain('## Instructions for AI agents')
+    expect(markdown).toContain('C1: Approve the fixture output (decided by: Executive)')
+    expect(markdown).toContain('[Example source for pipeline tests, s 1](https://example.org/fixture)')
+    expect(markdown).toContain('Never rate our work above level 3')
+    const brief = agentBrief(practices[0], sources, profile)
+    expect(brief).toMatch(/^Please help me put the AI Trust Practice below in place/)
+    expect(brief).toContain('Organisation: Example Mutual')
+    expect(agentFetchInstruction(practices[0], 'https://atlas.example')).toContain('https://atlas.example/practice/p/GOV-99.md')
+  })
+})

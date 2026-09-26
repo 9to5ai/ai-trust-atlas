@@ -29,115 +29,36 @@
     max-width: 80ch;
   }
 
-  /* Home */
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4) var(--space-6);
-    margin-bottom: var(--space-5);
-  }
-  .matrixWrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-l);
-    background: color-mix(in srgb, var(--surface-1) 70%, transparent);
-  }
-  .matrix {
-    width: 100%;
-    min-width: 1100px;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: var(--step--1);
-  }
-  .matrix th,
-  .matrix td {
-    border-bottom: 1px solid var(--border-subtle);
-    border-right: 1px solid var(--border-subtle);
-    padding: var(--space-2);
-    vertical-align: top;
-    text-align: left;
-  }
-  .matrix thead th {
-    font-family: var(--font-mono);
-    font-size: var(--step--2);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
-    padding: var(--space-3) var(--space-2);
-  }
-  .matrix tbody th {
-    width: 180px;
-    font-weight: 560;
-    color: var(--text-primary);
-    padding: var(--space-3);
-  }
-  .corner {
-    width: 180px;
-  }
-  .matrix tr:last-child > * {
-    border-bottom: 0;
-  }
-  .matrix :is(th, td):last-child {
-    border-right: 0;
-  }
+  /* Home: small-screen domain list (the star chart replaces it on wider screens) */
   .domainCode {
     display: block;
     font-family: var(--font-mono);
     font-size: var(--step--2);
-    color: var(--signal);
+    color: var(--c, var(--signal));
     letter-spacing: 0.08em;
     margin-bottom: 2px;
   }
-  .cellLink {
-    position: relative;
-    display: grid;
-    gap: 2px;
-    padding: 6px 8px;
-    margin-bottom: 6px;
-    border-radius: var(--radius-s);
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text-secondary);
-    text-decoration: none;
-    line-height: var(--leading-snug);
-    transition: border-color var(--dur-1), background var(--dur-1), opacity var(--dur-2);
-  }
-  .cellLink:hover {
-    border-color: var(--signal);
-    color: var(--text-primary);
-    background: var(--surface-3);
-  }
-  .cellLink:focus-visible {
-    outline: none;
-    box-shadow: var(--focus-ring);
-  }
-  .cellLink[data-dim],
-  .domainList li[data-dim] {
-    opacity: 0.28;
+  .domainOrb {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: var(--c, var(--signal));
+    box-shadow: 0 0 12px var(--c, var(--signal));
   }
   .cellId {
     font-family: var(--font-mono);
     font-size: var(--step--2);
-    color: var(--signal);
-  }
-  .cellTitle {
-    font-size: var(--step--1);
-  }
-  .cellProgress {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--positive);
+    color: var(--c, var(--signal));
   }
   .domainList {
     display: none;
     gap: var(--space-6);
   }
   .domainHeading {
+    display: flex;
+    gap: 10px;
     margin: 0 0 var(--space-3);
     font-size: var(--step-1);
     font-weight: 600;
@@ -151,6 +72,7 @@
   }
   .domainList li {
     display: grid;
+    justify-items: start;
     gap: 4px;
     padding: var(--space-3);
     border: 1px solid var(--border-subtle);
@@ -734,9 +656,6 @@
     }
   }
   @media (max-width: 860px) {
-    .matrixWrap {
-      display: none;
-    }
     .domainList {
       display: grid;
     }
@@ -759,5 +678,85 @@
       grid-template-columns: minmax(0, 1fr);
       gap: 2px;
     }
+  }
+}
+
+@layer components {
+  .handoff {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border-radius: var(--radius-l);
+    border: 1px solid color-mix(in srgb, var(--signal) 35%, transparent);
+    background: radial-gradient(600px 200px at 0% 0%, var(--signal-soft), transparent 70%), var(--surface-1);
+  }
+  .handoff .tabs {
+    margin-bottom: 0;
+  }
+  .handoffActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .copyInline,
+  .secondaryInline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font: inherit;
+    font-size: var(--step--1);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .copyInline {
+    border: 1px solid transparent;
+    background: var(--signal);
+    color: var(--signal-contrast);
+  }
+  .secondaryInline {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-primary);
+  }
+  .copyInline:focus-visible,
+  .secondaryInline:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  .handoffText {
+    margin: 0;
+    max-height: 260px;
+    overflow: auto;
+    padding: var(--space-4);
+    border-radius: var(--radius-m);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-0);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: var(--text-secondary);
+    mask-image: linear-gradient(180deg, #000 75%, transparent);
+  }
+  .handoffShort {
+    mask-image: none;
+    color: var(--text-primary);
+    font-size: 0.82rem;
+  }
+  .handoffText:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  .handoffDetails summary {
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: var(--step--1);
+  }
+  .handoffDetails[open] summary {
+    margin-bottom: var(--space-3);
   }
 }

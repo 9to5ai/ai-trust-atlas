@@ -4,6 +4,7 @@ import { join, resolve } from 'node:path'
 import { parse } from 'yaml'
 import { z } from 'zod'
 import { practiceSchema, type Corpus } from '../../src/practice/core/schema'
+import { practiceMarkdown } from '../../src/practice/core/markdown'
 import { citedSourceIds, qualityGaps, validateCorpus } from '../../src/practice/core/validate'
 import { atlasIdSets, buildDir, loadContent, locateContent } from './content'
 
@@ -73,7 +74,10 @@ const write = (file: string, content: string) => writeFileSync(join(buildDir, fi
 write('corpus.json', JSON.stringify(corpus))
 write('schema.json', JSON.stringify(z.toJSONSchema(practiceSchema, { io: 'input' }), null, 2))
 write('atlas-index.json', JSON.stringify(atlasIndex))
-for (const practice of published) write(`practices/${practice.id}.json`, JSON.stringify(practice, null, 2))
+for (const practice of published) {
+  write(`practices/${practice.id}.json`, JSON.stringify(practice, null, 2))
+  write(`practices/${practice.id}.md`, practiceMarkdown(practice, corpus.sources))
+}
 // Strings that must never appear in the public bundle: the build ID and every practice's purpose.
 write('canaries.txt', [corpus.buildId, ...published.map((practice) => practice.purpose.slice(0, 80))].join('\n'))
 console.log(`Wrote .practice-build/ for corpus ${corpus.version} with ${published.length} practices${includesDrafts ? ' (drafts included)' : ''}.`)

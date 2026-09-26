@@ -1,10 +1,11 @@
-import { Check, Copy } from '@phosphor-icons/react'
+import { Check, Copy, DownloadSimple } from '@phosphor-icons/react'
 import { Fragment, useId, useMemo, useState, type ReactNode } from 'react'
 import { Link } from '../../app/router'
 import { Badge, DraftBadge } from '../../ui/Kit'
 import { Eyebrow, Page } from '../../ui/Page'
 import { atlasRefs } from '../atlasRefs'
 import { domains, maturityLevels, promptTypeNames, promptTypes, roles, sixPractices, stages, systemTypeIds, systemTypes, type PromptType, type RoleId } from '../core/facets'
+import { agentBrief, agentFetchInstruction } from '../core/markdown'
 import { assemblePrompt } from '../core/prompts'
 import { citationLocator, citationSource, type Citation, type Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
@@ -13,9 +14,9 @@ import styles from './Practice.module.css'
 
 /* One practice, rendered from its structured record. The same record is served to agents as JSON and Markdown. */
 const sections = [
-  ['why', 'Why it matters'], ['steps', 'Steps'], ['checkpoints', 'Human checkpoints'], ['roles', 'Roles'], ['artefacts', 'Artefacts'],
+  ['why', 'Why it matters'], ['agents', 'Work with your agent'], ['steps', 'Steps'], ['checkpoints', 'Human checkpoints'], ['roles', 'Roles'], ['artefacts', 'Artefacts'],
   ['evidence', 'Evidence tests'], ['maturity', 'Maturity levels'], ['variations', 'Variations'], ['australia', 'In Australia'],
-  ['crosswalks', 'Crosswalks'], ['prompts', 'Prompt kit'], ['agents', 'For agents'], ['sources', 'Sources'],
+  ['crosswalks', 'Crosswalks'], ['prompts', 'Prompt kit'], ['sources', 'Sources'],
 ] as const
 
 const roleName = (who: string) => (who in roles ? roles[who as RoleId].name : who)
@@ -64,6 +65,10 @@ export function PracticePage({ practice }: { practice: Practice }) {
             <h3 className={styles.minor}>When it is done well</h3>
             <p>{practice.outcome}</p>
             {practice.prerequisites.length > 0 && <p className={styles.muted}>Builds on {practice.prerequisites.map((id, index) => <span key={id}>{index > 0 && ', '}{byId.has(id) ? <Link to={`/practice/p/${id}`}>{id} {byId.get(id)!.title}</Link> : id}</span>)}.</p>}
+          </Block>
+
+          <Block id="agents" title="Work on this with your AI agent" intro="Give this practice to Claude, ChatGPT, Copilot or an agent you run. It reads the practice, interviews you about your organisation, drafts the artefacts with you and stops at each decision that needs a person.">
+            <AgentHandoff practice={practice} />
           </Block>
 
           <Block id="steps" title="Steps" aside={<span className={styles.muted}>{done.size} of {totalSteps} marked done in this browser</span>}>
@@ -194,15 +199,6 @@ export function PracticePage({ practice }: { practice: Practice }) {
             <PromptKit practice={practice} />
           </Block>
 
-          <Block id="agents" title="For agents" intro="The contract an AI agent follows when it works on this practice with you.">
-            <div className={styles.agentGrid}>
-              <section><h3 className={styles.minor}>Interview first</h3><ol className={styles.list}>{practice.agent.interview.map((question) => <li key={question}>{question}</li>)}</ol></section>
-              <section><h3 className={styles.minor}>Stop for a person at</h3><ul className={styles.list}>{practice.agent.stopAt.map((id) => <li key={id}>{id}: {practice.checkpoints.find((checkpoint) => checkpoint.id === id)?.decision}</li>)}</ul>
-                <p className={styles.muted}>An agent never rates its own work above Operating.</p></section>
-              <section><h3 className={styles.minor}>Done when</h3><ul className={styles.list}>{practice.agent.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
-            </div>
-          </Block>
-
           <Block id="sources" title="Sources">
             <ul className={styles.sources}>
               {practice.sources.map(citationSource).map((id) => sourceById.get(id)).filter((source) => !!source).map((source) => (
@@ -245,6 +241,57 @@ function Block({ id, title, intro, aside, children }: { id: string; title: strin
 function AtlasChips({ links }: { links: Parameters<typeof atlasRefs>[0] }) {
   const refs = atlasRefs(links)
   return refs.length ? <span className={styles.atlasChips}>{refs.map((ref) => <Link key={ref.id} to={ref.href} className={styles.atlasChip}>Atlas: {ref.label}</Link>)}</span> : null
+}
+
+function AgentHandoff({ practice }: { practice: Practice }) {
+  const corpus = useCorpus()
+  const workspace = useWorkspace()
+  const [mode, setMode] = useState<'paste' | 'fetch'>('paste')
+  const [copied, setCopied] = useState(false)
+  const id = useId()
+  const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
+  const text = mode === 'paste'
+    ? agentBrief(practice, corpus.sources, hasProfile ? workspace.profile : undefined)
+    : agentFetchInstruction(practice, window.location.origin)
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { setCopied(false) }
+  }
+  const download = () => {
+    const url = URL.createObjectURL(new Blob([text], { type: 'text/markdown' }))
+    const link = Object.assign(document.createElement('a'), { href: url, download: `${practice.id}-agent-brief.md` })
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+  const words = text.split(/\s+/).length
+  return (
+    <div className={styles.handoff}>
+      <div className={styles.tabs} role="tablist" aria-label="How your agent gets the practice">
+        <button type="button" role="tab" id={`${id}-paste`} aria-selected={mode === 'paste'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('paste'); setCopied(false) }}>
+          Paste into any AI assistant<span className={styles.tabNote}>The instruction and the whole practice in one message</span>
+        </button>
+        <button type="button" role="tab" id={`${id}-fetch`} aria-selected={mode === 'fetch'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('fetch'); setCopied(false) }}>
+          Agent that can read web pages<span className={styles.tabNote}>A short instruction; the agent fetches the practice itself</span>
+        </button>
+      </div>
+      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${mode}`}>
+        <div className={styles.handoffActions}>
+          <button type="button" className={styles.copyInline} onClick={copy} aria-live="polite">{copied ? <><Check size={16} /> Copied</> : <><Copy size={16} /> Copy instruction</>}</button>
+          {mode === 'paste' && <button type="button" className={styles.secondaryInline} onClick={download}><DownloadSimple size={16} /> Download as a file</button>}
+          <span className={styles.muted}>{mode === 'paste' ? `About ${Math.round(words / 50) * 50} words${hasProfile ? ', with your organisation profile filled in' : ''}` : 'Replace <our agent key> with the agent key you were given. Keep it out of shared documents.'}</span>
+        </div>
+        <pre className={`${styles.handoffText}${mode === 'fetch' ? ` ${styles.handoffShort}` : ''}`} tabIndex={0} aria-label="Instruction for your agent">{mode === 'paste' ? text.split('\n').slice(0, 30).join('\n') + '\n…' : text}</pre>
+      </div>
+      <details className={styles.handoffDetails}>
+        <summary>What your agent will do</summary>
+        <div className={styles.agentGrid}>
+          <section><h3 className={styles.minor}>Interview you first</h3><ol className={styles.list}>{practice.agent.interview.map((question) => <li key={question}>{question}</li>)}</ol></section>
+          <section><h3 className={styles.minor}>Stop for a person at</h3><ul className={styles.list}>{practice.agent.stopAt.map((stop) => <li key={stop}>{stop}: {practice.checkpoints.find((checkpoint) => checkpoint.id === stop)?.decision}</li>)}</ul>
+            <p className={styles.muted}>It will not rate your work above Operating on its own.</p></section>
+          <section><h3 className={styles.minor}>Finish when</h3><ul className={styles.list}>{practice.agent.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
+        </div>
+      </details>
+    </div>
+  )
 }
 
 function PromptKit({ practice }: { practice: Practice }) {
