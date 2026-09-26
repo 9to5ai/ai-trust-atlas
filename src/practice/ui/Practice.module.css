@@ -664,12 +664,40 @@
     outline: none;
     box-shadow: var(--focus-ring);
   }
-  .handoffDetails summary {
-    cursor: pointer;
+}
+
+@layer components {
+  .handoffLink {
+    font-size: var(--step--1);
     color: var(--text-secondary);
+  }
+  .instructions {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border-radius: var(--radius-l);
+    border: 1px dashed color-mix(in srgb, var(--signal) 35%, transparent);
+    background: var(--surface-1);
+  }
+  .instructions > p {
+    margin: 0;
+    color: var(--text-primary);
+  }
+  .instructions .minor {
+    margin-top: var(--space-3);
+  }
+  .drafting {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: var(--space-3);
     font-size: var(--step--1);
   }
-  .handoffDetails[open] summary {
-    margin-bottom: var(--space-3);
+  .drafting strong {
+    color: var(--text-primary);
+  }
+  .drafting .muted {
+    display: block;
+    margin-top: 2px;
   }
 }

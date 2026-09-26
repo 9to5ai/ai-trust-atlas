@@ -5,7 +5,7 @@ import { Badge } from '../../ui/Kit'
 import { Eyebrow, Page } from '../../ui/Page'
 import { atlasRefs } from '../atlasRefs'
 import { domains, maturityLevels, roles, sixPractices, stages, systemTypeIds, systemTypes, type RoleId } from '../core/facets'
-import { agentBrief, agentFetchInstruction } from '../core/markdown'
+import { agentBrief, agentBrowserInstruction, agentGuide } from '../core/markdown'
 import { citationLocator, citationSource, type Citation, type Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
 import { toggleStep, useWorkspace } from '../store'
@@ -15,7 +15,7 @@ import styles from './Practice.module.css'
 const sections = [
   ['why', 'Why it matters'], ['agents', 'Work with your agent'], ['steps', 'Steps'], ['checkpoints', 'Human checkpoints'], ['roles', 'Roles'], ['artefacts', 'Artefacts'],
   ['evidence', 'Evidence tests'], ['maturity', 'Maturity levels'], ['variations', 'Variations'], ['australia', 'In Australia'],
-  ['crosswalks', 'Crosswalks'], ['sources', 'Sources'],
+  ['crosswalks', 'Crosswalks'], ['agent-instructions', 'Agent instructions'], ['sources', 'Sources'],
 ] as const
 
 const roleName = (who: string) => (who in roles ? roles[who as RoleId].name : who)
@@ -191,6 +191,10 @@ export function PracticePage({ practice }: { practice: Practice }) {
             </ul>
           </Block>
 
+          <Block id="agent-instructions" title="Instructions for AI agents" intro="If you are an AI agent helping someone with this practice, follow these instructions. People can read them too: this is exactly what your agent will do.">
+            <AgentInstructions practice={practice} />
+          </Block>
+
           <Block id="sources" title="Sources">
             <ul className={styles.sources}>
               {practice.sources.map(citationSource).map((id) => sourceById.get(id)).filter((source) => !!source).map((source) => (
@@ -236,13 +240,13 @@ function AtlasChips({ links }: { links: Parameters<typeof atlasRefs>[0] }) {
 function AgentHandoff({ practice }: { practice: Practice }) {
   const corpus = useCorpus()
   const workspace = useWorkspace()
-  const [mode, setMode] = useState<'paste' | 'fetch'>('paste')
+  const [mode, setMode] = useState<'paste' | 'browser'>('paste')
   const [copied, setCopied] = useState(false)
   const id = useId()
   const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
   const text = mode === 'paste'
     ? agentBrief(practice, corpus.sources, hasProfile ? workspace.profile : undefined)
-    : agentFetchInstruction(practice, window.location.origin)
+    : agentBrowserInstruction(practice, window.location.origin)
   const copy = async () => {
     try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { setCopied(false) }
   }
@@ -257,29 +261,47 @@ function AgentHandoff({ practice }: { practice: Practice }) {
     <div className={styles.handoff}>
       <div className={styles.tabs} role="tablist" aria-label="How your agent gets the practice">
         <button type="button" role="tab" id={`${id}-paste`} aria-selected={mode === 'paste'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('paste'); setCopied(false) }}>
-          Paste into any AI assistant<span className={styles.tabNote}>The instruction and the whole practice in one message</span>
+          Paste into any AI assistant<span className={styles.tabNote}>The instructions and the whole practice in one message</span>
         </button>
-        <button type="button" role="tab" id={`${id}-fetch`} aria-selected={mode === 'fetch'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('fetch'); setCopied(false) }}>
-          Agent that can read web pages<span className={styles.tabNote}>A short instruction; the agent fetches the practice itself</span>
+        <button type="button" role="tab" id={`${id}-browser`} aria-selected={mode === 'browser'} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setMode('browser'); setCopied(false) }}>
+          Agent that uses your browser<span className={styles.tabNote}>A short instruction; the agent opens this page while you are signed in</span>
         </button>
       </div>
       <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${mode}`}>
         <div className={styles.handoffActions}>
           <button type="button" className={styles.copyInline} onClick={copy} aria-live="polite">{copied ? <><Check size={16} /> Copied</> : <><Copy size={16} /> Copy instruction</>}</button>
           {mode === 'paste' && <button type="button" className={styles.secondaryInline} onClick={download}><DownloadSimple size={16} /> Download as a file</button>}
-          <span className={styles.muted}>{mode === 'paste' ? `About ${Math.round(words / 50) * 50} words${hasProfile ? ', with your organisation profile filled in' : ''}` : 'Replace <our agent key> with the agent key you were given. Keep it out of shared documents.'}</span>
+          <span className={styles.muted}>{mode === 'paste'
+            ? `About ${Math.round(words / 50) * 50} words${hasProfile ? ', with your organisation profile filled in' : ''}`
+            : 'For agents that browse in your own signed-in browser, such as Claude in Chrome or ChatGPT agent. Other agents cannot get past the password, so use the paste option for them.'}</span>
         </div>
-        <pre className={`${styles.handoffText}${mode === 'fetch' ? ` ${styles.handoffShort}` : ''}`} tabIndex={0} aria-label="Instruction for your agent">{mode === 'paste' ? text.split('\n').slice(0, 30).join('\n') + '\n…' : text}</pre>
+        <pre className={`${styles.handoffText}${mode === 'browser' ? ` ${styles.handoffShort}` : ''}`} tabIndex={0} aria-label="Instruction for your agent">{mode === 'paste' ? text.split('\n').slice(0, 30).join('\n') + '\n…' : text}</pre>
       </div>
-      <details className={styles.handoffDetails}>
-        <summary>What your agent will do</summary>
-        <div className={styles.agentGrid}>
-          <section><h3 className={styles.minor}>Interview you first</h3><ol className={styles.list}>{practice.agent.interview.map((question) => <li key={question}>{question}</li>)}</ol></section>
-          <section><h3 className={styles.minor}>Stop for a person at</h3><ul className={styles.list}>{practice.agent.stopAt.map((stop) => <li key={stop}>{stop}: {practice.checkpoints.find((checkpoint) => checkpoint.id === stop)?.decision}</li>)}</ul>
-            <p className={styles.muted}>It will not rate your work above Operating on its own.</p></section>
-          <section><h3 className={styles.minor}>Finish when</h3><ul className={styles.list}>{practice.agent.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
-        </div>
-      </details>
+      <a className={styles.handoffLink} href="#agent-instructions">See the instructions your agent will follow</a>
+    </div>
+  )
+}
+
+function AgentInstructions({ practice }: { practice: Practice }) {
+  const workspace = useWorkspace()
+  const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
+  const guide = agentGuide(practice, hasProfile ? workspace.profile : undefined)
+  return (
+    <div className={styles.instructions}>
+      <p>{guide.intro}</p>
+      <ol className={styles.list}>{guide.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+      <h3 className={styles.minor}>Rules</h3>
+      <ul className={styles.list}>{guide.rules.map((rule) => <li key={rule}>{rule}</li>)}</ul>
+      {guide.context && <><h3 className={styles.minor}>What we already know about the organisation</h3><ul className={styles.list}>{guide.context.map((line) => <li key={line}>{line}</li>)}</ul></>}
+      <div className={styles.agentGrid}>
+        <section><h3 className={styles.minor}>Interview questions</h3><ol className={styles.list}>{guide.interview.map((question) => <li key={question}>{question}</li>)}</ol></section>
+        <section><h3 className={styles.minor}>Stop for a person at</h3><ul className={styles.list}>{guide.checkpoints.map((line) => <li key={line}>{line}</li>)}</ul></section>
+        <section><h3 className={styles.minor}>Done when</h3><ul className={styles.list}>{guide.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
+      </div>
+      <h3 className={styles.minor}>Drafting guides</h3>
+      <ul className={styles.drafting}>
+        {guide.drafting.map((item) => <li key={item.title}><strong>{item.title}.</strong> {item.task}<span className={styles.muted}>Sections: {item.sections.join('; ')}.</span></li>)}
+      </ul>
     </div>
   )
 }
