@@ -1,12 +1,11 @@
 import { Check, Copy, DownloadSimple } from '@phosphor-icons/react'
 import { Fragment, useId, useMemo, useState, type ReactNode } from 'react'
 import { Link } from '../../app/router'
-import { Badge, DraftBadge } from '../../ui/Kit'
+import { Badge } from '../../ui/Kit'
 import { Eyebrow, Page } from '../../ui/Page'
 import { atlasRefs } from '../atlasRefs'
-import { domains, maturityLevels, promptTypeNames, promptTypes, roles, sixPractices, stages, systemTypeIds, systemTypes, type PromptType, type RoleId } from '../core/facets'
+import { domains, maturityLevels, roles, sixPractices, stages, systemTypeIds, systemTypes, type RoleId } from '../core/facets'
 import { agentBrief, agentFetchInstruction } from '../core/markdown'
-import { assemblePrompt } from '../core/prompts'
 import { citationLocator, citationSource, type Citation, type Practice } from '../core/schema'
 import { useCorpus } from '../PracticeApp'
 import { toggleStep, useWorkspace } from '../store'
@@ -16,7 +15,7 @@ import styles from './Practice.module.css'
 const sections = [
   ['why', 'Why it matters'], ['agents', 'Work with your agent'], ['steps', 'Steps'], ['checkpoints', 'Human checkpoints'], ['roles', 'Roles'], ['artefacts', 'Artefacts'],
   ['evidence', 'Evidence tests'], ['maturity', 'Maturity levels'], ['variations', 'Variations'], ['australia', 'In Australia'],
-  ['crosswalks', 'Crosswalks'], ['prompts', 'Prompt kit'], ['sources', 'Sources'],
+  ['crosswalks', 'Crosswalks'], ['sources', 'Sources'],
 ] as const
 
 const roleName = (who: string) => (who in roles ? roles[who as RoleId].name : who)
@@ -30,7 +29,6 @@ export function PracticePage({ practice }: { practice: Practice }) {
   const byId = useMemo(() => new Map(corpus.practices.map((item) => [item.id, item])), [corpus])
   const done = new Set(workspace.steps[practice.id] ?? [])
   const totalSteps = practice.steps.foundations.length + practice.steps.implementation.length
-  const draft = corpus.includesDrafts && practice.status !== 'approved'
   const refs = atlasRefs(practice.atlas)
 
   const cite = (citations: Citation[]) => (
@@ -53,8 +51,6 @@ export function PracticePage({ practice }: { practice: Practice }) {
             <h1 id="practice-title" className={styles.practiceTitle}>{practice.title}</h1>
             <p className={styles.summary}>{practice.summary}</p>
             <div className={styles.badges}>
-              {draft && <DraftBadge />}
-              {practice.flagship && <Badge tone="signal">Flagship</Badge>}
               <Badge>Version {practice.version}</Badge>
               <Badge>Last verified {practice.lastVerified}</Badge>
             </div>
@@ -195,18 +191,12 @@ export function PracticePage({ practice }: { practice: Practice }) {
             </ul>
           </Block>
 
-          <Block id="prompts" title="Prompt kit" intro="Prompts that turn this practice into your own artefacts in the AI tool you use. Your profile is filled in here, in your browser; nothing is sent to this site.">
-            <PromptKit practice={practice} />
-          </Block>
-
           <Block id="sources" title="Sources">
             <ul className={styles.sources}>
               {practice.sources.map(citationSource).map((id) => sourceById.get(id)).filter((source) => !!source).map((source) => (
                 <li key={source.id}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a><span className={styles.muted}>{source.publisher}{source.published ? ` · ${source.published}` : ''} · verified {source.lastVerified}</span>{source.note && <span className={styles.sourceNote}>{source.note}</span>}</li>
               ))}
             </ul>
-            <h3 className={styles.minor}>Changelog</h3>
-            <ul className={styles.dates}>{practice.changelog.map((entry) => <li key={entry.version}><time dateTime={entry.date}>{entry.date}</time><span>v{entry.version} — {entry.summary}</span></li>)}</ul>
           </Block>
         </article>
 
@@ -290,37 +280,6 @@ function AgentHandoff({ practice }: { practice: Practice }) {
           <section><h3 className={styles.minor}>Finish when</h3><ul className={styles.list}>{practice.agent.done.map((line) => <li key={line}>{line}</li>)}</ul></section>
         </div>
       </details>
-    </div>
-  )
-}
-
-function PromptKit({ practice }: { practice: Practice }) {
-  const workspace = useWorkspace()
-  const [type, setType] = useState<PromptType>('draft')
-  const [copied, setCopied] = useState(false)
-  const id = useId()
-  const hasProfile = !!(workspace.profile.sector || workspace.profile.orgName || workspace.profile.systemTypes.length)
-  const prompt = assemblePrompt(practice, type, hasProfile ? workspace.profile : undefined)
-  const copy = async () => {
-    try { await navigator.clipboard.writeText(prompt.text); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch { setCopied(false) }
-  }
-  return (
-    <div className={styles.promptKit}>
-      <div className={styles.tabs} role="tablist" aria-label="Prompt type">
-        {promptTypes.map((key) => <button key={key} type="button" role="tab" id={`${id}-${key}`} aria-selected={type === key} aria-controls={`${id}-panel`} className={styles.tab} onClick={() => { setType(key); setCopied(false) }}>{promptTypeNames[key]}<span className={styles.tabNote}>{practice.prompts[key].title}</span></button>)}
-      </div>
-      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${type}`}>
-        {!hasProfile && <p className={styles.muted}>No organisation profile yet, so the prompt asks the AI tool to confirm your context. A profile screen is coming to AI Trust Practice.</p>}
-        <div className={styles.promptBox}>
-          <button type="button" className={styles.copy} onClick={copy} aria-live="polite">{copied ? <><Check size={16} /> Copied</> : <><Copy size={16} /> Copy prompt</>}</button>
-          <pre tabIndex={0} aria-label={`${prompt.title} prompt text`}>{prompt.text}</pre>
-        </div>
-        <div className={styles.promptMeta}>
-          <section><h3 className={styles.minor}>Check the output</h3><ul className={styles.checklist}>{prompt.checklist.map((item) => <li key={item}>{item}</li>)}</ul></section>
-          <section><h3 className={styles.minor}>What is safe to paste</h3><p>{prompt.sensitivity}</p>
-            <p className={styles.muted}>Prompt version {prompt.version}{practice.prompts[type].lastTested ? `, last tested ${practice.prompts[type].lastTested}` : ', not yet tested across AI tools'}.</p></section>
-        </div>
-      </div>
     </div>
   )
 }

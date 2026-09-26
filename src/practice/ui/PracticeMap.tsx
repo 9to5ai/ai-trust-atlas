@@ -3,21 +3,23 @@ import { Link } from '../../app/router'
 import { domainIds, domains, stageIds, stages, type DomainId } from '../core/facets'
 import type { Practice } from '../core/schema'
 import styles from './PracticeMap.module.css'
+import { Starfield } from './Starfield'
 
 /*
  * The practice map: a star chart of the AI lifecycle that continues the Atlas Universe. Each practice is a lane.
  * It has a star at every stage it covers, joined by a trail, in its domain's colour. Pointing at a practice lights
  * its trail and draws dashed arcs to the practices it builds on. Underneath it is a plain list of links.
  */
+/* The Atlas Universe's concept-domain colours, so a domain looks the same in both places. */
 export const domainColors: Record<DomainId, string> = {
   governance: '#f0a46b',
   risk: '#df83a7',
-  data: '#8ad7d0',
+  data: '#7db9f5',
   security: '#ef7373',
   testing: '#74b9a2',
-  transparency: '#a78bfa',
-  fairness: '#ffc46b',
-  'third-party': '#5ee4ff',
+  transparency: '#8ad7d0',
+  fairness: '#e4c96f',
+  'third-party': '#9eb6ca',
 }
 
 const lifecycle = stageIds.filter((stage) => stage !== 'organisation-wide')
@@ -31,6 +33,13 @@ function segments(practice: Practice): Segment[] {
   // Organisation-wide practices span the whole lifecycle: a faint band from the first stage to the last.
   if (practice.stages.includes('organisation-wide')) result.push({ from: 0, to: columns - 1, kind: 'span' })
   return result
+}
+
+/* A signal that travels the practice's trail, like the pulses on highlighted links in the Universe. */
+function comet(practice: Practice) {
+  const all = segments(practice)
+  if (!all.length) return undefined
+  return { from: Math.min(...all.map((segment) => segment.from)), to: Math.max(...all.map((segment) => segment.to)) }
 }
 
 type Arc = { d: string; color: string }
@@ -76,7 +85,12 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
   let order = 0
   return (
     <div className={styles.map} ref={wrap} data-active={active ? '' : undefined} onMouseLeave={() => setActive(undefined)}>
-      <div className={styles.sky} aria-hidden="true" />
+      <Starfield className={styles.sky} />
+      <svg className={styles.orbits} viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g className={styles.orbitSpin}>
+          {[210, 330, 450].map((radius) => <circle key={radius} cx="760" cy="180" r={radius} />)}
+        </g>
+      </svg>
       <div className={styles.guides} aria-hidden="true">{stageIds.map((stage) => <span key={stage} className={stage === 'organisation-wide' ? styles.orgWide : undefined} />)}</div>
       <div className={styles.horizon} aria-hidden="true">
         <span className={styles.horizonLabel}>Practice</span>
@@ -123,6 +137,7 @@ export function PracticeMap({ practices, progress }: { practices: Practice[]; pr
                         {segments(practice).map((segment, index) => (
                           <span key={index} className={`${styles.segment} ${styles[segment.kind]}`} style={{ '--from': segment.from, '--to': segment.to } as CSSProperties} />
                         ))}
+                        {comet(practice) && <span className={styles.comet} style={{ '--a': comet(practice)!.from, '--b': comet(practice)!.to, '--n': order } as CSSProperties} />}
                         {stageIds.map((stage, index) => practice.stages.includes(stage) && (
                           <span key={stage} className={stage === 'organisation-wide' ? `${styles.star} ${styles.orgStar}` : styles.star} data-star style={{ '--col': index } as CSSProperties} />
                         ))}

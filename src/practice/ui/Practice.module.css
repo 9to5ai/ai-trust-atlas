@@ -84,28 +84,6 @@
     color: var(--text-secondary);
     font-size: var(--step--1);
   }
-  .changes {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-2);
-  }
-  .changes li {
-    display: grid;
-    grid-template-columns: 110px minmax(180px, 280px) 60px 1fr;
-    gap: var(--space-3);
-    align-items: baseline;
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--border-subtle);
-    font-size: var(--step--1);
-  }
-  .changes time,
-  .version {
-    font-family: var(--font-mono);
-    font-size: var(--step--2);
-    color: var(--text-tertiary);
-  }
 
   /* Practice page */
   .crumbs {
@@ -509,65 +487,6 @@
     text-transform: uppercase;
     color: var(--aurora);
   }
-  .promptKit .tabs {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-flow: row;
-  }
-  .promptBox {
-    position: relative;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-m);
-    background: var(--surface-0);
-  }
-  .promptBox pre {
-    margin: 0;
-    max-height: 420px;
-    overflow: auto;
-    padding: var(--space-5);
-    padding-top: var(--space-7);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    color: var(--text-secondary);
-  }
-  .promptBox pre:focus-visible {
-    outline: none;
-    box-shadow: var(--focus-ring);
-  }
-  .copy {
-    position: absolute;
-    top: var(--space-3);
-    right: var(--space-3);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid transparent;
-    background: var(--signal);
-    color: var(--signal-contrast);
-    font: inherit;
-    font-size: var(--step--1);
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .copy:focus-visible {
-    outline: none;
-    box-shadow: var(--focus-ring);
-  }
-  .promptMeta {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-5);
-    font-size: var(--step--1);
-  }
-  .checklist {
-    margin: 0;
-    padding-left: 1.2em;
-    display: grid;
-    gap: 6px;
-  }
   .agentGrid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -659,17 +578,11 @@
     .domainList {
       display: grid;
     }
-    .changes li {
-      grid-template-columns: 1fr;
-      gap: 2px;
-    }
-    .tabs,
-    .promptKit .tabs {
+    .tabs {
       grid-auto-flow: row;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .maturity,
-    .promptMeta,
     .agentGrid {
       grid-template-columns: minmax(0, 1fr);
     }

@@ -57,7 +57,7 @@ export function practiceMarkdown(practice: Practice, sources: Source[], { includ
 
   const blocks = [
     `# ${practice.id} ${practice.title}`,
-    `AI Trust Practice · ${domains[practice.domain].name} · version ${practice.version} · status ${practice.status} · last verified ${practice.lastVerified}`,
+    `AI Trust Practice · ${domains[practice.domain].name} · version ${practice.version} · last verified ${practice.lastVerified}`,
     `> General information, not legal or professional advice. Check the linked sources before relying on any statement.`,
     practice.summary,
     ...(includeAgentInstructions ? [agentInstructions(practice, profile)] : []),
