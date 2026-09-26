@@ -28,7 +28,7 @@ export function Roadmap() {
       <div className={styles.actions}>
         <button type="button" className={styles.button} onClick={() => downloadFile(`ai-trust-roadmap-${today}.csv`, roadmapCsv(items), 'text/csv')}><DownloadSimple size={16} /> Download as CSV</button>
         <Link to="/practice/board-summary" className={styles.button}><Printer size={16} /> Board summary</Link>
-        {!assessed && <span className={styles.muted}>You have not rated any practices yet, so everything is treated as Ad hoc. <Link to="/practice/assess">Take the quick assessment</Link> for a roadmap that fits you.</span>}
+        {!assessed && <span className={styles.muted}>You have not rated any practices yet, so everything is treated as Ad hoc. <Link to="/practice/assess">Take the assessment</Link> for a roadmap that fits you.</span>}
         {assessed && !workspace.profile.systemTypes.length && <span className={styles.muted}><Link to="/practice/profile">Add your organisation profile</Link> to rank practices by the kinds of AI you use.</span>}
       </div>
 

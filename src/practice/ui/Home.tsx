@@ -34,7 +34,7 @@ export function Home() {
       <div className={styles.homeActions}>
         {assessed
           ? <><Link to="/practice/roadmap" className={styles.homePrimary}>See your roadmap</Link><Link to="/practice/assess" className={styles.homeSecondary}>Update your assessment ({result.overall.rated} of {result.overall.total} rated)</Link></>
-          : <><Link to="/practice/assess" className={styles.homePrimary}>Take the quick assessment</Link><span className={styles.muted}>About 10 minutes. Your answers stay in this browser.</span></>}
+          : <><Link to="/practice/assess" className={styles.homePrimary}>Take the assessment</Link><span className={styles.muted}>One question per practice, about 15 minutes. Your answers stay in this browser.</span></>}
         {!workspace.profile.orgName && !workspace.profile.sector && <Link to="/practice/profile" className={styles.homeSecondary}>Set up your organisation profile</Link>}
       </div>
 

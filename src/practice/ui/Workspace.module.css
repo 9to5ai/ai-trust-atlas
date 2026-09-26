@@ -18,6 +18,7 @@
     background: color-mix(in srgb, var(--surface-1) 92%, transparent);
   }
   .panelTitle {
+    scroll-margin-top: calc(var(--shell-height, 60px) + var(--space-6));
     margin: 0 0 var(--space-3);
     font-family: var(--font-serif);
     font-weight: 500;
@@ -334,14 +335,14 @@
     font-size: var(--step--1);
     color: var(--text-secondary);
   }
-  .track {
+  .meterTrack {
     position: relative;
     height: 8px;
     border-radius: 8px;
     background: var(--surface-3);
     overflow: hidden;
   }
-  .track > span {
+  .meterTrack > span {
     position: absolute;
     inset: 0 auto 0 0;
     border-radius: 8px;
@@ -636,7 +637,7 @@
     .bar {
       grid-template-columns: minmax(0, 1fr) 90px;
     }
-    .bar .track {
+    .bar .meterTrack {
       grid-column: 1 / -1;
       order: 3;
     }
@@ -659,5 +660,133 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
+  }
+}
+
+/* Assessment carousel */
+@layer components {
+  .carousel {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .carouselHead {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .carouselDomain {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    color: var(--text-primary);
+  }
+  .carousel .progress {
+    margin: 0 0 var(--space-2);
+  }
+  .viewport {
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    touch-action: pan-y;
+  }
+  .track {
+    display: flex;
+    align-items: flex-start;
+    transition: transform 520ms var(--ease-out);
+  }
+  .slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: var(--space-5);
+    border-radius: var(--radius-l);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, var(--border-subtle));
+    background: color-mix(in srgb, var(--surface-1) 94%, transparent);
+    transition: opacity 400ms var(--ease-out);
+  }
+  .slide[aria-hidden='true'] {
+    opacity: 0.25;
+  }
+  .slideTitle {
+    float: left;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    padding: 0;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: var(--step-3);
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+  .slideTitle + * {
+    clear: both;
+  }
+  .slideTitle .qid {
+    font-size: var(--step-0);
+  }
+  .carouselNav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .carouselNav .button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  .dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in srgb, var(--c) 70%, transparent);
+    background: transparent;
+    cursor: pointer;
+    transition: transform var(--dur-2) var(--ease-out), background var(--dur-2), box-shadow var(--dur-2);
+  }
+  .dot[data-answered] {
+    background: var(--c);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--c) 70%, transparent);
+  }
+  .dot[aria-current='step'] {
+    transform: scale(1.45);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent), 0 0 12px var(--c);
+  }
+  .dot:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .slide {
+      transition: none;
+    }
+  }
+  @media (max-width: 860px) {
+    .slide {
+      padding: var(--space-4);
+    }
+    .carouselNav {
+      grid-template-columns: 1fr 1fr;
+    }
+    .dots {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
   }
 }
