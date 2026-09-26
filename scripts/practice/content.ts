@@ -35,6 +35,8 @@ export function locateContent(): { dir: string; origin: 'env' | 'clone' | 'sibli
       // Never echo git's error: it can contain the tokenised URL.
       throw new Error(`Could not clone the practice content repository ${repo}@${ref}. Check PRACTICE_CONTENT_TOKEN.`)
     }
+    // The clone's git config holds the tokenised remote URL; only the files are needed.
+    rmSync(join(target, '.git'), { recursive: true, force: true })
     return { dir: target, origin: 'clone' }
   }
   const sibling = resolve(root, '../ai-trust-practice-content')
