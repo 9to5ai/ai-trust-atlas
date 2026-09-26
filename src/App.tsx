@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { AppShell, universeRoutes } from './app/AppShell'
+import { lazy, Suspense, useState } from 'react'
+import { AppShell, isPracticeRoute, universeRoutes } from './app/AppShell'
 import { usePathname } from './app/router'
 import { QuestionsProvider } from './components/LeadershipQuestions'
 import { legacyRedirect } from './lib/legacyUrls'
@@ -7,9 +7,13 @@ import { NotFound } from './routes/NotFound'
 import { TermsPage } from './routes/TermsPage'
 import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
 
+/* AI Trust Practice loads separately, and its content only ever arrives from the gated API. */
+const PracticeApp = lazy(() => import('./practice/PracticeApp'))
+
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
+  if (isPracticeRoute(pathname)) return <Suspense fallback={null}><PracticeApp /></Suspense>
   if (pathname === '/terms') return <TermsPage />
   return <NotFound />
 }

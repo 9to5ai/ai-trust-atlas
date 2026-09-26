@@ -118,6 +118,17 @@
       radial-gradient(900px 600px at 10% 110%, rgba(34, 198, 240, 0.1), transparent 60%), var(--void-950);
   }
 
+  /* AI Trust Practice: the same system with a warmer accent, so moving from the map to the desk is visible. */
+  [data-route^='/practice'] {
+    --signal: #f4b67c;
+    --signal-strong: #ffd7ae;
+    --signal-contrast: #1c0f02;
+    --signal-soft: rgba(244, 182, 124, 0.12);
+    --glow: 0 0 0 1px rgba(244, 182, 124, 0.35), 0 0 28px rgba(244, 182, 124, 0.24);
+    --glow-soft: 0 0 40px rgba(244, 182, 124, 0.12);
+    --focus-ring: 0 0 0 2px var(--surface-0), 0 0 0 4px #f4b67c;
+  }
+
   /* Printing always uses the Paper palette. */
   @media print {
     :root,

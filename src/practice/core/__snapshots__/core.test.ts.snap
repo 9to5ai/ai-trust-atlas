@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`prompt kit > fills the profile in locally and carries the honesty rules and output structure 1`] = `
+"# Fixture draft prompt
+
+You are helping us apply the practice "Fixture governance practice" (GOV-99, version 0.1.0) from AI Trust Practice. Fixture purpose sentence for GOV-99, used only by automated tests. It carries no guidance.
+
+## Our context
+- Organisation: Example Mutual
+- Sector: Banking
+- Size: Large (250–4,999 people)
+- Jurisdictions: Australia
+- Regulatory status: APRA-regulated
+- AI system types in use: GenAI applications
+- Risk appetite for AI: low
+
+## Task
+Produce a fixture draft artefact.
+
+## What I will give you
+- Fixture input
+If anything here is missing, ask me for it before you start, or proceed and mark the gaps [TO CONFIRM].
+
+## Output structure
+Produce the output with exactly these sections, in this order:
+1. Section one
+2. Section two
+3. Assumptions and items to confirm
+
+## What good looks like
+The pipeline builds, validates and serves this fixture.
+
+## Steps this supports
+- First fixture step
+- Second fixture step
+
+## Rules
+- Use only the material I provide and sources you can name. Do not invent citations, section numbers, statistics, quotes or case names.
+- When you refer to a law, standard or guidance document, name it precisely so I can check it.
+- List every assumption you make.
+- Mark anything uncertain, or that needs a decision by us, with [TO CONFIRM].
+- This is a working draft for review by accountable people. It is not legal advice.
+- Write in plain English, specific to our context. Avoid generic filler."
+`;

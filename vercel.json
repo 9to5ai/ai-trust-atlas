@@ -23,6 +23,15 @@
       ]
     },
     {
+      "source": "/practice(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -34,10 +43,23 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/practice/p/:file([A-Z]{2,3}-\\d{2}\\.(?:md|json))",
+      "destination": "/api/practice/file?path=practices/:file"
+    },
+    {
+      "source": "/practice/:file(corpus\\.json|schema\\.json|llms\\.txt|llms-full\\.txt|changes\\.json|changes\\.xml|skill\\.zip|SHA256SUMS|SHA256SUMS\\.sig)",
+      "destination": "/api/practice/file?path=:file"
+    },
+    {
+      "source": "/((?!api/).*)",
       "destination": "/"
     }
   ],
   "buildCommand": "npm test && npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "functions": {
+    "api/practice/*.ts": {
+      "includeFiles": ".practice-build/**"
+    }
+  }
 }

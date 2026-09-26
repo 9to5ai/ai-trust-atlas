@@ -18,6 +18,8 @@ export const citationSchema = z.union([text, z.object({ source: text, at: text.o
 export const sourceSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   title: text,
+  /* Short label for citation chips, e.g. "OAIC ADM issues paper". */
+  short: text.max(60).optional(),
   publisher: text,
   url: z.url(),
   kind: z.enum(['law', 'regulation', 'regulator-guidance', 'government-guidance', 'standard', 'framework', 'research', 'practitioner', 'template']),
