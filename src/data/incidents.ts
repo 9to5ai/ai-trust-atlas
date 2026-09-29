@@ -1,3 +1,4 @@
+import { dnsIncident } from './dnsIncident'
 import { medicareIncident } from './medicareIncident'
 import { reviewIncidents } from './incidentsReview'
 import type { Audience, CoreAudience, Question } from './leadershipQuestions'
@@ -212,7 +213,7 @@ const baseIncidents:Incident[]=[{
   }
 }]
 const assuranceFor=(id:string)=>assuranceIncidentPrompts[id]??reviewIncidentAssurancePrompts[id]
-export const incidents:Incident[]=[...baseIncidents,...reviewIncidents,medicareIncident].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
+export const incidents:Incident[]=[...baseIncidents,...reviewIncidents,medicareIncident,dnsIncident].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
 export const incidentById=new Map(incidents.map(i=>[i.id,i]))
 export function incidentQuestion(item:Incident,audience:Audience):Question {
  const prompt=item.prompts[audience]??{text:'',askFor:'',followUp:''}

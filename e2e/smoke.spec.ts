@@ -19,6 +19,16 @@ test('Medicare incident shared link opens evidence and role questions', async ({
   await expect(details.getByRole('link', { name: /Marles and Gallagher/ })).toHaveAttribute('href', 'https://www.minister.defence.gov.au/transcripts/2026-09-24/press-conference-sydney')
 })
 
+test('DNS incident shared link opens sourced findings', async ({ page, isMobile }) => {
+  await page.goto('/universe?incidents=1#/incident/openai-dns-escape-2026')
+  if (isMobile) await page.getByRole('button', { name: /Agent DNS escape Read details/ }).click()
+  const details = page.getByLabel('Selected node details')
+  await expect(details).toContainText('20 September 2026')
+  await expect(details).toContainText('first publication date unverified')
+  await details.getByText('Sources and limits', { exact: true }).click()
+  await expect(details.getByRole('link', { name: 'OpenAI: DNS containment incident' })).toHaveAttribute('href', 'https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/')
+})
+
 const collectErrors = (page: Page) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
