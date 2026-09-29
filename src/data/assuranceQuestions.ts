@@ -112,6 +112,7 @@ export const assuranceControlQuestions: Record<string, string> = {
 }
 
 export const assuranceSourceQuestions: Record<string, string> = {
+  'asic-market-integrity-rules': 'Can a reviewer trace the test result, approval, deployment and monitoring record for each algorithm within the covered market-participant scope?',
   'apra-cps-230': 'Which CPS 230 requirements would serve as criteria for AI dependencies, and what testing evidence covers the period?',
   'apra-cps-234': 'Did the latest CPS 234 control testing include AI-related information assets, and is its scope sufficient to rely on?',
   'apra-cps-220': 'How would internal audit’s review of the risk management framework test whether AI risks are captured and escalated?',
@@ -119,9 +120,13 @@ export const assuranceSourceQuestions: Record<string, string> = {
   'nist-agent-security-responses': 'Which reported agent-security concerns could become audit test steps, and which remain unverified stakeholder views?',
   'eu-ai-act': 'Where the AI Act may apply, which obligations produce evidence we could test now, and which await later application dates?',
   'apra-ai-letter-2026': 'Could internal audit use the letter’s concerns to scope a review, and which gaps would it test first?',
+  'nist-public-ai-documentation': 'Could we test public AI documentation against system records and results while clearly recording that the NIST source remains a preliminary zero draft with no confirmed successor?',
+  'nist-ai-rmf': 'Can the criteria and framework version used for a review be traced to the source current at that time, with the revision status recorded?',
+  'nist-ai-rmf-playbook': 'Does the source register distinguish an instrument’s effective date from a page-update date, and retain dated provenance for the resource version used?',
 }
 
 export const assuranceDevelopmentQuestions: Record<string, string> = {
+  'asic-market-integrity-rules-2026': 'Can a reviewer trace a covered algorithm’s test result, approval, deployment and monitoring record to the applicable registered provisions?',
   'apra-super-ceo-september': 'Can we test whether crisis-exercise findings were tracked to closure and the remediation was actually verified?',
   'nist-agent-security-findings': 'Does our audit programme include test steps for agent permissions and unintended actions, or only conventional IT controls?',
   'canada-ai-register-feedback': 'If we audited our AI register against these reported gaps, which fields could we verify and which rely on self-reporting?',
@@ -130,7 +135,7 @@ export const assuranceDevelopmentQuestions: Record<string, string> = {
   'asd-agent-actions': 'Could we test business-rule enforcement by attempting a prohibited agent action and reviewing the resulting logs?',
   'nist-tevv-athlon': 'Could this method help define criteria for auditing whether our AI evaluations fit their stated objectives?',
   'asd-board-guidance': 'Which statements in board reporting on frontier AI cyber readiness could internal audit verify against underlying evidence?',
-  'nist-documentation-draft': 'Could we test our public AI documentation for accuracy against internal system records and test results?',
+  'nist-documentation-draft': 'Could we test public AI documentation for accuracy against internal records while distinguishing the closed zero-draft consultation from any later NIST publication?',
   'nist-aite-launch': 'When relying on external benchmark results, how do we assess test design, data independence and relevance to our use?',
   'eu-transparency-guidelines': 'Which Article 50 transparency obligations could we test, and what records would show they operated once they began to apply?',
   'edpb-anonymisation-consultation': 'What evidence would we need to test a claim that AI training data was anonymised rather than merely pseudonymised?',

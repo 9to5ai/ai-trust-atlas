@@ -179,12 +179,12 @@ export const frontierSources: SourceRecord[] = [
     "region": "United States",
     "authorityClass": "research-database",
     "authorityNote": "Draft reference; not final",
-    "status": "consultation",
+    "status": "closed-consultation",
     "published": "2026-07-29",
-    "lastVerified": "2026-09-08",
+    "lastVerified": "2026-09-29",
     "officialUrl": "https://www.nist.gov/artificial-intelligence/ai-standards",
-    "summary": "NIST released a preliminary guidance-and-templates draft for public-facing AI documentation, with input requested by 16 September. It is a proposal for further standards development.",
-    "applicability": "Official public overview reviewed. Draft material may change. Use within the source’s stated audience and scope; topic connections are Atlas interpretation.",
+    "summary": "NIST released an initial public zero draft on 29 July 2026. Its stated input date, 16 September 2026, has passed; NIST says it will consider submissions for a subsequent, possibly final, revision. The current page does not confirm a successor publication.",
+    "applicability": "A preliminary proposal for voluntary consensus-standard development, not a final or binding standard. The comment date has passed; do not infer that a later revision has been published or determine applicability from this draft.",
     "sectors": [
       "Cross-sector"
     ],
@@ -199,15 +199,15 @@ export const frontierSources: SourceRecord[] = [
         "id": "nist-public-ai-documentation-overview",
         "ref": "Official overview",
         "title": "NIST AI Documentation Draft",
-        "summary": "NIST released a preliminary guidance-and-templates draft for public-facing AI documentation, with input requested by 16 September. It is a proposal for further standards development.",
+        "summary": "NIST released an initial public zero draft on 29 July 2026. Its stated input date, 16 September 2026, has passed; NIST says it will consider submissions for a subsequent, possibly final, revision. The current page does not confirm a successor publication.",
         "conceptIds": [
           "documentation",
           "transparency-disclosure",
           "evidence-quality"
         ],
         "sourceUrl": "https://www.nist.gov/artificial-intelligence/ai-standards",
-        "reviewedAt": "2026-09-08",
-        "note": "Original synopsis of the official overview. No full-document or operating-effectiveness assessment implied."
+        "reviewedAt": "2026-09-29",
+        "note": "Targeted review of NIST’s official AI Standards page on 29 September 2026. This verifies the procedural status, not the full draft or any later revision."
       }
     ]
   },

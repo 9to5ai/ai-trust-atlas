@@ -73,9 +73,9 @@ const coreInstruments: SourceRecord[] = [
     ],
   },
   {
-    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'active', published: '2023-01', lastVerified: verified,
+    id: 'nist-ai-rmf', title: 'Artificial Intelligence Risk Management Framework 1.0', shortTitle: 'NIST AI RMF', issuer: 'National Institute of Standards and Technology', jurisdiction: 'United States - voluntary global reference', region: 'United States', authorityClass: 'framework', authorityNote: "Voluntary reference", status: 'active', published: '2023-01', lastVerified: '2026-09-29',
     officialUrl: 'https://www.nist.gov/itl/ai-risk-management-framework',
-    summary: 'Voluntary framework organising AI risk work through Govern, Map, Measure and Manage.', applicability: 'Voluntary and non-sector-specific. It does not certify compliance or operating effectiveness.', sectors: ['Cross-sector'],
+    summary: 'Voluntary framework organising AI risk work through Govern, Map, Measure and Manage. NIST says AI RMF 1.0 is being revised; version 1.0 remains available on the official page and no successor is identified there.', applicability: 'Voluntary and non-sector-specific. NIST supplies no future publication date or replacement criteria on the current page; it does not certify compliance or operating effectiveness.', sectors: ['Cross-sector'],
     conceptIds: ['accountability', 'materiality', 'impact-assessment', 'lifecycle-governance', 'evaluation', 'continuous-monitoring', 'risk-treatment', 'human-oversight'], detailAvailability: 'full-public-text',
     provisions: [
       { id: 'nist-rmf-govern', ref: 'GOVERN', title: 'Govern', summary: 'Cultivates risk culture, accountability, policies and lifecycle governance.', conceptIds: ['accountability', 'decision-rights', 'competence', 'lifecycle-governance'] },

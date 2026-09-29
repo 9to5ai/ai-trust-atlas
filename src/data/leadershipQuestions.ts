@@ -563,6 +563,15 @@ export function questionsForContext(kind: 'concept' | 'domain', id: string, audi
 
 type DevelopmentPrompt = { questions: Record<Audience,string>; askFor: string; followUp: string }
 const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questions'> & { questions: Record<CoreAudience,string> }> = {
+  'asic-market-integrity-rules-2026': {
+    questions: {
+      board: 'Who owns approval and escalation for automated strategies that can affect market integrity?',
+      executive: 'What evidence shows that trading algorithms are tested, governed and monitored before and after material change?',
+      regulator: 'Which registered rule provisions govern the participant’s system, algorithm and order-entry arrangements?'
+    },
+    askFor: 'Covered-activity analysis, applicable rule provisions, algorithm test and approval records, deployment history and monitoring evidence.',
+    followUp: 'Which strategy or material change could reach a covered market without a traceable test and approval?'
+  },
   "canada-ai-register-feedback": {
   "questions": {
     "board": "Does our inventory show where AI changes decisions and who remains accountable?",
@@ -640,8 +649,8 @@ const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questi
   "nist-documentation-draft": {
     "questions": {
       "board": "Could customers and independent reviewers understand our AI limitations from what we disclose?",
-      "executive": "Who will compare our public AI documentation with the issues raised by this draft?",
-      "regulator": "Show how public AI documentation accurately represents the system’s purpose and limitations."
+      "executive": "Which public-facing AI documents still need a version, limitation or status check?",
+      "regulator": "How can a reader distinguish a preliminary zero draft from an adopted voluntary consensus standard?"
     },
     "askFor": "Published documentation, change ownership and checks against deployed behaviour.",
     "followUp": "Where does the public description differ from actual operation?"
