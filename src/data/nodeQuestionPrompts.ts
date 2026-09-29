@@ -63,6 +63,7 @@ const authoredControlQuestions: Record<string, Record<CoreAudience, string>> = {
 }
 
 const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
+  'asic-market-integrity-rules': roles('Who owns approval and escalation for automated strategies that can affect market integrity?', 'What evidence shows that trading algorithms are tested, governed and monitored before and after material change?', 'Which registered rule provisions govern a covered participant’s system, algorithm and order-entry arrangements?'),
   'apra-cps-230': roles('Could our critical operations stay within agreed tolerances if an AI provider failed?', 'Have AI dependencies been included in continuity exercises and material service-provider reviews?', 'What evidence supports the entity’s treatment of AI dependencies in critical operations?'),
   'apra-cps-234': roles('What assurance do we have over the security of information assets used by AI?', 'Are AI-related information assets included in classification, control testing and incident response?', 'How does the entity test information security controls across its AI systems and third parties?'),
   'apra-cps-220': roles('How are material AI risks reflected in the institution’s risk appetite and oversight?', 'Who escalates AI risk exposures that move outside appetite or existing risk processes?', 'How has the institution integrated material AI risks into its risk management framework?'),
@@ -70,6 +71,9 @@ const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
   'nist-agent-security-responses': roles('Which agent-security concerns in these findings warrant investigation in our own deployments?', 'Which stakeholder-identified threats should we turn into concrete agent-security tests?', 'How has the organisation distinguished consultation findings from tested safeguards?'),
   'eu-ai-act': roles('Who has determined which AI Act roles and obligations could apply to our activities?', 'Have we documented our role, the system’s intended use and relevant application dates?', 'What evidence supports the organisation’s classification and applicability assessment?'),
   'apra-ai-letter-2026': roles('What has management changed in response to APRA’s AI risk concerns?', 'Which governance or risk-management gaps identified by the letter are relevant to our AI uses?', 'How has the entity considered the letter and followed through on relevant gaps?'),
+  'nist-public-ai-documentation': roles('Could customers and independent reviewers understand our AI limitations from what we disclose?', 'Which public-facing AI documents still need a version, limitation or status check?', 'How can a reader distinguish a preliminary zero draft from an adopted voluntary consensus standard?'),
+  'nist-ai-rmf': roles('Which version of the voluntary framework informed the current governance discussion?', 'How will the organisation detect and assess an eventual revised framework before updating its practice?', 'Which version of the voluntary framework informed the criteria used for this review?'),
+  'nist-ai-rmf-playbook': roles('What evidence supports decisions that rely on this voluntary implementation resource?', 'What dated source evidence supports the version currently used by the organisation?', 'How do we distinguish suggested voluntary actions from binding requirements or chosen review criteria?'),
 }
 
 export const riskQuestions = withAssurance(authoredRiskQuestions, assuranceRiskQuestions)

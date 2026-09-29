@@ -74,7 +74,7 @@ export function normaliseSectors(labels: string[]): SectorId[] {
 /* Legal effect by source. Every source must appear here; the corpus test enforces it. */
 const effect = (ids: string, value: LegalEffect) => ids.split(/\s+/).filter(Boolean).map((id) => [id, value] as const)
 export const legalEffectById: Record<string, LegalEffect> = Object.fromEntries([
-  ...effect(`au-privacy-act apra-cps-230 apra-cps-234 apra-cps-220 eu-ai-act au-apra-act au-banking-act au-insurance-act au-life-insurance-act au-phips-act au-sis-act
+  ...effect(`au-privacy-act apra-cps-230 apra-cps-234 apra-cps-220 eu-ai-act au-apra-act au-banking-act au-insurance-act au-life-insurance-act au-phips-act au-sis-act asic-market-integrity-rules
     au-corporations-act au-asic-act au-far-act eu-gdpr eu-dora coe-ai-convention au-scams-prevention-framework`, 'binding-law'),
   ...effect(`dta-ai-policy nsw-ai-assessment-framework isae-3000 asae-3000 asae-3150 isae-3402 iia-gias`, 'mandatory-policy'),
   ...effect(`apra-ai-letter-2026 apra-cpg-230 apra-cpg-234 asic-ai-cyber-letter asic-rg-234 oaic-commercial-ai oaic-genai-training uk-pra-ss1-23 uk-ico-ai-guidance
