@@ -52,7 +52,8 @@ describe('meeting preparation',()=>{
   })
   it('allows more than eight questions with guidance instead of a hard limit',()=>{
     render(<QuestionsProvider><QuestionsPanel kind="domain" id="governance"/><QuestionsPanel kind="domain" id="security"/><QuestionsPanel kind="domain" id="resilience"/></QuestionsProvider>)
-    const buttons=screen.getAllByRole('button',{name:'+ Add to brief'}).slice(0,9)
+    // Select distinct concept prompts; recent developments can recur across domains.
+    const buttons=Array.from(document.querySelectorAll('.leadership-question-list button')).filter(b=>b.textContent==='+ Add to brief').slice(0,9)
     buttons.forEach(b=>fireEvent.click(b))
     expect(screen.getByRole('button',{name:'Meeting brief, 9 questions'})).toBeInTheDocument()
     expect(screen.getByText(/Five to eight questions usually/)).toBeInTheDocument()

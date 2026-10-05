@@ -370,7 +370,7 @@
     "scoreReasons": {
       "authority": "Government policy; not legislation",
       "relevance": "Australia coverage for the Atlas's priority audiences.",
-      "impact": "The Australian Government’s plan to capture AI opportunities, spread the benefits and keep Australians safe. It relies on existing laws and sector regulators, voluntary guidance and a new AI Safety Institute rather than a standalone AI Act.",
+      "impact": "The Australian Government\u2019s plan to capture AI opportunities, spread the benefits and keep Australians safe. It relies on existing laws and sector regulators, voluntary guidance and a new AI Safety Institute rather than a standalone AI Act.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -409,7 +409,7 @@
     "scoreReasons": {
       "authority": "Prudential practice guidance; not binding, but shows how APRA expects CPS 230 to be met",
       "relevance": "Australia coverage for the Atlas's priority audiences.",
-      "impact": "APRA’s guidance on meeting CPS 230: operational risk frameworks, critical operations, tolerance levels, business continuity and management of material service providers. Updated alongside the 2026 CPS 230 amendments.",
+      "impact": "APRA\u2019s guidance on meeting CPS 230: operational risk frameworks, critical operations, tolerance levels, business continuity and management of material service providers. Updated alongside the 2026 CPS 230 amendments.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -487,7 +487,7 @@
     "scoreReasons": {
       "authority": "Regulator consultation; final guidance pending",
       "relevance": "Australia coverage for the Atlas's priority audiences.",
-      "impact": "The OAIC’s consultation on guidance for the new APP 1 automated decision-making obligation. From 10 December 2026, privacy policies must describe personal information used in, and decisions made by, computer programs that could significantly affect individuals.",
+      "impact": "The OAIC\u2019s consultation on guidance for the new APP 1 automated decision-making obligation. From 10 December 2026, privacy policies must describe personal information used in, and decisions made by, computer programs that could significantly affect individuals.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -498,7 +498,7 @@
   },
   {
     "id": "review-2026-09-24-aicd-hti-director-guide",
-    "title": "A Director’s Guide to AI Governance (Version 2)",
+    "title": "A Director\u2019s Guide to AI Governance (Version 2)",
     "url": "https://www.aicd.com.au/news-media/research-and-reports/a-directors-guide-to-ai-governance.html",
     "discovered": "2026-09-24",
     "reviewed": "2026-09-24",
@@ -507,7 +507,7 @@
     "eventKey": "aicd-hti-director-guide",
     "sourceType": "framework",
     "authorityNote": "Industry guidance for directors; not regulatory",
-    "scope": "Australia. Practical guidance for boards. It does not change directors’ legal duties, which come from the Corporations Act and general law.",
+    "scope": "Australia. Practical guidance for boards. It does not change directors\u2019 legal duties, which come from the Corporations Act and general law.",
     "publicationDate": "2026-06-29",
     "dateBasis": "Official publication date",
     "reviewDepth": "overview",
@@ -565,7 +565,7 @@
     "scoreReasons": {
       "authority": "Regulatory guidance on existing misleading-conduct laws",
       "relevance": "Australia coverage for the Atlas's priority audiences.",
-      "impact": "ASIC’s first rewrite of its advertising guidance since 2012. It applies whatever the technology, including AI-generated content, and cautions against overstating what AI-enabled tools can do.",
+      "impact": "ASIC\u2019s first rewrite of its advertising guidance since 2012. It applies whatever the technology, including AI-generated content, and cautions against overstating what AI-enabled tools can do.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -624,7 +624,7 @@
     "eventKey": "nsw-ai-assessment-framework",
     "sourceType": "policy-guidance",
     "authorityNote": "Mandatory for NSW Government agencies under Circular DCS-2026-02",
-    "scope": "Australia - NSW Government agencies. Binding on NSW Government agencies through policy. A useful reference for other organisations’ risk triage.",
+    "scope": "Australia - NSW Government agencies. Binding on NSW Government agencies through policy. A useful reference for other organisations\u2019 risk triage.",
     "publicationDate": null,
     "dateBasis": "Official publication month 2026-01; day not stated",
     "reviewDepth": "overview",
@@ -760,7 +760,7 @@
     "scoreReasons": {
       "authority": "Prudential practice guidance; not binding",
       "relevance": "Australia coverage for the Atlas's priority audiences.",
-      "impact": "APRA’s guidance on implementing CPS 234: information security roles, capability, controls, testing, incident management and assurance, including over third parties.",
+      "impact": "APRA\u2019s guidance on implementing CPS 234: information security roles, capability, controls, testing, incident management and assurance, including over third parties.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -838,7 +838,7 @@
     "scoreReasons": {
       "authority": "Non-binding supervisory toolkit for member regulators",
       "relevance": "Global coverage for the Atlas's priority audiences.",
-      "impact": "Practical, lifecycle-wide tools for securities regulators supervising firms’ AI, from traditional machine learning to generative and agentic AI. Builds on IOSCO’s March 2025 report on AI use cases, risks and challenges.",
+      "impact": "Practical, lifecycle-wide tools for securities regulators supervising firms\u2019 AI, from traditional machine learning to generative and agentic AI. Builds on IOSCO\u2019s March 2025 report on AI use cases, risks and challenges.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -955,7 +955,7 @@
     "scoreReasons": {
       "authority": "Regulator-commissioned review; recommendations, not rules",
       "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
-      "impact": "Looks at how AI could reshape retail financial services by 2030, including AI agents acting for consumers, and sets seven priority recommendations for the FCA’s response.",
+      "impact": "Looks at how AI could reshape retail financial services by 2030, including AI agents acting for consumers, and sets seven priority recommendations for the FCA\u2019s response.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -994,7 +994,7 @@
     "scoreReasons": {
       "authority": "Supervisory circular to authorized institutions",
       "relevance": "Hong Kong coverage for the Atlas's priority audiences.",
-      "impact": "Guiding principles for banks using generative AI in customer-facing applications, extending the HKMA’s 2019 big data and AI principles: governance, fairness, transparency, data protection, output monitoring and human review.",
+      "impact": "Guiding principles for banks using generative AI in customer-facing applications, extending the HKMA\u2019s 2019 big data and AI principles: governance, fairness, transparency, data protection, output monitoring and human review.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -1052,7 +1052,7 @@
     "relevantBindingChange": false,
     "eventKey": "naic-ai-model-bulletin",
     "sourceType": "policy-guidance",
-    "authorityNote": "Model bulletin; effect depends on each state’s adoption",
+    "authorityNote": "Model bulletin; effect depends on each state\u2019s adoption",
     "scope": "United States - adopting states. Applies in states that issue it. Other states rely on existing insurance law or their own AI rules.",
     "publicationDate": null,
     "dateBasis": "Official publication month 2023-12; day not stated",
@@ -1070,7 +1070,7 @@
       "contribution": 2
     },
     "scoreReasons": {
-      "authority": "Model bulletin; effect depends on each state’s adoption",
+      "authority": "Model bulletin; effect depends on each state\u2019s adoption",
       "relevance": "United States coverage for the Atlas's priority audiences.",
       "impact": "Expects insurers to run a written AI systems program covering governance, risk management, internal controls and third-party systems, so AI-supported decisions comply with unfair-trade and unfair-discrimination laws. About 25 states and territories had adopted it by mid-2026.",
       "contribution": "Fills a gap identified in the completeness review."
@@ -1150,7 +1150,7 @@
     "scoreReasons": {
       "authority": "Supervisory statement on MiFID II obligations",
       "relevance": "Europe coverage for the Atlas's priority audiences.",
-      "impact": "How MiFID II obligations apply when investment firms use AI with retail clients: acting in clients’ best interests, clear disclosure of AI use, management accountability, and ongoing checks on AI-produced information.",
+      "impact": "How MiFID II obligations apply when investment firms use AI with retail clients: acting in clients\u2019 best interests, clear disclosure of AI use, management accountability, and ongoing checks on AI-produced information.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -1189,7 +1189,7 @@
     "scoreReasons": {
       "authority": "Central bank analysis; not rules",
       "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
-      "impact": "Sets out four channels through which AI could affect financial stability: banks’ and insurers’ core decisions, financial markets, operational reliance on AI service providers, and AI-enabled cyber threats.",
+      "impact": "Sets out four channels through which AI could affect financial stability: banks\u2019 and insurers\u2019 core decisions, financial markets, operational reliance on AI service providers, and AI-enabled cyber threats.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -1228,7 +1228,7 @@
     "scoreReasons": {
       "authority": "Supervisory discussion paper; not rules",
       "relevance": "Japan coverage for the Atlas's priority audiences.",
-      "impact": "The FSA’s supervisory stance on AI in finance, encouraging adoption while addressing governance, risk management and how existing rules apply. It highlights the “risk of inaction” from falling behind.",
+      "impact": "The FSA\u2019s supervisory stance on AI in finance, encouraging adoption while addressing governance, risk management and how existing rules apply. It highlights the \u201crisk of inaction\u201d from falling behind.",
       "contribution": "Fills a gap identified in the completeness review."
     },
     "decision": "include",
@@ -1267,11 +1267,11 @@
     "scoreReasons": {
       "authority": "Unchanged",
       "relevance": "Unchanged",
-      "impact": "A speech; kept as a What’s new item linked to the APRA AI letter.",
+      "impact": "A speech; kept as a What\u2019s new item linked to the APRA AI letter.",
       "contribution": "Duplicates a development card or newer standards."
     },
     "decision": "development-only",
-    "reason": "A speech; kept as a What’s new item linked to the APRA AI letter. Owner-approved 2026-09-24.",
+    "reason": "A speech; kept as a What\u2019s new item linked to the APRA AI letter. Owner-approved 2026-09-24.",
     "linkedSourceIds": []
   },
   {
@@ -1304,11 +1304,11 @@
     "scoreReasons": {
       "authority": "Unchanged",
       "relevance": "Unchanged",
-      "impact": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters.",
+      "impact": "Roundtable findings; kept as a What\u2019s new item linked to the ASIC and APRA letters.",
       "contribution": "Duplicates a development card or newer standards."
     },
     "decision": "development-only",
-    "reason": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters. Owner-approved 2026-09-24.",
+    "reason": "Roundtable findings; kept as a What\u2019s new item linked to the ASIC and APRA letters. Owner-approved 2026-09-24.",
     "linkedSourceIds": []
   },
   {
@@ -1341,11 +1341,11 @@
     "scoreReasons": {
       "authority": "Unchanged",
       "relevance": "Unchanged",
-      "impact": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation.",
+      "impact": "A covering letter; kept as a What\u2019s new item linked to the FSB sound-practices consultation.",
       "contribution": "Duplicates a development card or newer standards."
     },
     "decision": "development-only",
-    "reason": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation. Owner-approved 2026-09-24.",
+    "reason": "A covering letter; kept as a What\u2019s new item linked to the FSB sound-practices consultation. Owner-approved 2026-09-24.",
     "linkedSourceIds": []
   },
   {
@@ -1378,11 +1378,11 @@
     "scoreReasons": {
       "authority": "Unchanged",
       "relevance": "Unchanged",
-      "impact": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide.",
+      "impact": "A joint statement; kept as a What\u2019s new item linked to the ASD\u2013AICD frontier AI board guide.",
       "contribution": "Duplicates a development card or newer standards."
     },
     "decision": "development-only",
-    "reason": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide. Owner-approved 2026-09-24.",
+    "reason": "A joint statement; kept as a What\u2019s new item linked to the ASD\u2013AICD frontier AI board guide. Owner-approved 2026-09-24.",
     "linkedSourceIds": []
   },
   {

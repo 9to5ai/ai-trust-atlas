@@ -1,0 +1,367 @@
+{
+  "date": "2026-10-05",
+  "status": "proposal-only",
+  "coverage": "INCOMPLETE",
+  "counts": {
+    "changed": 3,
+    "unchanged": 1,
+    "not reviewed": 131
+  },
+  "requiredInventory": 134,
+  "supplementalChecks": 1,
+  "candidates": [
+    {
+      "id": "oaic-adm-final-guidance-2026-10-05",
+      "title": "OAIC publishes APP 1 automated-decision transparency guidance",
+      "url": "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-1-app-1-open-and-transparent-management-of-personal-information",
+      "discovered": "2026-10-05",
+      "eventKey": "oaic-adm-transparency",
+      "sourceType": "policy-guidance",
+      "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+      "scope": "Replace the existing issues-paper record with issued regulator guidance, preserving consultation history. Guidance supports the existing 10 December 2026 obligation; the September event is guidance publication, not a new statute or a finding of applicability.",
+      "publicationDate": "2026-09-30",
+      "dateBasis": "Explicit date on official publication page; not review date",
+      "reviewed": "2026-10-05",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 4,
+        "contribution": 3
+      },
+      "scoreReasons": {
+        "authority": "Privacy regulator on its remit",
+        "relevance": "Direct Australian cross-sector governance relevance",
+        "impact": "Changes imminent transparency preparation and source status",
+        "contribution": "Final guidance replaces consultation-stage reference"
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Replace the existing issues-paper record with issued regulator guidance, preserving consultation history. Guidance supports the existing 10 December 2026 obligation; the September event is guidance publication, not a new statute or a finding of applicability.",
+      "linkedSourceIds": [
+        "oaic-adm-transparency",
+        "au-privacy-act"
+      ],
+      "supersedesId": "review-2026-09-24-oaic-adm-transparency"
+    },
+    {
+      "id": "nist-agent-identity-summary-2026-10-05",
+      "title": "NCCoE summarises agent identity and authorization consultation",
+      "url": "https://pages.nist.gov/nccoe-ai-identity/summary-of-comments.html",
+      "discovered": "2026-10-05",
+      "eventKey": "nist-nccoe-agent-identity-comments-2026-09-29",
+      "sourceType": "research-database",
+      "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+      "scope": "Propose a scoped research reference and associated development. Consultation findings are distinct from the broader CAISI security RFI report. Retain lack of technical consensus and prospective implementation status; no new control requirement inferred.",
+      "publicationDate": "2026-09-29",
+      "dateBasis": "Explicit date on official publication page; not review date",
+      "reviewed": "2026-10-05",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 3,
+        "impact": 3,
+        "contribution": 3
+      },
+      "scoreReasons": {
+        "authority": "NIST owns the consultation synthesis",
+        "relevance": "Relevant to agent ownership and access governance",
+        "impact": "Sharpens delegation and authorization questions",
+        "contribution": "Distinct identity-specific synthesis, absent from live corpus"
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Propose a scoped research reference and associated development. Consultation findings are distinct from the broader CAISI security RFI report. Retain lack of technical consensus and prospective implementation status; no new control requirement inferred.",
+      "linkedSourceIds": []
+    },
+    {
+      "id": "mit-mitigation-date-2026-10-05",
+      "title": "Correct MIT mitigation research publication date",
+      "url": "https://airisk.mit.edu/blog/mapping-ai-risk-mitigations",
+      "discovered": "2026-10-05",
+      "eventKey": "mit-mitigation-publication-date-2025",
+      "sourceType": "research-database",
+      "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+      "scope": "Correct published 2026 to original research date 2025-07-28 with date basis. Preserve living database status and existing counts pending row-level review; do not imply an October research release.",
+      "publicationDate": "2025-07-28",
+      "dateBasis": "Explicit date on official publication page; not review date",
+      "reviewed": "2026-10-05",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 3,
+        "impact": 2,
+        "contribution": 2
+      },
+      "scoreReasons": {
+        "authority": "Original research publisher dates its post",
+        "relevance": "Source provenance matters to Atlas users",
+        "impact": "Metadata correction only",
+        "contribution": "Resolves live date discrepancy"
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Correct published 2026 to original research date 2025-07-28 with date basis. Preserve living database status and existing counts pending row-level review; do not imply an October research release.",
+      "linkedSourceIds": [
+        "mit-ai-risk-mitigations"
+      ]
+    }
+  ],
+  "overdueCoverage": [
+    {
+      "id": "source:oecd-ai-principles",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:singapore-ai-verify",
+      "ageDays": 35,
+      "basis": "2026-08-31",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:mitre-atlas",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:au-corporations-act",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:au-asic-act",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:au-far-act",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:au-ai-adoption-guidance",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:dta-ai-policy",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:dta-agentic-addendum",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:asd-secure-ai-development",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:asd-ai-supply-chain",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:asd-frontier-board",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:asic-ai-cyber-letter",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:eu-gdpr",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:eu-dora",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:eu-gpai-code",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:uk-pra-ss1-23",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:osfi-e23",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:mas-feat",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:mas-ai-mrm",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:mas-mindforge",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:imda-agentic-framework",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:us-sr-26-2",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:unesco-ai-ethics",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:coe-ai-convention",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:nist-adversarial-ml",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:nist-sp-800-218a",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:nist-synthetic-content",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-llm-top-10",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-agentic-top-10",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:owasp-aisvs",
+      "ageDays": 35,
+      "basis": "2026-08-31",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:c2pa-2-4",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    },
+    {
+      "id": "source:enisa-ai-cyber-framework",
+      "ageDays": 38,
+      "basis": "2026-08-28",
+      "basisType": "corpus verification date, scope not revalidated",
+      "pendingSince": "2026-09-10"
+    }
+  ],
+  "remainingPendingSince": "2026-09-10",
+  "discoveryDatesAdvanced": [],
+  "validationContext": "Current origin/main ledger plus new decisions in dated ledger snapshot. Dirty local ledger preserved. No full publisher/topic check completed, so no discovery dates advanced."
+}

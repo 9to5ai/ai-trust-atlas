@@ -1,3 +1,4 @@
+import { octoberSources } from './octoberSources.js'
 import { assuranceInstruments } from './assurance'
 import { draftProvisions } from './draftProvisions'
 import { methodologySources, methodologyCorrections } from './methodologyRefresh.js'
@@ -147,6 +148,7 @@ const coreInstruments: SourceRecord[] = [
 const sourceRecords: SourceRecord[] = [
   ...assuranceInstruments,
   ...methodologySources,
+  ...octoberSources,
   ...coreInstruments,
   ...legalFoundationInstruments,
   ...septemberSources,

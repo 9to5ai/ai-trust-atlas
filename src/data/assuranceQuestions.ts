@@ -112,6 +112,7 @@ export const assuranceControlQuestions: Record<string, string> = {
 }
 
 export const assuranceSourceQuestions: Record<string, string> = {
+  'nist-agent-identity-comments': 'Can sampled delegation chains demonstrate independently enforced authorization limits?',
   'asic-market-integrity-rules': 'Can a reviewer trace the test result, approval, deployment and monitoring record for each algorithm within the covered market-participant scope?',
   'apra-cps-230': 'Which CPS 230 requirements would serve as criteria for AI dependencies, and what testing evidence covers the period?',
   'apra-cps-234': 'Did the latest CPS 234 control testing include AI-related information assets, and is its scope sufficient to rely on?',
@@ -126,6 +127,8 @@ export const assuranceSourceQuestions: Record<string, string> = {
 }
 
 export const assuranceDevelopmentQuestions: Record<string, string> = {
+  'oaic-adm-guidance-issued': 'Does sampled workflow evidence support the recorded APP 1.7 scope assessment and proposed disclosures?',
+  'nist-agent-identity-comments': 'Do tests demonstrate delegated credential scope, expiry and revocation across the full chain?',
   'asic-market-integrity-rules-2026': 'Can a reviewer trace a covered algorithm’s test result, approval, deployment and monitoring record to the applicable registered provisions?',
   'apra-super-ceo-september': 'Can we test whether crisis-exercise findings were tracked to closure and the remediation was actually verified?',
   'nist-agent-security-findings': 'Does our audit programme include test steps for agent permissions and unintended actions, or only conventional IT controls?',
