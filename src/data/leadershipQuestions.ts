@@ -563,6 +563,7 @@ export function questionsForContext(kind: 'concept' | 'domain', id: string, audi
 
 type DevelopmentPrompt = { questions: Record<Audience,string>; askFor: string; followUp: string }
 const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questions'> & { questions: Record<CoreAudience,string> }> = {
+"oaic-adm-guidance-issued":{"questions": {"board": "Who owns readiness for privacy-policy transparency before 10 December 2026?", "executive": "Which human-reviewed workflows still depend substantially and directly on computer output?", "regulator": "How were the APP 1.7 conditions assessed for each significant decision workflow?"}, "askFor": "Decision-flow records, personal-information categories, scope analysis and planned privacy-policy disclosures.", "followUp": "Which workflow was excluded solely because a person signs off the decision?"},"nist-agent-identity-comments":{"questions": {"board": "Who remains answerable when an agent delegates work to an external agent?", "executive": "How does permitted authority narrow at each step of an agent delegation chain?", "regulator": "Can a downstream agent action be traced to its sponsoring principal and authorized scope?"}, "askFor": "Delegation traces, principal identities, credential scopes, expiry and revocation test records.", "followUp": "What happens to downstream credentials when the original authority is revoked?"},
   'asic-market-integrity-rules-2026': {
     questions: {
       board: 'Who owns approval and escalation for automated strategies that can affect market integrity?',

@@ -63,6 +63,7 @@ const authoredControlQuestions: Record<string, Record<CoreAudience, string>> = {
 }
 
 const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
+  'nist-agent-identity-comments': roles('Where does our accountability stop when autonomous work crosses organisational boundaries?', 'Which enforcement component rejects an agent action beyond its delegated authority?', 'Show the principal and delegation evidence behind a consequential agent action.'),
   'asic-market-integrity-rules': roles('Who owns approval and escalation for automated strategies that can affect market integrity?', 'What evidence shows that trading algorithms are tested, governed and monitored before and after material change?', 'Which registered rule provisions govern a covered participant’s system, algorithm and order-entry arrangements?'),
   'apra-cps-230': roles('Could our critical operations stay within agreed tolerances if an AI provider failed?', 'Have AI dependencies been included in continuity exercises and material service-provider reviews?', 'What evidence supports the entity’s treatment of AI dependencies in critical operations?'),
   'apra-cps-234': roles('What assurance do we have over the security of information assets used by AI?', 'Are AI-related information assets included in classification, control testing and incident response?', 'How does the entity test information security controls across its AI systems and third parties?'),
