@@ -312,15 +312,15 @@ const baseUseCases:UseCase[] = [
     "sector": "Technology",
     "status": "Production",
     "evidence": "Company-reported",
-    "reported": "18 August 2025",
-    "published": "2025-08-18",
-    "reviewed": "2026-09-21",
+    "reported": "22 April 2026",
+    "published": "2026-04-22",
+    "reviewed": "2026-09-23",
     "summary": "Google engineers use AI for coding, reviews, testing and migrations, with engineers reviewing and approving generated code.",
     "before": "Engineers write, review and test software changes.",
     "actions": "Generates code and assists other stages of the development lifecycle.",
     "human": "Google says engineers review and approve the generated code.",
-    "value": "Google reports AI helps generate 30% of new code and estimates a 10% increase in engineering velocity.",
-    "limitations": "These are company-reported measures from August 2025. They do not establish defect reduction, security improvement or the same gains in another organisation.",
+    "value": "Google reports 75% of new code is AI-generated and approved by engineers. It also reports one complex migration completed six times faster than a year-earlier engineer-only comparison.",
+    "limitations": "These are company-reported April 2026 observations, not a current adoption attestation. Generated-code share does not establish productivity or quality, and one migration does not establish general engineering gains. Historical snapshot (18 August 2025): 30% of new code and an estimated 10% increase in engineering velocity; that velocity estimate is not an April 2026 result. Deployment start and source update dates are unknown.",
     "topics": [
       "lifecycle",
       "security",
@@ -328,7 +328,11 @@ const baseUseCases:UseCase[] = [
     ],
     "sources": [
       {
-        "title": "Google · deployment account",
+        "title": "Google · Cloud Next disclosure, 22 April 2026",
+        "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/"
+      },
+      {
+        "title": "Google · historical snapshot, 18 August 2025",
         "url": "https://blog.google/innovation-and-ai/products/google-ai-workplace-examples/"
       }
     ],
@@ -352,7 +356,7 @@ const baseUseCases:UseCase[] = [
       },
       "executive": {
         "text": "Which generated changes need additional review before merging or release?",
-        "askFor": "Review policies, representative pull requests, test results and dependency checks.",
+        "askFor": "Metric definitions and denominator history, representative pull requests, approvals, and comparative defect and security results.",
         "followUp": "Can the team identify where an AI suggestion introduced a defect?"
       },
       "regulator": {
@@ -591,6 +595,142 @@ const baseUseCases:UseCase[] = [
         "text": "Can users reliably escalate an incorrect automated answer to a person?",
         "askFor": "Escalation tests, complaint cases and evidence that customers can correct errors.",
         "followUp": "Which users face the greatest barriers to reaching a human?"
+      }
+    }
+  },
+  {
+    "id": "ibm-eps-regression-tests",
+    "company": "IBM",
+    "title": "Generating regression tests for payments software",
+    "workflow": "software",
+    "sector": "Technology",
+    "status": "Production",
+    "evidence": "Company-reported",
+    "reported": "16 September 2026",
+    "published": "2026-09-16",
+    "reviewed": "2026-09-23",
+    "summary": "IBM’s EPS Wires engineering team uses Bob to generate regression-test automation, with QA engineers reviewing and refining the tests.",
+    "before": "QA engineers write test automation and manage regression backlogs.",
+    "actions": "Generates tests using repository and requirements context, integrated into the team’s CI/CD workflow.",
+    "human": "IBM says QA engineers review generated test cases before acceptance.",
+    "value": "IBM reports reductions of 70% in test-automation creation, 90% in regression backlog and 80% in regression execution cycle time.",
+    "limitations": "IBM is both operator and supplier. This is internal engineering use, not evidence of AI operating customer-bank payments. Sample sizes, evaluation denominators and defect-escape results are not disclosed. Testing deployment is described as three months before the account; its exact date and the source update date are unknown. Engineering projections and architecture/L3 roadmap capabilities are excluded.",
+    "topics": [
+      "testing",
+      "fairness",
+      "transparency"
+    ],
+    "sources": [
+      {
+        "title": "IBM · EPS engineering deployment account",
+        "url": "https://www.ibm.com/think/perspectives/accelerating-software-delivery-lifecycle-with-generative-ai"
+      }
+    ],
+    "connections": [
+      {
+        "conceptId": "evaluation",
+        "controlId": "fit-for-purpose-evaluation",
+        "reason": "Generated tests need an independent basis for correctness, including negative cases, rather than repeating implementation assumptions."
+      },
+      {
+        "conceptId": "human-oversight",
+        "controlId": "competence-challenge",
+        "reason": "Reviewers need expertise and time to reject plausible but weak tests."
+      },
+      {
+        "conceptId": "traceability",
+        "controlId": "records-traceability",
+        "reason": "Requirements, generated tests, reviewer changes and release decisions need traceable links."
+      }
+    ],
+    "prompts": {
+      "board": {
+        "text": "Does lower testing effort preserve our ability to detect consequential payment defects?",
+        "askFor": "Escaped-defect and severity trends, independent coverage assessment and outcome measures alongside time savings.",
+        "followUp": "Which quality measure would cause us to slow or stop adoption?"
+      },
+      "executive": {
+        "text": "Can generated tests detect an error shared by generated code and its tests?",
+        "askFor": "Mutation and fault-injection results, independent expected outcomes, negative tests, reviewer rejections and acceptance gates.",
+        "followUp": "Who validates the expected outcomes independently of the generated implementation?"
+      },
+      "regulator": {
+        "text": "Can a selected payment requirement be traced through tests, human challenge and release approval?",
+        "askFor": "Requirement-to-test lineage, versioned outputs, reviewer amendments, approvals and unresolved exceptions.",
+        "followUp": "Can you reconstruct why an inadequate generated test was rejected or accepted?"
+      },
+      "assurance": {
+        "text": "Do generated tests independently challenge payment requirements and implementation errors?",
+        "askFor": "Independent expected outcomes, mutation tests, rejected test samples, reviewer evidence and defect-escape trends.",
+        "followUp": "Which failures remain undetected when code and tests share assumptions?"
+      }
+    }
+  },
+  {
+    "id": "dbs-digibot-retail",
+    "company": "DBS",
+    "title": "Retail banking answers through digibot",
+    "workflow": "customers",
+    "sector": "Financial services",
+    "status": "Production",
+    "evidence": "Company-reported",
+    "reported": "25 September 2026",
+    "published": "2026-09-25",
+    "reviewed": "2026-10-05",
+    "summary": "DBS reports Gen AI digibot answering retail banking questions across Singapore, Hong Kong and Taiwan.",
+    "before": "Customers navigate banking information or contact service officers for guidance.",
+    "actions": "Provides conversational answers and guidance on everyday banking, including cards and fee waivers. This case excludes future account-changing actions.",
+    "human": "DBS says human customer support remains available; handoff thresholds are not specified.",
+    "value": "DBS reports nine in ten digibot queries resolved digitally without a follow-up call in H1 2026.",
+    "limitations": "Cohort, denominator and attribution to the Gen AI enhancement are unclear. No follow-up call does not independently establish resolution. Digibot launched in 2016; the Gen AI enhancement is dated only to earlier in 2026. Source update date is unknown. Retail agentic fulfilment is planned for 2027 and excluded; Joy is a separate workflow.",
+    "topics": [
+      "agentic",
+      "testing",
+      "transparency"
+    ],
+    "sources": [
+      {
+        "title": "DBS · operator disclosure, 25 September 2026",
+        "url": "https://www.dbs.com/NewsPrinter.page?locale=en&newsId=mu8oh90k"
+      }
+    ],
+    "connections": [
+      {
+        "conceptId": "agent-authority",
+        "controlId": "agent-runtime-constraints",
+        "reason": "A familiar assistant can move from answering to acting; each version needs an explicit boundary of delegated authority."
+      },
+      {
+        "conceptId": "evaluation",
+        "controlId": "fit-for-purpose-evaluation",
+        "reason": "Validate resolution independently of repeat-call counts, by service and model version."
+      },
+      {
+        "conceptId": "contestability",
+        "controlId": "contestability-redress",
+        "reason": "Customers with unresolved needs need a usable route to human support with context intact."
+      }
+    ],
+    "prompts": {
+      "board": {
+        "text": "What additional risk acceptance is required before a customer assistant can change an account or card?",
+        "askFor": "Approved service/action inventory, accountable owners, customer-harm scenarios and staged rollout decisions.",
+        "followUp": "Which actions require a separate approval before rollout?"
+      },
+      "executive": {
+        "text": "Which functions are live in each market and version, and which are still planned?",
+        "askFor": "Dated rollout register, feature flags, permission and confirmation tests, rollback records and escalation performance.",
+        "followUp": "Can a feature change silently expand the assistant’s authority?"
+      },
+      "regulator": {
+        "text": "Does reported digital resolution represent a correct outcome for difficult or disputed requests?",
+        "askFor": "Metric definitions, conversation reviews, repeat contacts across channels, complaints and vulnerable-customer outcomes.",
+        "followUp": "How are unresolved customers who do not call again counted?"
+      },
+      "assurance": {
+        "text": "Can we independently reconcile scope and outcomes to the exact deployed assistant version?",
+        "askFor": "Versioned workflow maps, sampled logs, cohort and denominator reconciliation, human handoff traces and exceptions.",
+        "followUp": "Does a sampled outcome support the claimed resolution classification?"
       }
     }
   }
