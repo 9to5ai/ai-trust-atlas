@@ -142,3 +142,12 @@ test.describe('WebGL universe', () => {
     await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
   })
 })
+
+ test('NPWS incident preserves source and event dates', async ({page,isMobile})=>{
+ await page.goto('/universe?incidents=1#/incident/openai-npws-fire-history-2026')
+ if(isMobile) await page.getByRole('button',{name:/NSW fire-history service Read details/}).click()
+ const details=page.getByLabel('Selected node details')
+ await expect(details).toContainText('June 2026; exact day unspecified')
+ await details.getByText('Sources and limits',{exact:true}).click()
+ await expect(details.getByRole('link',{name:/OpenAI: NSW National Parks update/})).toBeVisible()
+})
