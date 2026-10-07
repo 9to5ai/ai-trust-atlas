@@ -1538,5 +1538,45 @@
     "linkedSourceIds": [
       "mit-ai-risk-mitigations"
     ]
+  },
+  {
+    "id": "mas-airm-final-2026-10-08",
+    "title": "Guidelines on Artificial Intelligence Risk Management for Financial Institutions",
+    "url": "https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions",
+    "discovered": "2026-10-08",
+    "reviewed": "2026-10-08",
+    "reviewer": "Codex",
+    "relevantBindingChange": false,
+    "eventKey": "mas-airm-guidelines-cp",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Final supervisory guidelines; phased implementation in 2027 and 2028",
+    "scope": "Supervisory expectations, not a standalone AI statute. Application depends on the institution and its AI use; basic governance is conditional on the material-impact test in paragraph 2.3. Review covers publication, timing and selected paragraphs 1.2–1.8, 2.1–2.5, 3.1–3.6, 4.1–4.13 and 5.1–5.11 and 5.18–5.26; not every lifecycle subsection or the consultation response.",
+    "publicationDate": "2026-10-07",
+    "dateBasis": "Official final guideline, publication page and release",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Primary financial regulator final guidance",
+      "relevance": "Financial-sector governance and assurance audience",
+      "impact": "Two implementation milestones replace pending consultation status",
+      "contribution": "Final proportionality, supplier and governance clarification"
+    },
+    "decision": "include",
+    "reason": "User requested update; final status, dates and selected passages verified. Original synopses and official links only.",
+    "linkedSourceIds": [
+      "mas-airm-guidelines-cp"
+    ],
+    "supersedesId": "review-2026-09-24-mas-airm-guidelines-cp"
   }
 ]
