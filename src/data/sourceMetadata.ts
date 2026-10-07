@@ -105,6 +105,7 @@ export const issuerTypeFor = (issuer: string): IssuerType => issuerRules.find(([
 
 /* Earlier versions a source replaces when the earlier version is not itself in the corpus. */
 export const supersededVersions: Record<string, PriorVersion[]> = {
+  'mas-airm-guidelines-cp': [{title: 'Consultation paper P017-2025 (13 November 2025)', note: 'Closed 31 January 2026; final guidelines and consultation response published 7 October 2026. Stable Atlas record ID retained for existing links.', url: 'https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management'}],
   'oaic-adm-transparency': [{title: 'ADM transparency consultation issues paper (18 May 2026)', note: 'Consultation closed 15 June 2026; issued Chapter 1 guidance v2.0 published 30 September 2026.', url: 'https://www.oaic.gov.au/engage-with-us/consultations/consultation-on-guidance-for-transparency-in-automated-decision-making'}],
   'au-ai-adoption-guidance': [{ title: 'Voluntary AI Safety Standard (September 2024)', note: 'The ten guardrails were consolidated into the six essential practices of the Guidance for AI Adoption.', url: 'https://www.industry.gov.au/publications/voluntary-ai-safety-standard' }],
   'us-sr-26-2': [{ title: 'SR 11-7 Guidance on Model Risk Management (2011)', note: 'Superseded and replaced by SR 26-2 on 17 April 2026.' }, { title: 'SR 21-8 (2021)', note: 'Superseded and replaced by SR 26-2 on 17 April 2026.' }],

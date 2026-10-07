@@ -127,6 +127,7 @@ export const assuranceSourceQuestions: Record<string, string> = {
 }
 
 export const assuranceDevelopmentQuestions: Record<string, string> = {
+  'mas-ai-risk-guidelines-final': 'Can sampled supplier services be reconciled to the AI inventory, risk assessment and evidence supporting control choices?',
   'oaic-adm-guidance-issued': 'Does sampled workflow evidence support the recorded APP 1.7 scope assessment and proposed disclosures?',
   'nist-agent-identity-comments': 'Do tests demonstrate delegated credential scope, expiry and revocation across the full chain?',
   'asic-market-integrity-rules-2026': 'Can a reviewer trace a covered algorithm’s test result, approval, deployment and monitoring record to the applicable registered provisions?',

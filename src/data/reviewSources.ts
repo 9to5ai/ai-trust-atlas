@@ -119,16 +119,105 @@ export const reviewInstruments: SourceRecord[] = [
 
   /* Global financial regulators */
   makeInstrument({
-    ...draft, id: 'mas-airm-guidelines-cp', title: 'Consultation Paper on Guidelines on Artificial Intelligence Risk Management', shortTitle: 'MAS AI Risk Guidelines (CP)', issuer: 'Monetary Authority of Singapore', jurisdiction: 'Singapore - all financial institutions', region: 'Singapore', authorityClass: 'policy-guidance', authorityNote: 'Proposed supervisory guidelines; final version pending', status: 'closed-consultation', published: '2025-11-13', effective: 'Final guidelines pending; 12-month transition proposed',
-    officialUrl: 'https://www.mas.gov.sg/-/media/mas-media-library/publications/consultations/bd/2025/final_consultation_paper_on_guidelines_on_ai_risk_management_forrelease.pdf',
-    summary: 'Proposed MAS expectations for how every financial institution governs AI, including generative and agentic AI: board and senior management oversight, an AI inventory with risk materiality, lifecycle controls and the capability to manage AI.', applicability: 'Consultation closed 31 January 2026. MAS said in August 2026 the guidelines would be finalised soon; update this record when they are.', sectors: ['Banking', 'Insurance', 'Capital markets'],
-    conceptIds: ['accountability', 'inventory', 'materiality', 'lifecycle-governance', 'evaluation', 'agent-authority'], detailAvailability: 'full-public-text',
-    provisions: [
-      section('mas-airm-oversight', 'Oversight', 'Board and senior management', 'Boards and senior management oversee AI risk, set policies and ensure the institution has the capabilities to use AI responsibly.', ['accountability', 'competence']),
-      section('mas-airm-inventory', 'Identification and inventory', 'Know every AI use and its materiality', 'Institutions identify AI use across the organisation, keep an inventory and assess each use’s risk materiality to scale controls.', ['inventory', 'materiality']),
-      section('mas-airm-lifecycle', 'Lifecycle controls', 'From data to monitoring', 'Proportionate controls over data, fairness, explainability, human oversight, third parties, evaluation, monitoring and change management.', ['lifecycle-governance', 'evaluation', 'human-oversight', 'third-party-risk']),
-    ],
-  }),
+  "id": "mas-airm-guidelines-cp",
+  "title": "Guidelines on Artificial Intelligence Risk Management for Financial Institutions",
+  "shortTitle": "MAS AI Risk Guidelines",
+  "issuer": "Monetary Authority of Singapore",
+  "jurisdiction": "Singapore - all financial institutions",
+  "region": "Singapore",
+  "authorityClass": "policy-guidance",
+  "authorityNote": "Final supervisory guidelines; phased implementation in 2027 and 2028",
+  "legalEffect": "supervisory-expectation",
+  "status": "future-effective",
+  "published": "2026-10-07",
+  "effective": "Sections 3–4: 7 October 2027; sections 5–6: by 7 October 2028",
+  "lastVerified": "2026-10-08",
+  "editorialStatus": "reviewed",
+  "officialUrl": "https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions",
+  "summary": "Final MAS expectations for proportionate AI governance across financial institutions, covering oversight, inventories, risk assessment, lifecycle controls and capability. Applies across AI technologies, including generative and agentic AI.",
+  "applicability": "Supervisory expectations, not a standalone AI statute. Application depends on the institution and its AI use; basic governance is conditional on the material-impact test in paragraph 2.3. Review covers publication, timing and selected paragraphs 1.2–1.8, 2.1–2.5, 3.1–3.6, 4.1–4.13 and 5.1–5.11 and 5.18–5.26; not every lifecycle subsection or the consultation response.",
+  "sectors": [
+    "Banking",
+    "Insurance",
+    "Capital markets",
+    "Payments"
+  ],
+  "conceptIds": [
+    "accountability",
+    "inventory",
+    "materiality",
+    "lifecycle-governance",
+    "evaluation",
+    "agent-authority",
+    "third-party-risk"
+  ],
+  "detailAvailability": "full-public-text",
+  "provisions": [
+    {
+      "id": "mas-airm-oversight",
+      "ref": "3.1–3.6",
+      "title": "Board and senior management",
+      "summary": "Existing governance may be used; clear accountability and coordinated oversight remain necessary.",
+      "conceptIds": [
+        "accountability",
+        "competence"
+      ],
+      "sourceUrl": "https://www.mas.gov.sg/-/media/mas-media-library/regulation/guidelines/bd/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions/guidelines-on-artificial-intelligence-risk-management.pdf",
+      "reviewedAt": "2026-10-08",
+      "editorialStatus": "reviewed",
+      "granularity": "section",
+      "note": "Selected final-guideline passages reviewed. Original synopsis; concept/control links are Atlas interpretation, not an effectiveness finding."
+    },
+    {
+      "id": "mas-airm-inventory",
+      "ref": "4.1–4.13",
+      "title": "Identification, inventory and materiality",
+      "summary": "Identify AI, including embedded supplier use; link inventories and assess impact, complexity and reliance.",
+      "conceptIds": [
+        "inventory",
+        "materiality",
+        "third-party-risk"
+      ],
+      "sourceUrl": "https://www.mas.gov.sg/-/media/mas-media-library/regulation/guidelines/bd/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions/guidelines-on-artificial-intelligence-risk-management.pdf",
+      "reviewedAt": "2026-10-08",
+      "editorialStatus": "reviewed",
+      "granularity": "section",
+      "note": "Selected final-guideline passages reviewed. Original synopsis; concept/control links are Atlas interpretation, not an effectiveness finding."
+    },
+    {
+      "id": "mas-airm-lifecycle",
+      "ref": "5.1–5.3",
+      "title": "Proportionate lifecycle controls",
+      "summary": "Scale controls to risk; test contingency arrangements for high-risk use.",
+      "conceptIds": [
+        "lifecycle-governance",
+        "evaluation",
+        "operational-resilience"
+      ],
+      "sourceUrl": "https://www.mas.gov.sg/-/media/mas-media-library/regulation/guidelines/bd/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions/guidelines-on-artificial-intelligence-risk-management.pdf",
+      "reviewedAt": "2026-10-08",
+      "editorialStatus": "reviewed",
+      "granularity": "section",
+      "note": "Selected final-guideline passages reviewed. Original synopsis; concept/control links are Atlas interpretation, not an effectiveness finding."
+    },
+    {
+      "id": "mas-airm-third-party",
+      "ref": "5.10–5.11",
+      "title": "Third-party AI management",
+      "summary": "Test suitability for the intended use and address information gaps; consider restricting, suspending or replacing services when residual risk exceeds appetite.",
+      "conceptIds": [
+        "third-party-risk",
+        "evaluation",
+        "risk-treatment"
+      ],
+      "sourceUrl": "https://www.mas.gov.sg/-/media/mas-media-library/regulation/guidelines/bd/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions/guidelines-on-artificial-intelligence-risk-management.pdf",
+      "reviewedAt": "2026-10-08",
+      "editorialStatus": "reviewed",
+      "granularity": "section",
+      "note": "Selected final-guideline passages reviewed. Original synopsis; concept/control links are Atlas interpretation, not an effectiveness finding."
+    }
+  ]
+}),
   makeInstrument({
     ...draft, id: 'iosco-ai-toolkit', title: 'Supervisory Toolkit for AI Use in Capital Markets: Final Report', shortTitle: 'IOSCO AI Toolkit', issuer: 'International Organization of Securities Commissions', jurisdiction: 'International - securities regulators', region: 'Global', authorityClass: 'policy-guidance', authorityNote: 'Non-binding supervisory toolkit for member regulators', status: 'active', published: '2026-05-25',
     officialUrl: 'https://www.iosco.org/library/pubdocs/pdf/IOSCOPD823.pdf',
@@ -242,8 +331,8 @@ export const reviewRelations: InstrumentRelation[] = [
   { id: 'dta-standard-implements-policy', sourceId: 'dta-ai-technical-standard', targetId: 'dta-ai-policy', type: 'guides-implementation-of', explanation: 'The DTA describes the technical standard as supporting the policy for responsible use of AI in government.', basis: 'explicit', confidence: 'high', sourceAnchors: ['AI technical standard'] },
   { id: 'national-plan-adoption-guidance', sourceId: 'au-national-ai-plan', targetId: 'au-ai-adoption-guidance', type: 'complements', explanation: 'The Plan relies on the Guidance for AI Adoption as the main voluntary governance guidance.', basis: 'explicit', confidence: 'medium', sourceAnchors: ['National AI Plan: Keep Australians safe'] },
   { id: 'aicd-guide-frontier-board', sourceId: 'aicd-hti-director-guide', targetId: 'asd-frontier-board', type: 'complements', explanation: 'Both are written for Australian boards; the ASD–AICD guide focuses on frontier AI cyber risk.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['Atlas interpretation'] },
-  { id: 'mas-cp-extends-mrm', sourceId: 'mas-airm-guidelines-cp', targetId: 'mas-ai-mrm', type: 'extends', explanation: 'MAS’s proposed guidelines build on the supervisory observations in its 2024 AI model risk information paper.', basis: 'explicit', confidence: 'medium', sourceAnchors: ['Consultation paper, November 2025'] },
-  { id: 'mas-cp-complements-feat', sourceId: 'mas-airm-guidelines-cp', targetId: 'mas-feat', type: 'complements', explanation: 'The FEAT principles remain relevant alongside the proposed risk management guidelines.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['Atlas interpretation'] },
+  { id: 'mas-cp-extends-mrm', sourceId: 'mas-airm-guidelines-cp', targetId: 'mas-ai-mrm', type: 'extends', explanation: 'Atlas interpretation: the final guidelines develop governance and lifecycle themes covered in the separate 2024 supervisory information paper.', confidence: 'medium', sourceAnchors: ['Final guidelines, sections 3–5; 2024 thematic review'], basis: 'cross-framework-synthesis' },
+  { id: 'mas-cp-complements-feat', sourceId: 'mas-airm-guidelines-cp', targetId: 'mas-feat', type: 'complements', explanation: 'Final guidelines paragraph 1.2 confirms that FEAT principles continue to apply alongside these guidelines.', basis: 'explicit', confidence: 'high', sourceAnchors: ['Final guidelines, paragraph 1.2'] },
   { id: 'iosco-complements-fsb', sourceId: 'iosco-ai-toolkit', targetId: 'fsb-ai-sound-practices', type: 'complements', explanation: 'IOSCO addresses capital markets supervision while the FSB works across the financial system.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['Atlas interpretation'] },
   { id: 'iais-complements-fsb', sourceId: 'iais-ai-application-paper', targetId: 'fsb-ai-sound-practices', type: 'complements', explanation: 'The IAIS applies insurance principles to AI; the FSB considers cross-sector practices.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['Atlas interpretation'] },
   { id: 'eiopa-co-applies-ai-act', sourceId: 'eiopa-ai-opinion', targetId: 'eu-ai-act', type: 'co-applies-with', explanation: 'EIOPA covers AI in insurance that is not prohibited or high-risk under the AI Act.', basis: 'explicit', confidence: 'high', sourceAnchors: ['Opinion scope'] },
@@ -261,7 +350,7 @@ export const reviewCorrections: Record<string, Partial<SourceRecord>> = {
   'eu-ai-act': { applicability: 'Applies based on provider, deployer, product, location and market criteria. The Digital Omnibus on AI (in force 27 July 2026) moved high-risk dates to 2 December 2027 (Annex III) and 2 August 2028 (Annex I). Legal advice is needed for specific scope.' },
   'uk-ai-white-paper': { authorityNote: 'Current UK policy framework; the government has said there will be no horizontal AI bill in the short to medium term' },
   'us-sr-26-2': { applicability: 'Applies according to agency and institution scope. It supersedes SR 11-7 and SR 21-8. Generative and agentic AI are outside its scope and need separate governance.' },
-  'mas-ai-mrm': { summary: 'MAS’s 2024 information paper on supervisory observations about governance, inventory, development, validation, deployment and monitoring of AI models. It led to the proposed AI Risk Management Guidelines.' },
+  'mas-ai-mrm': { summary: 'MAS’s 2024 information paper on supervisory observations about governance, inventory, development, validation, deployment and monitoring of AI models. It preceded the final AI Risk Management Guidelines issued on 7 October 2026.' },
   'iso-42001': { applicability: 'Voluntary international management-system standard unless adopted by contract, policy or law. Adopted in Australia as AS ISO/IEC 42001:2023. Full text is licensed.' },
 }
 
