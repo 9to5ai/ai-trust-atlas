@@ -151,3 +151,13 @@ test.describe('WebGL universe', () => {
  await details.getByText('Sources and limits',{exact:true}).click()
  await expect(details.getByRole('link',{name:/OpenAI: NSW National Parks update/})).toBeVisible()
 })
+
+test('ARTEX incident exposes source and uncertainty on shared link', async ({page,isMobile})=>{
+ await page.goto('/universe?incidents=1#/incident/artex-south-korean-finance-2026')
+ if(isMobile) await page.getByRole('button',{name:/ARTEX financial-sector campaign Read details/}).click()
+ const details=page.getByLabel('Selected node details')
+ await expect(details).toContainText('Late September–early October 2026')
+ await details.getByText('Sources and limits',{exact:true}).click()
+ await expect(details.getByRole('link',{name:/CrowdStrike: ARTEX campaign investigation/})).toBeVisible()
+ await expect(details).toContainText('full autonomy')
+})
