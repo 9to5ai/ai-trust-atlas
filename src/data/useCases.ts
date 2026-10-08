@@ -733,7 +733,75 @@ const baseUseCases:UseCase[] = [
         "followUp": "Does a sampled outcome support the claimed resolution classification?"
       }
     }
+  },
+{
+  "id": "dbs-joy-account-enquiries",
+  "company": "DBS",
+  "title": "Corporate account enquiries through Joy",
+  "workflow": "customers",
+  "sector": "Financial services",
+  "status": "Production",
+  "evidence": "Company-reported",
+  "reported": "Undated operator service page",
+  "published": null,
+  "reviewed": "2026-10-08",
+  "summary": "DBS reports Joy retrieving corporate account information for authenticated customers in Singapore.",
+  "before": "Customers navigate banking screens or contact support for account information.",
+  "actions": "Retrieves balances, recent transactions and selected digital-form status through conversation in DBS IDEAL.",
+  "human": "DBS says requests are initiated by authenticated customers. Human live chat is offered during weekday business hours.",
+  "value": "DBS describes more convenient account enquiries; no quantified workflow benefit is disclosed.",
+  "limitations": "Publication, update and exact deployment dates are unknown. Active adoption and independently measured accuracy are not established. Guidance about transfers or user roles does not establish execution authority; payment initiation and account changes are excluded. Authentication alone is not evidence of account-level permission enforcement.",
+  "topics": [
+    "security",
+    "agentic",
+    "evidence"
+  ],
+  "sources": [
+    {
+      "title": "DBS · Joy service page",
+      "url": "https://www.dbs.com.sg/sme/dbsjoy"
+    }
+  ],
+  "connections": [
+    {
+      "conceptId": "access-control",
+      "controlId": "least-privilege-access",
+      "reason": "Each retrieval needs the user’s current company, account and role permissions, including after access is revoked."
+    },
+    {
+      "conceptId": "agent-authority",
+      "controlId": "agent-runtime-constraints",
+      "reason": "Retrieval, procedural guidance and execution require separate authority boundaries."
+    },
+    {
+      "conceptId": "traceability",
+      "controlId": "records-traceability",
+      "reason": "A disputed disclosure needs traceable authorised requests, source data and responses without excessive sensitive-data retention."
+    }
+  ],
+  "prompts": {
+    "board": {
+      "text": "What harm can an information-only banking assistant cause, and who accepts that risk?",
+      "askFor": "Approved scope, accountable owner, disclosure and error scenarios, residual-risk decisions and complaint trends.",
+      "followUp": "Which disclosure would require suspension of the service?"
+    },
+    "executive": {
+      "text": "Does each retrieval enforce the customer’s current company, account and role permissions?",
+      "askFor": "Permission matrix, cross-account negative tests, revocation tests, tool schemas and rejected requests.",
+      "followUp": "Can a multi-company user retrieve information from the wrong company context?"
+    },
+    "regulator": {
+      "text": "Can customers identify and challenge an incorrect balance or request-status response?",
+      "askFor": "Response provenance and timestamps, discrepancy handling, escalation tests and complaint outcomes.",
+      "followUp": "What happens when human support is unavailable?"
+    },
+    "assurance": {
+      "text": "Can a sampled answer be traced to authorised source data and the permissions active at that time?",
+      "askFor": "Redacted session traces, identity propagation, entitlement decisions, source timestamps and retention controls.",
+      "followUp": "Can the evidence distinguish stale data from an incorrect generated answer?"
+    }
   }
+}
 ]
 const assuranceFor=(id:string)=>assuranceUseCasePrompts[id]??reviewUseCaseAssurancePrompts[id]
 export const useCases:UseCase[] = [...baseUseCases, ...reviewUseCases].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)

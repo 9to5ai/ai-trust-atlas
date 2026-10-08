@@ -9,10 +9,10 @@ import {searchObjects} from '../lib/workspace'
 import {inDateWindow} from './developments'
 
 describe('production use case evidence and navigation',()=>{
- it('has eighteen distinct production cases covering six workflows and valid evidence connections',()=>{
-  expect(useCases).toHaveLength(18);expect(new Set(useCases.map(i=>i.id)).size).toBe(18)
+ it('has nineteen distinct production cases covering six workflows and valid evidence connections',()=>{
+  expect(useCases).toHaveLength(19);expect(new Set(useCases.map(i=>i.id)).size).toBe(19)
   expect(new Set(useCases.map(i=>i.workflow)).size).toBe(Object.keys(useCaseWorkflows).length)
-  expect(useCases.filter(i=>i.sector==='Financial services')).toHaveLength(10)
+  expect(useCases.filter(i=>i.sector==='Financial services')).toHaveLength(11)
   expect(useCases.filter(i=>['Commonwealth Bank','NAB','Suncorp','IAG','Services Australia'].includes(i.company))).toHaveLength(5)
   for(const item of useCases){
    expect(item.status).toBe('Production');expect(item.evidence).toBe('Company-reported')
@@ -24,7 +24,7 @@ describe('production use case evidence and navigation',()=>{
  })
  it('retrieves cases by workflow, sector, company and related concepts',()=>{
   expect(filterUseCases('software').map(x=>x.id)).toEqual(['ibm-eps-regression-tests','google-code-assistance'])
-  expect(filterUseCases('customers','Financial services').map(x=>x.company).sort()).toEqual(['Bank of America','DBS','DBS','IAG','NAB'])
+  expect(filterUseCases('customers','Financial services').map(x=>x.company).sort()).toEqual(['Bank of America','DBS','DBS','DBS','IAG','NAB'])
   expect(filterUseCases('all','all','Commonwealth')).toHaveLength(1)
   expect(filterUseCases('software','Financial services')).toHaveLength(0)
   expect(searchObjects('DeepFleet').some(x=>x.id==='use-case:amazon-deepfleet')).toBe(true)
