@@ -1,4 +1,5 @@
 import type { LayoutMode } from '../lib/graphModel'
+import type { Audience } from './leadershipQuestions'
 
 /*
  * Guided tours for live demonstrations. Each step drives the real Universe:
@@ -94,3 +95,12 @@ export const tours: Tour[] = [
 ]
 
 export const tourById = new Map(tours.map((tour) => [tour.id, tour]))
+
+/* One recommended starting tour per question audience; the rest are offered as further examples. */
+const recommendedTourIds: Record<Audience, string> = {
+  board: 'apra-to-controls',
+  executive: 'apra-to-controls',
+  regulator: 'apra-to-controls',
+  assurance: 'assurance-over-ai',
+}
+export const recommendedTour = (audience: Audience): Tour => tourById.get(recommendedTourIds[audience])!

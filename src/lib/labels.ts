@@ -58,6 +58,10 @@ export const relationLabels: Record<RelationType, string> = {
 
 export const regionOrder: Instrument['region'][] = ['Australia', 'Global', 'Europe', 'United States', 'United Kingdom', 'Singapore', 'Hong Kong', 'Japan', 'South Korea', 'New Zealand', 'Canada']
 
+/* Review state from recorded metadata only. A draft record's date is when it was drafted, not a verification. */
+export const sourceReviewLabel = (source: Pick<Instrument, 'editorialStatus' | 'lastVerified'>): string =>
+  source.editorialStatus === 'draft' ? `Drafted ${source.lastVerified} · awaiting editorial review` : `Summary last verified ${source.lastVerified}`
+
 export const legalRelationLabel = (type: RelationType, outgoing: boolean): string => {
   if (type === 'made-under') return outgoing ? 'Made under' : 'Authorises'
   return outgoing ? 'APRA’s governing legislation' : 'Standard issued by APRA'

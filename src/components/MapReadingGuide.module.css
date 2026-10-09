@@ -1,0 +1,48 @@
+@layer components {
+  .guide {
+    position: relative;
+  }
+  .guide > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--signal);
+    font-size: var(--step--2);
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .guide > summary::-webkit-details-marker {
+    display: none;
+  }
+  .panel {
+    position: absolute;
+    z-index: 40;
+    top: calc(100% + 12px);
+    left: -14px;
+    width: min(360px, calc(100vw - 48px));
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--surface-1) 96%, transparent);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-3);
+    white-space: normal;
+  }
+  .panel p {
+    margin: 0 0 8px;
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .panel strong {
+    color: var(--text-primary);
+  }
+  .panel .limits {
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+}

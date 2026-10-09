@@ -1,0 +1,155 @@
+@layer components {
+  .card {
+    position: absolute;
+    z-index: 31;
+    left: 22px;
+    bottom: 24px;
+    width: min(360px, calc(100% - 44px));
+    max-height: calc(100% - 140px);
+    overflow-y: auto;
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-strong);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 88%, transparent), color-mix(in srgb, var(--surface-1) 94%, transparent));
+    backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: var(--shadow-3), 0 0 60px -24px color-mix(in srgb, var(--signal) 40%, transparent);
+    animation: enter var(--dur-3) var(--ease-out) both;
+  }
+  @keyframes enter {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .close:hover {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+  .title {
+    margin: 4px 0 var(--space-3);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: var(--text-primary);
+  }
+  .roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: var(--space-3);
+  }
+  .roles button {
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: var(--step--1);
+    cursor: pointer;
+  }
+  .roles button[aria-pressed='true'] {
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+    background: var(--signal-soft);
+    color: var(--text-primary);
+  }
+  .tasks {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tasks button {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+    color: var(--text-primary);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+  }
+  .tasks button:hover,
+  .tasks button:focus-visible {
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+    background: var(--signal-soft);
+  }
+  .tasks svg {
+    color: var(--signal);
+  }
+  .tasks span {
+    display: grid;
+    gap: 2px;
+  }
+  .tasks strong {
+    font-size: var(--step--1);
+    font-weight: 620;
+  }
+  .tasks small {
+    font-size: var(--step--2);
+    color: var(--text-secondary);
+  }
+  .tasks .primary {
+    border-color: color-mix(in srgb, var(--signal) 45%, transparent);
+    background: var(--signal-soft);
+  }
+  .secondary {
+    margin-top: var(--space-3);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--signal);
+    font: inherit;
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+  .scope {
+    margin: var(--space-3) 0 0;
+    font-size: var(--step--2);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  @media (max-width: 860px) {
+    .card {
+      left: 12px;
+      right: 12px;
+      bottom: 84px;
+      width: auto;
+      max-height: calc(100% - 170px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      animation: none;
+    }
+  }
+}

@@ -22,6 +22,18 @@ const selectOversight = () => {
   fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: /^Concept Human oversight/ }))
 }
 
+describe('first-use orientation', () => {
+  it('offers a first-use task chooser and clear limits for reading the graph', () => {
+    render(<App />)
+    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Take the recommended tour/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Prepare questions for a meeting/ })).toBeInTheDocument()
+    expect(screen.getByText('How to read this map')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('How to read this map'))
+    expect(screen.getByText(/A line or route does not show that a source applies to you/)).toBeInTheDocument()
+  })
+})
+
 describe('clean universe interface', () => {
   it('keeps the map primary and opens related items from selected details', async () => {
     const { container } = render(<App />)

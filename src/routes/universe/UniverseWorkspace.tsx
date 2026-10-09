@@ -21,6 +21,8 @@ import { findPaths } from '../../lib/workspace'
 import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
+import { StartHere, readStartHereDismissed, storeStartHereDismissed } from '../../components/StartHere'
+import { MapReadingGuide } from '../../components/MapReadingGuide'
 import { TemporalLens } from '../../components/TemporalLens'
 import { controlObjectives } from '../../data/controls'
 import { instruments } from '../../data/instruments'
@@ -39,6 +41,8 @@ export function UniverseWorkspace() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const presenting = usePresenting()
   const [searchOpen, setSearchOpen] = useState(false)
+  const [startHereDismissed, setStartHereDismissed] = useState(readStartHereDismissed)
+  const dismissStartHere = () => { storeStartHereDismissed(); setStartHereDismissed(true) }
   const [layout, setLayout] = useState<LayoutMode>(initialView.layout)
   const causalLens: CausalLens = 'all'
   const [query, setQuery] = useState(initialView.query)
@@ -320,6 +324,7 @@ export function UniverseWorkspace() {
               />
             )}
           </AnimatePresence>
+          {!selectedNodeId && !activeTour && !startHereDismissed && projection === 'atlas' && <StartHere onStartTour={(id) => { dismissStartHere(); setTour({ id, step: 0 }) }} onPrepareQuestions={() => { dismissStartHere(); changeProjection('questions') }} onSearch={() => { dismissStartHere(); setSearchOpen(true) }} onDismiss={dismissStartHere} />}
           <div className="semantic-key" role="group" aria-label="Graph legend">
             {(showUseCases||selectedNodeId?.startsWith('use-case:'))&&<span><i className="shape-use-case"/>Use case</span>}
             {showIncidents && <span><i className="shape-incident" />Incident</span>}
@@ -339,6 +344,7 @@ export function UniverseWorkspace() {
               <span><i className="shape-instrument" />Source</span>
               <span><i className="shape-provision" />Section</span>
             </>}
+            <MapReadingGuide />
           </div>
           <div className="mobile-atlas-tools" role="group" aria-label="Atlas tools">
             <button className={temporalActive ? 'active' : ''} type="button" onClick={() => setShowTime(true)}><ClockCounterClockwise /><span>What’s new</span></button>
