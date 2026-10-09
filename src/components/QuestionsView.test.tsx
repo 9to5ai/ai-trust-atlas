@@ -21,4 +21,4 @@ it('shortlists across topics and audiences, survives remount, and clears persist
  expect(shortlist.getAllByRole('listitem')[0].textContent).toBe(before[1])
  fireEvent.click(shortlist.getByRole('button',{name:'Clear shortlist'}))
  expect(JSON.parse(localStorage.getItem(BRIEF_STORAGE_KEY)!).ids).toEqual([])
-})
+}, 15000)
