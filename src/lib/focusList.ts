@@ -2,7 +2,9 @@ import { conceptById, concepts, domainById } from '../data/concepts'
 import { controlFamilies, controlObjectives } from '../data/controls'
 import { instruments as corpusInstruments } from '../data/instruments'
 import { riskDomainById, riskSubdomains } from '../data/mitRiskTaxonomy'
-import { authorityOrder } from './labels'
+import { assertionsForNode } from '../data/assertions'
+import { authorityOrder, sourceReviewLabel } from './labels'
+import { requirementsForSource } from '../data/requirements'
 import type { Concept, Instrument, SourceProvision } from '../types'
 
 export type FocusListMode = 'instruments' | 'provisions'
@@ -15,12 +17,17 @@ export type FocusInstrumentRow = {
   relatedRiskCount: number
   relatedControlCount: number
   isSourceFoundation: boolean
+  requirementCount: number
+  sourceBasedEvidenceCount: number
+  atlasInterpretationCount: number
+  reviewLabel: string
 }
 
 export type FocusProvisionRow = {
   instrument: Instrument
   provision: SourceProvision
   concepts: Concept[]
+  requirementCount: number
 }
 
 export type FocusListModel = {
@@ -170,6 +177,10 @@ export const buildFocusListModel = (anchorId: string, eligibleInstruments: Instr
       relatedRiskCount,
       relatedControlCount,
       isSourceFoundation,
+      requirementCount: requirementsForSource(instrument.id).length,
+      sourceBasedEvidenceCount: assertionsForNode(`instrument:${instrument.id}`).filter((item) => item.predicate !== 'contains' && (item.basis === 'source-authored' || item.basis === 'published-crosswalk')).length,
+      atlasInterpretationCount: assertionsForNode(`instrument:${instrument.id}`).filter((item) => item.predicate !== 'contains' && item.basis === 'atlas-synthesis').length,
+      reviewLabel: sourceReviewLabel(instrument),
     }
   }).filter((row): row is FocusInstrumentRow => Boolean(row))
     .sort((left, right) => right.score - left.score
@@ -185,6 +196,7 @@ export const buildFocusListModel = (anchorId: string, eligibleInstruments: Instr
     instrument: provisionOwner,
     provision,
     concepts: provision.conceptIds.map((conceptId) => conceptById.get(conceptId)).filter((concept): concept is Concept => Boolean(concept)),
+    requirementCount: requirementsForSource(provisionOwner.id, provision.id).length,
   })) ?? []
 
   return {

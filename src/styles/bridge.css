@@ -554,3 +554,15 @@
     .tour-feature { padding: 10px; }
   }
 }
+
+@layer components {
+  .focus-row-review {
+    color: var(--text-tertiary);
+    font-size: 9px;
+    line-height: 1.4;
+  }
+  .focus-row-metrics span { text-transform: none; }
+  .focus-row-metrics strong { overflow-wrap: anywhere; }
+  .focus-list-toolbar { flex-wrap: wrap; }
+  .focus-list-toolbar > p { flex-wrap: wrap; }
+}

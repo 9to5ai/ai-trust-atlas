@@ -77,13 +77,14 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
               <i className="focus-node" aria-hidden="true" />
               <span className="focus-row-main">
                 <span className="focus-row-title"><strong>{row.instrument.shortTitle}</strong><small>{authorityLabels[row.instrument.authorityClass]}</small></span>
-                <span className="focus-row-subtitle">{row.instrument.issuer} · {row.instrument.region} · {row.instrument.status.replaceAll('-', ' ')}</span>
+                <span className="focus-row-subtitle">{row.instrument.issuer} · {row.instrument.region} · {row.instrument.legalEffect.replaceAll('-', ' ')}</span>
                 <span className="focus-connection">{row.connectionLabel}</span>
+                <span className="focus-row-review">{row.reviewLabel}</span>
               </span>
               <span className="focus-row-metrics">
-                <span><strong>{row.sharedConcepts.length}</strong> concepts</span>
-                <span><strong>{row.relatedRiskCount}</strong> risks</span>
-                <span><strong>{row.relatedControlCount}</strong> controls</span>
+                <span><strong>{row.instrument.published}{row.instrument.effective ? ` / ${row.instrument.effective}` : ''}</strong> published / effective</span>
+                <span><strong>{row.requirementCount}</strong> recorded requirements</span>
+                <span><strong>{row.sourceBasedEvidenceCount} / {row.atlasInterpretationCount}</strong> source / Atlas links</span>
               </span>
               <ArrowUpRight className="focus-row-arrow" />
             </motion.button>
@@ -107,6 +108,7 @@ export function FocusList({ anchorId, instruments, selectedNodeId, onSelectNode,
                 <span className="focus-row-title"><strong>{row.provision.ref}</strong><small>{row.provision.granularity ?? 'source provision'}</small></span>
                 <span className="focus-row-subtitle">{row.provision.title}</span>
                 <span className="focus-connection">{row.concepts.map((concept) => concept.name).join(' + ') || 'Document structure'}</span>
+                <span className="focus-row-review">{row.provision.editorialStatus === 'draft' ? 'Draft section · awaiting editorial review' : `Reviewed section · ${row.requirementCount} recorded requirements`}</span>
               </span>
               <span className="focus-row-copy">{row.provision.summary}</span>
               <ArrowUpRight className="focus-row-arrow" />
