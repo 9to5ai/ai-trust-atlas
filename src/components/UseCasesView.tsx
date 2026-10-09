@@ -28,6 +28,6 @@ export function UseCasesView({active,onExplore,onShowUniverse}:{active:boolean;o
    <details className="use-case-question"><summary>Question for {audienceNames[audience]}</summary><QuestionCard question={useCaseQuestion(item,audience)}/></details>
   </article>)}</div>
   {!items.length&&<div className="news-empty"><h3>No use cases match</h3><p>Try another workflow, sector or company.</p><button onClick={()=>{setWorkflow('all');setSector('all');setQuery('')}}>Clear filters</button></div>}
-  <footer className="use-case-coverage">A curated starting collection, not a ranking or endorsement. Production status reflects the dated public account. Reported adoption and benefits are not independently audited. <Link to="/coverage">See source review coverage</Link>.</footer>
+  <footer className="use-case-coverage">A curated starting collection, not a ranking or endorsement. Production status reflects the dated public account. Reported adoption and benefits are not independently audited.</footer>
  </section>
 }

@@ -12,7 +12,6 @@ export const navItems = [
   { to: '/universe', label: 'Universe', match: ['/universe'] },
   { to: '/questions', label: 'Questions', match: ['/questions'] },
   { to: '/cases', label: 'Use cases', match: ['/cases'] },
-  { to: '/coverage', label: 'Coverage', match: ['/coverage'] },
 ] as const
 
 /* AI Trust Practice: the gated inner room. Its routes swap the Atlas sections for the Practice ones. */

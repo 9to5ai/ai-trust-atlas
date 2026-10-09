@@ -27,7 +27,7 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
      <QuestionCard question={entry.question}/><button className="question-explore" onClick={()=>onExplore(entry.nodeId)}>Explore in Atlas →</button>
     </div>)}
     {!entries.length&&<div className="questions-no-results"><h3>No questions match this selection</h3><p>Try another topic or show all topics.</p><button onClick={reset}>Clear question filters</button></div>}
-    <p className="questions-note">Atlas-authored discussion prompts. References provide context, not findings of compliance or effectiveness. <Link to="/coverage">Check source review dates and limits</Link>.</p>
+    <p className="questions-note">Atlas-authored discussion prompts. References provide context, not findings of compliance or effectiveness.</p>
    </section>
    <aside className="questions-shortlist" aria-label="Your shortlist"><div className="shortlist-heading"><h3>Your shortlist <span>{selected.length}</span></h3><button onClick={openBrief}>Review / export</button></div><p>{storageNotice}</p>
     {!selected.length&&<div className="shortlist-empty">Add questions as you browse. You can combine topics and audiences.</div>}

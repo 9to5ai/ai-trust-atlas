@@ -9,14 +9,12 @@ import { UniverseWorkspace } from './routes/universe/UniverseWorkspace'
 /* AI Trust Practice loads separately, and its content only ever arrives from the gated API. */
 const TermsPage = lazy(() => import('./routes/TermsPage').then(({ TermsPage }) => ({ default: TermsPage })))
 const PracticeApp = lazy(() => import('./practice/PracticeApp'))
-const CoveragePage = lazy(() => import('./routes/CoveragePage').then(({ CoveragePage }) => ({ default: CoveragePage })))
 
 function Routes() {
   const pathname = usePathname()
   if (universeRoutes.includes(pathname)) return <UniverseWorkspace />
   if (isPracticeRoute(pathname)) return <Suspense fallback={null}><PracticeApp /></Suspense>
   if (pathname === '/terms') return <Suspense fallback={null}><TermsPage /></Suspense>
-  if (pathname === '/coverage') return <Suspense fallback={null}><CoveragePage /></Suspense>
   return <NotFound />
 }
 

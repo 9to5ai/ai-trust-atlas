@@ -52,13 +52,3 @@ test('keyboard search opens the Australian CPS 230 source', async ({ page }) => 
   await dialog.getByRole('button', { name: /Source.*APRA CPS 230/ }).click()
   await expect(page.getByLabel('Selected node details')).toContainText('CPS 230 Operational Risk Management')
 })
-
-
-test('coverage page explains status and filters draft records', async ({ page }) => {
-  await page.goto('/coverage')
-  await expect(page.getByRole('heading', { level: 1, name: /What has been reviewed/ })).toBeVisible()
-  await expect(page.getByRole('region', { name: 'Recorded coverage totals' })).toContainText('sources with an explicit substantive review state')
-  await expect(page.getByRole('region', { name: 'Recorded coverage totals' })).toContainText('sources without a source-level editorial state')
-  await page.getByRole('group', { name: 'Filter coverage records' }).getByRole('button', { name: /Draft records/ }).click()
-  await expect(page.locator('main ol li').first()).toContainText('awaiting editorial review')
-})
