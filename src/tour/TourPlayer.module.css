@@ -73,6 +73,16 @@
     align-items: center;
     margin-top: var(--space-4);
   }
+  .listVersion {
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+  }
+  .listVersion:hover {
+    color: var(--signal);
+    border-color: color-mix(in srgb, var(--signal) 45%, transparent);
+  }
   .navigation {
     display: flex;
     gap: var(--space-2);

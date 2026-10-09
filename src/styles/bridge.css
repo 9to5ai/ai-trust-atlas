@@ -522,3 +522,35 @@
   size: A4;
   margin: 16mm 14mm;
 }
+
+@layer components {
+  .tour-feature {
+    display: grid;
+    width: 100%;
+    gap: 5px;
+    padding: 12px;
+    border: 1px solid color-mix(in srgb, var(--signal) 42%, var(--border));
+    border-radius: var(--radius-m);
+    background: color-mix(in srgb, var(--signal-soft) 62%, var(--surface-1));
+    color: var(--text-primary);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+  .tour-feature:hover,
+  .tour-feature:focus-visible {
+    border-color: var(--signal);
+    background: var(--signal-soft);
+    transform: translateY(-1px);
+  }
+  .tour-feature strong { font-size: 12.5px; line-height: 1.35; }
+  .tour-feature small,
+  .tour-more summary { color: var(--text-tertiary); font-size: 11px; line-height: 1.4; }
+  .tour-more { margin-top: 10px; }
+  .tour-more summary { width: max-content; cursor: pointer; }
+  .tour-more .tour-list { margin-top: 8px; }
+  @media (max-width: 860px) {
+    .tour-feature { padding: 10px; }
+  }
+}

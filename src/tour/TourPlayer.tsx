@@ -1,12 +1,12 @@
-import { ArrowLeft, ArrowRight, Pause, Play, X } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowRight, ListBullets, Pause, Play, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import type { Tour } from '../data/tours'
 import styles from './TourPlayer.module.css'
 
-type Props = { tour: Tour; step: number; onStep: (step: number) => void; onExit: () => void }
+type Props = { tour: Tour; step: number; onStep: (step: number) => void; onExit: () => void; onShowList?: () => void }
 
 /* Lower-third narration for guided demos. Works with presentation clickers (→, Space, PageDown / ←, PageUp). */
-export function TourPlayer({ tour, step, onStep, onExit }: Props) {
+export function TourPlayer({ tour, step, onStep, onExit, onShowList }: Props) {
   const [autoplay, setAutoplay] = useState(false)
   const current = tour.steps[step]
   const last = step === tour.steps.length - 1
@@ -46,6 +46,7 @@ export function TourPlayer({ tour, step, onStep, onExit }: Props) {
       <p className={styles.narration}>{current.narration}</p>
       <footer className={styles.controls}>
         <button type="button" className={styles.ghost} onClick={onExit} aria-label="Exit tour"><X size={16} /> Exit</button>
+        {onShowList && <button type="button" className={styles.listVersion} onClick={onShowList}><ListBullets size={16} /> Show list version</button>}
         <div className={styles.navigation}>
           <button type="button" className={styles.icon} onClick={() => setAutoplay((value) => !value)} aria-pressed={autoplay} aria-label={autoplay ? 'Pause autoplay' : 'Autoplay tour'} title={autoplay ? 'Pause autoplay' : 'Autoplay'}>{autoplay ? <Pause size={16} /> : <Play size={16} />}</button>
           <button type="button" className={styles.icon} onClick={() => onStep(step - 1)} disabled={step === 0} aria-label="Previous step"><ArrowLeft size={16} /></button>

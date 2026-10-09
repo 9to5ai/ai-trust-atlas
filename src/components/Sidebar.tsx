@@ -1,7 +1,8 @@
 import { Link } from '../app/router'
 import { useState } from 'react'
 import { Atom, Compass, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
-import { tours } from '../data/tours'
+import { recommendedTour, tours } from '../data/tours'
+import { useBrief } from './LeadershipQuestions'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
 import { legalEffectLabels, legalEffectOrder, sectorFilterOrder, sectorLabels } from '../data/sourceMetadata'
 import type { LayoutMode } from '../lib/graphModel'
@@ -30,6 +31,9 @@ type Props = {
 }
 
 export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, effects, onToggleEffect, sectors, onToggleSector, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
+  const { audience } = useBrief()
+  const featuredTour = recommendedTour(audience)
+  const moreTours = tours.filter((tour) => tour.id !== featuredTour.id)
   const isRiskView = layout === 'risk'
   const isControlView = layout === 'controls'
   const resultCount = isRiskView ? riskResults.length : isControlView ? controlResults.length : results.length
@@ -59,15 +63,23 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       )}
 
       <section className="control-section tour-section">
-        <div className="control-title"><Compass /> <span>Guided tours</span></div>
-        <div className="tour-list">
-          {tours.map((tour) => (
-            <button type="button" key={tour.id} onClick={() => onStartTour(tour.id)}>
-              <strong>{tour.title}</strong>
-              <small>{tour.steps.length} steps · about {tour.minutes} min</small>
-            </button>
-          ))}
-        </div>
+        <div className="control-title"><Compass /> <span>Guided start</span></div>
+        <button type="button" className="tour-feature" onClick={() => onStartTour(featuredTour.id)}>
+          <strong>{featuredTour.title}</strong>
+          <small>Recommended for {featuredTour.audience}</small>
+          <small>{featuredTour.steps.length} steps · about {featuredTour.minutes} min</small>
+        </button>
+        <details className="tour-more">
+          <summary>More tours ({moreTours.length})</summary>
+          <div className="tour-list">
+            {moreTours.map((tour) => (
+              <button type="button" key={tour.id} onClick={() => onStartTour(tour.id)}>
+                <strong>{tour.title}</strong>
+                <small>{tour.steps.length} steps · about {tour.minutes} min</small>
+              </button>
+            ))}
+          </div>
+        </details>
       </section>
 
       <section className="control-section">
