@@ -19,9 +19,12 @@
   .panel {
     position: absolute;
     z-index: 40;
-    top: calc(100% + 12px);
-    left: -14px;
-    width: min(360px, calc(100vw - 48px));
+    bottom: calc(100% + 12px);
+    left: 0;
+    width: min(360px, calc(100vw - 32px));
+    max-height: min(62dvh, calc(100dvh - 160px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-l);
     border: 1px solid var(--border-strong);

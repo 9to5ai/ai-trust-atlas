@@ -31,6 +31,10 @@ describe('first-use orientation', () => {
     expect(screen.getByText('How to read this map')).toBeInTheDocument()
     fireEvent.click(screen.getByText('How to read this map'))
     expect(screen.getByText(/A line or route does not show that a source applies to you/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Close start here' }))
+    expect(screen.queryByRole('heading', { name: 'What are you preparing for?' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Open start here' }))
+    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
   })
 })
 
@@ -71,10 +75,25 @@ describe('clean universe interface', () => {
   })
 })
 
+describe('progressive filters', () => {
+  it('keeps secondary facets closed until asked and opens them for shared active filters', () => {
+    render(<App />)
+    expect(screen.getAllByText('Refine')[0]).toBeInTheDocument()
+    expect(screen.getAllByRole('checkbox', { name: 'Binding law or regulation' }).every((node) => node.closest('details')?.hasAttribute('open') === false)).toBe(true)
+    fireEvent.click(screen.getAllByText('Refine')[0])
+    expect(screen.getByRole('checkbox', { name: 'Binding law or regulation' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Binding law or regulation' }))
+    expect(screen.getAllByText(/1 active ·/).length).toBeGreaterThan(0)
+    fireEvent.click(screen.getAllByRole('button', { name: 'Reset filters' })[0])
+    expect(screen.getAllByRole('checkbox', { name: 'Binding law or regulation' }).every((node) => !(node as HTMLInputElement).checked)).toBe(true)
+  })
+})
+
 describe('source type navigation', () => {
   it('offers eight types, including assurance standards, and keeps binding standards distinct from guidance', () => {
     window.history.replaceState(null, '', '/#/instrument/apra-cps-234')
     render(<App />)
+    fireEvent.click(screen.getAllByText('Refine')[0])
     const types = ['Laws & regulations', 'Treaties', 'Policy & guidance', 'Standards', 'Assurance standards', 'Frameworks', 'Testing & tools', 'Research & databases']
     for (const name of types) expect(screen.getByRole('checkbox', { name })).toBeInTheDocument()
     expect(screen.queryByRole('checkbox', { name: 'Regulatory expectation' })).not.toBeInTheDocument()

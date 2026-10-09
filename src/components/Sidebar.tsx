@@ -1,4 +1,5 @@
 import { Link } from '../app/router'
+import { useState } from 'react'
 import { Atom, Compass, Funnel, MagnifyingGlass, ShieldCheck, WarningDiamond } from '@phosphor-icons/react'
 import { tours } from '../data/tours'
 import { authorityLabels, authorityOrder, regionOrder } from '../lib/labels'
@@ -33,6 +34,8 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
   const isControlView = layout === 'controls'
   const resultCount = isRiskView ? riskResults.length : isControlView ? controlResults.length : results.length
   const placeholder = isRiskView ? 'Search risks' : isControlView ? 'Search controls' : 'Search sources'
+  const [moreFiltersOpen, setMoreFiltersOpen] = useState(regions.size > 0 || effects.size > 0)
+  const extraFilterCount = regions.size + effects.size
 
   return (
     <aside className="sidebar" aria-label="Atlas controls">
@@ -89,37 +92,38 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       )}
 
       {!isRiskView && !isControlView && (
-        <section className="control-section filter-section">
-          <div className="control-title"><span>Legal effect</span><small>{effects.size || 'all'}</small></div>
-          <div className="filter-list">
-            {legalEffectOrder.map((effect) => (
-              <label key={effect}><input type="checkbox" checked={effects.has(effect)} onChange={() => onToggleEffect(effect)} /><span>{legalEffectLabels[effect]}</span></label>
-            ))}
-          </div>
-        </section>
+        <>
+          <section className="control-section filter-section">
+            <div className="control-title"><Funnel /> <span>Applies to</span><small>{sectors.size || 'all'}</small></div>
+            <div className="filter-list">
+              {sectorFilterOrder.map((sector) => (
+                <label key={sector}><input type="checkbox" checked={sectors.has(sector)} onChange={() => onToggleSector(sector)} /><span>{sectorLabels[sector]}</span></label>
+              ))}
+            </div>
+            {sectors.size > 0 && <p className="control-note">Sector-specific sources only; cross-sector sources are hidden.</p>}
+          </section>
+          <details className="control-section filter-section progressive-filters" open={moreFiltersOpen} onToggle={(event) => setMoreFiltersOpen(event.currentTarget.open)}>
+            <summary className="control-title"><Funnel /> <span>Refine</span><small>{extraFilterCount ? `${extraFilterCount} active · ${resultCount} results` : `${resultCount} results`}</small></summary>
+            <button type="button" className="clear-extra-filters" disabled={!extraFilterCount} onClick={() => { effects.forEach(onToggleEffect); regions.forEach(onToggleRegion) }}>Reset filters</button>
+            <section className="filter-section">
+              <div className="control-title"><span>Legal effect</span><small>{effects.size || 'all'}</small></div>
+              <div className="filter-list">
+                {legalEffectOrder.map((effect) => (
+                  <label key={effect}><input type="checkbox" checked={effects.has(effect)} onChange={() => onToggleEffect(effect)} /><span>{legalEffectLabels[effect]}</span></label>
+                ))}
+              </div>
+            </section>
+            <section className="filter-section region-filters">
+              <div className="control-title"><span>Country or region</span><small>{regions.size || 'all'}</small></div>
+              <div className="filter-list">
+                {regionOrder.map((region) => (
+                  <label key={region}><input type="checkbox" checked={regions.has(region)} onChange={() => onToggleRegion(region)} /><span>{region}</span></label>
+                ))}
+              </div>
+            </section>
+          </details>
+        </>
       )}
-
-      {!isRiskView && !isControlView && (
-        <section className="control-section filter-section">
-          <div className="control-title"><span>Applies to</span><small>{sectors.size || 'all'}</small></div>
-          <div className="filter-list">
-            {sectorFilterOrder.map((sector) => (
-              <label key={sector}><input type="checkbox" checked={sectors.has(sector)} onChange={() => onToggleSector(sector)} /><span>{sectorLabels[sector]}</span></label>
-            ))}
-          </div>
-          {sectors.size > 0 && <p className="control-note">Sector-specific sources only; cross-sector sources are hidden.</p>}
-        </section>
-      )}
-
-      {!isRiskView && !isControlView && <section className="control-section filter-section region-filters">
-        <div className="control-title"><span>Country or region</span><small>{regions.size || 'all'}</small></div>
-        <div className="filter-list">
-          {regionOrder.map((region) => (
-            <label key={region}><input type="checkbox" checked={regions.has(region)} onChange={() => onToggleRegion(region)} /><span>{region}</span></label>
-          ))}
-        </div>
-      </section>}
-
 
       <p className="sidebar-licence">© 2026 Momo &amp; Ray · <Link to="/terms">Licence and terms</Link></p>
     </aside>

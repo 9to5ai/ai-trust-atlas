@@ -7,7 +7,7 @@ import { RouteActions, universeRoutes } from '../../app/AppShell'
 import { authorityLabels } from '../../lib/labels'
 import { objectById } from '../../lib/workspace'
 import { UniverseOutline } from '../../components/UniverseOutline'
-import { CaretLeft, CaretRight, ClockCounterClockwise, Faders, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight, ClockCounterClockwise, Compass, Faders, MagnifyingGlass, X } from '@phosphor-icons/react'
 import { AnimatePresence } from 'motion/react'
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { SearchDialog } from '../../components/SearchDialog'
@@ -41,8 +41,8 @@ export function UniverseWorkspace() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const presenting = usePresenting()
   const [searchOpen, setSearchOpen] = useState(false)
-  const [startHereDismissed, setStartHereDismissed] = useState(readStartHereDismissed)
-  const dismissStartHere = () => { storeStartHereDismissed(); setStartHereDismissed(true) }
+  const [startHereVisible, setStartHereVisible] = useState(() => !readStartHereDismissed())
+  const dismissStartHere = () => { storeStartHereDismissed(); setStartHereVisible(false) }
   const [layout, setLayout] = useState<LayoutMode>(initialView.layout)
   const causalLens: CausalLens = 'all'
   const [query, setQuery] = useState(initialView.query)
@@ -232,6 +232,7 @@ export function UniverseWorkspace() {
     <main className={`atlas-shell${sidebarCollapsed || presenting ? ' sidebar-collapsed' : ''}${presenting ? ' is-presenting' : ''}${activeTour ? ' is-touring' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
       <a className="skip-link" href="#atlas-graph">Skip to the map</a>
       <RouteActions>
+        {projection !== 'questions' && projection !== 'use-cases' && <button className="shell-action" type="button" onClick={() => { setProjection('atlas'); setStartHereVisible(true) }} aria-label="Open start here"><Compass size={16}/><span>Start here</span></button>}
         <button className="shell-action" type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16}/><span>Search</span><kbd>⌘K</kbd></button>
         <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} aria-label={`What’s new${temporalActive ? ` · ${timeCutoff}` : ''}`} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
         {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}
@@ -324,7 +325,7 @@ export function UniverseWorkspace() {
               />
             )}
           </AnimatePresence>
-          {!selectedNodeId && !activeTour && !startHereDismissed && projection === 'atlas' && <StartHere onStartTour={(id) => { dismissStartHere(); setTour({ id, step: 0 }) }} onPrepareQuestions={() => { dismissStartHere(); changeProjection('questions') }} onSearch={() => { dismissStartHere(); setSearchOpen(true) }} onDismiss={dismissStartHere} />}
+          {startHereVisible && !activeTour && projection === 'atlas' && <StartHere onStartTour={(id) => { dismissStartHere(); setTour({ id, step: 0 }) }} onPrepareQuestions={() => { dismissStartHere(); changeProjection('questions') }} onSearch={() => { dismissStartHere(); setSearchOpen(true) }} onDismiss={dismissStartHere} />}
           <div className="semantic-key" role="group" aria-label="Graph legend">
             {(showUseCases||selectedNodeId?.startsWith('use-case:'))&&<span><i className="shape-use-case"/>Use case</span>}
             {showIncidents && <span><i className="shape-incident" />Incident</span>}
