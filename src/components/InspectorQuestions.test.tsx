@@ -19,25 +19,6 @@ const cases: [GraphNodeKind, string][] = [
   ['risk-domain', 'mit-risk-2'], ['risk-subdomain', 'mit-risk-2-1'],
   ['control-family', 'protect-constrain'], ['control-objective', 'least-privilege-access'],
 ]
-describe('source quick brief', () => {
-  it('puts scope and source links before details without expanding the requirements wall', () => {
-    const source = instruments.find(item => item.id === 'apra-cps-230')!
-    render(<QuestionsProvider><Inspector selectedNodeId={`instrument:${source.id}`} onClose={vi.fn()} onSelectNode={vi.fn()} causalLens="all" /></QuestionsProvider>)
-
-    expect(screen.getByRole('heading', { name: 'Source at a glance' })).toBeInTheDocument()
-    expect(screen.getAllByText(source.applicability)).toHaveLength(2)
-    expect(screen.getAllByText(source.summary).length).toBeGreaterThan(0)
-    expect(screen.getByText(/Check exact wording and scope in the original/)).toBeInTheDocument()
-
-    const sections = source.provisions.slice(0, 2)
-    for (const section of sections) {
-      expect(screen.getByRole('link', { name: `Open source for ${section.ref}: ${section.title}` })).toHaveAttribute('href', section.sourceUrl ?? source.officialUrl)
-    }
-    const requirements = screen.getByText('What it requires').closest('details')
-    expect(requirements).not.toHaveAttribute('open')
-  })
-})
-
 describe('question panel integration', () => {
   it.each(cases)('lets readers choose a role and save a question from %s', async (kind, id) => {
     render(<QuestionsProvider><Inspector selectedNodeId={`${kind}:${id}`} onClose={vi.fn()} onSelectNode={vi.fn()} causalLens="all" /></QuestionsProvider>)

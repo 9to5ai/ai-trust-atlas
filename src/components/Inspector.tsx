@@ -21,7 +21,6 @@ import { MIT_RISK_DATABASE_URL, MIT_RISK_LICENSE, MIT_RISK_PROVENANCE, MIT_RISK_
 import { relations } from '../data/relations'
 import { authorityLabels, legalRelationLabel, relationFamilyFor, relationLabels } from '../lib/labels'
 import type { AuthorityClass, ControlObjective, MappingAssertion } from '../types'
-import quickBriefStyles from './SourceQuickBrief.module.css'
 
 type Props = {
   selectedNodeId?: string
@@ -158,27 +157,10 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
         <div className="inspector-kicker">{authorityLabels[instrument.authorityClass]}</div>
         <h2>{instrument.shortTitle}</h2><p className="inspector-full-title">{instrument.title}</p>
 
-        <section className={quickBriefStyles.brief} aria-labelledby="source-brief-heading">
-          <h3 id="source-brief-heading" className={quickBriefStyles.heading}>Source at a glance</h3>
-          <p className={quickBriefStyles.summary}>{instrument.summary}</p>
-          <div className={quickBriefStyles.scope}>
-            <span>Scope to check</span>
-            <p>{instrument.applicability}</p>
-          </div>
-          <div className={quickBriefStyles.facts}>
-            <div><span>Authority</span><strong>{instrument.authorityNote}</strong></div>
-            <div><span>Status</span><strong>{instrument.status.replaceAll('-', ' ')}</strong></div>
-            <div><span>For</span><strong>{instrument.jurisdiction} · {instrument.sectorIds.map((id) => sectorLabels[id]).join(' · ')}</strong></div>
-          </div>
-          {instrument.provisions.length > 0 && <div className={quickBriefStyles.evidence}>
-            <h4>Open the source sections</h4>
-            <p>These Atlas section records are signposts. Check exact wording and scope in the original.</p>
-            <ul>{instrument.provisions.slice(0, 2).map((item) => <li key={item.id}><a aria-label={`Open source for ${item.ref}: ${item.title}`} href={item.sourceUrl ?? instrument.officialUrl} target="_blank" rel="noreferrer"><span>{item.ref} · {item.title}</span><ArrowSquareOut aria-hidden="true" /></a></li>)}</ul>
-          </div>}
-        </section>
+        <section className="source-overview"><h3>What this says</h3><p>{instrument.summary}</p><h3>Who it concerns</h3><p>{instrument.jurisdiction} · {instrument.sectorIds.map((id) => sectorLabels[id]).join(' · ')}</p><p className="legal-effect"><strong>{legalEffectLabels[instrument.legalEffect]}</strong> · {issuerTypeLabels[instrument.issuerType]}</p><h3>Why it matters</h3><p>{instrument.id === 'apra-cps-234' ? 'Use this when reviewing how an APRA-regulated entity protects information assets, tests security controls and handles incidents involving AI systems or providers.' : reviewPurpose[instrument.authorityClass]}</p></section>
 
         <div className="inspector-actions"><a href={instrument.officialUrl} target="_blank" rel="noreferrer">Official source <ArrowSquareOut /></a></div>
-        {sourceRequirements.length > 0 && <details className="inspector-section requirements-section"><summary>What it requires <small>{sourceRequirements.length}</small></summary><p className="section-boundary">Paraphrased from the source; check the original wording. Control links are Atlas suggestions, not findings.</p><RequirementList items={sourceRequirements} onSelectNode={onSelectNode} /></details>}
+        {sourceRequirements.length > 0 && <details className="inspector-section requirements-section" open><summary>What it requires <small>{sourceRequirements.length}</small></summary><p className="section-boundary">Paraphrased from the source; check the original wording. Control links are Atlas suggestions, not findings.</p><RequirementList items={sourceRequirements} onSelectNode={onSelectNode} /></details>}
         <QuestionsPanel kind="instrument" id={instrument.id} />
         <details className="inspector-section"><summary>Scope, dates and authority</summary>        <div className="metadata-grid"><div><span>Issuer</span><strong>{instrument.issuer}</strong></div><div><span>Country or region</span><strong>{instrument.jurisdiction}</strong></div><div><span>Status</span><strong>{instrument.status.replaceAll('-', ' ')}</strong></div><div><span>Legal effect</span><strong>{legalEffectLabels[instrument.legalEffect]}</strong></div><div><span>Issuer type</span><strong>{issuerTypeLabels[instrument.issuerType]}</strong></div><div><span>Last verified</span><strong>{instrument.lastVerified}</strong></div></div>        <div className="boundary-note"><CheckCircle /><span><strong>{instrument.authorityNote}</strong><br />{instrument.applicability}</span></div><p className="section-boundary">Published: {instrument.published}{instrument.effective ? ` · Effective: ${instrument.effective}` : ''}. Last verified refers to the substantive summary; later targeted checks are recorded separately in Dates & changes.</p>{instrument.supersedes && <div className="supersedes"><h4>Replaces</h4><ul>{instrument.supersedes.map((prior) => <li key={prior.title}><strong>{prior.url ? <a href={prior.url} target="_blank" rel="noreferrer">{prior.title}</a> : prior.title}</strong> — {prior.note}</li>)}</ul></div>}</details>
         {legalFoundations.length > 0 && <details className="inspector-section legal-foundations" aria-label="Legal foundations"><summary>Legal foundations</summary><div className="relation-list">{legalFoundations.map(({ relation, instrument: related }) => <div key={relation.id}><button type="button" onClick={() => related && onSelectNode(`instrument:${related.id}`)}><span>{legalRelationLabel(relation.type, relation.sourceId === instrument.id)}</span><strong>{related?.shortTitle}</strong><p>{relation.explanation}</p></button>{relation.citations?.map((citation, index) => <a key={index} className="text-button" href={citation.url} target="_blank" rel="noreferrer">{citation.locator} <ArrowSquareOut /></a>)}</div>)}</div></details>}
