@@ -21,7 +21,7 @@ import { findPaths } from '../../lib/workspace'
 import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
-import { StartHere, readStartHereDismissed, storeStartHereDismissed } from '../../components/StartHere'
+import { StartHere } from '../../components/StartHere'
 import { MapReadingGuide } from '../../components/MapReadingGuide'
 import { TemporalLens } from '../../components/TemporalLens'
 import { controlObjectives } from '../../data/controls'
@@ -41,8 +41,8 @@ export function UniverseWorkspace() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const presenting = usePresenting()
   const [searchOpen, setSearchOpen] = useState(false)
-  const [startHereVisible, setStartHereVisible] = useState(() => !readStartHereDismissed())
-  const dismissStartHere = () => { storeStartHereDismissed(); setStartHereVisible(false) }
+  const [startHereVisible, setStartHereVisible] = useState(false)
+  const dismissStartHere = () => setStartHereVisible(false)
   const [layout, setLayout] = useState<LayoutMode>(initialView.layout)
   const causalLens: CausalLens = 'all'
   const [query, setQuery] = useState(initialView.query)
@@ -232,7 +232,7 @@ export function UniverseWorkspace() {
     <main className={`atlas-shell${sidebarCollapsed || presenting ? ' sidebar-collapsed' : ''}${presenting ? ' is-presenting' : ''}${activeTour ? ' is-touring' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
       <a className="skip-link" href="#atlas-graph">Skip to the map</a>
       <RouteActions>
-        {projection !== 'questions' && projection !== 'use-cases' && <button className="shell-action" type="button" onClick={() => { setProjection('atlas'); setStartHereVisible(true) }} aria-label="Open start here"><Compass size={16}/><span>Start here</span></button>}
+        {projection !== 'questions' && projection !== 'use-cases' && <button className="shell-action start-here-action" type="button" onClick={() => { setProjection('atlas'); setStartHereVisible(true) }} aria-label="Open start here"><Compass size={16}/><span>Start here</span></button>}
         <button className="shell-action" type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16}/><span>Search</span><kbd>⌘K</kbd></button>
         <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} aria-label={`What’s new${temporalActive ? ` · ${timeCutoff}` : ''}`} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
         {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}

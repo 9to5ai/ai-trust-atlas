@@ -119,6 +119,17 @@
     white-space: nowrap;
     transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
   }
+  .actions :global(.shell-action.start-here-action) {
+    position: relative;
+    color: var(--text-primary);
+    border-color: var(--signal);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--signal) 16%, transparent), 0 0 18px color-mix(in srgb, var(--signal) 32%, transparent);
+    animation: start-here-pulse 2.8s ease-in-out infinite;
+  }
+  @keyframes start-here-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--signal) 12%, transparent), 0 0 12px color-mix(in srgb, var(--signal) 22%, transparent); }
+    50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 20%, transparent), 0 0 22px color-mix(in srgb, var(--signal) 42%, transparent); }
+  }
   .search:hover,
   .actions :global(.shell-action:hover),
   .actions :global(.shell-action[aria-pressed='true']) {
@@ -250,6 +261,9 @@
   }
   .presenting .bar {
     display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .actions :global(.shell-action.start-here-action) { animation: none; }
   }
   @media print {
     .bar {

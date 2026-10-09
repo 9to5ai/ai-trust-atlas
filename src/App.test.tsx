@@ -23,14 +23,19 @@ const selectOversight = () => {
 }
 
 describe('first-use orientation', () => {
-  it('offers a first-use task chooser and clear limits for reading the graph', () => {
+  it('keeps the chooser closed until requested and highlights Start here', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Take the recommended tour/ })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Prepare questions for a meeting/ })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'What are you preparing for?' })).not.toBeInTheDocument()
+    const startHere = screen.getByRole('button', { name: 'Open start here' })
+    expect(startHere).toHaveClass('start-here-action')
     expect(screen.getByText('How to read this map')).toBeInTheDocument()
-    fireEvent.click(screen.getByText('How to read this map'))
-    expect(screen.getByText(/A line or route does not show that a source applies to you/)).toBeInTheDocument()
+    const guide = screen.getByText('How to read this map').closest('details')!
+    fireEvent.click(guide.querySelector('summary')!)
+    expect(guide).toHaveAttribute('open')
+    expect(screen.queryByText(/A line or route does not show that a source applies to you/)).not.toBeInTheDocument()
+    fireEvent.click(startHere)
+    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
+    expect(screen.queryByText(/A reference map of/)).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Close start here' }))
     expect(screen.queryByRole('heading', { name: 'What are you preparing for?' })).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Open start here' }))

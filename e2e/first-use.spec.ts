@@ -1,11 +1,14 @@
 import { expect, test } from '@playwright/test'
 
-test('first-use chooser and map reading guide orient a new visitor', async ({ page }) => {
+test('Start here stays closed on first load and is easy to find on desktop and mobile', async ({ page }) => {
   await page.goto('/universe')
+  await expect(page.getByRole('heading', { name: 'What are you preparing for?' })).toHaveCount(0)
+  const startHere = page.getByRole('button', { name: 'Open start here' })
+  await expect(startHere).toBeVisible()
+  await expect(startHere).toHaveClass(/start-here-action/)
+  await startHere.click()
   await expect(page.getByRole('heading', { name: 'What are you preparing for?' })).toBeVisible()
-  await expect(page.getByRole('button', { name: /Take the recommended tour/ })).toBeVisible()
-  const guide = page.getByText('How to read this map')
-  await expect(guide).toBeVisible()
-  await guide.click()
-  await expect(page.getByText(/A line or route does not show that a source applies to you/)).toBeVisible()
+  await expect(page.getByText(/A reference map of/)).toHaveCount(0)
+  await page.getByRole('button', { name: 'Close start here' }).click()
+  await expect(page.getByRole('heading', { name: 'What are you preparing for?' })).toHaveCount(0)
 })
