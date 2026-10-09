@@ -2281,3 +2281,6 @@ body::after {
 }
 
 }
+@layer legacy {
+.source-review-signal{padding:10px 0;border-block:1px solid var(--line);font-size:12px;line-height:1.6;color:var(--text-muted)}
+}

@@ -29,3 +29,4 @@
 @media(max-width:860px){body:has(.mobile-details-open) .brief-launcher{display:none}}
 
 }
+.use-case-route-next{max-width:74ch;margin:0 0 18px;font-size:12px;line-height:1.6;color:var(--text-muted)}

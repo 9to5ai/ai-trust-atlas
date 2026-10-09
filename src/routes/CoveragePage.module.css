@@ -1,0 +1,23 @@
+@layer components {
+.summary { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:24px; border-block:1px solid var(--border); padding:20px 0; }
+.summary div { display:grid; gap:6px; align-content:start; }
+.summary strong { font-family:var(--font-serif); font-size:32px; font-weight:500; color:var(--text-primary); }
+.summary span,.depth { color:var(--text-secondary); line-height:1.55; }
+.depth { margin:20px 0 40px; }
+.limits { max-width:72ch; border-top:1px solid var(--border); padding-top:20px; }
+.limits h2,.listHead h2 { font-family:var(--font-serif); font-size:24px; font-weight:500; color:var(--text-primary); }
+.limits ul { display:grid; gap:10px; padding-left:20px; color:var(--text-secondary); line-height:1.6; }
+.listHead { display:flex; justify-content:space-between; gap:24px; align-items:center; flex-wrap:wrap; border-bottom:1px solid var(--border); margin-top:48px; }
+.listHead [role=group] { display:flex; flex-wrap:wrap; gap:8px; }
+.listHead button { padding:8px 12px; border:1px solid var(--border); background:transparent; color:var(--text-secondary); cursor:pointer; }
+.listHead button[aria-pressed=true] { color:var(--text-primary); border-color:var(--text-primary); }
+.records { list-style:none; padding:0; margin:0; }
+.records li { display:grid; grid-template-columns:minmax(150px,.9fr) repeat(3,minmax(0,1fr)) auto; gap:16px; align-items:start; border-bottom:1px solid var(--border); padding:16px 0; }
+.records li div { display:grid; align-content:start; gap:8px; color:var(--text-primary); }
+.records .identity { gap:5px; }
+.records li div span,.records li p { margin:0; color:var(--text-secondary); font-size:13px; line-height:1.5; }
+.records a,.next a { color:var(--text-primary); text-decoration:underline; text-decoration-thickness:.5px; text-underline-offset:4px; }
+.next { display:flex; flex-wrap:wrap; gap:24px; border-top:1px solid var(--border); margin-top:40px; padding-top:20px; }
+@media(max-width:900px) { .summary { grid-template-columns:repeat(2,minmax(0,1fr)); } .records li { grid-template-columns:1fr 1fr; } }
+@media(max-width:560px) { .summary { gap:16px; } .records li { grid-template-columns:1fr; gap:7px; } .listHead { align-items:flex-start; } .listHead [role=group] { width:100%; } }
+}

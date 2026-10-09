@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from '../app/router'
 import { ArrowUpRight, MagnifyingGlass } from '@phosphor-icons/react'
 import { filterUseCases, useCaseWorkflows, useCases, useCaseQuestion } from '../data/useCases'
 import { audienceNames } from '../data/leadershipQuestions'
@@ -12,7 +13,8 @@ export function UseCasesView({active,onExplore,onShowUniverse}:{active:boolean;o
  const items=filterUseCases(workflow,sector,query)
  if(!active)return null
  return <section className="use-cases-workspace" aria-label="Production use cases">
-  <header className="use-cases-heading"><div><span className="questions-eyebrow">AI IN PRACTICE</span><h1>See how the work is changing.</h1><p>Production deployments. Practical questions for your next decision.</p></div><button className="use-case-universe" onClick={onShowUniverse}>Show in universe <ArrowUpRight/></button></header>
+  <header className="use-cases-heading"><div><span className="questions-eyebrow">AI IN PRACTICE</span><h1>See how the work is changing.</h1><p>Company-reported deployments, with dated evidence and questions for your next decision.</p></div><button className="use-case-universe" onClick={onShowUniverse}>Show in universe <ArrowUpRight/></button></header>
+  <p className="use-case-route-next">Use cases show reported practice, not requirements. For source obligations, open the <Link to="/universe">Universe</Link>; for meeting prompts, go to <Link to="/questions">Questions</Link>.</p>
   <div className="use-case-filters">
    <div className="use-case-workflows" role="group" aria-label="Use case workflow"><button aria-pressed={workflow==='all'} onClick={()=>setWorkflow('all')}>All workflows</button>{Object.entries(useCaseWorkflows).map(([id,label])=><button key={id} aria-pressed={workflow===id} onClick={()=>setWorkflow(id)}>{label}</button>)}</div>
    <div className="use-case-tools"><label className="use-case-search"><MagnifyingGlass/><input aria-label="Search use cases" placeholder="Company or use case" value={query} onChange={e=>setQuery(e.target.value)}/></label><label className="use-case-sector"><span className="sr-only">Sector</span><select aria-label="Use case sector" value={sector} onChange={e=>setSector(e.target.value)}><option value="all">All sectors</option>{[...new Set(useCases.map(i=>i.sector))].sort().map(s=><option key={s}>{s}</option>)}</select></label><AudiencePicker/><button className="use-case-brief" onClick={openBrief}>Your shortlist · {selected.length}</button></div>
@@ -26,6 +28,6 @@ export function UseCasesView({active,onExplore,onShowUniverse}:{active:boolean;o
    <details className="use-case-question"><summary>Question for {audienceNames[audience]}</summary><QuestionCard question={useCaseQuestion(item,audience)}/></details>
   </article>)}</div>
   {!items.length&&<div className="news-empty"><h3>No use cases match</h3><p>Try another workflow, sector or company.</p><button onClick={()=>{setWorkflow('all');setSector('all');setQuery('')}}>Clear filters</button></div>}
-  <footer className="use-case-coverage">A curated starting collection, not a ranking or endorsement. Production status reflects the dated public account. Reported adoption and benefits are not independently audited.</footer>
+  <footer className="use-case-coverage">A curated starting collection, not a ranking or endorsement. Production status reflects the dated public account. Reported adoption and benefits are not independently audited. <Link to="/coverage">See source review coverage</Link>.</footer>
  </section>
 }

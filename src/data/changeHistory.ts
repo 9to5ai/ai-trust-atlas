@@ -1,5 +1,5 @@
 export type AtlasChange = {
-  id: string; recorded: string; kind: 'Correction' | 'Atlas update' | 'Source review'; title: string;
+  id: string; recorded: string; kind: 'Correction' | 'Atlas update' | 'Source review' | 'Review method'; title: string;
   before: string; after: string; revisit: string; sourceIds: string[]; url: string; evidence: string;
 }
 // Append reviewed entries. recorded is the Atlas review date, not a source publication date.

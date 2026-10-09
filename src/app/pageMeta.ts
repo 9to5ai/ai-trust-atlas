@@ -8,5 +8,6 @@ export const shareablePages: Record<string, PageMeta> = {
   '/questions': { title: `Questions for boards and executives · ${brand}`, description: 'Role-specific questions about AI for boards, executives and regulators, ready to build into a meeting brief.' },
   '/terms': { title: `Licence and terms · ${brand}`, description: 'The AI Trust Atlas content is licensed under CC BY-NC-SA 4.0 and the code under Apache 2.0. © 2026 Momo & Ray.' },
   '/cases': { title: `AI in production · ${brand}`, description: 'Company-reported production AI deployments with the questions they raise.' },
+  '/coverage': { title: `Review and coverage · ${brand}`, description: 'Recorded source review dates, draft status and content limits in the AI Trust Atlas.' },
 }
 export const metaFor = (pathname: string): PageMeta => shareablePages[pathname] ?? defaultMeta

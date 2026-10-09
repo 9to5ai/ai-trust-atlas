@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from '../app/router'
 import { domains } from '../data/concepts'
 import { audienceNames } from '../data/leadershipQuestions'
 import { filterQuestions, topicNames } from '../lib/questionCatalogue'
@@ -12,7 +13,8 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
  const reset=()=>{setTopics([])}
  if(!active)return null
  return <section className="questions-workspace" aria-label="Questions workspace">
-  <header className="questions-heading"><div><span className="questions-eyebrow">PREPARE YOUR NEXT CONVERSATION</span><h1>Questions worth asking</h1><p>Choose your audience and topics. Build a focused discussion.</p></div></header>
+  <header className="questions-heading"><div><span className="questions-eyebrow">PREPARE YOUR NEXT CONVERSATION</span><h1>Questions worth asking</h1><p>Choose your audience and topics. Build a focused discussion, then explore the sources behind the questions.</p></div></header>
+  <div className="questions-route-next"><span>Use this route to prepare a meeting. For requirements, return to the <Link to="/universe">Universe</Link>; for examples, see <Link to="/cases">Use cases</Link>.</span></div>
   <div className="questions-columns">
    <aside className="questions-topics" aria-label="Question topics"><h3>Topics</h3><button aria-pressed={!topics.length} onClick={()=>{setTopics([])}}>All topics</button>{domains.map(d=><button key={d.id} aria-pressed={topics.includes(d.id)} onClick={()=>toggleTopic(d.id)}><span>{topicNames[d.id]??d.name}</span><span aria-hidden="true">{topics.includes(d.id)?'✓':'+'}</span></button>)}<p>Choose more than one topic.</p></aside>
    <section className="questions-browse" aria-label="Browse questions">
@@ -25,7 +27,7 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
      <QuestionCard question={entry.question}/><button className="question-explore" onClick={()=>onExplore(entry.nodeId)}>Explore in Atlas →</button>
     </div>)}
     {!entries.length&&<div className="questions-no-results"><h3>No questions match this selection</h3><p>Try another topic or show all topics.</p><button onClick={reset}>Clear question filters</button></div>}
-    <p className="questions-note">Atlas-authored discussion prompts. References provide context, not findings of compliance or effectiveness.</p>
+    <p className="questions-note">Atlas-authored discussion prompts. References provide context, not findings of compliance or effectiveness. <Link to="/coverage">Check source review dates and limits</Link>.</p>
    </section>
    <aside className="questions-shortlist" aria-label="Your shortlist"><div className="shortlist-heading"><h3>Your shortlist <span>{selected.length}</span></h3><button onClick={openBrief}>Review / export</button></div><p>{storageNotice}</p>
     {!selected.length&&<div className="shortlist-empty">Add questions as you browse. You can combine topics and audiences.</div>}

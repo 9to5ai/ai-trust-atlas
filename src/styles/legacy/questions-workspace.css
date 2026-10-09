@@ -46,3 +46,5 @@
 body:has(.questions-mode) .brief-launcher { display:none; }
 
 }
+.questions-route-next{padding:0 28px 12px;border-bottom:1px solid var(--line);color:var(--text-muted);font-size:12px;line-height:1.6}.questions-route-next a,.use-case-route-next a,.use-case-coverage a{color:var(--text);text-decoration:underline;text-decoration-thickness:.5px;text-underline-offset:4px}
+@media(max-width:860px){.questions-route-next{padding:0 16px 12px}}
