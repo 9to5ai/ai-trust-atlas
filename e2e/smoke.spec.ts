@@ -73,6 +73,7 @@ test('section navigation and browser Back work without reloads', async ({ page, 
 })
 
 test('presenting fills the screen and offers the guided tours', async ({ page, isMobile }) => {
+  test.setTimeout(60_000)
   test.skip(isMobile, 'Presenting is a desktop and projector feature')
   await page.goto('/cases')
   await page.getByRole('button', { name: 'Present the Universe' }).click()
@@ -83,7 +84,9 @@ test('presenting fills the screen and offers the guided tours', async ({ page, i
   await expect(dock).toBeVisible()
   await dock.getByRole('button').nth(1).click()
   await expect(page.getByRole('region', { name: /Guided tour/ })).toBeVisible()
-  await page.keyboard.press('Escape')
+  // Escape also exits native browser fullscreen; exercise the app's explicit exit controls.
+  await page.getByRole('button', { name: 'Exit tour', exact: true }).click()
+  await expect(dock).toBeVisible()
   await page.getByRole('button', { name: /Stop presenting/ }).click()
   await expect(page.locator('html')).not.toHaveAttribute('data-stage', '')
 })

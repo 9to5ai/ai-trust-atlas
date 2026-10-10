@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('Start here stays closed on first load and is easy to find on desktop and mobile', async ({ page }) => {
+  test.setTimeout(60_000) // First graph initialization can be slow on shared CI runners.
   await page.goto('/universe')
   await expect(page.getByRole('heading', { name: 'What are you preparing for?' })).toHaveCount(0)
   const startHere = page.getByRole('button', { name: 'Open start here' })
