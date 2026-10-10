@@ -50,7 +50,14 @@ export function UniverseOutline({ mode, sources, query, selected, onSelect, acti
   useLayoutEffect(() => {
     if (active) {
       const target = root.current?.querySelector<HTMLElement>('[data-current="true"]')
-      if (target && selected && shouldScroll.current) { shouldScroll.current = false; target.scrollIntoView({ block: 'nearest' }) }
+      if (target && selected && shouldScroll.current && scroll.current) {
+        shouldScroll.current = false
+        // Reveal within the list only; scrollIntoView also moves its hidden workspace ancestors.
+        const item = target.getBoundingClientRect()
+        const viewport = scroll.current.getBoundingClientRect()
+        if (item.top < viewport.top) scroll.current.scrollTop += item.top - viewport.top
+        else if (item.bottom > viewport.bottom) scroll.current.scrollTop += item.bottom - viewport.bottom
+      }
     }
   }, [active, rows, selected])
   useLayoutEffect(() => {

@@ -43,3 +43,19 @@ test('question context stays in Questions and retains the chosen topic', async (
   await reader.getByRole('button',{name:'Close details'}).click()
   await expect(page.getByRole('button',{name:'Accountability and governance',exact:true})).toHaveAttribute('aria-pressed','true')
 })
+
+
+test('opening an unfiltered directory source keeps the entire reader in the viewport', async ({ page }) => {
+  await page.goto('/universe')
+  await page.getByRole('button', { name: 'AI Adoption Guidance', exact: true }).click()
+  const reader = page.getByLabel('Selected node details')
+  await expect(reader.getByRole('heading', { name: 'AI Adoption Guidance', exact: true })).toBeInViewport()
+  await expect(reader.getByRole('button', { name: 'Close details' })).toBeInViewport()
+  await expect.poll(() => reader.evaluate(el => {
+    const rect = el.getBoundingClientRect()
+    const workspace = el.parentElement!
+    return { top: Math.round(rect.top - workspace.getBoundingClientRect().top), bottom: Math.round(rect.bottom - window.innerHeight), scrollTop: workspace.scrollTop, scrollLeft: workspace.scrollLeft }
+  })).toEqual({ top: 0, bottom: 0, scrollTop: 0, scrollLeft: 0 })
+  await reader.getByRole('button', { name: 'Close details' }).click()
+  await expect(page.getByRole('region', { name: 'Universe list' })).toBeVisible()
+})
