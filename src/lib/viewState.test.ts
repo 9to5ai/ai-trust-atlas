@@ -47,3 +47,15 @@ describe('legal effect and sector filters', () => {
     expect(viewUrl(view)).toContain('sector=insurance')
   })
 })
+
+describe('reading-first entry', () => {
+ it('defaults a fresh entry to the list while preserving explicit graph and tour links', () => {
+  expect(readView(new URL('https://atlas.example/universe'),2026).projection).toBe('list')
+  expect(readView(new URL('https://atlas.example/universe?view=atlas'),2026).projection).toBe('atlas')
+  expect(readView(new URL('https://atlas.example/universe?tour=apra-to-controls'),2026).projection).toBe('atlas')
+ })
+ it('round trips a question-context selection without leaving the workspace', () => {
+  const view = readView(new URL('https://atlas.example/questions#/concept/accountability'),2026)
+  expect(pathForView(view)+viewUrl(view)).toBe('/questions?year=2026#/concept/accountability')
+ })
+})

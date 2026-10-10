@@ -15,6 +15,7 @@ import './styles/legacy/questions-workspace.css'
 import './styles/legacy/incidents.css'
 import './styles/legacy/use-cases.css'
 import './styles/bridge.css'
+import './styles/reading.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -6,7 +6,7 @@ import { issuerTypeLabels, legalEffectLabels, sectorLabels } from '../data/sourc
 import { useCaseById, useCasesForNode } from '../data/useCases'
 import { IncidentDetail } from './IncidentDetail'
 import { incidentById, incidentsForNode } from '../data/incidents'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { useSheetDismiss } from '../hooks/useSheetDismiss'
 import { QuestionsPanel } from './LeadershipQuestions'
 import { ArrowRight, ArrowSquareOut, CaretDown, CaretUp, CheckCircle, GitBranch, ShieldCheck, WarningDiamond, X } from '@phosphor-icons/react'
@@ -24,6 +24,9 @@ import { authorityLabels, legalRelationLabel, relationFamilyFor, relationLabels 
 import type { AuthorityClass, ControlObjective, MappingAssertion } from '../types'
 
 type Props = {
+  reading?: boolean
+  onReadWider?: () => void
+  onExploreConnections?: () => void
   selectedNodeId?: string
   onClose: () => void
   onSelectNode: (nodeId: string) => void
@@ -87,7 +90,7 @@ function ControlCards({ controls, onSelectNode, note }: { controls: ControlObjec
   </>
 }
 
-export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, onTrace, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
+export function Inspector({ reading = false, onReadWider, onExploreConnections, selectedNodeId, onClose, onSelectNode, causalLens, onShowRelated, onTrace, mobileExpanded = false, onMobileExpandedChange, navigation, onBack }: Props) {
   const sheet = useSheetDismiss(onClose)
   const [kind, rawId] = selectedNodeId?.split(':') ?? []
   const useCase = kind==='use-case'?useCaseById.get(rawId):undefined
@@ -130,40 +133,41 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
   const mobileTitle = useCase ? `${useCase.company} · ${useCase.title}` : incident?.shortTitle ?? provision?.title ?? instrument?.shortTitle ?? concept?.name ?? riskSubdomain?.name ?? riskDomain?.name ?? control?.name ?? controlFamily?.name ?? domain?.name ?? 'Selected node'
   const mobileKind = useCase ? 'Use case' : incident ? 'Incident' : provision ? `Source ${inferProvisionGranularity(provision)}` : instrument ? authorityLabels[instrument.authorityClass] : concept ? conceptRoleLabels[concept.role] : riskSubdomain ? 'MIT risk type' : riskDomain ? 'MIT risk domain' : control ? 'Control objective' : controlFamily ? 'Control family' : domain ? domainRoleLabels[domain.role] : 'Atlas detail'
 
+  useEffect(() => {
+    if (!reading || !selectedNodeId) return
+    const previous = document.activeElement as HTMLElement | null
+    const frame = requestAnimationFrame(() => {
+      const title = document.querySelector<HTMLElement>('.inspector.reading-view h2')
+      if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); title.closest('.inspector')?.scrollTo?.(0, 0) }
+    })
+    return () => { cancelAnimationFrame(frame); if (previous?.isConnected) previous.focus({ preventScroll: true }) }
+  }, [reading, selectedNodeId])
+
   return <AnimatePresence mode="wait">
-    {selectedNodeId && <motion.aside ref={sheet.ref} style={{ y: sheet.y }} className={mobileExpanded ? 'inspector mobile-expanded' : 'inspector'} key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} aria-label="Selected node details">
+    {selectedNodeId && <motion.aside ref={sheet.ref} style={{ y: sheet.y }} className={`inspector${mobileExpanded || reading ? ' mobile-expanded' : ''}${reading ? ' reading-view' : ''}`} key={selectedNodeId} initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 28 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }} onAnimationComplete={() => { if (reading) { const title = document.querySelector<HTMLElement>('.inspector.reading-view h2'); if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }) } } }} aria-label="Selected node details" id="atlas-reading" onKeyDown={event => { if (reading && event.key === 'Escape') { event.stopPropagation(); onClose() } }}>
       <button className="mobile-inspector-peek" type="button" aria-expanded={mobileExpanded} onClick={() => onMobileExpandedChange?.(!mobileExpanded)}>
         <i aria-hidden="true" />
         <span><small>{mobileKind}</small><strong>{mobileTitle}</strong></span>
         <b>{mobileExpanded ? 'Preview' : 'Read details'} {mobileExpanded ? <CaretDown /> : <CaretUp />}</b>
       </button>
       <button className="inspector-close" type="button" onClick={onClose} aria-label="Close details"><X /></button>
-      <div className="detail-navigation">{onBack&&<button type="button" onClick={onBack}>← Back</button>}{navigation}</div>
-      {!incident&&!useCase&&<div className="evidence-spine-head">
-        <span><i />Evidence behind this item</span>
-        <div className="evidence-split" role="img" aria-label={`${directAssertionCount} source-based and ${synthesisAssertionCount} Atlas interpretation links`}><i className="is-source" style={{ flexGrow: directAssertionCount || 0.02 }} /><i className="is-synthesis" style={{ flexGrow: synthesisAssertionCount || 0.02 }} /></div>
-        <div><small><b className="is-source" />{directAssertionCount} source-based</small><small><b className="is-synthesis" />{synthesisAssertionCount} Atlas interpretation</small>{(instrument?.editorialStatus === 'draft' || provision?.editorialStatus === 'draft') && <DraftBadge />}</div>
-      </div>}
+      <div className="detail-navigation"><div className="reading-actions">{onBack && <button type="button" onClick={onBack}>← Back</button>}{reading ? <button type="button" onClick={onExploreConnections}>Explore connections <ArrowRight /></button> : onReadWider && <button type="button" onClick={onReadWider}>Wider reading view</button>}</div>{navigation}</div>
 
       {useCase&&<UseCaseDetail item={useCase} onSelect={onSelectNode}/>}
-      {linkedUseCases.length>0&&<details className="inspector-section incident-links"><summary>Use cases <small>{linkedUseCases.length}</small></summary>{linkedUseCases.map(i=><button key={i.id} onClick={()=>onSelectNode(`use-case:${i.id}`)}>{i.company} · {i.title} →</button>)}</details>}
       {incident&&<IncidentDetail item={incident} onSelect={onSelectNode}/>}
-      {linkedIncidents.length>0&&<section className="inspector-section incident-links"><h3>Related incidents</h3>{linkedIncidents.map(i=><button key={i.id} onClick={()=>onSelectNode(`incident:${i.id}`)}>{i.shortTitle} →</button>)}</section>}
-      {!incident&&!useCase&&onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
-      {!incident&&!useCase&&selectedNodeId&&onTrace&&<TracePanel key={selectedNodeId} from={selectedNodeId} onShow={onTrace} onSelect={onSelectNode} />}
-
       {riskSubdomain?.controlScope === 'societal' && <p className="section-boundary societal-risk">Largely outside a single organisation’s control. This is a societal-scale risk: the Atlas lists no organisational control objectives for it, though related concepts may still inform policy and engagement.</p>}
       {(kind === 'risk-domain' || kind === 'risk-subdomain') && <p className="section-boundary">Counts use the bundled December 2025 snapshot. MIT’s website describes 1,700+ risks as of our 7 September 2026 review; that newer database has not been imported. <a href={MIT_RISK_SOURCE_URL} target="_blank" rel="noreferrer">See current MIT repository</a>.</p>}
       {instrument && !provision && <>
         <div className="inspector-kicker">{authorityLabels[instrument.authorityClass]}</div>
-        <h2>{instrument.shortTitle}</h2><p className="inspector-full-title">{instrument.title}</p>
+        <h2>{instrument.shortTitle}</h2>{instrument.editorialStatus === 'draft' && <DraftBadge />}<p className="inspector-full-title">{instrument.title}</p>
 
-        <section className="source-overview"><h3>What this says</h3><p>{instrument.summary}</p><h3>Who it concerns</h3><p>{instrument.jurisdiction} · {instrument.sectorIds.map((id) => sectorLabels[id]).join(' · ')}</p><p className="legal-effect"><strong>{legalEffectLabels[instrument.legalEffect]}</strong> · {issuerTypeLabels[instrument.issuerType]}</p><p className="source-review-signal" data-testid="source-review-signal"><strong>Review record</strong> · {sourceFreshnessLabel(instrument)} · {sourceReviewDepthLabel(instrument)}</p><h3>Why it matters</h3><p>{instrument.id === 'apra-cps-234' ? 'Use this when reviewing how an APRA-regulated entity protects information assets, tests security controls and handles incidents involving AI systems or providers.' : reviewPurpose[instrument.authorityClass]}</p></section>
+        <section className="source-overview"><h3>What this says</h3><p>{instrument.summary}</p><p className="source-status">{instrument.status.replaceAll('-', ' ')} · Published {instrument.published}{instrument.effective ? ` · Effective: ${instrument.effective}` : ''}</p><h3>Who it concerns</h3><p>{instrument.jurisdiction} · {instrument.sectorIds.map((id) => sectorLabels[id]).join(' · ')}</p><p className="legal-effect"><strong>{legalEffectLabels[instrument.legalEffect]}</strong> · {issuerTypeLabels[instrument.issuerType]}</p><p className="source-review-signal" data-testid="source-review-signal"><strong>Review record</strong> · {sourceFreshnessLabel(instrument)} · {sourceReviewDepthLabel(instrument)}</p><h3>Why it matters</h3><p>{instrument.id === 'apra-cps-234' ? 'Use this when reviewing how an APRA-regulated entity protects information assets, tests security controls and handles incidents involving AI systems or providers.' : reviewPurpose[instrument.authorityClass]}</p></section>
 
         <div className="inspector-actions"><a href={instrument.officialUrl} target="_blank" rel="noreferrer">Official source <ArrowSquareOut /></a></div>
+        <details className="inspector-section"><summary>Scope, dates and authority</summary>        <div className="metadata-grid"><div><span>Issuer</span><strong>{instrument.issuer}</strong></div><div><span>Country or region</span><strong>{instrument.jurisdiction}</strong></div><div><span>Status</span><strong>{instrument.status.replaceAll('-', ' ')}</strong></div><div><span>Legal effect</span><strong>{legalEffectLabels[instrument.legalEffect]}</strong></div><div><span>Issuer type</span><strong>{issuerTypeLabels[instrument.issuerType]}</strong></div><div><span>Last verified</span><strong>{instrument.lastVerified}</strong></div></div>        <div className="boundary-note"><CheckCircle /><span><strong>{instrument.authorityNote}</strong><br />{instrument.applicability}</span></div><p className="section-boundary">Published: {instrument.published}{instrument.effective ? ` · Effective: ${instrument.effective}` : ''}. Last verified refers to the substantive summary; later targeted checks are recorded separately in Dates & changes.</p>{instrument.supersedes && <div className="supersedes"><h4>Replaces</h4><ul>{instrument.supersedes.map((prior) => <li key={prior.title}><strong>{prior.url ? <a href={prior.url} target="_blank" rel="noreferrer">{prior.title}</a> : prior.title}</strong> — {prior.note}</li>)}</ul></div>}</details>
         {sourceRequirements.length > 0 && <details className="inspector-section requirements-section" open><summary>What it requires <small>{sourceRequirements.length}</small></summary><p className="section-boundary">Paraphrased from the source; check the original wording. Control links are Atlas suggestions, not findings.</p><RequirementList items={sourceRequirements} onSelectNode={onSelectNode} /></details>}
         <QuestionsPanel kind="instrument" id={instrument.id} />
-        <details className="inspector-section"><summary>Scope, dates and authority</summary>        <div className="metadata-grid"><div><span>Issuer</span><strong>{instrument.issuer}</strong></div><div><span>Country or region</span><strong>{instrument.jurisdiction}</strong></div><div><span>Status</span><strong>{instrument.status.replaceAll('-', ' ')}</strong></div><div><span>Legal effect</span><strong>{legalEffectLabels[instrument.legalEffect]}</strong></div><div><span>Issuer type</span><strong>{issuerTypeLabels[instrument.issuerType]}</strong></div><div><span>Last verified</span><strong>{instrument.lastVerified}</strong></div></div>        <div className="boundary-note"><CheckCircle /><span><strong>{instrument.authorityNote}</strong><br />{instrument.applicability}</span></div><p className="section-boundary">Published: {instrument.published}{instrument.effective ? ` · Effective: ${instrument.effective}` : ''}. Last verified refers to the substantive summary; later targeted checks are recorded separately in Dates & changes.</p>{instrument.supersedes && <div className="supersedes"><h4>Replaces</h4><ul>{instrument.supersedes.map((prior) => <li key={prior.title}><strong>{prior.url ? <a href={prior.url} target="_blank" rel="noreferrer">{prior.title}</a> : prior.title}</strong> — {prior.note}</li>)}</ul></div>}</details>
+
         {legalFoundations.length > 0 && <details className="inspector-section legal-foundations" aria-label="Legal foundations"><summary>Legal foundations</summary><div className="relation-list">{legalFoundations.map(({ relation, instrument: related }) => <div key={relation.id}><button type="button" onClick={() => related && onSelectNode(`instrument:${related.id}`)}><span>{legalRelationLabel(relation.type, relation.sourceId === instrument.id)}</span><strong>{related?.shortTitle}</strong><p>{relation.explanation}</p></button>{relation.citations?.map((citation, index) => <a key={index} className="text-button" href={citation.url} target="_blank" rel="noreferrer">{citation.locator} <ArrowSquareOut /></a>)}</div>)}</div></details>}
         <details className="inspector-section"><summary>Associated trust concepts <small>{instrument.conceptIds.length}</small></summary><p className="section-boundary">Atlas mappings, not claims that the source fully covers each concept.</p><div className="concept-chips">{instrument.conceptIds.map((conceptId) => { const item = concepts.find((candidate) => candidate.id === conceptId); return item ? <button type="button" key={conceptId} onClick={() => onSelectNode(`concept:${conceptId}`)}>{item.name}</button> : null })}</div></details>
         <details className="inspector-section"><summary>Explained source relationships <small>{otherRelations.length}</small></summary><div className="relation-list">{otherRelations.map(({ relation, instrument: related }) => <button type="button" key={relation.id} onClick={() => related && onSelectNode(`instrument:${related.id}`)}><span><GitBranch /> {relationFamilyFor(relation.type)}</span><strong>{related?.shortTitle}</strong><p>{relation.explanation}</p><small>{relationLabels[relation.type]} · {relation.basis.replaceAll('-', ' ')} · {relation.confidence} confidence</small><small>Anchors: {relation.sourceAnchors.join(' / ')}</small></button>)}{otherRelations.length === 0 && <p className="empty-copy">No curated cross-source relationship is recorded yet.</p>}</div></details>
@@ -212,6 +216,17 @@ export function Inspector({ selectedNodeId, onClose, onSelectNode, causalLens, o
         <section className="inspector-section"><h3>Trust concepts supported <small>{control.conceptIds.length}</small></h3><div className="concept-chips">{control.conceptIds.map((conceptId) => { const item = concepts.find((candidate) => candidate.id === conceptId); return item ? <button type="button" key={item.id} onClick={() => onSelectNode(`concept:${item.id}`)}>{item.name}</button> : null })}</div></section>
         <section className="inspector-section"><h3>Source foundations <small>{control.sourceRefs.length}</small></h3><div className="source-ref-list">{control.sourceRefs.map((source, index) => <a href={source.url} target="_blank" rel="noreferrer" key={`${source.instrumentId}:${source.locator}:${index}`}><span>{source.sourceKind.replaceAll('-', ' ')}</span><strong>{source.sourceTitle}</strong><p>{source.locator}</p><ArrowSquareOut /></a>)}</div></section>
       </>}
+
+      {!incident&&!useCase&&<div className="evidence-spine-head">
+        <span><i />Evidence behind this item</span>
+        <div className="evidence-split" role="img" aria-label={`${directAssertionCount} source-based and ${synthesisAssertionCount} Atlas interpretation links`}><i className="is-source" style={{ flexGrow: directAssertionCount || 0.02 }} /><i className="is-synthesis" style={{ flexGrow: synthesisAssertionCount || 0.02 }} /></div>
+        <div><small><b className="is-source" />{directAssertionCount} source-based</small><small><b className="is-synthesis" />{synthesisAssertionCount} Atlas interpretation</small>{(instrument?.editorialStatus === 'draft' || provision?.editorialStatus === 'draft') && <DraftBadge />}</div>
+      </div>}
+
+      {linkedUseCases.length>0&&<details className="inspector-section incident-links"><summary>Use cases <small>{linkedUseCases.length}</small></summary>{linkedUseCases.map(i=><button key={i.id} onClick={()=>onSelectNode(`use-case:${i.id}`)}>{i.company} · {i.title} →</button>)}</details>}
+      {linkedIncidents.length>0&&<section className="inspector-section incident-links"><h3>Related incidents</h3>{linkedIncidents.map(i=><button key={i.id} onClick={()=>onSelectNode(`incident:${i.id}`)}>{i.shortTitle} →</button>)}</section>}
+      {!incident&&!useCase&&onShowRelated && <button className="inspector-related" type="button" onClick={onShowRelated}>Related items <ArrowRight /></button>}
+      {!incident&&!useCase&&selectedNodeId&&onTrace&&<TracePanel key={selectedNodeId} from={selectedNodeId} onShow={onTrace} onSelect={onSelectNode} />}
 
       {nodeAssertions.length > 0 && !control && <details className="inspector-section assertion-section"><summary>How these connections were made <small>{nodeAssertions.length} shown</small></summary><p className="section-boundary">See why these items are connected, who made the connection and which sources support it.</p>{nodeAssertions.map((assertion) => <AssertionMeta assertion={assertion} key={assertion.id} />)}</details>}
     </motion.aside>}

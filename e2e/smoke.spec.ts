@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 const routes = [
-  { path: '/universe', label: /Interactive orbital map/ },
+  { path: '/universe', region: 'Universe list' },
   { path: '/questions', region: 'Questions workspace' },
   { path: '/terms', heading: 'Licence and terms' },
   { path: '/cases', heading: /See how the work is changing/ },
@@ -102,7 +102,7 @@ test.describe('WebGL universe', () => {
   test.skip(({ isMobile }) => isMobile, 'Covered on desktop')
   test('renders the observatory and selects nodes from the keyboard', async ({ page }) => {
     const errors = collectErrors(page)
-    await page.goto('/universe')
+    await page.goto('/universe?view=atlas')
     const stage = page.locator('.universe-webgl')
     await expect(stage).toBeVisible()
     await page.waitForTimeout(1500)
@@ -125,7 +125,7 @@ test.describe('WebGL universe', () => {
       const raf = window.requestAnimationFrame.bind(window)
       window.requestAnimationFrame = (callback) => raf((time) => { probe.frames.add(time); callback(time) })
     })
-    await page.goto('/universe')
+    await page.goto('/universe?view=atlas')
     await page.waitForTimeout(7500)
     const perFrame = await page.evaluate(async () => {
       const probe = (window as unknown as { __probe: { clears: number; frames: Set<number> } }).__probe
