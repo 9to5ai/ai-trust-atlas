@@ -1,3 +1,4 @@
+import { searchSources } from '../../lib/sourceSearch'
 import { legalEffectLabels, matchesSourceFacets, sectorLabels } from '../../data/sourceMetadata'
 import type { LegalEffect, SectorId } from '../../types'
 import { UseCasesView } from '../../components/UseCasesView'
@@ -9,8 +10,7 @@ import { objectById } from '../../lib/workspace'
 import { UniverseOutline } from '../../components/UniverseOutline'
 import { CaretLeft, CaretRight, ClockCounterClockwise, Compass, Faders, MagnifyingGlass, X } from '@phosphor-icons/react'
 import { AnimatePresence } from 'motion/react'
-import { useEffect, useMemo, useState, useRef } from 'react'
-import { SearchDialog } from '../../components/SearchDialog'
+import { lazy, Suspense, useEffect, useMemo, useState, useRef } from 'react'
 import { FocusList } from '../../components/FocusList'
 import { Universe } from '../../universe/Universe'
 import { TourPlayer } from '../../tour/TourPlayer'
@@ -21,7 +21,6 @@ import { findPaths } from '../../lib/workspace'
 import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
-import { StartHere } from '../../components/StartHere'
 import { MapReadingGuide } from '../../components/MapReadingGuide'
 import { TemporalLens } from '../../components/TemporalLens'
 import { controlObjectives } from '../../data/controls'
@@ -29,6 +28,9 @@ import { instruments } from '../../data/instruments'
 import { countForCausalLens, mappedRiskRecordCount, riskDomainById, riskSubdomains, type CausalLens } from '../../data/mitRiskTaxonomy'
 import { buildGraphModel, type LayoutMode } from '../../lib/graphModel'
 import type { AuthorityClass, Instrument } from '../../types'
+
+const SearchDialog = lazy(() => import('../../components/SearchDialog').then(m => ({ default: m.SearchDialog })))
+const StartHere = lazy(() => import('../../components/StartHere').then(m => ({ default: m.StartHere })))
 
 const publicationYears = instruments.map((instrument) => Number.parseInt(instrument.published, 10)).filter(Number.isFinite)
 const maximumPublicationYear = Math.max(...publicationYears)
@@ -60,6 +62,7 @@ export function UniverseWorkspace() {
   const [timeCutoff, setTimeCutoff] = useState(initialView.year)
   const [projection, setProjection] = useState<'atlas' | 'focus' | 'list' | 'questions' | 'use-cases'>(initialView.projection)
   const graphNavigation = useRef<UniverseNavigation | null>(null)
+  useEffect(() => { if (presenting) { setProjection('atlas'); setWideReading(false) } }, [presenting])
   const changeProjection = (next: 'atlas' | 'list' | 'questions' | 'use-cases') => {
     if (next === projection) return
     rememberView()
@@ -68,12 +71,14 @@ export function UniverseWorkspace() {
     setProjection(next)
   }
   const [focusAnchorId, setFocusAnchorId] = useState<string | undefined>(initialView.anchor)
+  const [wideReading, setWideReading] = useState(false)
+  const reading = !!selectedNodeId && (wideReading || projection === 'list' || projection === 'questions' || projection === 'use-cases')
   const [mobileInspectorExpanded, setMobileInspectorExpanded] = useState(false)
 
   const filteredInstruments = useMemo(() => {
     const normalized = query.toLowerCase().trim()
     return instruments.filter((instrument) => {
-      const matchesQuery = !normalized || [instrument.title, instrument.shortTitle, instrument.issuer, instrument.jurisdiction, instrument.summary, ...instrument.sectors].join(' ').toLowerCase().includes(normalized)
+      const matchesQuery = !normalized || searchSources([instrument], normalized).length > 0
       const matchesAuthority = authorityClasses.size === 0 || authorityClasses.has(instrument.authorityClass)
       const matchesRegion = regions.size === 0 || regions.has(instrument.region)
       const year = Number.parseInt(instrument.published, 10)
@@ -109,7 +114,7 @@ export function UniverseWorkspace() {
   const rememberView = () => setTrail(items => [...items, {...currentView(), scroll:document.querySelector('.outline-scroll')?.scrollTop ?? 0, pose:graphNavigation.current?.capture()}].slice(-30))
   const restoreView = (view: AtlasView) => {
     setShowUseCases(view.useCases??false); setShowIncidents(view.incidents??false); setSelectedNodeId(view.selected); setLayout(view.layout); setProjection(view.projection); setQuery(view.query)
-    setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setEffects(new Set(view.effects ?? [])); setSectors(new Set(view.sectors ?? [])); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false)
+    setAuthorityClasses(new Set(view.authorities)); setRegions(new Set(view.regions)); setEffects(new Set(view.effects ?? [])); setSectors(new Set(view.sectors ?? [])); setTimeCutoff(view.year); setFocusAnchorId(view.anchor); setMobileInspectorExpanded(false); setWideReading(false)
   }
   const goBack = (index = trail.length-1) => {
     const view=trail[index]; if(!view)return
@@ -119,23 +124,31 @@ export function UniverseWorkspace() {
   const clearFilters = () => {setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setEffects(new Set());setSectors(new Set());setTimeCutoff(maximumPublicationYear)}
   const selectNode = (nodeId?: string) => {
     if(nodeId !== selectedNodeId) rememberView()
+    if (projection === 'questions' || projection === 'use-cases' || projection === 'list') {
+      setSelectedNodeId(nodeId); setFocusAnchorId(nodeId); return
+    }
     if(nodeId?.startsWith('use-case:')){setLayout('ontology');setProjection('atlas');setNewsFocus(n=>n+1)}
     if(nodeId?.startsWith('incident:')){setShowIncidents(true);setLayout('ontology');setProjection('atlas')}
     if (!nodeId) {
+      setWideReading(false)
       setSelectedNodeId(undefined)
       setFocusAnchorId(undefined)
       setProjection(current => current === 'list' ? 'list' : 'atlas')
       setMobileInspectorExpanded(false)
       return
     }
-    if (projection !== 'list') {
     if (nodeId?.startsWith('risk-')) setLayout('risk')
     if (nodeId?.startsWith('control-')) setLayout('controls')
     if ((layout === 'risk' || layout === 'controls') && (nodeId?.startsWith('instrument:') || nodeId?.startsWith('provision:') || nodeId?.startsWith('concept:') || nodeId?.startsWith('domain:'))) setLayout('ontology')
-    }
     setSelectedNodeId(nodeId)
     setFocusAnchorId(nodeId)
     setProjection(current => (nodeId.startsWith('incident:')||nodeId.startsWith('use-case:'))?'atlas':current === 'list' ? 'list' : 'atlas')
+  }
+
+  const exploreConnections = () => {
+    rememberView(); setWideReading(false); setProjection('atlas');
+    setLayout(selectedNodeId?.startsWith('risk-') ? 'risk' : selectedNodeId?.startsWith('control-') ? 'controls' : 'ontology');
+    setNewsFocus(n => n + 1)
   }
 
   const selectFocusItem = (nodeId: string) => {
@@ -230,19 +243,21 @@ export function UniverseWorkspace() {
 
   return (
     <main className={`atlas-shell${sidebarCollapsed || presenting ? ' sidebar-collapsed' : ''}${presenting ? ' is-presenting' : ''}${activeTour ? ' is-touring' : ''}${projection==='questions'||projection==='use-cases'?' questions-mode':''}${projection==='use-cases'?' use-cases-mode':''}`} id="main-content">
-      <a className="skip-link" href="#atlas-graph">Skip to the map</a>
+      <a className="skip-link" href={reading ? '#atlas-reading' : '#atlas-graph'}>Skip to content</a>
       <RouteActions>
-        {projection !== 'questions' && projection !== 'use-cases' && <button className="shell-action start-here-action" type="button" onClick={() => { setProjection('atlas'); setStartHereVisible(true) }} aria-label="Open start here"><Compass size={16}/><span>Start here</span></button>}
+        {projection !== 'questions' && projection !== 'use-cases' && <button className="shell-action start-here-action" type="button" onClick={() => { setWideReading(false); setSelectedNodeId(undefined); setProjection('atlas'); setStartHereVisible(true) }} aria-label="Open start here"><Compass size={16}/><span>Start here</span></button>}
         <button className="shell-action" type="button" onClick={() => setSearchOpen(true)} aria-label="Search everything"><MagnifyingGlass size={16}/><span>Search</span><kbd>⌘K</kbd></button>
         <button className={`shell-action${temporalActive ? ' header-active' : ''}`} aria-pressed={showTime} aria-label={`What’s new${temporalActive ? ` · ${timeCutoff}` : ''}`} type="button" onClick={() => setShowTime((open) => !open)}><ClockCounterClockwise size={16}/><span>What’s new{temporalActive ? ` · ${timeCutoff}` : ''}</span></button>
-        {projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}
+        {!reading&&projection!=='questions'&&projection!=='use-cases'&&<button className="shell-action mobile-control-button" aria-label="Explore" aria-expanded={mobileControls} type="button" onClick={() => setMobileControls((open) => !open)}>{mobileControls ? <X size={16}/> : <Faders size={16}/>}</button>}
       </RouteActions>
 
-      <div className={selectedNodeId && projection!=='questions' && projection!=='use-cases' ? `atlas-workspace has-selection${mobileInspectorExpanded ? ' mobile-details-open' : ''}` : 'atlas-workspace'}>
+      <div className={`atlas-workspace${selectedNodeId ? ' has-selection' : ''}${reading ? ' reading-mode' : ''}${mobileInspectorExpanded ? ' mobile-details-open' : ''}`}>
         <div className={mobileControls ? 'sidebar-mobile open' : 'sidebar-mobile'} inert={!mobileControls} aria-hidden={!mobileControls}>
           <Sidebar
+          inactive={reading}
+            showResults
             query={query}
-            onQueryChange={setQuery}
+            onQueryChange={value => { setQuery(value); if (value.trim()) setProjection('list') }}
             layout={layout}
             onLayoutChange={changeLayout}
             authorityClasses={authorityClasses}
@@ -263,8 +278,9 @@ export function UniverseWorkspace() {
             />
         </div>
         <Sidebar
+          inactive={reading}
           query={query}
-          onQueryChange={setQuery}
+          onQueryChange={value => { setQuery(value); if (value.trim()) setProjection('list') }}
           layout={layout}
           onLayoutChange={changeLayout}
           authorityClasses={authorityClasses}
@@ -284,7 +300,7 @@ export function UniverseWorkspace() {
           onStartTour={(id) => setTour({ id, step: 0 })}
         />
 
-        <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph">
+        <section className={`graph-region${projection === 'focus' ? ' is-focus-list' : ''}${projection === 'list' ? ' is-outline' : ''}`} id="atlas-graph" aria-label="AI Trust ontology graph" inert={reading || undefined}>
           <div className="view-actions">
             {trail.length>0&&<button type="button" onClick={()=>goBack()} aria-label="Back to previous view"><CaretLeft/>Back</button>}
           </div>
@@ -305,12 +321,12 @@ export function UniverseWorkspace() {
           {!activeTour && selectedNodeId && selectedGraphNode && projection === 'atlas' && <div className="path-narrative" aria-live="polite">
             <span>You’re exploring</span><strong>{selectedGraphNode.shortLabel}</strong><small>Connected items are highlighted. Open an item to learn more.</small>
           </div>}
-          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas'} highlightIds={highlightIds} />
+          <Universe navigationRef={graphNavigation} focusRequest={newsFocus} showSourceLabels={authorityClasses.size > 0 && (layout === 'ontology' || layout === 'authority')} model={graphModel} selectedNodeId={selectedNodeId} onSelect={selectNode} inactive={projection !== 'atlas' || reading} highlightIds={highlightIds} />
           {presenting && !activeTour && projection === 'atlas' && <PresenterDock onStart={(id) => setTour({ id, step: 0 })} onExit={() => setPresenting(false)} />}
           {activeTour && tour && <TourPlayer tour={activeTour} step={tour.step} onStep={(step) => setTour({ id: activeTour.id, step: Math.max(0, Math.min(activeTour.steps.length - 1, step)) })} onExit={() => setTour(undefined)} onShowList={() => { setTour(undefined); changeProjection('list') }} />}
           {projection!=='questions'&&projection!=='use-cases'&&<div className="projection-switch" role="group" aria-label="Universe display"><button type="button" aria-pressed={projection === 'atlas'} onClick={() => changeProjection('atlas')}>Universe</button><button type="button" aria-pressed={projection === 'list'} onClick={() => changeProjection('list')}>List</button></div>}
-          <UseCasesView active={projection==='use-cases'} onExplore={id=>{clearFilters();selectNode(id)}} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
-          <QuestionsView active={projection==='questions'} onExplore={id=>{setQuery('');setAuthorityClasses(new Set());setRegions(new Set());setEffects(new Set());setSectors(new Set());setTimeCutoff(maximumPublicationYear);selectNode(id)}}/>
+          <UseCasesView active={projection==='use-cases'} onExplore={selectNode} onShowUniverse={()=>{clearFilters();setSelectedNodeId(undefined);setShowUseCases(true);setLayout('ontology');changeProjection('atlas')}}/>
+          <QuestionsView active={projection==='questions'} onExplore={selectNode}/>
           <UniverseOutline mode={layout} sources={focusEligibleInstruments} query={query} selected={selectedNodeId} onSelect={selectNode} active={projection === 'list'} />
           <AnimatePresence mode="wait">
             {projection === 'focus' && focusAnchorId && (
@@ -325,7 +341,7 @@ export function UniverseWorkspace() {
               />
             )}
           </AnimatePresence>
-          {startHereVisible && !activeTour && projection === 'atlas' && <StartHere onStartTour={(id) => { dismissStartHere(); setTour({ id, step: 0 }) }} onPrepareQuestions={() => { dismissStartHere(); changeProjection('questions') }} onSearch={() => { dismissStartHere(); setSearchOpen(true) }} onDismiss={dismissStartHere} />}
+          {startHereVisible && !activeTour && projection === 'atlas' && <Suspense fallback={null}><StartHere onStartTour={(id) => { dismissStartHere(); setTour({ id, step: 0 }) }} onPrepareQuestions={() => { dismissStartHere(); changeProjection('questions') }} onSearch={() => { dismissStartHere(); setSearchOpen(true) }} onDismiss={dismissStartHere} /></Suspense>}
           <div className="semantic-key" role="group" aria-label="Graph legend">
             {(showUseCases||selectedNodeId?.startsWith('use-case:'))&&<span><i className="shape-use-case"/>Use case</span>}
             {showIncidents && <span><i className="shape-incident" />Incident</span>}
@@ -352,21 +368,24 @@ export function UniverseWorkspace() {
           </div>
         </section>
 
-        {projection!=='questions'&&projection!=='use-cases'&&<Inspector
+        {<Inspector
+          reading={reading}
+          onReadWider={() => setWideReading(true)}
+          onExploreConnections={exploreConnections}
           navigation={<nav className="detail-trail" aria-label="Recently explored">{trail.filter(v=>v.selected&&v.selected!==selectedNodeId).slice(-2).map((v)=>{const index=trail.indexOf(v);return <button key={index} onClick={()=>goBack(index)}>{objectById.get(v.selected!)?.name}<CaretRight/></button>})}<span>{selectedNodeId?objectById.get(selectedNodeId)?.name:''}</span></nav>}
           onBack={trail.length?()=>goBack():undefined}
           selectedNodeId={selectedNodeId}
-          onClose={() => selectNode(undefined)}
+          onClose={() => { setWideReading(false); selectNode(undefined) }}
           onSelectNode={selectNode}
           causalLens={causalLens}
-          onTrace={setTracePath}
-          onShowRelated={selectedNodeId ? () => { rememberView(); setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
+          onTrace={ids => { setTracePath(ids); if (reading) exploreConnections() }}
+          onShowRelated={selectedNodeId ? () => { setWideReading(false); rememberView(); setFocusAnchorId(selectedNodeId); setProjection('focus'); setMobileInspectorExpanded(false) } : undefined}
           mobileExpanded={mobileInspectorExpanded}
           onMobileExpandedChange={setMobileInspectorExpanded}
         />}
       </div>
 
-      {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/>}
+      {searchOpen && <Suspense fallback={null}><SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/></Suspense>}
 
       <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set());setEffects(new Set());setSectors(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} />
 

@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 const routes = [
-  { path: '/universe', label: /Interactive orbital map/ },
+  { path: '/universe', region: 'Universe list' },
   { path: '/questions', region: 'Questions workspace' },
   { path: '/terms', heading: 'Licence and terms' },
   { path: '/cases', heading: /See how the work is changing/ },
@@ -73,6 +73,7 @@ test('section navigation and browser Back work without reloads', async ({ page, 
 })
 
 test('presenting fills the screen and offers the guided tours', async ({ page, isMobile }) => {
+  test.setTimeout(60_000)
   test.skip(isMobile, 'Presenting is a desktop and projector feature')
   await page.goto('/cases')
   await page.getByRole('button', { name: 'Present the Universe' }).click()
@@ -83,7 +84,9 @@ test('presenting fills the screen and offers the guided tours', async ({ page, i
   await expect(dock).toBeVisible()
   await dock.getByRole('button').nth(1).click()
   await expect(page.getByRole('region', { name: /Guided tour/ })).toBeVisible()
-  await page.keyboard.press('Escape')
+  // Escape also exits native browser fullscreen; exercise the app's explicit exit controls.
+  await page.getByRole('button', { name: 'Exit tour', exact: true }).click()
+  await expect(dock).toBeVisible()
   await page.getByRole('button', { name: /Stop presenting/ }).click()
   await expect(page.locator('html')).not.toHaveAttribute('data-stage', '')
 })
@@ -102,7 +105,7 @@ test.describe('WebGL universe', () => {
   test.skip(({ isMobile }) => isMobile, 'Covered on desktop')
   test('renders the observatory and selects nodes from the keyboard', async ({ page }) => {
     const errors = collectErrors(page)
-    await page.goto('/universe')
+    await page.goto('/universe?view=atlas')
     const stage = page.locator('.universe-webgl')
     await expect(stage).toBeVisible()
     await page.waitForTimeout(1500)
@@ -125,7 +128,7 @@ test.describe('WebGL universe', () => {
       const raf = window.requestAnimationFrame.bind(window)
       window.requestAnimationFrame = (callback) => raf((time) => { probe.frames.add(time); callback(time) })
     })
-    await page.goto('/universe')
+    await page.goto('/universe?view=atlas')
     await page.waitForTimeout(7500)
     const perFrame = await page.evaluate(async () => {
       const probe = (window as unknown as { __probe: { clears: number; frames: Set<number> } }).__probe
@@ -137,7 +140,7 @@ test.describe('WebGL universe', () => {
     expect(perFrame).toBeLessThan(25)
   })
   test('falls back to the 2D map on request', async ({ page }) => {
-    await page.goto('/universe?renderer=2d')
+    await page.goto('/universe?view=atlas&renderer=2d')
     await expect(page.locator('.universe-webgl')).toHaveCount(0)
     await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
   })

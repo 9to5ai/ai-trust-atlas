@@ -1,12 +1,13 @@
 import { GithubLogo, Info, List as MenuIcon, MagnifyingGlass, ProjectorScreen, X } from '@phosphor-icons/react'
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { lazy, Suspense, createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AtlasMark } from '../components/AtlasMark'
-import { SearchDialog } from '../components/SearchDialog'
 import { isPresenting, setPresenting, usePresenting } from './presenting'
 import { Link, navigate, usePathname } from './router'
 import { metaFor } from './pageMeta'
 import styles from './AppShell.module.css'
+
+const SearchDialog = lazy(() => import('../components/SearchDialog').then(m => ({ default: m.SearchDialog })))
 
 export const navItems = [
   { to: '/universe', label: 'Universe', match: ['/universe'] },
@@ -100,7 +101,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <RouteActionsSlot.Provider value={slot}>
         <div className={styles.route}>{children}</div>
       </RouteActionsSlot.Provider>
-      {searchOpen && <SearchDialog onClose={() => setSearchOpen(false)} onSelect={(id) => { setSearchOpen(false); navigate(`/universe${hashPath(id)}`) }} />}
+      {searchOpen && <Suspense fallback={null}><SearchDialog onClose={() => setSearchOpen(false)} onSelect={(id) => { setSearchOpen(false); navigate(`/universe${hashPath(id)}`) }} /></Suspense>}
     </div>
   )
 }

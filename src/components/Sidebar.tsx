@@ -9,6 +9,8 @@ import type { LayoutMode } from '../lib/graphModel'
 import type { AuthorityClass, ControlObjective, Instrument, LegalEffect, RiskSubdomain, SectorId } from '../types'
 
 type Props = {
+  inactive?: boolean
+  showResults?: boolean
   query: string
   onQueryChange: (query: string) => void
   layout: LayoutMode
@@ -30,7 +32,7 @@ type Props = {
   onStartTour: (tourId: string) => void
 }
 
-export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, effects, onToggleEffect, sectors, onToggleSector, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
+export function Sidebar({ inactive = false, showResults = false, query, onQueryChange, layout, onLayoutChange, authorityClasses, onToggleAuthority, regions, onToggleRegion, effects, onToggleEffect, sectors, onToggleSector, results, onSelectInstrument, riskResults, controlResults, onSelectRisk, onSelectControl, onStartTour }: Props) {
   const { audience } = useBrief()
   const featuredTour = recommendedTour(audience)
   const moreTours = tours.filter((tour) => tour.id !== featuredTour.id)
@@ -42,14 +44,14 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
   const extraFilterCount = regions.size + effects.size
 
   return (
-    <aside className="sidebar" aria-label="Atlas controls">
+    <aside className="sidebar" aria-label="Atlas controls" inert={inactive || undefined}>
       <div className="search-wrap">
         <MagnifyingGlass aria-hidden="true" />
         <input type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder={placeholder} aria-label="Search the atlas" />
         {query && <kbd>{resultCount}</kbd>}
       </div>
 
-      {query && (
+      {query && showResults && (
         <div className="search-results" aria-label="Search results">
           {isRiskView ? riskResults.slice(0, 8).map((risk) => (
             <button type="button" key={risk.id} onClick={() => onSelectRisk(risk.id)}><strong>{risk.ref} · {risk.name}</strong><span>{risk.recordCount} mapped MIT records</span></button>
@@ -62,25 +64,6 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
         </div>
       )}
 
-      <section className="control-section tour-section">
-        <div className="control-title"><Compass /> <span>Guided start</span></div>
-        <button type="button" className="tour-feature" onClick={() => onStartTour(featuredTour.id)}>
-          <strong>{featuredTour.title}</strong>
-          <small>Recommended for {featuredTour.audience}</small>
-          <small>{featuredTour.steps.length} steps · about {featuredTour.minutes} min</small>
-        </button>
-        <details className="tour-more">
-          <summary>More tours ({moreTours.length})</summary>
-          <div className="tour-list">
-            {moreTours.map((tour) => (
-              <button type="button" key={tour.id} onClick={() => onStartTour(tour.id)}>
-                <strong>{tour.title}</strong>
-                <small>{tour.steps.length} steps · about {tour.minutes} min</small>
-              </button>
-            ))}
-          </div>
-        </details>
-      </section>
 
       <section className="control-section">
         <div className="control-title"><Atom /> <span>Explore by</span></div>
@@ -93,27 +76,27 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
       </section>
 
       {!isRiskView && !isControlView && (
-        <section className="control-section filter-section">
-          <div className="control-title"><Funnel /> <span>Source type</span><small>{authorityClasses.size || 'all'}</small></div>
+        <details className="control-section filter-section">
+          <summary className="control-title"><Funnel /> <span>Source type</span><small>{authorityClasses.size || 'all'}</small></summary>
           <div className="filter-list">
             {authorityOrder.map((authority) => (
               <label key={authority}><input type="checkbox" checked={authorityClasses.has(authority)} onChange={() => onToggleAuthority(authority)} /><span>{authorityLabels[authority]}</span></label>
             ))}
           </div>
-        </section>
+        </details>
       )}
 
       {!isRiskView && !isControlView && (
         <>
-          <section className="control-section filter-section">
-            <div className="control-title"><Funnel /> <span>Applies to</span><small>{sectors.size || 'all'}</small></div>
+          <details className="control-section filter-section">
+            <summary className="control-title"><Funnel /> <span>Applies to</span><small>{sectors.size || 'all'}</small></summary>
             <div className="filter-list">
               {sectorFilterOrder.map((sector) => (
                 <label key={sector}><input type="checkbox" checked={sectors.has(sector)} onChange={() => onToggleSector(sector)} /><span>{sectorLabels[sector]}</span></label>
               ))}
             </div>
             {sectors.size > 0 && <p className="control-note">Sector-specific sources only; cross-sector sources are hidden.</p>}
-          </section>
+          </details>
           <details className="control-section filter-section progressive-filters" open={moreFiltersOpen} onToggle={(event) => setMoreFiltersOpen(event.currentTarget.open)}>
             <summary className="control-title"><Funnel /> <span>Refine</span><small>{extraFilterCount ? `${extraFilterCount} active · ${resultCount} results` : `${resultCount} results`}</small></summary>
             <button type="button" className="clear-extra-filters" disabled={!extraFilterCount} onClick={() => { effects.forEach(onToggleEffect); regions.forEach(onToggleRegion) }}>Reset filters</button>
@@ -136,6 +119,26 @@ export function Sidebar({ query, onQueryChange, layout, onLayoutChange, authorit
           </details>
         </>
       )}
+
+      <details className="control-section tour-section">
+        <summary className="control-title"><Compass /> <span>Take a guided tour</span></summary>
+        <button type="button" className="tour-feature" onClick={() => onStartTour(featuredTour.id)}>
+          <strong>{featuredTour.title}</strong>
+          <small>Recommended for {featuredTour.audience}</small>
+          <small>{featuredTour.steps.length} steps · about {featuredTour.minutes} min</small>
+        </button>
+        <details className="tour-more">
+          <summary>More tours ({moreTours.length})</summary>
+          <div className="tour-list">
+            {moreTours.map((tour) => (
+              <button type="button" key={tour.id} onClick={() => onStartTour(tour.id)}>
+                <strong>{tour.title}</strong>
+                <small>{tour.steps.length} steps · about {tour.minutes} min</small>
+              </button>
+            ))}
+          </div>
+        </details>
+      </details>
 
       <p className="sidebar-licence">© 2026 Momo &amp; Ray · <Link to="/terms">Licence and terms</Link></p>
     </aside>

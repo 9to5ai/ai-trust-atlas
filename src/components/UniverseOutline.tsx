@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { arcticAccents as accents } from '../lib/nodeStyle'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useReducedMotion } from 'motion/react'
@@ -5,10 +6,12 @@ import { CaretRight, ArrowsOutLineVertical, Crosshair } from '@phosphor-icons/re
 import { buildOutline, buildSourceDirectory, outlineTrail, flattenOutline, pathToNode } from '../lib/outlineModel'
 import type { Instrument } from '../types'
 import type { LayoutMode } from '../lib/graphModel'
+
+const SourceSearchResults = lazy(() => import('./SourceSearchResults').then(m => ({ default: m.SourceSearchResults })))
 export const NodeSymbol = ({ kind, color }: { kind: string; color: string }) => <i aria-hidden="true" className={`outline-symbol kind-${kind}`} style={{ '--node-color': accents[color] ?? color } as CSSProperties}><b /></i>
 
 export function UniverseOutline({ mode, sources, query, selected, onSelect, active }: { mode: LayoutMode; sources: Instrument[]; query: string; selected?: string; onSelect: (id: string) => void; active: boolean }) {
-  const [browse, setBrowse] = useState<'topics' | 'sources'>('topics')
+  const [browse, setBrowse] = useState<'topics' | 'sources'>('sources')
   const sourceMode = mode === 'ontology' || mode === 'authority'
   const tree = useMemo(() => sourceMode && browse === 'sources' ? buildSourceDirectory(sources) : buildOutline(mode, sources), [mode, sources, browse, sourceMode])
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
@@ -20,7 +23,8 @@ export function UniverseOutline({ mode, sources, query, selected, onSelect, acti
   const trail = selected ? outlineTrail(tree, selected, chosenPath.current?.id === selected ? chosenPath.current.path : undefined) : []
   const shouldScroll = useRef(false)
   const previousSelected = useRef<string | undefined>(undefined)
-  const rows = useMemo(() => flattenOutline(tree, expanded, query), [tree, expanded, query])
+  const searching = sourceMode && !!query.trim()
+  const rows = useMemo(() => searching ? [] : flattenOutline(tree, expanded, query), [tree, expanded, query, searching])
   // Zoom-through: the list rises in while the map glides away, and fades out as the map pulls back.
   const reduced = useReducedMotion()
   const [phase, setPhase] = useState<'idle' | 'entering' | 'leaving'>('idle')
@@ -55,11 +59,11 @@ export function UniverseOutline({ mode, sources, query, selected, onSelect, acti
   const toggle = (key: string) => setExpanded(old => { const next = new Set(old); next.has(key) ? next.delete(key) : next.add(key); return next })
   const focusRow = (index: number) => { const row = rows[Math.max(0, Math.min(rows.length - 1, index))]; if (!row) return; setFocused(row.key); root.current?.querySelectorAll<HTMLElement>('[role="treeitem"]')[rows.indexOf(row)]?.focus() }
   return <section ref={root} className={`universe-outline${sourceMode && browse === 'sources' ? ' source-directory' : ''}${active && phase === 'entering' ? ' entering' : ''}${leaving ? ' leaving' : ''}`} aria-label="Universe list" hidden={!active && !leaving} inert={leaving || undefined} aria-hidden={leaving || undefined}>
-    <header className="outline-heading"><div><span className="outline-eyebrow">AI TRUST ATLAS</span><h2>{mode === 'risk' ? 'Explore risks' : mode === 'controls' ? 'Explore controls' : 'Explore sources'}</h2><p>{mode === 'ontology' || mode === 'authority' ? browse === 'sources' ? 'Browse sources directly or expand one to read its sections' : 'Topics, concepts and linked sources' : 'Expand a branch to explore its connections'}</p></div><div className="outline-actions"><button type="button" onClick={() => setExpanded(new Set())} aria-label="Collapse all branches"><ArrowsOutLineVertical /></button>{selected && <button type="button" onClick={reveal} aria-label="Reveal selected item"><Crosshair /></button>}</div></header>
-    {sourceMode && <div className="outline-browse" aria-label="Browse sources"><button aria-pressed={browse === 'topics'} onClick={() => { chosenPath.current = undefined; setBrowse('topics') }}>By topic</button><button aria-pressed={browse === 'sources'} onClick={() => { chosenPath.current = undefined; setBrowse('sources') }}>All sources · {sources.length}</button><span>{browse === 'topics' ? 'Sources with more supporting sections appear first within each concept.' : 'Alphabetical · one entry per source'}</span></div>}
+    <header className="outline-heading"><div><span className="outline-eyebrow">AI TRUST ATLAS</span><h2>{mode === 'risk' ? 'Explore risks' : mode === 'controls' ? 'Explore controls' : 'Explore sources'}</h2><p>{searching ? 'Matching sources and sections' : mode === 'ontology' || mode === 'authority' ? browse === 'sources' ? 'Browse sources directly or expand one to read its sections' : 'Topics, concepts and linked sources' : 'Expand a branch to explore its connections'}</p></div>{!searching && <div className="outline-actions"><button type="button" onClick={() => setExpanded(new Set())} aria-label="Collapse all branches"><ArrowsOutLineVertical /></button>{selected && <button type="button" onClick={reveal} aria-label="Reveal selected item"><Crosshair /></button>}</div>}</header>
+    {sourceMode && !searching && <div className="outline-browse" aria-label="Browse sources"><button aria-pressed={browse === 'topics'} onClick={() => { chosenPath.current = undefined; setBrowse('topics') }}>By topic</button><button aria-pressed={browse === 'sources'} onClick={() => { chosenPath.current = undefined; setBrowse('sources') }}>All sources · {sources.length}</button><span>{browse === 'topics' ? 'Sources with more supporting sections appear first within each concept.' : 'Alphabetical · one entry per source'}</span></div>}
     {trail.length > 0 && <nav className="outline-breadcrumb" aria-label="Selected item location">{trail.map((node, i) => <span key={node.id}>{i > 0 && <span aria-hidden="true"> / </span>}<button onClick={() => onSelect(node.id)} aria-current={node.id === selected ? 'page' : undefined}>{node.label}</button></span>)}</nav>}
     <div className="outline-scroll" ref={scroll} onScroll={e => { savedScroll.current[mode] = e.currentTarget.scrollTop }}>
-      <div role="tree" aria-label="Atlas hierarchy">
+      {sourceMode && query.trim() ? <Suspense fallback={<p role="status">Finding sources…</p>}><SourceSearchResults sources={sources} query={query} onSelect={onSelect} /></Suspense> : <div role="tree" aria-label="Atlas hierarchy">
         {rows.map((row, index) => { const n = row.node; const open = expanded.has(row.key) || !!query; const isSelected = n.id === selected; const canSelect = n.kind !== 'group'; return <div key={row.key} role="treeitem" aria-level={row.depth + 1} aria-expanded={n.children.length ? open : undefined} aria-selected={canSelect ? isSelected : undefined} tabIndex={(rows.some(r => r.key === focused) ? focused === row.key : index === 0) ? 0 : -1} className={`outline-row depth-${Math.min(row.depth, 3)}${isSelected ? ' selected' : ''}${n.kind === 'group' ? ' relation-group' : ''}`} data-current={focused === row.key && isSelected || undefined} style={{ '--depth': Math.min(row.depth, 5), '--node-color': accents[n.color] ?? n.color, '--i': Math.min(index, 14) } as CSSProperties} onFocus={() => setFocused(row.key)} onKeyDown={e => {
           if (e.key === 'ArrowDown') { e.preventDefault(); focusRow(index + 1) }
           if (e.key === 'ArrowUp') { e.preventDefault(); focusRow(index - 1) }
@@ -76,8 +80,8 @@ export function UniverseOutline({ mode, sources, query, selected, onSelect, acti
           </button>
           {n.children.length > 0 && <span className="outline-child-count" aria-label={`${n.children.length} children`}>{n.children.length}</span>}
         </div> })}
-      </div>
-      {!rows.length && <div className="outline-empty">No matching items. Try another search or broaden the filters.</div>}
+      </div>}
+      {!query.trim() && !rows.length && <div className="outline-empty">No matching items. Try another search or broaden the filters.</div>}
       {selected && !pathToNode(tree, selected) && <p className="outline-empty">Your selected item is outside these filters. Its details remain open.</p>}
     </div>
   </section>

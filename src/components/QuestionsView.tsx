@@ -24,7 +24,7 @@ export function QuestionsView({onExplore,active=true}:{onExplore:(id:string)=>vo
      {entry.incident&&<div className="question-development"><strong>Incident · {entry.incident.shortTitle}</strong><small>Occurred {entry.incident.occurred} · Findings {entry.incident.updated}</small></div>}
      <div className="question-topic-label">{entry.topics.map(t=>topicNames[t]??t).join(' · ')}</div>
      {entry.development&&<div className="question-development"><a href={entry.development.url} target="_blank" rel="noreferrer">{entry.development.title} ↗</a><small>Published {entry.development.published} · Added to Atlas {entry.development.added}</small></div>}
-     <QuestionCard question={entry.question}/><button className="question-explore" onClick={()=>onExplore(entry.nodeId)}>Explore in Atlas →</button>
+     <QuestionCard question={entry.question}/><button className="question-explore" onClick={()=>onExplore(entry.nodeId)}>Read context →</button>
     </div>)}
     {!entries.length&&<div className="questions-no-results"><h3>No questions match this selection</h3><p>Try another topic or show all topics.</p><button onClick={reset}>Clear question filters</button></div>}
     <p className="questions-note">Atlas-authored discussion prompts. References provide context, not findings of compliance or effectiveness.</p>

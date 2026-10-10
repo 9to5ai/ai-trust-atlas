@@ -16,14 +16,14 @@ beforeEach(() => {
 })
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals() })
 
-const selectOversight = () => {
+const selectOversight = async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Search everything' }))
-  fireEvent.change(screen.getByLabelText('Search all Atlas objects'), { target: { value: 'human oversight' } })
+  fireEvent.change(await screen.findByLabelText('Search all Atlas objects'), { target: { value: 'human oversight' } })
   fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: /^Concept Human oversight/ }))
 }
 
 describe('first-use orientation', () => {
-  it('keeps the chooser closed until requested and highlights Start here', () => {
+  it('keeps the chooser closed until requested and highlights Start here', async () => {
     render(<App />)
     expect(screen.queryByRole('heading', { name: 'What are you preparing for?' })).not.toBeInTheDocument()
     const startHere = screen.getByRole('button', { name: 'Open start here' })
@@ -34,12 +34,12 @@ describe('first-use orientation', () => {
     expect(guide).toHaveAttribute('open')
     expect(screen.queryByText(/A line or route does not show that a source applies to you/)).not.toBeInTheDocument()
     fireEvent.click(startHere)
-    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
     expect(screen.queryByText(/A reference map of/)).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Close start here' }))
     expect(screen.queryByRole('heading', { name: 'What are you preparing for?' })).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Open start here' }))
-    expect(screen.getByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'What are you preparing for?' })).toBeInTheDocument()
   })
 })
 
@@ -50,7 +50,7 @@ describe('clean universe interface', () => {
     expect(screen.queryByRole('button', { name: 'Related items' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Build your framework' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /Saved items/ })).not.toBeInTheDocument()
-    selectOversight()
+    await selectOversight()
     await new Promise(resolve => setTimeout(resolve, 600))
     expect(container.querySelector('.is-focus-list')).toBeNull()
     fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button', { name: 'Related items' }))
@@ -64,9 +64,9 @@ describe('clean universe interface', () => {
     expect(container.querySelector('.is-focus-list')).toBeNull()
   })
 
-  it('collapses and expands the left panel without discarding selected details', () => {
+  it('collapses and expands the left panel without discarding selected details', async () => {
     const { container } = render(<App />)
-    selectOversight()
+    await selectOversight()
     fireEvent.click(screen.getByRole('button', { name: 'Collapse left panel' }))
     expect(container.querySelector('main')).toHaveClass('sidebar-collapsed')
     expect(screen.getByLabelText('Selected node details')).toBeInTheDocument()
@@ -177,7 +177,7 @@ describe('focused reference workflow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'List' }))
     fireEvent.click(screen.getByRole('button', { name: /^All sources/ }))
     fireEvent.change(screen.getAllByLabelText('Search the atlas')[0], { target: { value: 'CPS 234' } })
-    const tree = screen.getByRole('tree')
+    const tree = await screen.findByLabelText('Source search results')
     expect(within(tree).getAllByRole('button', { name: 'APRA CPS 234' })).toHaveLength(1)
     fireEvent.click(within(tree).getByRole('button', { name: 'APRA CPS 234' }))
     await waitFor(() => expect(screen.getByText('What this says')).toBeInTheDocument())
@@ -209,9 +209,9 @@ describe('view navigation', () => {
     expect(screen.getByText(/No sources match these filters/)).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button',{name:'Remove Australia filter'}))
     expect(screen.queryByText(/No sources match these filters/)).not.toBeInTheDocument()
-    selectOversight()
+    await selectOversight()
     expect(window.location.hash).toContain('human-oversight')
-    fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+    fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button',{name:'← Back'}))
     expect(screen.getByRole('button',{name:'Remove Treaties filter'})).toBeInTheDocument()
     expect(screen.getByRole('button',{name:'List'})).toHaveAttribute('aria-pressed','true')
     expect(window.location.hash).toBe('')
@@ -221,23 +221,24 @@ describe('view navigation', () => {
 
 
 describe('audience workspace entry',()=>{
- it('opens Questions without a node and returns to the map after exploring',()=>{
+ it('reads question context in place and returns to the selected topics',async()=>{
    render(<App />)
    fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Questions'}))
    expect(screen.getByRole('region',{name:'Questions workspace'})).toBeInTheDocument()
    expect(window.location.pathname).toBe('/questions')
    fireEvent.click(screen.getByRole('button',{name:'Accountability and governance'}))
-   fireEvent.click(screen.getAllByRole('button',{name:'Explore in Atlas →'})[0])
-   expect(screen.queryByRole('region',{name:'Questions workspace'})).not.toBeInTheDocument()
+   fireEvent.click(screen.getAllByRole('button',{name:'Read context →'})[0])
+   expect(window.location.pathname).toBe('/questions')
+   expect(screen.getByLabelText('Selected node details')).toHaveClass('reading-view')
    expect(window.location.hash).toContain('concept/accountability')
-   fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+   fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button',{name:'← Back'}))
    expect(screen.getByRole('button',{name:'Accountability and governance'})).toHaveAttribute('aria-pressed','true')
  })
 })
 
 
 describe('production use case journey',()=>{
- it('opens a shared collection, explores a case and returns to its filtered collection',()=>{
+ it('opens a shared collection, reads a case in place and returns to its filtered collection',async()=>{
   window.history.replaceState(null,'','/?view=use-cases')
   render(<App/>)
   expect(window.location.pathname).toBe('/cases')
@@ -246,9 +247,9 @@ describe('production use case journey',()=>{
   fireEvent.click(screen.getByRole('button',{name:'Proposing new fraud rules'}))
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
   expect(window.location.hash).toBe('#/use-case/cba-fraud-agent')
-  fireEvent.click(screen.getByRole('button',{name:'Back to previous view'}))
+  fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button',{name:'← Back'}))
   expect(screen.getByRole('button',{name:'Detect fraud & manage risk'})).toHaveAttribute('aria-pressed','true')
-  expect(screen.queryByRole('complementary',{name:'Selected node details'})).not.toBeInTheDocument()
+  await waitFor(() => expect(screen.queryByRole('complementary',{name:'Selected node details'})).not.toBeInTheDocument())
  })
  it('shows use cases in the briefing by publication date and opens their details',()=>{
   render(<App/>)
@@ -274,7 +275,7 @@ describe('pages and browser history',()=>{
  it('records selections as browser history so Back returns to the previous item',async()=>{
   window.history.replaceState(null,'','/universe#/instrument/apra-cps-234')
   render(<App/>)
-  selectOversight()
+  await selectOversight()
   expect(window.location.hash).toBe('#/concept/human-oversight')
   window.history.back()
   await waitFor(()=>expect(window.location.hash).toBe('#/instrument/apra-cps-234'))
@@ -309,6 +310,8 @@ describe('guided tours',()=>{
   render(<App />)
   const sidebar=screen.getAllByLabelText('Atlas controls').at(-1)!
   expect(within(sidebar).getByRole('button',{name:/From APRA’s expectations to controls/})).toBeInTheDocument()
+  expect(sidebar.querySelector('details.tour-section')).not.toHaveAttribute('open')
+  fireEvent.click(within(sidebar).getByText('Take a guided tour'))
   expect(sidebar.querySelector('details.tour-more')).not.toHaveAttribute('open')
   fireEvent.click(screen.getByRole('button',{name:'Open start here'}))
   fireEvent.click(screen.getByRole('button',{name:'Assurance'}))
