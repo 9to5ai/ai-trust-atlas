@@ -137,7 +137,7 @@ test.describe('WebGL universe', () => {
     expect(perFrame).toBeLessThan(25)
   })
   test('falls back to the 2D map on request', async ({ page }) => {
-    await page.goto('/universe?renderer=2d')
+    await page.goto('/universe?view=atlas&renderer=2d')
     await expect(page.locator('.universe-webgl')).toHaveCount(0)
     await expect(page.getByLabel(/Interactive orbital map/)).toBeVisible()
   })
