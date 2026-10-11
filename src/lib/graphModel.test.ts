@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { instruments } from '../data/instruments'
 import { buildGraphModel, defaultFilters } from './graphModel'
+import { depthScale, nodeEnvelope } from './universeLayout'
 
 describe('graph model', () => {
   it('renders the ontology and the complete instrument corpus by default', () => {
@@ -80,7 +81,30 @@ describe('graph model', () => {
       return group.reduce((sum, node) => sum + node.targetZ, 0) / group.length
     }
     expect(averageDepth('Australia')).toBeGreaterThan(averageDepth('Global'))
-    expect(Math.min(...nodes.map(node => Math.hypot(node.targetX, node.targetY)))).toBeGreaterThan(350)
+    expect(nodes.some(node => Math.abs(node.targetZ * depthScale) > 300)).toBe(true)
+    for (const node of nodes) expect(Math.hypot(node.targetX, node.targetY, node.targetZ * depthScale)).toBeLessThanOrEqual(nodeEnvelope)
+  })
+
+  it('keeps surviving nodes fixed when source, risk and control filters change', () => {
+    for (const mode of ['ontology', 'authority', 'risk', 'controls'] as const) {
+      const full = new Map(buildGraphModel(mode, defaultFilters()).nodes.map(node => [node.id, node]))
+      const filtered = buildGraphModel(mode, { ...defaultFilters(), query: mode === 'controls' ? 'agent' : mode === 'risk' ? 'privacy' : 'prudential' })
+      for (const node of filtered.nodes) {
+        const original = full.get(node.id)!
+        expect([node.targetX, node.targetY, node.targetZ]).toEqual([original.targetX, original.targetY, original.targetZ])
+      }
+    }
+  })
+
+  it('retains every section of every source inside the same envelope without moving its parent', () => {
+    const full = new Map(buildGraphModel('ontology', defaultFilters()).nodes.map(node => [node.id, node]))
+    for (const source of instruments) {
+      const expanded = buildGraphModel('ontology', defaultFilters(), `instrument:${source.id}`, 'all', true, true)
+      expect(expanded.nodes.filter(node => node.kind === 'provision')).toHaveLength(source.provisions.length)
+      for (const node of expanded.nodes) expect(Math.hypot(node.targetX, node.targetY, node.targetZ * depthScale)).toBeLessThanOrEqual(nodeEnvelope + 1e-8)
+      const parent = expanded.nodes.find(node => node.id === `instrument:${source.id}`)!
+      expect([parent.targetX, parent.targetY, parent.targetZ]).toEqual([full.get(parent.id)!.targetX, full.get(parent.id)!.targetY, full.get(parent.id)!.targetZ])
+    }
   })
 
   it('uses uniform risk sizes so source frequency is not encoded as magnitude', () => {

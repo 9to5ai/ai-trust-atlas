@@ -6,6 +6,8 @@ import { UniverseEngine } from './engine'
 import { nodeStyle, placeLabels, type LabelCandidate } from './geometry'
 import { connectionSummary, type UniverseProps } from './shared'
 import './universe.css'
+import { paintClusters } from './sourceClusters'
+import { domainById } from '../data/concepts'
 
 const prefersReducedMotion = () => typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -23,6 +25,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const labelsRef = useRef<HTMLDivElement>(null)
+  const clustersRef = useRef<HTMLDivElement>(null)
   const coreRef = useRef<HTMLDivElement>(null)
   const engineRef = useRef<UniverseEngine | null>(null)
   const labelPool = useRef(new Map<string, HTMLSpanElement>())
@@ -128,6 +131,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
       core.style.fontSize = `${Math.round(Math.max(9, size * 0.14))}px`
     }
     const { model: current, nodeById: nodes, selectedNodeId: selected, showSourceLabels: sources, highlightIds: path } = state.current
+    if (clustersRef.current) paintClusters(clustersRef.current, engine.sourceClusters(), cluster => `Explore ${cluster.members.length} ${domainById.get(cluster.domainId)?.shortName ?? cluster.domainId} sources`, cluster => { canvasRef.current?.focus(); engine.focusSources(cluster) })
     const near = neighbourIds(current, selected)
     const pathSet = new Set(path)
     const distance = engine.cameraDistance()
@@ -272,6 +276,7 @@ export default function WebGLUniverse({ model, selectedNodeId, onSelect, showSou
         }}
       />
       <div className="universe-labels" ref={labelsRef} aria-hidden="true"><div className="universe-core" ref={coreRef}><span>AI Trust</span></div></div>
+      <div className="universe-clusters" ref={clustersRef} role="group" aria-label="Grouped sources" onFocus={() => engineRef.current?.setHover('source-cluster')} onBlur={() => engineRef.current?.setHover(undefined)} />
       <p className="sr-only" id="graph-accessible-description" aria-live="polite">{summary}</p>
       {hoverNode && hover && (
         <div className="universe-tooltip" role="status" style={{ transform: `translate(${Math.round(hover.x + 16)}px, ${Math.round(hover.y + 16)}px)` }}>

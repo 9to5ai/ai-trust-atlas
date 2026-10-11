@@ -1,0 +1,3 @@
+.universe-clusters { position: absolute; inset: 0; pointer-events: none; }
+.universe-source-cluster { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface-1); color: var(--text-primary); font-size: 11px; font-weight: 600; pointer-events: auto; cursor: zoom-in; }
+.universe-source-cluster:hover, .universe-source-cluster:focus-visible { outline: 2px solid var(--accent, #5ee4ff); outline-offset: 3px; }
