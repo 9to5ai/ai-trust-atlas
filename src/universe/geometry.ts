@@ -1,11 +1,12 @@
 import type { GraphNode, GraphNodeKind } from '../types'
+import { depthScale, nodeEnvelope } from '../lib/universeLayout'
 
 /* Pure helpers shared by the WebGL engine and its tests. */
 
 export type Vec3 = { x: number; y: number; z: number }
 export type NodeShape = 0 | 1 | 2 | 3 | 4 // circle, hexagon, diamond, octagon, triangle
 
-export const depthScale = 1.4
+export { depthScale } from '../lib/universeLayout'
 export const worldPosition = (node: Pick<GraphNode, 'targetX' | 'targetY' | 'targetZ'>): Vec3 => ({ x: node.targetX, y: -node.targetY, z: node.targetZ * depthScale })
 
 export const nodeStyle: Record<GraphNodeKind, { shape: NodeShape; ring: boolean; size: number; rank: number }> = {
@@ -28,6 +29,8 @@ export const nodeSize = (kind: GraphNodeKind, degree: number) => nodeStyle[kind]
 export function curvePoints(from: Vec3, to: Vec3, segments = 12, bow = 0.22): Vec3[] {
   const mid = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2, z: (from.z + to.z) / 2 }
   const control = { x: mid.x * (1 - bow), y: mid.y * (1 - bow), z: mid.z + Math.hypot(to.x - from.x, to.y - from.y) * 0.06 }
+  const length = Math.hypot(control.x, control.y, control.z)
+  if (length > nodeEnvelope) { const scale = nodeEnvelope / length; control.x *= scale; control.y *= scale; control.z *= scale }
   const points: Vec3[] = []
   for (let index = 0; index <= segments; index++) {
     const t = index / segments

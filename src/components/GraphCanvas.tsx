@@ -4,6 +4,9 @@ import { ArrowsOut, Eye, EyeSlash, Minus, Pause, Play, Plus, Target } from '@pho
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphModel, GraphNode, GraphEdge } from '../types'
 import type { UniverseProps } from '../universe/shared'
+import { depthScale, universeRadius } from '../lib/universeLayout'
+import { groupSources, paintClusters } from '../universe/sourceClusters'
+import { domainById } from '../data/concepts'
 
 export type GraphPose = { camera: Camera; rotation: Rotation }
 export type GraphNavigation = { capture: () => GraphPose; restore: (pose: GraphPose) => void }
@@ -21,14 +24,11 @@ const lerp = (from: number, to: number, amount: number) => from + (to - from) * 
 const initialScale = 0.52
 const initialRotation: Rotation = { yaw: -0.16, pitch: -0.1 }
 
-const modelRadius = (model: GraphModel) => model.nodes.reduce((largest, node) => {
-  if (node.kind === 'provision') return largest
-  return Math.max(largest, Math.hypot(node.targetX, node.targetY, node.targetZ) + node.radius * 2)
-}, 1)
+const modelRadius = (_model: GraphModel) => universeRadius
 
 const fitScaleForModel = (model: GraphModel, width: number, height: number) => {
   const extent = modelRadius(model) * 1.12
-  return clamp((Math.min(width, height) * 1.02) / (extent * 2), 0.28, 1.02)
+  return clamp((Math.min(width, height) * 1.02) / (extent * 2), 0.12, 1.02)
 }
 
 const seededRandom = (seed: number) => {
@@ -310,6 +310,8 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
   const pausedRef = useRef(false)
   const hoveredRef = useRef<string | undefined>(undefined)
   const sourceLabelsRef = useRef(showSourceLabels)
+  const clustersRef = useRef<HTMLDivElement>(null)
+  const clusteredIdsRef = useRef(new Set<string>())
   sourceLabelsRef.current = showSourceLabels
   useEffect(() => {
     if(!navigationRef)return
@@ -347,7 +349,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       next.set(node.id, existing ?? {
         x: node.targetX,
         y: node.targetY,
-        z: node.targetZ,
+        z: node.targetZ * depthScale,
       })
     })
     nodePositionsRef.current = next
@@ -458,14 +460,14 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       const renderNodes = [...nodePresenceRef.current.values()].map(entry => entry.value)
       const renderEdges = [...edgePresenceRef.current.values()].map(entry => entry.value)
       for (const id of positions.keys()) if (!nodePresenceRef.current.has(id)) positions.delete(id)
-      const sphereRadius = modelRadius(currentModel) * 1.02
+      const sphereRadius = modelRadius(currentModel)
       renderNodes.forEach((node) => {
         const position = positions.get(node.id)
         if (!position) return
         const ease = reducedMotion ? 1 : 0.07
         position.x = lerp(position.x, node.targetX, ease)
         position.y = lerp(position.y, node.targetY, ease)
-        position.z = lerp(position.z, node.targetZ, ease)
+        position.z = lerp(position.z, node.targetZ * depthScale, ease)
       })
 
       const projected = new Map<string, ProjectedPoint>()
@@ -474,11 +476,27 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
         if (position) projected.set(node.id, projectPoint(position, rotation, sphereRadius))
       })
       projectedPositionsRef.current = projected
+      const clusters = !selectedRef.current && !sourceLabelsRef.current && camera.scale < 0.8 ? groupSources(renderNodes.filter(node => node.kind === 'instrument' && (nodePresenceRef.current.get(node.id)?.opacity ?? 0) > 0.9).map(node => {
+        const point = projected.get(node.id)!
+        return { id: node.id, domainId: node.domainId, color: dark ? node.color : arcticAccents[node.color.toLowerCase()], x: (point.x + camera.x) * camera.scale + width / 2, y: (point.y + camera.y) * camera.scale + screenCenterY }
+      }).filter(point => point.x > 0 && point.x < width && point.y > 0 && point.y < height)) : []
+      const clustered = new Set(clusters.flatMap(cluster => cluster.members))
+      clusteredIdsRef.current = clustered
+      if (clustersRef.current) paintClusters(clustersRef.current, clusters, cluster => `Explore ${cluster.members.length} ${domainById.get(cluster.domainId)?.shortName ?? cluster.domainId} sources`, cluster => {
+        canvasRef.current?.focus()
+        cameraTargetRef.current = { x: camera.x - (cluster.x - width / 2) / camera.scale, y: camera.y - (cluster.y - screenCenterY) / camera.scale, scale: 1.1 }
+      })
 
       drawParticleField(context, ambientParticles, rotation, sphereRadius, camera.scale, elapsed, false, reducedMotion)
       context.globalAlpha = 0.35
-      drawGeodesicMesh(context, rotation, sphereRadius * 1.015, camera.scale)
-      drawOrbitalGrid(context, rotation, sphereRadius, camera.scale)
+      drawGeodesicMesh(context, rotation, sphereRadius * 0.94, camera.scale)
+      drawOrbitalGrid(context, rotation, sphereRadius * 0.94, camera.scale)
+      context.globalAlpha = 0.12
+      context.strokeStyle = dark ? '#7ca5cb' : '#527ca1'
+      context.lineWidth = 1 / camera.scale
+      context.beginPath()
+      context.arc(0, 0, sphereRadius, 0, Math.PI * 2)
+      context.stroke()
       context.globalAlpha = 1
       drawParticleField(context, coreParticles, rotation, sphereRadius, camera.scale, elapsed, true, reducedMotion)
 
@@ -498,6 +516,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       }
 
       renderEdges.forEach((edge) => {
+        if (clustered.has(edge.sourceId) || clustered.has(edge.targetId)) return
         if (!showSynthesisRef.current && edge.basis === 'cross-framework-synthesis') return
         const sourceNode = nodeMap.get(edge.sourceId)
         const targetNode = nodeMap.get(edge.targetId)
@@ -573,6 +592,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
       const orderedNodes = [...renderNodes].sort((left, right) => (projected.get(left.id)?.depth ?? 0) - (projected.get(right.id)?.depth ?? 0))
       const labelBoxes: { x: number; y: number; w: number; h: number }[] = []
       orderedNodes.forEach((node) => {
+        if (clustered.has(node.id)) return
         const point = projected.get(node.id)
         if (!point) return
         const isSelected = selectedRef.current === node.id
@@ -766,6 +786,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
     let nearest: GraphNode | undefined
     let distance = Number.POSITIVE_INFINITY
     for (const node of modelRef.current.nodes) {
+      if (clusteredIdsRef.current.has(node.id)) continue
       if ((nodePresenceRef.current.get(node.id)?.opacity ?? 0) < 0.15) continue
       const point = projectedPositionsRef.current.get(node.id)
       if (!point) continue
@@ -787,7 +808,7 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
 
   const zoomBy = (factor: number) => {
     const target = cameraTargetRef.current
-    cameraTargetRef.current = { ...target, scale: clamp(target.scale * factor, 0.26, 3.8) }
+    cameraTargetRef.current = { ...target, scale: clamp(target.scale * factor, 0.08, 3.8) }
   }
 
   const finishOrbit = () => {
@@ -909,12 +930,13 @@ export function GraphCanvas({ model, selectedNodeId, onSelect, showSourceLabels 
           const beforeX = (event.clientX - bounds.left - bounds.width / 2) / target.scale - target.x
           const screenCenterY = window.innerWidth <= 860 && selectedRef.current ? bounds.height * 0.4 : bounds.height / 2
           const beforeY = (event.clientY - bounds.top - screenCenterY) / target.scale - target.y
-          const nextScale = clamp(target.scale * Math.exp(-event.deltaY * 0.0012), 0.26, 3.8)
+          const nextScale = clamp(target.scale * Math.exp(-event.deltaY * 0.0012), 0.08, 3.8)
           const afterX = (event.clientX - bounds.left - bounds.width / 2) / nextScale - target.x
           const afterY = (event.clientY - bounds.top - screenCenterY) / nextScale - target.y
           cameraTargetRef.current = { x: target.x + afterX - beforeX, y: target.y + afterY - beforeY, scale: nextScale }
         }}
       />
+      <div className="universe-clusters" ref={clustersRef} role="group" aria-label="Grouped sources" onFocus={() => { hoveredRef.current = 'source-cluster' }} onBlur={() => { hoveredRef.current = undefined }} />
       <p className="sr-only" id="graph-accessible-description" aria-live="polite">{selectedConnectionSummary}</p>
       {hoveredNodeId && model.nodes.find(n => n.id === hoveredNodeId) && <div className="universe-hover-card" role="status"><span>{model.nodes.find(n => n.id === hoveredNodeId)!.kind.replaceAll('-', ' ')}</span><strong>{model.nodes.find(n => n.id === hoveredNodeId)!.label}</strong><small>Click to inspect sources and connections</small></div>}
       <div className="graph-controls" role="toolbar" aria-label="Graph view controls">

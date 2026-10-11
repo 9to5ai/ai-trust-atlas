@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { curvePoints, nodeSize, pickNode, placeLabels, worldPosition } from './geometry'
 
 describe('universe geometry', () => {
-  it('flips the canvas y axis and lifts depth so the disc reads in 3D', () => {
+  it('preserves the shared spherical coordinates while flipping the canvas y axis', () => {
     expect(worldPosition({ targetX: 10, targetY: 20, targetZ: 10 })).toEqual({ x: 10, y: -20, z: 14 })
   })
   it('draws curves that start and end on their nodes and bow toward the centre', () => {

@@ -9,6 +9,7 @@ import { instruments } from '../data/instruments'
 import { countForCausalLens, riskDomainById, riskDomains, riskSubdomainById, riskSubdomains, type CausalLens } from '../data/mitRiskTaxonomy'
 import { relations } from '../data/relations'
 import { authorityOrder } from './labels'
+import { boundNode, sourcePosition } from './universeLayout'
 import type { AuthorityClass, GraphEdge, GraphModel, GraphNode, Instrument, MappingAssertion } from '../types'
 
 export type LayoutMode = 'ontology' | 'authority' | 'risk' | 'controls'
@@ -41,13 +42,6 @@ export const primaryDomainFor = (instrument: Instrument) => {
   const highest = Math.max(...scores.values(), 0)
   const candidates = domains.filter((domain) => scores.get(domain.id) === highest)
   return candidates[hash(instrument.id) % Math.max(candidates.length, 1)]?.id ?? 'governance'
-}
-
-const instrumentDepth = (instrument: Instrument) => {
-  const authorityDepth = (authorityOrder.indexOf(instrument.authorityClass) - (authorityOrder.length - 1) / 2) * 14
-  const regionalDepth = instrument.region === 'Australia' ? 118 : instrument.region === 'Global' ? -62 : -18
-  const stableOffset = (hash(instrument.id) % 41) - 20
-  return Math.max(-150, Math.min(160, authorityDepth + regionalDepth + stableOffset))
 }
 
 const includesQuery = (instrument: Instrument, query: string) => {
@@ -111,12 +105,13 @@ const addDomainsAndConcepts = (nodes: GraphNode[], edges: GraphEdge[], mode: Lay
 const addControlNodes = (nodes: GraphNode[], edges: GraphEdge[], visibleControlIds: Set<string>) => {
   const familyAngles = new Map(controlFamilies.map((family, index) => [family.id, (index / controlFamilies.length) * Math.PI * 2 - Math.PI / 2]))
   for (const family of controlFamilies) {
-    const familyControls = controlObjectives.filter((control) => control.familyId === family.id && visibleControlIds.has(control.id))
-    if (familyControls.length === 0) continue
+    const familyControls = controlObjectives.filter((control) => control.familyId === family.id)
+    if (!familyControls.some((control) => visibleControlIds.has(control.id))) continue
     const familyPoint = polar(familyAngles.get(family.id) ?? 0, 172)
     nodes.push({ id: `control-family:${family.id}`, label: family.name, shortLabel: family.shortName, kind: 'control-family', domainId: 'controls', controlFamilyId: family.id, x: familyPoint.x, y: familyPoint.y, z: 42, targetX: familyPoint.x, targetY: familyPoint.y, targetZ: 42, radius: 17, color: family.color })
     const sectorWidth = (Math.PI * 2 / controlFamilies.length) * 0.74
     familyControls.forEach((control, index) => {
+      if (!visibleControlIds.has(control.id)) return
       const spread = familyControls.length === 1 ? 0 : ((index / (familyControls.length - 1)) - 0.5) * sectorWidth
       const point = polar((familyAngles.get(family.id) ?? 0) + spread, 420 + (index % 2) * 46)
       const depth = ((hash(control.id) % 101) - 50) * 1.2
@@ -136,8 +131,9 @@ const addControlsAroundSelection = (nodes: GraphNode[], edges: GraphEdge[], sele
     if (!control) return
     const angle = (index / Math.max(controlIds.length, 1)) * Math.PI * 2 - Math.PI / 2
     const distance = 95 + (index % 2) * 22
-    const point = { x: selected.targetX + Math.cos(angle) * distance, y: selected.targetY + Math.sin(angle) * distance }
-    nodes.push({ id: `control-objective:${control.id}`, label: `${control.code} ${control.name}`, shortLabel: `${control.code} ${control.shortName}`, kind: 'control-objective', domainId: 'controls', controlFamilyId: control.familyId, x: point.x, y: point.y, z: selected.targetZ + 24, targetX: point.x, targetY: point.y, targetZ: selected.targetZ + 24, radius: 8.6, color: controlFamilyById.get(control.familyId)?.color ?? '#8ad7d0' })
+    const point = { x: selected.targetX * 0.72 + Math.cos(angle) * distance, y: selected.targetY * 0.72 + Math.sin(angle) * distance }
+    const depth = selected.targetZ * 0.72 + 24
+    nodes.push({ id: `control-objective:${control.id}`, label: `${control.code} ${control.name}`, shortLabel: `${control.code} ${control.shortName}`, kind: 'control-objective', domainId: 'controls', controlFamilyId: control.familyId, x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: 8.6, color: controlFamilyById.get(control.familyId)?.color ?? '#8ad7d0' })
     const targetId = selectedNodeId.replace(selected.kind === 'risk-subdomain' ? 'risk-subdomain:' : 'concept:', '')
     const assertionId = selected.kind === 'risk-subdomain' ? `map:control:${control.id}:risk:${targetId}` : `map:control:${control.id}:concept:${targetId}`
     const assertion = mappingAssertionById.get(assertionId)
@@ -186,19 +182,10 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
       byDomain.set(domainId, [...(byDomain.get(domainId) ?? []), instrument])
     }
     for (const [domainId, group] of byDomain) {
-      group.sort((a, b) => authorityOrder.indexOf(a.authorityClass) - authorityOrder.indexOf(b.authorityClass) || a.shortTitle.localeCompare(b.shortTitle))
-      const columns = Math.max(2, Math.ceil(Math.sqrt(group.length * 1.35)))
-      const rows = Math.ceil(group.length / columns)
       const sectorWidth = (Math.PI * 2 / domains.length) * 0.7
-      group.forEach((instrument, index) => {
-        const column = index % columns
-        const row = Math.floor(index / columns)
-        const angularOffset = columns === 1 ? 0 : ((column / (columns - 1)) - 0.5) * sectorWidth
-        const rowOffset = row - (rows - 1) / 2
-        const stableOffset = ((hash(instrument.id) % 101) / 100 - 0.5) * 0.018
-        const baseRadius = mode === 'authority' ? (authorityRadius.get(instrument.authorityClass) ?? 540) : 465 + rowOffset * 42
-        const point = polar((domainAngles.get(domainId) ?? 0) + angularOffset + stableOffset, baseRadius)
-        const depth = instrumentDepth(instrument)
+      group.forEach((instrument) => {
+        const point = sourcePosition(instrument.id, domainAngles.get(domainId) ?? 0, sectorWidth, mode === 'authority' ? authorityRadius.get(instrument.authorityClass) : undefined, instrument.region === 'Australia' ? 0.2 : instrument.region === 'Global' ? -0.2 : 0)
+        const depth = point.z
         const color = domainById.get(domainId)?.color ?? '#aab3c0'
         nodes.push({ id: `instrument:${instrument.id}`, label: instrument.title, shortLabel: instrument.shortTitle, kind: 'instrument', domainId, instrumentId: instrument.id, authorityClass: instrument.authorityClass, region: instrument.region, x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: instrument.region === 'Australia' ? 10.5 : 8.5, color })
         instrument.conceptIds.forEach((conceptId) => {
@@ -226,8 +213,10 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
       const members = visibleRisks.filter((risk) => risk.riskDomainId === domain.id)
       nodes.push({ id: `risk-domain:${domain.id}`, label: domain.name, shortLabel: domain.shortName, kind: 'risk-domain', domainId: 'mit-risk', riskDomainId: domain.id, recordCount: members.reduce((sum, risk) => sum + countForCausalLens(risk, causalLens), 0), x: point.x, y: point.y, z: -28, targetX: point.x, targetY: point.y, targetZ: -28, radius: 16, color: domain.color })
       const sectorWidth = (Math.PI * 2 / riskDomains.length) * 0.72
-      members.forEach((risk, index) => {
-        const spread = members.length === 1 ? 0 : ((index / (members.length - 1)) - 0.5) * sectorWidth
+      const allMembers = riskSubdomains.filter((risk) => risk.riskDomainId === domain.id)
+      allMembers.forEach((risk, index) => {
+        if (!members.includes(risk)) return
+        const spread = allMembers.length === 1 ? 0 : ((index / (allMembers.length - 1)) - 0.5) * sectorWidth
         const point = polar((riskAngles.get(domain.id) ?? 0) + spread, 508 + (index % 2) * 32)
         const depth = ((hash(risk.id) % 101) - 50) * 1.4
         nodes.push({ id: `risk-subdomain:${risk.id}`, label: `${risk.ref} ${risk.name}`, shortLabel: `${risk.ref} ${risk.name}`, kind: 'risk-subdomain', domainId: 'mit-risk', riskDomainId: domain.id, recordCount: countForCausalLens(risk, causalLens), x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: 8.2, color: domain.color })
@@ -248,8 +237,9 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
     if (selectedInstrument && selectedNode) selectedInstrument.provisions.forEach((provision, index) => {
       const angle = (index / Math.max(selectedInstrument.provisions.length, 1)) * Math.PI * 2 - Math.PI / 2
       const distance = 82 + (index % 2) * 18
-      const point = { x: selectedNode.targetX + Math.cos(angle) * distance, y: selectedNode.targetY + Math.sin(angle) * distance }
-      nodes.push({ id: `provision:${provision.id}`, label: `${provision.ref}: ${provision.title}`, shortLabel: provision.ref, kind: 'provision', domainId: selectedNode.domainId, instrumentId: selectedInstrument.id, x: point.x, y: point.y, z: selectedNode.targetZ + 18, targetX: point.x, targetY: point.y, targetZ: selectedNode.targetZ + 18, radius: 5.5, color: selectedNode.color })
+      const point = { x: selectedNode.targetX * 0.72 + Math.cos(angle) * distance, y: selectedNode.targetY * 0.72 + Math.sin(angle) * distance }
+      const depth = selectedNode.targetZ * 0.72 + 18
+      nodes.push({ id: `provision:${provision.id}`, label: `${provision.ref}: ${provision.title}`, shortLabel: provision.ref, kind: 'provision', domainId: selectedNode.domainId, instrumentId: selectedInstrument.id, x: point.x, y: point.y, z: depth, targetX: point.x, targetY: point.y, targetZ: depth, radius: 5.5, color: selectedNode.color })
       edges.push({ id: `instrument-provision:${provision.id}`, sourceId: `instrument:${selectedInstrument.id}`, targetId: `provision:${provision.id}`, label: 'contains', semanticFamily: 'structure' })
       provision.conceptIds.forEach((conceptId) => {
         const assertion = mappingAssertionById.get(`map:provision:${provision.id}:concept:${conceptId}`)
@@ -280,6 +270,7 @@ export function buildGraphModel(mode: LayoutMode, filters: GraphFilters, selecte
       for(const c of item.connections)edges.push({id:`use-case-link:${item.id}:${c.conceptId}`,sourceId:`use-case:${item.id}`,targetId:`concept:${c.conceptId}`,label:'illustrates',semanticFamily:'evidence',basis:'cross-framework-synthesis',confidence:'medium',explanation:c.reason})
     })
   }
+  nodes.forEach(boundNode)
   const nodeIds = new Set(nodes.map((node) => node.id))
   return { nodes, edges: edges.filter((edge) => nodeIds.has(edge.sourceId) && nodeIds.has(edge.targetId)) }
 }

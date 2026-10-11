@@ -11,6 +11,8 @@ import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js'
 import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js'
 import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry.js'
 import type { GraphEdge, GraphModel, GraphNode } from '../types'
+import { universeRadius } from '../lib/universeLayout'
+import { groupSources, type SourceCluster } from './sourceClusters'
 import { curvePoints, easeInOutCubic, nodeSize, nodeStyle, pickNode, worldPosition, type ScreenNode, type Vec3 } from './geometry'
 
 export type UniversePose = { kind: 'webgl'; position: [number, number, number]; target: [number, number, number] }
@@ -137,6 +139,9 @@ export class UniverseEngine {
   private stars: Points
   private starMaterial: ShaderMaterial
   private rings: LineLoop[] = []
+  private envelope: LineLoop
+  private clusters: SourceCluster[] = []
+  private clusteredIds = new Set<string>()
   private nebulae: Sprite[] = []
   private core: Sprite
   private selected?: string
@@ -203,12 +208,22 @@ export class UniverseEngine {
     this.stars = this.buildStars()
     this.core = new Sprite(new SpriteMaterial({ map: glowTexture('rgba(158,240,255,0.75)', 'rgba(112,89,224,0)'), transparent: true, depthWrite: false, blending: AdditiveBlending }))
     this.core.scale.set(110, 110, 1)
-    for (const radius of [240, 400, 560]) {
-      const points = Array.from({ length: 160 }, (_, index) => { const angle = (index / 160) * Math.PI * 2; return new Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius, 0) })
-      const ring = new LineLoop(new BufferGeometry().setFromPoints(points), new LineDashedMaterial({ color: '#5c7bb0', dashSize: 6, gapSize: 14, transparent: true, opacity: 0.22, depthWrite: false }))
+    for (const [radius, axis] of [[240, 0], [400, 0], [universeRadius, 0], [universeRadius, 1], [universeRadius, 2]]) {
+      const points = Array.from({ length: 160 }, (_, index) => {
+        const angle = (index / 160) * Math.PI * 2, a = Math.cos(angle) * radius, b = Math.sin(angle) * radius
+        return axis === 1 ? new Vector3(a, 0, b) : axis === 2 ? new Vector3(0, a, b) : new Vector3(a, b, 0)
+      })
+      const ring = new LineLoop(new BufferGeometry().setFromPoints(points), new LineDashedMaterial({ color: '#5c7bb0', dashSize: 6, gapSize: 14, transparent: true, opacity: radius === universeRadius ? 0.1 : 0.16, depthWrite: false }))
       ring.computeLineDistances()
       this.rings.push(ring)
     }
+    // The tangent outline of the sphere remains circular from every camera angle.
+    this.envelope = new LineLoop(new BufferGeometry().setFromPoints(Array.from({ length: 160 }, (_, index) => {
+      const angle = index / 160 * Math.PI * 2
+      return new Vector3(Math.cos(angle), Math.sin(angle), 0)
+    })), new LineDashedMaterial({ color: '#5c7bb0', dashSize: 10000, gapSize: 0, transparent: true, opacity: 0.14, depthWrite: false }))
+    this.envelope.computeLineDistances()
+    this.rings.push(this.envelope)
     const nebulaSpecs: [number, number, number, number, string][] = [[-900, 700, -700, 2600, 'rgba(112,89,224,0.5)'], [1100, -500, -900, 2400, 'rgba(34,198,240,0.35)'], [0, 0, -400, 1700, 'rgba(94,228,255,0.18)']]
     for (const [x, y, z, size, color] of nebulaSpecs) {
       const sprite = new Sprite(new SpriteMaterial({ map: glowTexture(color, 'rgba(0,0,0,0)'), transparent: true, depthWrite: false, blending: AdditiveBlending, opacity: 0.55 }))
@@ -309,12 +324,9 @@ export class UniverseEngine {
   }
 
   fit(animate = true) {
-    let radius = 420
-    for (const state of this.nodes.values()) if (!state.removing) radius = Math.max(radius, Math.hypot(state.target.x, state.target.y) + 40)
     const vertical = MathUtils.degToRad(this.camera.fov / 2)
     const horizontal = Math.atan(Math.tan(vertical) * this.camera.aspect)
-    // Portrait phones frame the whole map edge to edge; wider screens crop the empty outer ring slightly.
-    const distance = (radius / Math.sin(Math.min(vertical, horizontal))) * (this.camera.aspect < 0.8 ? 1 : 0.92)
+    const distance = universeRadius / Math.sin(Math.min(vertical, horizontal)) * 1.04
     const target = new Vector3(0, 0, 0)
     const position = new Vector3(0, -Math.sin(polar) * distance, Math.cos(polar) * distance)
     if (animate) this.fly(target, position)
@@ -343,7 +355,7 @@ export class UniverseEngine {
   }
 
   /* Screen-space positions of every visible node, in CSS pixels relative to the canvas. */
-  project(): ScreenNode[] {
+  project(includeGrouped = false): ScreenNode[] {
     const result: ScreenNode[] = []
     const vector = new Vector3()
     const scale = this.height / (2 * Math.tan(MathUtils.degToRad(this.camera.fov / 2)))
@@ -352,7 +364,7 @@ export class UniverseEngine {
       const distance = vector.distanceTo(this.camera.position)
       vector.project(this.camera)
       const visible = vector.z > -1 && vector.z < 1 && Math.abs(vector.x) < 1.2 && Math.abs(vector.y) < 1.2
-      result.push({ id: state.node.id, x: (vector.x + 1) * 0.5 * this.width, y: (1 - vector.y) * 0.5 * this.height, radius: (state.size * (1 + state.emphasis * 0.45) * scale) / distance / 2, depth: vector.z, alpha: state.alpha, visible })
+      result.push({ id: state.node.id, x: (vector.x + 1) * 0.5 * this.width, y: (1 - vector.y) * 0.5 * this.height, radius: (state.size * (1 + state.emphasis * 0.45) * scale) / distance / 2, depth: vector.z, alpha: !includeGrouped && this.clusteredIds.has(state.node.id) ? 0 : state.alpha, visible })
     }
     return result
   }
@@ -369,6 +381,15 @@ export class UniverseEngine {
   }
   nodeState(id: string) { return this.nodes.get(id) }
   cameraDistance() { return this.camera.position.distanceTo(this.controls.target) }
+  sourceClusters() { return this.clusters }
+  focusSources(cluster: SourceCluster) {
+    const target = new Vector3()
+    for (const id of cluster.members) { const point = this.nodes.get(id)!.target; target.add(new Vector3(point.x, point.y, point.z)) }
+    target.divideScalar(cluster.members.length)
+    const offset = this.camera.position.clone().sub(this.controls.target).setLength(650)
+    this.lastInteraction = performance.now()
+    this.fly(target, target.clone().add(offset))
+  }
 
   /* Renders one frame and returns it as a PNG data URL with a caption band. */
   snapshot(caption: string): string {
@@ -541,7 +562,7 @@ export class UniverseEngine {
     this.order.forEach((state, index) => {
       position.setXYZ(index, state.pos.x, state.pos.y, state.pos.z)
       size.setX(index, state.size * (sourceBoost && state.node.kind === 'instrument' ? 1.35 : 1))
-      alpha.setX(index, state.alpha)
+      alpha.setX(index, this.clusteredIds.has(state.node.id) ? 0 : state.alpha)
       emphasis.setX(index, state.emphasis)
     })
     for (const attribute of [position, size, alpha, emphasis]) attribute.needsUpdate = true
@@ -565,6 +586,7 @@ export class UniverseEngine {
     for (const edge of this.visibleEdges()) {
       const source = this.nodes.get(edge.sourceId), target = this.nodes.get(edge.targetId)
       if (!source || !target) continue
+      if (this.clusteredIds.has(source.node.id) || this.clusteredIds.has(target.node.id)) continue
       const visibility = Math.min(source.alpha, target.alpha)
       if (visibility < 0.02) continue
       const isActive = !!focus && (edge.sourceId === focus || edge.targetId === focus)
@@ -641,7 +663,7 @@ export class UniverseEngine {
       animating = true
     }
     const idle = time - this.lastInteraction > 6000
-    this.controls.autoRotate = !this.reducedMotion && !this.paused && !this.selected && !this.flight && idle && !document.hidden
+    this.controls.autoRotate = !this.reducedMotion && !this.paused && !this.selected && !this.hovered && !this.flight && idle && !document.hidden
     const controlsMoving = this.controls.update(dt / 1000)
     const nodesMoving = this.step(dt)
     if (nodesMoving) this.edgesDirty = true
@@ -653,6 +675,22 @@ export class UniverseEngine {
   }
 
   private render(time: number) {
+    const clusters = !this.selected && !this.highlight.size && !this.emphasiseSources && this.cameraDistance() > 1100 ? groupSources(this.project(true).filter(point => point.visible && point.alpha > 0.9 && this.nodes.get(point.id)?.node.kind === 'instrument').map(point => {
+      const node = this.nodes.get(point.id)!.node
+      return { ...point, domainId: node.domainId, color: node.color }
+    })) : []
+    const hidden = new Set(clusters.flatMap(cluster => cluster.members))
+    if (hidden.size !== this.clusteredIds.size || [...hidden].some(id => !this.clusteredIds.has(id))) this.edgesDirty = true
+    this.clusteredIds = hidden
+    this.clusters = clusters
+    const distance = this.camera.position.length()
+    this.envelope.visible = distance > universeRadius
+    if (this.envelope.visible) {
+      const normal = this.camera.position.clone().normalize()
+      this.envelope.position.copy(normal).multiplyScalar(universeRadius * universeRadius / distance)
+      this.envelope.quaternion.setFromUnitVectors(new Vector3(0, 0, 1), normal)
+      this.envelope.scale.setScalar(universeRadius * Math.sqrt(1 - (universeRadius / distance) ** 2))
+    }
     this.writeNodes()
     if (this.edgesDirty) { this.buildEdges(); this.edgesDirty = false }
     const pulsing = this.writePulses(time)
