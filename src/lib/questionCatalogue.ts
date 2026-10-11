@@ -21,7 +21,18 @@ export function catalogue(audience:Audience):CatalogueEntry[] {
 export function filterQuestions(audience:Audience,topics:string[],query:string,days:number,starters:boolean) {
  const terms=query.toLowerCase().trim().split(/\s+/).filter(Boolean)
  const starterIds=starterConcepts[audience].map(id=>`concept:${id}`)
- return catalogue(audience).filter(e=>(!topics.length||e.topics.some(t=>topics.includes(t)))&&(!days||!!e.development&&inDateWindow(e.development.published,days))&&(!starters||starterIds.includes(e.nodeId)&&!e.development)&&terms.every(t=>`${e.question.text} ${e.question.context} ${e.topics.map(id=>topicNames[id]).join(' ')}`.toLowerCase().includes(t))).sort((a,b)=>starters?starterIds.indexOf(a.nodeId)-starterIds.indexOf(b.nodeId):Number(!!a.development)-Number(!!b.development)||(b.development?.published??'').localeCompare(a.development?.published??'')||a.question.context.localeCompare(b.question.context))
+ const matches=catalogue(audience).filter(e=>(!topics.length||e.topics.some(t=>topics.includes(t)))&&(!days||!!e.development&&inDateWindow(e.development.published,days))&&terms.every(t=>`${e.question.text} ${e.question.context} ${e.topics.map(id=>topicNames[id]).join(' ')}`.toLowerCase().includes(t)))
+ if(starters){
+  const concepts=matches.filter(e=>e.nodeId.startsWith('concept:'))
+  const ranked=concepts.sort((a,b)=>{
+   const rank=(id:string)=>{const n=starterIds.indexOf(id);return n<0?starterIds.length:n}
+   return rank(a.nodeId)-rank(b.nodeId)||a.question.context.localeCompare(b.question.context)
+  })
+  // Give each selected topic an opening question before filling the selection.
+  const first=topics.flatMap(topic=>ranked.find(e=>e.topics.includes(topic))??[])
+  return [...new Map([...first,...ranked].map(e=>[e.question.id,e])).values()].slice(0,Math.max(5,topics.length))
+ }
+ return matches.sort((a,b)=>Number(!!a.development)-Number(!!b.development)||(b.development?.published??'').localeCompare(a.development?.published??'')||a.question.context.localeCompare(b.question.context))
 }
 // Resolve persisted IDs against the current authored corpus. Never load stored question text or links.
 const currentQuestions=new Map<string,Question>()

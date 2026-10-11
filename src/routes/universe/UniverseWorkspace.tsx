@@ -22,13 +22,13 @@ import type { UniverseNavigation } from '../../universe/shared'
 import { Inspector } from '../../components/Inspector'
 import { Sidebar } from '../../components/Sidebar'
 import { MapReadingGuide } from '../../components/MapReadingGuide'
-import { TemporalLens } from '../../components/TemporalLens'
 import { controlObjectives } from '../../data/controls'
 import { instruments } from '../../data/instruments'
 import { countForCausalLens, mappedRiskRecordCount, riskDomainById, riskSubdomains, type CausalLens } from '../../data/mitRiskTaxonomy'
 import { buildGraphModel, type LayoutMode } from '../../lib/graphModel'
 import type { AuthorityClass, Instrument } from '../../types'
 
+const TemporalLens = lazy(() => import('../../components/TemporalLens').then(m => ({ default: m.TemporalLens })))
 const SearchDialog = lazy(() => import('../../components/SearchDialog').then(m => ({ default: m.SearchDialog })))
 const StartHere = lazy(() => import('../../components/StartHere').then(m => ({ default: m.StartHere })))
 
@@ -55,6 +55,8 @@ export function UniverseWorkspace() {
   const [selectedNodeId, setSelectedNodeId] = useState<string | undefined>(initialView.selected)
   const [mobileControls, setMobileControls] = useState(false)
   const [showTime, setShowTime] = useState(() => new URLSearchParams(window.location.search).get('panel') === 'news')
+  const [hasOpenedNews, setHasOpenedNews] = useState(showTime)
+  useEffect(() => { if (showTime) setHasOpenedNews(true) }, [showTime])
   const [showUseCases,setShowUseCases]=useState(initialView.useCases??false)
   const [showIncidents,setShowIncidents]=useState(initialView.incidents??initialView.selected?.startsWith('incident:')??false)
   useEffect(()=>{if(selectedNodeId?.startsWith('incident:'))setShowIncidents(true)},[selectedNodeId])
@@ -387,7 +389,7 @@ export function UniverseWorkspace() {
 
       {searchOpen && <Suspense fallback={null}><SearchDialog onClose={() => setSearchOpen(false)} onSelect={openFromSearch}/></Suspense>}
 
-      <TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set());setEffects(new Set());setSectors(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} />
+      {(showTime || hasOpenedNews) && <Suspense fallback={null}><TemporalLens onSelect={(id) => { rememberView(); setQuery(''); setAuthorityClasses(new Set()); setRegions(new Set());setEffects(new Set());setSectors(new Set()); setTimeCutoff(maximumPublicationYear); setLayout('ontology'); setProjection('atlas'); setSelectedNodeId(id); setFocusAnchorId(id); setNewsFocus(n => n + 1) }} open={showTime} instruments={instruments} onClose={() => setShowTime(false)} /></Suspense>}
 
     </main>
   )

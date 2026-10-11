@@ -1,51 +1,60 @@
-import { useCases } from '../data/useCases'
-import { incidents } from '../data/incidents'
-import { inDateWindow } from '../data/developments'
-import { AudiencePicker, DevelopmentQuestion, BriefNotice } from './LeadershipQuestions'
+import { incidentQuestion } from '../data/incidents'
+import { useCaseQuestion } from '../data/useCases'
+import { AudiencePicker, DevelopmentQuestion, BriefNotice, QuestionCard, useBrief } from './LeadershipQuestions'
 import { ArrowUpRight, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
-import { filterDevelopments } from '../data/developments'
 import { domains } from '../data/concepts'
 import { briefingAnchor } from '../data/briefingDate'
+import { newsFeed, type NewsEntry } from '../lib/newsFeed'
 import type { Instrument } from '../types'
 
 type Props = { open: boolean; instruments: Instrument[]; onClose: () => void; onSelect: (id: string) => void }
 const dateLabel = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+function NewsCard({entry,instruments,onSelect,onClose}:{entry:NewsEntry;instruments:Instrument[];onSelect:Props['onSelect'];onClose:Props['onClose']}){
+ const {audience}=useBrief()
+ const {item}=entry
+ const select=(id:string)=>{onSelect(id);onClose()}
+ const contextId=entry.kind==='development'?`instrument:${entry.item.sourceId}`:`${entry.kind}:${item.id}`
+ return <article className={`news-card ${entry.kind==='incident'?'incident-card':''}`}>
+  <div className="news-meta"><span>{entry.kind==='development'?'Development':entry.kind==='incident'?'Incident findings':`Use case · ${entry.item.company}`}</span><time dateTime={entry.date}>{entry.kind==='incident'?'Findings':entry.kind==='development'?entry.item.dateBasis??'Published':'Published'} {dateLabel(entry.date)}</time></div>
+  <h3>{item.title}</h3>
+  <p className="news-issuer">{entry.kind==='development'?`${entry.item.issuer} · ${entry.item.status}`:entry.kind==='incident'?`${entry.item.classification} · ${entry.item.disclosureLabel}`:`${entry.item.status} · ${entry.item.evidence}`}</p>
+  <p>{item.summary}</p>
+  <div className="news-meaning"><h4>{entry.kind==='use-case'?'Why examine it':'Why it matters'} <small>Atlas interpretation</small></h4><p>{entry.kind==='use-case'?entry.item.connections[0]?.reason:entry.item.implication}</p></div>
+  <details className="news-detail"><summary>Questions and supporting detail</summary>
+   <div className="news-tags">{item.topics.map(id=><span key={id}>{domains.find(d=>d.id===id)?.shortName}</span>)}</div>
+   {entry.kind==='development'?<DevelopmentQuestion item={entry.item}/>:<>
+    <p className="news-limits"><strong>Evidence limits</strong> {entry.item.limitations}</p>
+    {entry.kind==='use-case'?<><p><strong>Reported value</strong> {entry.item.value}</p><QuestionCard question={useCaseQuestion(entry.item,audience)}/></>:<><p><strong>Review scope</strong> {entry.item.reviewScope}</p><QuestionCard question={incidentQuestion(entry.item,audience)}/></>}
+   </>}
+   <footer><button className="news-explore" onClick={()=>select(contextId)}>Read context <ArrowUpRight/></button>{entry.kind==='development'?<a href={entry.item.url} target="_blank" rel="noreferrer">Original source ↗</a>:entry.item.sources.map(s=><a key={s.url} href={s.url} target="_blank" rel="noreferrer">{s.title} ↗</a>)}</footer>
+   {entry.kind==='development'&&entry.item.backgroundSourceId&&<button className="news-background" onClick={()=>select(`instrument:${entry.item.backgroundSourceId}`)}>Background: {instruments.find(s=>s.id===entry.item.backgroundSourceId)?.shortTitle} →</button>}
+   <small className="news-review">{entry.kind==='incident'&&<>Occurred {entry.item.occurred} · </>}{entry.kind==='development'&&entry.item.updated&&<>Source page updated {dateLabel(entry.item.updated)} · </>}Overview reviewed {dateLabel(item.reviewed)}{entry.kind==='development'&&<> · Briefing added {dateLabel(entry.item.added)}</>}</small>
+  </details>
+ </article>
+}
 export function TemporalLens({ open, instruments, onClose, onSelect }: Props) {
-  const dialog = useRef<HTMLDialogElement>(null)
-  const [days, setDays] = useState<30 | 90 | 120>(30)
-  const [topic, setTopic] = useState('all')
-  useEffect(() => { if (open) dialog.current?.showModal(); else dialog.current?.close() }, [open])
-  const today = briefingAnchor()
-  const items = filterDevelopments(days, topic, today)
-  const cases=incidents.filter(i=>inDateWindow(i.updated,days,today)&&(topic==='all'||i.topics.includes(topic))).sort((a,b)=>b.updated.localeCompare(a.updated))
-  const deployments=useCases.filter(i=>i.published&&inDateWindow(i.published,days,today)&&(topic==='all'||i.topics.includes(topic))).sort((a,b)=>b.published!.localeCompare(a.published!))
-  const count = items.length+cases.length+deployments.length
-  const explore = (id: string) => { onSelect(`instrument:${id}`); onClose() }
-  return <dialog ref={dialog} className="whats-new" aria-labelledby="whats-new-title" onCancel={onClose} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
-    <div className="news-surface">
-      <header className="news-heading"><div><span className="news-eyebrow">ATLAS BRIEFING</span><h2 id="whats-new-title">What’s new</h2></div><button autoFocus onClick={onClose} aria-label="Close What’s new"><X /></button></header>
-      <div className="news-filters">
-        <div className="news-period" aria-label="Time period">{([30,90,120] as const).map(n => <button key={n} aria-pressed={days === n} onClick={() => setDays(n)}>Last {n} days</button>)}</div>
-        <label className="news-topic">Topic<select value={topic} onChange={e => setTopic(e.target.value)}><option value="all">All topics</option>{domains.map(d => <option value={d.id} key={d.id}>{d.shortName}</option>)}</select></label>
-      </div>
-      <div className="news-question-audience"><span>Questions for your role</span><AudiencePicker /><BriefNotice /></div>
-      <div className="news-results" aria-live="polite"><strong>{count} {count === 1 ? 'item' : 'items'}</strong><span>By publication or findings date · through {dateLabel(today)}</span></div>
-      <div className="news-cards">
-        {deployments.map(item=><article className="news-card use-case-news" key={item.id}><div className="news-meta"><span>Use case · {item.company}</span><time dateTime={item.published!}>{dateLabel(item.published!)}</time></div><h3>{item.title}</h3><p>{item.summary}</p><p>{item.value}</p><small>{item.evidence} · Public account reviewed {item.reviewed}</small><button className="news-explore" onClick={()=>{onSelect(`use-case:${item.id}`);onClose()}}>Explore use case and questions <ArrowUpRight/></button></article>)}
-        {cases.map(item=><article className="news-card incident-card" key={item.id}><div className="news-meta"><span>Incident · new findings</span><time dateTime={item.updated}>Findings {dateLabel(item.updated)}</time></div><h3>{item.title}</h3><p>{item.summary}</p><small>Occurred {item.occurred} · Overview reviewed {item.reviewed}</small><p>{item.implication}</p><button className="news-explore" onClick={()=>{onSelect(`incident:${item.id}`);onClose()}}>Explore incident and questions <ArrowUpRight/></button></article>)}
-        {items.map(item => <article className="news-card" key={item.id}>
-          <div className="news-meta"><span>{item.status}</span><time dateTime={item.published}>{item.dateBasis ?? 'Published'} {dateLabel(item.published)}</time></div>
-          <h3>{item.title}</h3><p className="news-issuer">{item.issuer}</p><p>{item.summary}</p>
-          <div className="news-tags">{item.topics.map(id => <button key={id} onClick={() => setTopic(id)}>{domains.find(d => d.id === id)?.shortName}</button>)}</div>
-          <div className="news-meaning"><h4>Why it matters <small>Atlas interpretation</small></h4><p>{item.implication}</p></div>
-          <DevelopmentQuestion item={item} />
-          <footer><button className="news-explore" onClick={() => explore(item.sourceId)}>Explore in Atlas <ArrowUpRight /></button><a href={item.url} target="_blank" rel="noreferrer">Original source ↗</a></footer>
-          {item.backgroundSourceId && <button className="news-background" onClick={() => explore(item.backgroundSourceId!)}>Background: {instruments.find(s => s.id === item.backgroundSourceId)?.shortTitle} · {instruments.find(s => s.id === item.backgroundSourceId)?.published} →</button>}
-          <small className="news-review">{item.updated && <>Source page updated {dateLabel(item.updated)} · </>}Overview reviewed {dateLabel(item.reviewed)} · Briefing added {dateLabel(item.added)}</small>
-        </article>)}
-        {count === 0 && <div className="news-empty"><h3>No reviewed items in this selection</h3><p>Try a longer period or another topic. An empty feed does not mean there were no developments.</p><button onClick={() => { setDays(120); setTopic('all') }}>Show all topics · last 120 days</button></div>}
-      </div>
-    </div>
-  </dialog>
+ const dialog=useRef<HTMLDialogElement>(null)
+ const [days,setDays]=useState<30|90|120>(30)
+ const [topic,setTopic]=useState('all')
+ const [order,setOrder]=useState<'latest'|'priority'>('latest')
+ useEffect(()=>{if(open)dialog.current?.showModal();else dialog.current?.close()},[open])
+ const today=briefingAnchor()
+ const entries=newsFeed(days,topic,today,order,instruments)
+ return <dialog ref={dialog} className="whats-new" aria-labelledby="whats-new-title" onCancel={onClose} onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
+  <div className="news-surface">
+   <header className="news-heading"><div><span className="news-eyebrow">ATLAS BRIEFING</span><h2 id="whats-new-title">What’s new</h2></div><button autoFocus onClick={onClose} aria-label="Close What’s new"><X/></button></header>
+   <div className="news-filters">
+    <div className="news-period" aria-label="Time period">{([30,90,120] as const).map(n=><button key={n} aria-pressed={days===n} onClick={()=>setDays(n)}>Last {n} days</button>)}</div>
+    <label className="news-topic">Topic<select value={topic} onChange={e=>setTopic(e.target.value)}><option value="all">All topics</option>{domains.map(d=><option value={d.id} key={d.id}>{d.shortName}</option>)}</select></label>
+    <div className="news-period" role="group" aria-label="Updates order"><button aria-pressed={order==='latest'} onClick={()=>setOrder('latest')}>Latest</button><button aria-pressed={order==='priority'} onClick={()=>setOrder('priority')}>Priority</button></div>
+   </div>
+   <p className="news-order-note">{order==='latest'?'Newest publication or findings first across all categories.':'Regulatory-source developments first, then incidents, other developments and use cases; newest first in each group. Editorial order, not an applicability assessment.'}</p>
+   <div className="news-question-audience"><span>Questions for your role</span><AudiencePicker/><BriefNotice/></div>
+   <div className="news-results" aria-live="polite"><strong>{entries.length} {entries.length===1?'item':'items'}</strong><span>Through {dateLabel(today)} · review dates do not create recency</span></div>
+   <div className="news-cards">{entries.map(entry=><NewsCard key={`${entry.kind}:${entry.item.id}`} entry={entry} instruments={instruments} onSelect={onSelect} onClose={onClose}/>)}
+    {!entries.length&&<div className="news-empty"><h3>No reviewed items in this selection</h3><p>Try a longer period or another topic. An empty feed does not mean there were no developments.</p><button onClick={()=>{setDays(120);setTopic('all')}}>Show all topics · last 120 days</button></div>}
+   </div>
+  </div>
+ </dialog>
 }
