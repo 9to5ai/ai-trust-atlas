@@ -15,7 +15,7 @@ it('filters production cards and shortlists a role question without opening a no
  fireEvent.click(screen.getByRole('button',{name:'Executive'}))
  fireEvent.click(screen.getByText('Question for Executive'))
  fireEvent.click(screen.getByRole('button',{name:'+ Add to brief'}))
- fireEvent.click(screen.getByRole('button',{name:'Your shortlist · 1'}))
+ fireEvent.click(screen.getByRole('button',{name:'Your brief · 1'}))
  expect(within(screen.getByRole('dialog',{name:'Your meeting brief'})).getByText(useCases[0].prompts.executive.text)).toBeInTheDocument()
  expect(explore).not.toHaveBeenCalled()
 })

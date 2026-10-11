@@ -184,18 +184,19 @@ describe('focused reference workflow', () => {
     expect(screen.getByRole('navigation', { name: 'Selected item location' })).toHaveTextContent('APRA CPS 234')
     expect(screen.queryByRole('button', { name: /Compare/ })).not.toBeInTheDocument()
   })
-  it('shows developments only, switches periods and opens APRA with its background source', () => {
+  it('shows external developments, switches periods and opens APRA with its background source', async () => {
     render(<App />)
     fireEvent.click(screen.getAllByRole('button', { name: 'What’s new' })[0])
-    const history = screen.getByRole('dialog', { name: 'What’s new' })
+    const history = await screen.findByRole('dialog', { name: 'What’s new' })
     expect(within(history).queryByRole('button', { name: 'Corrections' })).not.toBeInTheDocument()
     expect(within(history).queryByRole('button', { name: 'Atlas additions & updates' })).not.toBeInTheDocument()
     const apra = within(history).getByRole('heading', { name: 'Frontier AI: move from awareness to tested resilience' }).closest('article')!
+    fireEvent.click(within(apra).getByText('Questions and supporting detail'))
     expect(within(apra).getByRole('button', { name: /Background: APRA AI Letter/ })).toBeInTheDocument()
     expect(within(history).queryByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).not.toBeInTheDocument()
     fireEvent.click(within(history).getByRole('button', { name: 'Last 120 days' }))
     expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
-    fireEvent.click(within(apra).getByRole('button', { name: 'Explore in Atlas' }))
+    fireEvent.click(within(apra).getByRole('button', { name: 'Read context' }))
     expect(window.location.hash).toBe('#/instrument/asic-ai-cyber-letter')
   })
 })
@@ -251,14 +252,16 @@ describe('production use case journey',()=>{
   expect(screen.getByRole('button',{name:'Detect fraud & manage risk'})).toHaveAttribute('aria-pressed','true')
   await waitFor(() => expect(screen.queryByRole('complementary',{name:'Selected node details'})).not.toBeInTheDocument())
  })
- it('shows use cases in the briefing by publication date and opens their details',()=>{
+ it('shows use cases in the briefing by publication date and opens their details',async()=>{
   render(<App/>)
   fireEvent.click(screen.getAllByRole('button',{name:'What’s new'})[0])
-  const news=within(screen.getByRole('dialog',{name:'What’s new'}))
+  const news=within(await screen.findByRole('dialog',{name:'What’s new'}))
   fireEvent.click(news.getByRole('button',{name:'Last 90 days'}))
   expect(news.getByRole('heading',{name:'Everyday financial assistance'})).toBeInTheDocument()
   expect(news.queryByRole('heading',{name:'Proposing new fraud rules'})).not.toBeInTheDocument()
-  fireEvent.click(news.getByRole('button',{name:'Explore use case and questions'}))
+  const card=news.getByRole('heading',{name:'Everyday financial assistance'}).closest('article')!
+  fireEvent.click(within(card).getByText('Questions and supporting detail'))
+  fireEvent.click(within(card).getByRole('button',{name:'Read context'}))
   expect(window.location.hash).toBe('#/use-case/bofa-erica')
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
  })

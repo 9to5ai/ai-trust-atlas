@@ -29,7 +29,7 @@ export function QuestionsProvider({children}: {children: ReactNode}) {
   useEffect(() => { if(fallback) { fallbackText.current?.focus(); fallbackText.current?.select() } },[fallback])
   useEffect(() => { setCopyStatus(''); setFallback(false) },[selected,purpose])
   useEffect(()=>{try{localStorage.setItem(BRIEF_STORAGE_KEY,JSON.stringify({version:1,ids:selected.map(q=>q.id),purpose}));setStorageNotice('Saved on this device only.')}catch{setStorageNotice('Storage is unavailable. Copy your brief before leaving.')}},[selected,purpose])
-  const clear=()=>{setSelected([]);setPurpose('');setNotice('Shortlist cleared.')}
+  const clear=()=>{setSelected([]);setPurpose('');setNotice('Brief cleared.')}
   const toggle = (q: Question) => {
     if(selected.some(item => item.id === q.id)) { setSelected(items => items.filter(item => item.id !== q.id)); setNotice('Question removed from brief.'); return }
     setSelected(items => [...items,q]); setNotice('Question added to your meeting brief.')
@@ -45,7 +45,7 @@ export function QuestionsProvider({children}: {children: ReactNode}) {
       <p className="brief-purpose-print">{purpose || 'Discussion questions'}</p>
       <p className="questions-note">{storageNotice} Five to eight questions usually makes a focused discussion.</p>
       <p className="questions-note">Atlas-authored, source-informed prompts. Confirm the context and applicable requirements. Supporting material is an input to human assessment.</p>
-      <div className="brief-actions"><button disabled={!selected.length} onClick={copy}>Copy brief</button><button disabled={!selected.length} onClick={()=>window.print()}>Print / Save PDF</button><button disabled={!selected.length && !purpose} onClick={clear}>Clear shortlist</button></div>
+      <div className="brief-actions"><button disabled={!selected.length} onClick={copy}>Copy brief</button><button disabled={!selected.length} onClick={()=>window.print()}>Print / Save PDF</button><button disabled={!selected.length && !purpose} onClick={clear}>Clear brief</button></div>
       <p className="brief-status" role="status">{copyStatus}</p>
       {fallback && <textarea ref={fallbackText} className="brief-copy-fallback" aria-label="Brief text to copy" readOnly value={briefText(purpose,selected)} />}
       <ol className="brief-questions">{selected.map(q=><li key={q.id}><div className="question-context">{audienceNames[q.audience]} · {q.context}{q.developmentDate && ` · ${q.developmentDate}`}</div><h3>{q.text}</h3><QuestionDetail question={q} /><div className="brief-item-actions"><button disabled={selected[0].id===q.id} aria-label={`Move up: ${q.text}`} onClick={()=>move(q.id,-1)}>↑</button><button disabled={selected[selected.length-1].id===q.id} aria-label={`Move down: ${q.text}`} onClick={()=>move(q.id,1)}>↓</button><button onClick={()=>toggle(q)} aria-label={`Remove: ${q.text}`}>Remove</button></div></li>)}</ol>
