@@ -194,7 +194,7 @@ describe('focused reference workflow', () => {
     fireEvent.click(within(apra).getByText('Questions and supporting detail'))
     expect(within(apra).getByRole('button', { name: /Background: APRA AI Letter/ })).toBeInTheDocument()
     expect(within(history).queryByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).not.toBeInTheDocument()
-    fireEvent.click(within(history).getByRole('button', { name: 'Last 120 days' }))
+    fireEvent.change(within(history).getByRole('combobox', { name: 'Time period' }), { target: { value: '120' } })
     expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
     fireEvent.click(within(apra).getByRole('button', { name: 'Read context' }))
     expect(window.location.hash).toBe('#/instrument/asic-ai-cyber-letter')
@@ -260,7 +260,7 @@ describe('production use case journey',()=>{
   render(<App/>)
   fireEvent.click(screen.getAllByRole('button',{name:'What’s new'})[0])
   const news=within(await screen.findByRole('dialog',{name:'What’s new'}))
-  fireEvent.click(news.getByRole('button',{name:'Last 90 days'}))
+  fireEvent.change(news.getByRole('combobox',{name:'Time period'}),{target:{value:'90'}})
   expect(news.getByRole('heading',{name:'Everyday financial assistance'})).toBeInTheDocument()
   expect(news.queryByRole('heading',{name:'Proposing new fraud rules'})).not.toBeInTheDocument()
   const card=news.getByRole('heading',{name:'Everyday financial assistance'}).closest('article')!
