@@ -27,10 +27,9 @@ test.describe('ranked review tasks', () => {
       await expect(page.getByRole('status')).toContainText('documented deployments')
 
       await page.goto('/questions')
-      await page.getByRole('group', { name: 'Question audience' }).getByRole('button', { name: 'Board' }).click()
+      await page.getByRole('combobox', { name: 'Question audience' }).selectOption('board')
       await page.getByRole('button', { name: '+ Add to brief' }).first().click()
-      if (test.info().project.name === 'mobile') await page.getByRole('button', { name: /Your brief · 1/ }).click()
-      else await page.getByRole('complementary', { name: 'Your brief' }).getByRole('button', { name: 'Review / export' }).click()
+      await page.getByRole('button', { name: /Review brief · 1/ }).click()
       await expect(page.getByRole('dialog', { name: 'Your meeting brief' })).toBeVisible()
       await expect(page.getByRole('dialog', { name: 'Your meeting brief' })).toContainText('1 questions')
   })

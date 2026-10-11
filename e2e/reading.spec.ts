@@ -35,13 +35,17 @@ test('use-case reading preserves the directory, filters and browser history', as
 
 test('question context stays in Questions and retains the chosen topic', async ({ page }) => {
   await page.goto('/questions')
-  await page.getByRole('button',{name:'Accountability and governance',exact:true}).click()
+  await page.locator('.questions-topic-picker>summary').click()
+  await page.getByRole('checkbox',{name:'Accountability and governance',exact:true}).check()
+  await page.getByRole('button',{name:'Done',exact:true}).click()
+  await page.getByRole('article').first().locator('summary').click()
   await page.getByRole('button',{name:'Read context →',exact:true}).first().click()
   await expect(page).toHaveURL(/\/questions[^#]*#\/concept\//)
   const reader=page.getByLabel('Selected node details')
   await expect(reader).toHaveClass(/reading-view/)
   await reader.getByRole('button',{name:'Close details'}).click()
-  await expect(page.getByRole('button',{name:'Accountability and governance',exact:true})).toHaveAttribute('aria-pressed','true')
+  await page.locator('.questions-topic-picker>summary').click()
+  await expect(page.getByRole('checkbox',{name:'Accountability and governance',exact:true})).toBeChecked()
 })
 
 

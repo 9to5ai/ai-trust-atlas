@@ -61,9 +61,14 @@ export function AudiencePicker() {
 function QuestionDetail({question:q}: {question:Question}) {
   return <div className="question-detail">{q.basis && <><h4>Connection to this item</h4><p>{q.basis}</p></>}<h4>Why ask?</h4><p>{q.why}</p><h4>What to ask for</h4><p>{q.askFor}</p><h4>If the answer is vague…</h4><p>{q.followUp}</p><h4>Related references</h4><ul>{q.sources.map(s=><li key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.title} ↗</a></li>)}</ul></div>
 }
-export function QuestionCard({question:q}: {question:Question}) {
+export function QuestionCard({question:q,compact=false,children,onExplore}: {question:Question;compact?:boolean;children?:ReactNode;onExplore?:()=>void}) {
   const {selected,toggle} = useBrief()
   const added=selected.some(item=>item.id===q.id)
+  if(compact)return <article className="leadership-question question-compact-card">
+    <h2>{q.text}</h2>
+    <details><summary>Why ask? <span aria-hidden="true">＋</span></summary><div className="question-expanded-context"><p className="question-context">{q.context}</p>{children}</div><QuestionDetail question={q}/>{onExplore&&<button className="question-explore" onClick={onExplore}>Read context →</button>}</details>
+    <button className="question-add" aria-pressed={added} onClick={()=>toggle(q)}>{added?'✓ In brief · remove':'+ Add to brief'}</button>
+  </article>
   return <article className="leadership-question"><details><summary><span className="question-context">{q.context}</span><span className="question-text">{q.text}</span><span className="question-expand">Why ask · What to ask for <span aria-hidden="true">＋</span></span></summary><QuestionDetail question={q} /></details><button className="question-add" aria-pressed={added} onClick={()=>toggle(q)}>{added?'✓ In brief · remove':'+ Add to brief'}</button></article>
 }
 export function QuestionsPanel({kind,id}: {kind:GraphNodeKind;id:string}) {
