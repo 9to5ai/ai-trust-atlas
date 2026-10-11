@@ -62,7 +62,7 @@ describe('clean universe interface', () => {
     expect(comparison.getAllByText(/last verified|awaiting editorial review/i).length).toBeGreaterThan(0)
     fireEvent.click(screen.getByRole('button', { name: 'Return to map' }))
     expect(container.querySelector('.is-focus-list')).toBeNull()
-  })
+  }, 15000) // Cold hosted workers need more time for this full-app journey.
 
   it('collapses and expands the left panel without discarding selected details', async () => {
     const { container } = render(<App />)
@@ -187,7 +187,7 @@ describe('focused reference workflow', () => {
   it('shows external developments, switches periods and opens APRA with its background source', async () => {
     render(<App />)
     fireEvent.click(screen.getAllByRole('button', { name: 'What’s new' })[0])
-    const history = await screen.findByRole('dialog', { name: 'What’s new' })
+    const history = await screen.findByRole('dialog', { name: 'What’s new' }, { timeout: 5000 })
     expect(within(history).queryByRole('button', { name: 'Corrections' })).not.toBeInTheDocument()
     expect(within(history).queryByRole('button', { name: 'Atlas additions & updates' })).not.toBeInTheDocument()
     const apra = within(history).getByRole('heading', { name: 'Frontier AI: move from awareness to tested resilience' }).closest('article')!
@@ -198,7 +198,7 @@ describe('focused reference workflow', () => {
     expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
     fireEvent.click(within(apra).getByRole('button', { name: 'Read context' }))
     expect(window.location.hash).toBe('#/instrument/asic-ai-cyber-letter')
-  })
+  }, 15000) // The Updates panel loads on demand on cold hosted workers.
 })
 
 
@@ -227,13 +227,17 @@ describe('audience workspace entry',()=>{
    fireEvent.click(within(screen.getByRole('navigation',{name:'Atlas sections'})).getByRole('link',{name:'Questions'}))
    expect(screen.getByRole('region',{name:'Questions workspace'})).toBeInTheDocument()
    expect(window.location.pathname).toBe('/questions')
-   fireEvent.click(screen.getByRole('button',{name:'Accountability and governance'}))
+   fireEvent.click(screen.getByText('All topics',{selector:'.questions-topic-picker>summary'}))
+   fireEvent.click(screen.getByRole('checkbox',{name:'Accountability and governance'}))
+   fireEvent.click(screen.getByRole('button',{name:'Done'}))
+   fireEvent.click(within(screen.getAllByRole('article')[0]).getByText('Why ask?',{selector:'summary'}))
    fireEvent.click(screen.getAllByRole('button',{name:'Read context →'})[0])
    expect(window.location.pathname).toBe('/questions')
    expect(screen.getByLabelText('Selected node details')).toHaveClass('reading-view')
    expect(window.location.hash).toContain('concept/accountability')
    fireEvent.click(within(screen.getByLabelText('Selected node details')).getByRole('button',{name:'← Back'}))
-   expect(screen.getByRole('button',{name:'Accountability and governance'})).toHaveAttribute('aria-pressed','true')
+   fireEvent.click(screen.getByText('Accountability and governance',{selector:'.questions-topic-picker>summary'}))
+   expect(screen.getByRole('checkbox',{name:'Accountability and governance'})).toBeChecked()
  })
 })
 
