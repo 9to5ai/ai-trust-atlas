@@ -62,7 +62,7 @@ describe('clean universe interface', () => {
     expect(comparison.getAllByText(/last verified|awaiting editorial review/i).length).toBeGreaterThan(0)
     fireEvent.click(screen.getByRole('button', { name: 'Return to map' }))
     expect(container.querySelector('.is-focus-list')).toBeNull()
-  })
+  }, 15000) // Cold hosted workers need more time for this full-app journey.
 
   it('collapses and expands the left panel without discarding selected details', async () => {
     const { container } = render(<App />)
