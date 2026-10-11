@@ -39,13 +39,6 @@
   .reading-view .source-status { padding-block: 12px; border-block: 1px solid var(--line); }
 }
 
-.news-order-note {font-size:12px;line-height:1.65;color:var(--text-muted);margin:12px 0 20px}
-.news-detail {border-top:1px solid var(--line);margin-top:18px;padding-top:12px}
-.news-detail>summary {padding:4px 0;font-size:12px;color:var(--text-muted)}
-.news-tags span {font-size:10px;color:var(--text-muted)}
-.news-limits {border-left:2px solid var(--line-strong);padding-left:12px}
-@media(max-width:860px){.news-results{flex-wrap:wrap}.news-filters{gap:10px}}
-
 /* Questions: one reading column; context appears only when requested. */
 .questions-workspace.questions-compact {padding:0;overflow-y:auto;overscroll-behavior:contain}
 .questions-content {width:min(100%,808px);margin-inline:auto;padding:30px 24px 40px;box-sizing:border-box}
