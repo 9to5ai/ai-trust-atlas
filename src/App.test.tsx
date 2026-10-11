@@ -187,7 +187,7 @@ describe('focused reference workflow', () => {
   it('shows external developments, switches periods and opens APRA with its background source', async () => {
     render(<App />)
     fireEvent.click(screen.getAllByRole('button', { name: 'What’s new' })[0])
-    const history = await screen.findByRole('dialog', { name: 'What’s new' })
+    const history = await screen.findByRole('dialog', { name: 'What’s new' }, { timeout: 5000 })
     expect(within(history).queryByRole('button', { name: 'Corrections' })).not.toBeInTheDocument()
     expect(within(history).queryByRole('button', { name: 'Atlas additions & updates' })).not.toBeInTheDocument()
     const apra = within(history).getByRole('heading', { name: 'Frontier AI: move from awareness to tested resilience' }).closest('article')!
@@ -198,7 +198,7 @@ describe('focused reference workflow', () => {
     expect(within(history).getByRole('heading', { name: 'DTA expands technical guidance for agentic AI' })).toBeInTheDocument()
     fireEvent.click(within(apra).getByRole('button', { name: 'Read context' }))
     expect(window.location.hash).toBe('#/instrument/asic-ai-cyber-letter')
-  })
+  }, 15000) // The Updates panel loads on demand on cold hosted workers.
 })
 
 
