@@ -10,7 +10,7 @@ import { briefingAnchor } from '../data/briefingDate'
 import type { Instrument } from '../types'
 
 type Props = { open: boolean; instruments: Instrument[]; onClose: () => void; onSelect: (id: string) => void }
-const dateLabel = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+const dateLabel = (date: string) => new Date(`${date.length === 7 ? `${date}-01` : date}T00:00:00Z`).toLocaleDateString('en-AU', { ...(date.length === 7 ? {} : { day: 'numeric' as const }), month: 'short', year: 'numeric', timeZone: 'UTC' })
 export function TemporalLens({ open, instruments, onClose, onSelect }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [days, setDays] = useState<30 | 90 | 120>(30)

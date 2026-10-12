@@ -735,8 +735,8 @@ const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questi
       "executive": "How will our agency apply the agentic addendum across design, evaluation and operation?",
       "regulator": "Show how an agency using agentic AI has considered the addendum alongside the technical standard."
     },
-    "askFor": "Agent design decisions, lifecycle checks and operational monitoring.",
-    "followUp": "Which agentic capability is not covered by the existing review process?"
+    "askFor": "Memory inventory, stop-test traces, pending-work reconciliation and approved retention/cleanup decisions.",
+    "followUp": "Which agent memories and queued actions remain after we stop the workflow?"
   },
   "acs-release": {
     "questions": {

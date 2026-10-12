@@ -1,0 +1,462 @@
+{
+  "date": "2026-10-12",
+  "batch": 2,
+  "baselineCommit": "fbad228edfda95ac43c19be6c9e27e91fc0d6575",
+  "publicationStatus": "proposal-only; Continue authorised research, not publication",
+  "priorProposals": "proposed-refresh-2026-10-12.json",
+  "weights": {
+    "authority": 30,
+    "relevance": 30,
+    "impact": 25,
+    "contribution": 15
+  },
+  "proposals": [
+    {
+      "candidateId": "far-s23-scope-2026-10-12",
+      "priority": 1,
+      "targets": [
+        "far-s23-key-personnel",
+        "req-far-s23-coverage"
+      ],
+      "proposedText": "Responsibility coverage is subject to regulator-excluded responsibilities under section 23(2). For foreign accountable entities, section 23(3) applies coverage to their branches operating in Australia and the relevant prescribed responsibilities.",
+      "references": [
+        "section 23(1)\u2013(3)"
+      ],
+      "conceptIds": [
+        "senior-accountability",
+        "accountability",
+        "decision-rights"
+      ],
+      "controlIds": [
+        "accountable-ownership",
+        "decision-rights-approval"
+      ],
+      "riskImpact": "No automatic foreign-group or organisation-specific applicability conclusion.",
+      "mappingChanges": [],
+      "roleQuestions": "Retain existing ownership/map questions; clarify the scope note before adding questions.",
+      "dates": "No newly issued duty or date asserted."
+    },
+    {
+      "candidateId": "pra-ss123-scope-2026-10-12",
+      "priority": 2,
+      "target": "uk-pra-ss1-23.applicability",
+      "proposedText": "Supervisory expectations for UK-incorporated banks, building societies and PRA-designated investment firms with specified internal-model capital approval. Other firms may find the principles useful; third-country branches, credit unions, insurers and reinsurers are outside the stated expectations. Apply proportionately.",
+      "references": [
+        "paragraphs 1.2\u20131.3"
+      ],
+      "conceptIds": [
+        "model-risk",
+        "materiality"
+      ],
+      "controlIds": [
+        "context-materiality"
+      ],
+      "riskImpact": "Preserve current risk links; no expansion of addressees or assurance inference.",
+      "mappingChanges": [],
+      "roleQuestions": "Retain existing questions; applicability correction only.",
+      "dates": "Retain original 2023 publication and current April 2026 edition; record PDF cover date separately."
+    },
+    {
+      "candidateId": "imda-agentic-may-update-2026-10-12",
+      "priority": 3,
+      "target": "imda-agentic-framework edition-history/overview metadata",
+      "originalPublished": "2026-01-22",
+      "knownUpdate": "2026-05-20",
+      "publisherIndexedVersionLabel": "v1.5",
+      "proposedText": "IMDA announced a May 2026 update adding multi-agent, third-party-agent and automation-bias practices and illustrative case studies. The original framework launched in January. Current edition verification remains outstanding.",
+      "evidenceLimitation": "Live IMDA access blocked; indexed official material supports historical update only.",
+      "conceptIds": [
+        "agent-authority",
+        "runtime-guardrails",
+        "human-oversight",
+        "lifecycle-governance"
+      ],
+      "controlIds": [
+        "agent-runtime-constraints",
+        "third-party-assessment",
+        "human-intervention-safe-stop"
+      ],
+      "riskImpact": "No new binding duty, case admission or tested-control effectiveness assertion.",
+      "mappingChanges": [],
+      "roleQuestions": "Retain existing four-dimension prompts; no new main question for edition metadata."
+    },
+    {
+      "candidateId": "ai-verify-tool-scope-2026-10-12",
+      "priority": 4,
+      "target": "singapore-ai-verify summary and primary project links",
+      "officialUrl": "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/",
+      "proposedText": "A governance testing framework for traditional and generative AI, supported by process checks and distinct technical tools: AI Verify Toolkit for traditional ML and Project Moonshot for LLM applications.",
+      "supportingUrls": [
+        "https://aiverifyfoundation.sg/tools/ai-verify-toolkit/",
+        "https://aiverifyfoundation.sg/tools/moonshot/"
+      ],
+      "unchanged": [
+        "Voluntary testing resource",
+        "Original 2022 launch",
+        "Test outputs are evidence inputs, not certification or assurance"
+      ],
+      "conceptIds": [
+        "evaluation",
+        "evidence-quality",
+        "fairness-bias",
+        "reliability"
+      ],
+      "controlIds": [
+        "fit-for-purpose-evaluation",
+        "records-traceability"
+      ],
+      "riskImpact": "Clarifies test coverage; does not claim algorithms or tests were run.",
+      "mappingChanges": [],
+      "roleQuestions": "Existing source questions retained; scope clarification only."
+    },
+    {
+      "candidateId": "asd-board-date-reconciliation-2026-10-12-batch-2",
+      "priority": 5,
+      "targets": [
+        "asd-frontier-board.published",
+        "asd-board-guidance.published",
+        "source dateBasis note"
+      ],
+      "proposedPublicationMonth": "2026-08",
+      "proposedDateBasis": "Original PDF first published August 2026; current webpage published/reviewed 8 September 2026. Exact original day unverified.",
+      "historicalValue": "2026-08-05 retained in research history; not independently disproved.",
+      "references": [
+        "PDF page 1",
+        "HTML Published and Last reviewed metadata"
+      ],
+      "conceptIds": [
+        "provenance",
+        "evidence-quality"
+      ],
+      "controlIds": [
+        "records-traceability"
+      ],
+      "riskImpact": "Recency precision only; preserve source content and relationships.",
+      "mappingChanges": [],
+      "roleQuestions": "Existing questions retained.",
+      "scope": "Supersedes earlier deferred date-reconciliation decision; do not convert portal timestamp into a new edition."
+    },
+    {
+      "candidateId": "dta-agent-memory-followup-2026-10-12",
+      "priority": 6,
+      "target": "Existing dta-agentic-guidance card follow-up/evidence request; no new development event",
+      "followUp": "Which agent memories and queued actions remain after we stop the workflow?",
+      "askFor": "Memory inventory, stop-test traces, pending-work reconciliation and approved retention/cleanup decisions.",
+      "references": [
+        "AGT.2.1",
+        "AGT.3.4",
+        "AGT.8.1",
+        "Criterion 147 (existing)"
+      ],
+      "conceptIds": [
+        "agent-authority",
+        "human-oversight",
+        "traceability",
+        "change-management"
+      ],
+      "controlIds": [
+        "agent-runtime-constraints",
+        "human-intervention-safe-stop",
+        "change-release-retirement",
+        "records-traceability"
+      ],
+      "riskImpact": "Persistent state and uncompleted work are discussion scenarios, not asserted incidents or legal duties. Shared resources and records-retention duties constrain cleanup.",
+      "mappingChanges": [],
+      "roleQuestions": "Existing authored four-audience DTA prompts retained. Add the follow-up only; it is distinct from NIST credential revocation and generic lifecycle questions.",
+      "synthesisBoundary": "Queued-work reconciliation is Atlas synthesis from workflow/fail-safe/retirement context; the source does not state a universal queue-deletion requirement. Reasoning logs do not prove faithful internal reasoning."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "pra-ss123-scope-2026-10-12",
+      "title": "PRA SS1/23: name the internal-model approval scope",
+      "eventKey": "pra-ss123-scope-clarification",
+      "url": "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf",
+      "sourceType": "policy-guidance",
+      "discovered": "2026-10-12",
+      "authorityNote": "PRA original statement paragraphs 1.2\u20131.3 and landing scope directly support this qualification.",
+      "scope": "UK-incorporated banks, building societies and PRA-designated investment firms with specified internal-model capital approval. Excluded firms may find the principles useful; this does not expand their supervisory scope.",
+      "publicationDate": "2023-05-17",
+      "dateBasis": "Original publication on issuer landing; current edition published/effective 23 April 2026. PDF cover dated 16 April 2026 is recorded separately.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "full-text",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 2
+      },
+      "scoreReasons": {
+        "authority": "PRA original statement paragraphs 1.2\u20131.3 and landing scope directly support this qualification.",
+        "relevance": "Financial-services readers can otherwise overread the generic UK-firms applicability field.",
+        "impact": "Makes the addressee gate visible before users infer applicability.",
+        "contribution": "Narrow correction to source reader; existing principles are not duplicated."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Clarify the current applicability text with the approval condition and exclusions; keep original and edition/effective dates distinct.",
+      "linkedSourceIds": [
+        "uk-pra-ss1-23"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+      "weightedScore": 86.25,
+      "evidenceUrls": [
+        "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf"
+      ]
+    },
+    {
+      "id": "far-s23-scope-2026-10-12",
+      "title": "FAR section 23: preserve exclusions and foreign-branch scope",
+      "eventKey": "far-section23-scope-qualification",
+      "url": "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf",
+      "sourceType": "policy-guidance",
+      "discovered": "2026-10-12",
+      "authorityNote": "Official current Act text, section 23(1)\u2013(3), including scope qualifications.",
+      "scope": "Existing section 23 summaries only; regulator-excluded responsibilities and foreign-accountable-entity Australian branch rule. Minister/regulator rules and complete Act amendment history remain outside this selected check.",
+      "publicationDate": null,
+      "dateBasis": "Act originally 2023; reviewed compilation C2025C00148 effective 21 February 2025. No new legal event claimed.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "full-text",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 2
+      },
+      "scoreReasons": {
+        "authority": "Official current Act text, section 23(1)\u2013(3), including scope qualifications.",
+        "relevance": "Direct relevance to Australian financial institutions and accountability maps.",
+        "impact": "Avoids treating all foreign group operations or excluded responsibilities as automatically covered.",
+        "contribution": "Qualifies existing records rather than adding a duplicate accountability duty."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Add subsection 23(2) exclusions and 23(3) foreign-branch qualification to current provision and requirement summaries.",
+      "linkedSourceIds": [
+        "au-far-act"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+      "weightedScore": 86.25,
+      "evidenceUrls": [
+        "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf"
+      ]
+    },
+    {
+      "id": "dta-agent-memory-followup-2026-10-12",
+      "title": "DTA agentic guidance: test what survives workflow shutdown",
+      "eventKey": "dta-agent-memory-shutdown-question",
+      "url": "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf",
+      "sourceType": "policy-guidance",
+      "discovered": "2026-10-12",
+      "authorityNote": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+      "scope": "Original Atlas discussion follow-up grounded in AGT.2.1, AGT.3.4, AGT.8.1 and existing Criterion 147. Government guidance; no private-sector duty or implementation claim.",
+      "publicationDate": "2026-06-04",
+      "dateBasis": "Issuer landing records LAST UPDATED 4 June 2026; preserve update-date basis.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "full-text",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 3
+      },
+      "scoreReasons": {
+        "authority": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+        "relevance": "Concrete executive and assurance question about persistent state and recovery.",
+        "impact": "Connects stopping execution with memory, pending work, retention and shared resources.",
+        "contribution": "Distinct from existing credential revocation and general stop/retirement questions; proposes a follow-up rather than another generic main prompt."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Add a scoped follow-up and evidence request to the existing DTA discussion card; source criteria and Atlas question remain distinct.",
+      "linkedSourceIds": [
+        "dta-agentic-addendum"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+      "weightedScore": 90.0,
+      "evidenceUrls": [
+        "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf"
+      ]
+    },
+    {
+      "id": "asd-board-date-reconciliation-2026-10-12-batch-2",
+      "title": "ASD board guidance: distinguish original month from webpage date",
+      "eventKey": "asd-board-date-reconciliation",
+      "url": "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf",
+      "sourceType": "policy-guidance",
+      "discovered": "2026-10-12",
+      "authorityNote": "ASD/AICD original seven-page PDF cover and current official publication page.",
+      "scope": "Original PDF first-publication month and current portal publication date. Exact original day is not independently established; no assertion that 5 August is false.",
+      "publicationDate": null,
+      "dateBasis": "PDF page 1: first published August 2026. Webpage: published/reviewed 8 September 2026. Exact original day unknown.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "full-text",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 2,
+        "contribution": 2
+      },
+      "scoreReasons": {
+        "authority": "ASD/AICD original seven-page PDF cover and current official publication page.",
+        "relevance": "Recency and provenance visible to all Atlas audiences.",
+        "impact": "Prevents later portal date becoming apparent new guidance and removes unsupported day precision.",
+        "contribution": "Resolves document-versus-page date basis left deferred in batch 1."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Prefer supported publication month 2026-08, annotate 8 September webpage date separately, and preserve historical 5 August value in the research audit trail.",
+      "linkedSourceIds": [
+        "asd-frontier-board"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+      "supersedesId": "asd-board-date-reconciliation-2026-10-12",
+      "weightedScore": 80.0,
+      "evidenceUrls": [
+        "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf"
+      ]
+    },
+    {
+      "id": "ai-verify-tool-scope-2026-10-12",
+      "eventKey": "ai-verify-framework-and-tool-scope",
+      "title": "AI Verify: distinguish framework and technical testing tools",
+      "url": "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/",
+      "discovered": "2026-10-12",
+      "sourceType": "testing-tool",
+      "authorityNote": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+      "scope": "Declared public metadata/overview only. Framework covers traditional and GenAI; AI Verify Toolkit technical tests are for traditional ML; Project Moonshot is a separate LLM testing toolkit. No software operation, test algorithm or published crosswalk validation.",
+      "publicationDate": null,
+      "dateBasis": "Original launch 25 May 2022; framework update 29 May 2025. No newly issued October release asserted.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 3,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 2
+      },
+      "scoreReasons": {
+        "authority": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+        "relevance": "Directly informs which evidence process to request for different AI system types.",
+        "impact": "Prevents one toolkit label implying the same technical test suite applies to all models.",
+        "contribution": "Clarifies the existing source and links; no new model benchmark or effectiveness claim."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Clarify summary and point readers to the specific framework/tool pages while retaining evidence-input, voluntary status.",
+      "linkedSourceIds": [
+        "singapore-ai-verify"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+      "evidenceUrls": [
+        "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/"
+      ],
+      "weightedScore": 78.75
+    },
+    {
+      "id": "imda-agentic-may-update-2026-10-12",
+      "eventKey": "imda-agentic-framework-update-20260520",
+      "title": "IMDA: add the May 2026 update alongside the January launch",
+      "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai",
+      "discovered": "2026-10-12",
+      "sourceType": "framework",
+      "authorityNote": "IMDA original indexed factsheet and official programme index support the historical May update.",
+      "scope": "Official indexed public announcement/overview of May update, not a current full-framework version check. Live IMDA pages/PDF blocked automated requests. Case-study operational claims not admitted.",
+      "publicationDate": "2026-05-20",
+      "dateBasis": "Official factsheet dated/last updated 20 May 2026; January launch remains 22 January. Indexed material is months old, so no latest-edition-as-of-October claim.",
+      "reviewed": "2026-10-12",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": true,
+        "rights": true,
+        "scopeAndStatus": true
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 3
+      },
+      "scoreReasons": {
+        "authority": "IMDA original indexed factsheet and official programme index support the historical May update.",
+        "relevance": "Agentic governance reference directly relevant to autonomy, multi-agent and external-agent decisions.",
+        "impact": "Prevents the January-only overview omitting a substantiated subsequent update.",
+        "contribution": "New edition-history metadata for an existing source; does not duplicate the four dimensions or admit vendor cases."
+      },
+      "relevantBindingChange": false,
+      "decision": "include",
+      "reason": "Record the May update and official v1.5 programme-index label with an access caveat; require current PDF confirmation before a whole-edition or current-status claim.",
+      "linkedSourceIds": [
+        "imda-agentic-framework"
+      ],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+      "evidenceUrls": [
+        "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai"
+      ],
+      "weightedScore": 90.0
+    }
+  ],
+  "completedChecks": [
+    "source:oecd-ai-principles",
+    "source:singapore-ai-verify",
+    "source:dta-agentic-addendum",
+    "source:asd-frontier-board",
+    "source:uk-pra-ss1-23",
+    "source:osfi-e23",
+    "source:mas-feat"
+  ],
+  "partialChecks": [
+    "source:au-corporations-act",
+    "source:au-asic-act",
+    "source:au-far-act",
+    "source:imda-agentic-framework",
+    "source:owasp-llm-top-10",
+    "source:owasp-agentic-top-10"
+  ],
+  "rights": "Short original synopses/questions and source links only; full source snapshots remain private. No third-party figures or standards text copied into public corpus.",
+  "approval": "Pending explicit subset approval; no publishing.",
+  "allProposalsPendingApproval": true
+}

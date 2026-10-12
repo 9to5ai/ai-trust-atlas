@@ -77,7 +77,7 @@ export const derivedEvents: TimelineEvent[] = instruments.flatMap((instrument) =
 export const developmentEvents: TimelineEvent[] = developments.map((item) => ({
   id: `development:${item.id}`,
   date: item.published,
-  precision: 'day',
+  precision: precisionOf(item.published) ?? 'year',
   kind: 'development',
   certainty: 'enacted',
   title: item.title,

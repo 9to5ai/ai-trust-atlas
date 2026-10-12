@@ -1578,5 +1578,725 @@
       "mas-airm-guidelines-cp"
     ],
     "supersedesId": "review-2026-09-24-mas-airm-guidelines-cp"
+  },
+  {
+    "id": "owasp-aisvs-stable-101-metadata-2026-10-12",
+    "title": "AISVS: correct stable-version status while retaining 1.0 references",
+    "url": "https://github.com/OWASP/AISVS",
+    "discovered": "2026-10-12",
+    "eventKey": "owasp-aisvs-stable-101-metadata",
+    "sourceType": "policy-guidance",
+    "authorityNote": "OWASP official repository and release policy; voluntary technical reference.",
+    "scope": "Publisher stable-version declaration only; no 1.01 requirements migration.",
+    "publicationDate": null,
+    "dateBasis": "Exact 1.01 release date not established; observed stable declaration on review date, not a publication date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "OWASP official repository and release policy; voluntary technical reference.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Replace the stale description of 1.01 as in progress. Keep Atlas 1.0 titles and requirement references until a frozen-edition comparison.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Replace the stale description of 1.01 as in progress. Keep Atlas 1.0 titles and requirement references until a frozen-edition comparison.",
+    "linkedSourceIds": [
+      "owasp-aisvs"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://github.com/OWASP/AISVS"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "sr26-authority-reader-clarification-2026-10-12",
+    "title": "SR 26-2: make non-binding status explicit in the reader",
+    "url": "https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf",
+    "discovered": "2026-10-12",
+    "eventKey": "sr26-authority-reader-clarification",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Federal Reserve original interagency guidance, section I and footnote 1; no enforceable standards established by this guidance.",
+    "scope": "US supervisory guidance, principally banks above $30bn; statutory obligations and unsafe/unsound-practice powers remain distinct.",
+    "publicationDate": "2026-04-17",
+    "dateBasis": "Issuer publication date, unchanged.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Federal Reserve original interagency guidance, section I and footnote 1; no enforceable standards established by this guidance.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Existing requirement records already describe non-enforceable guidance. Align the source-level authority note; do not add duplicate requirements or treat excluded GenAI/agentic systems as covered.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Existing requirement records already describe non-enforceable guidance. Align the source-level authority note; do not add duplicate requirements or treat excluded GenAI/agentic systems as covered.",
+    "linkedSourceIds": [
+      "us-sr-26-2"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "dta-v2-derived-horizon-2026-10-12",
+    "title": "DTA v2.0: surface the existing implementation milestone in the horizon",
+    "url": "https://www.digital.gov.au/sites/default/files/documents/2025-12/Policy%20for%20the%20responsible%20use%20of%20AI%20in%20Government%202.0_0.pdf",
+    "discovered": "2026-10-12",
+    "eventKey": "dta-v2-derived-horizon",
+    "sourceType": "policy-guidance",
+    "authorityNote": "DTA mandatory government policy within its stated entity scope; technical standard recommendation remains distinct.",
+    "scope": "Non-corporate Commonwealth entities, subject to defence/intelligence carve-outs; no private-sector applicability inference.",
+    "publicationDate": "2025-12-01",
+    "dateBasis": "Policy publication; 15 December 2026 is Atlas arithmetic from the effective date plus 12 months, not a new issuer publication.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "DTA mandatory government policy within its stated entity scope; technical standard recommendation remains distinct.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Existing requirements already cover owners, register, operations, training and assessment. Add only a derived horizon entry for 15 December 2026; retain the separate 30 April 2027 existing-use assessment deadline.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Existing requirements already cover owners, register, operations, training and assessment. Add only a derived horizon entry for 15 December 2026; retain the separate 30 April 2027 existing-use assessment deadline.",
+    "linkedSourceIds": [
+      "dta-ai-policy"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.digital.gov.au/sites/default/files/documents/2025-12/Policy%20for%20the%20responsible%20use%20of%20AI%20in%20Government%202.0_0.pdf"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "asd-official-url-relocation-2026-10-12",
+    "title": "ASD: repair three canonical source links without resetting dates",
+    "url": "https://www.cyber.gov.au/publication/guidelines-for-secure-ai-system-development",
+    "discovered": "2026-10-12",
+    "eventKey": "asd-official-url-relocation",
+    "sourceType": "policy-guidance",
+    "authorityNote": "ASD original public publication pages and observed official redirects.",
+    "scope": "Official source/provision/development URL correction only; no new source edition or mapping claim.",
+    "publicationDate": null,
+    "dateBasis": "Relocation event date unknown; original publication dates retained.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD original public publication pages and observed official redirects.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Update secure-development, supply-chain and frontier-board URLs to current official publication paths. Retain the board original date pending document-date reconciliation.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Update secure-development, supply-chain and frontier-board URLs to current official publication paths. Retain the board original date pending document-date reconciliation.",
+    "linkedSourceIds": [
+      "asd-secure-ai-development",
+      "asd-ai-supply-chain",
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/publication/guidelines-for-secure-ai-system-development"
+    ],
+    "weightedScore": 80.0
+  },
+  {
+    "id": "mit-incident-database-methods-20261008-2026-10-12",
+    "title": "MIT: incident-database evidence needs denominators and classification context",
+    "url": "https://airisk.mit.edu/blog/preliminary-findings-on-how-ai-incident-databases-are-used",
+    "discovered": "2026-10-12",
+    "eventKey": "mit-incident-database-methods-20261008",
+    "sourceType": "research-database",
+    "authorityNote": "Original MIT project research account; executive findings, limitations and methods assessed, not every table or dataset.",
+    "scope": "Preliminary qualitative research: 45 practitioners across 20 countries, only two deployers; not representative risk frequencies or proven recommendations.",
+    "publicationDate": "2026-10-08",
+    "dateBasis": "Article publication date on MIT project website.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Original MIT project research account; executive findings, limitations and methods assessed, not every table or dataset.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Add a bounded research development and original discussion prompts about denominators and coding uncertainty. Do not admit incidents or infer mitigation effectiveness.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 4/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "Add a bounded research development and original discussion prompts about denominators and coding uncertainty. Do not admit incidents or infer mitigation effectiveness.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://airisk.mit.edu/blog/preliminary-findings-on-how-ai-incident-databases-are-used"
+    ],
+    "weightedScore": 86.25
+  },
+  {
+    "id": "eo14434-terminology-20260929-2026-10-12",
+    "title": "US executive terminology change: preserve historical source identities",
+    "url": "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/",
+    "discovered": "2026-10-12",
+    "eventKey": "eo14434-terminology-20260929",
+    "sourceType": "policy-guidance",
+    "authorityNote": "White House operative executive order, sections 1–4, with NIST implementation evidence.",
+    "scope": "US executive communications/non-statutory documents within lawful scope; historical regulations, contracts and statutory terminology are not automatically replaced.",
+    "publicationDate": "2026-09-29",
+    "dateBasis": "Executive Order 14434 publication date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "White House operative executive order, sections 1–4, with NIST implementation evidence.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 2/4; prioritisation does not establish applicability.",
+      "impact": "Record the terminology direction and NIST discovery-page relocation. Preserve historical AI RMF/Playbook titles, version pins and dates; no new private-sector AI control duty inferred.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": true,
+    "decision": "development-only",
+    "reason": "Record the terminology direction and NIST discovery-page relocation. Preserve historical AI RMF/Playbook titles, version pins and dates; no new private-sector AI control duty inferred.",
+    "linkedSourceIds": [
+      "nist-ai-rmf",
+      "nist-ai-rmf-playbook"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/"
+    ],
+    "weightedScore": 58.75
+  },
+  {
+    "id": "asd-board-date-reconciliation-2026-10-12",
+    "title": "ASD board guidance: reconcile portal and original publication dates",
+    "url": "https://www.cyber.gov.au/publication/frontier-ai-cyber-threat-considerations-for-boards-of-directors",
+    "discovered": "2026-10-12",
+    "eventKey": "asd-board-date-reconciliation",
+    "sourceType": "policy-guidance",
+    "authorityNote": "ASD primary page supports current portal metadata, not yet the original document date.",
+    "scope": "Portal date 8 September 2026 versus Atlas original date 5 August 2026; original PDF not retrieved.",
+    "publicationDate": null,
+    "dateBasis": "Conflicting original/portal publication date bases unresolved.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD primary page supports current portal metadata, not yet the original document date.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Retrieve the original dated PDF or announcement before changing original publication date or recency.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Retrieve the original dated PDF or announcement before changing original publication date or recency.",
+    "linkedSourceIds": [
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/publication/frontier-ai-cyber-threat-considerations-for-boards-of-directors"
+    ],
+    "weightedScore": 72.5
+  },
+  {
+    "id": "owasp-aisvs-101-requirements-migration-2026-10-12",
+    "title": "AISVS 1.01 requirements migration remains deferred",
+    "url": "https://github.com/OWASP/AISVS/blob/main/RELEASE.md",
+    "discovered": "2026-10-12",
+    "eventKey": "owasp-aisvs-101-requirements-migration",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Official OWASP release policy and repository metadata; CC BY-SA 4.0 requirements need version and rights discipline.",
+    "scope": "Version-specific requirements, identifiers and levels; frozen 1.0/1.01 comparison outstanding.",
+    "publicationDate": null,
+    "dateBasis": "Exact release date unknown.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Official OWASP release policy and repository metadata; CC BY-SA 4.0 requirements need version and rights discipline.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Version links could not be retrieved. Release policy permits material requirement changes; do not relabel 1.0 mappings as 1.01.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 3/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Version links could not be retrieved. Release policy permits material requirement changes; do not relabel 1.0 mappings as 1.01.",
+    "linkedSourceIds": [
+      "owasp-aisvs"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://github.com/OWASP/AISVS/blob/main/RELEASE.md"
+    ],
+    "weightedScore": 82.5
+  },
+  {
+    "id": "asic-ai-inquiry-submission-20260914-2026-10-12",
+    "title": "ASIC parliamentary AI submission: retain inaccessible lead",
+    "url": "https://www.asic.gov.au/about-asic/corporate-publications/public-submissions",
+    "discovered": "2026-10-12",
+    "eventKey": "asic-ai-inquiry-submission-20260914",
+    "sourceType": "research-database",
+    "authorityNote": "ASIC original submissions index; content evidence remains unavailable.",
+    "scope": "Official submission listing only; substantive submission not retrieved.",
+    "publicationDate": "2026-09-14",
+    "dateBasis": "ASIC official submissions index lists this date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASIC original submissions index; content evidence remains unavailable.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Parliament DocumentStore retrieval failed; read the complete original submission before assessing distinct contribution.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Parliament DocumentStore retrieval failed; read the complete original submission before assessing distinct contribution.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.asic.gov.au/about-asic/corporate-publications/public-submissions"
+    ],
+    "weightedScore": 80.0
+  },
+  {
+    "id": "mit-risk-repository-count-reconciliation-2026-10-12",
+    "title": "MIT repository count reconciliation remains outstanding",
+    "url": "https://airisk.mit.edu/risks",
+    "discovered": "2026-10-12",
+    "eventKey": "mit-risk-repository-count-reconciliation",
+    "sourceType": "research-database",
+    "authorityNote": "MIT project landing page only; record counts are not exposure or likelihood measures.",
+    "scope": "Project landing header and FAQ differ; underlying rows not audited.",
+    "publicationDate": null,
+    "dateBasis": "No new dataset publication date established.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "MIT project landing page only; record counts are not exposure or likelihood measures.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Header states 1700+ risks / 74 frameworks while FAQ retains 1600+ / 65. Reconcile current dataset rows and dates before any Atlas count correction.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Header states 1700+ risks / 74 frameworks while FAQ retains 1600+ / 65. Reconcile current dataset rows and dates before any Atlas count correction.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://airisk.mit.edu/risks"
+    ],
+    "weightedScore": 65.0
+  },
+  {
+    "id": "pra-ss123-scope-2026-10-12",
+    "title": "PRA SS1/23: name the internal-model approval scope",
+    "eventKey": "pra-ss123-scope-clarification",
+    "url": "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "PRA original statement paragraphs 1.2–1.3 and landing scope directly support this qualification.",
+    "scope": "UK-incorporated banks, building societies and PRA-designated investment firms with specified internal-model capital approval. Excluded firms may find the principles useful; this does not expand their supervisory scope.",
+    "publicationDate": "2023-05-17",
+    "dateBasis": "Original publication on issuer landing; current edition published/effective 23 April 2026. PDF cover dated 16 April 2026 is recorded separately.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "PRA original statement paragraphs 1.2–1.3 and landing scope directly support this qualification.",
+      "relevance": "Financial-services readers can otherwise overread the generic UK-firms applicability field.",
+      "impact": "Makes the addressee gate visible before users infer applicability.",
+      "contribution": "Narrow correction to source reader; existing principles are not duplicated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Clarify the current applicability text with the approval condition and exclusions; keep original and edition/effective dates distinct.",
+    "linkedSourceIds": [
+      "uk-pra-ss1-23"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 86.25,
+    "evidenceUrls": [
+      "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "far-s23-scope-2026-10-12",
+    "title": "FAR section 23: preserve exclusions and foreign-branch scope",
+    "eventKey": "far-section23-scope-qualification",
+    "url": "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "Official current Act text, section 23(1)–(3), including scope qualifications.",
+    "scope": "Existing section 23 summaries only; regulator-excluded responsibilities and foreign-accountable-entity Australian branch rule. Minister/regulator rules and complete Act amendment history remain outside this selected check.",
+    "publicationDate": null,
+    "dateBasis": "Act originally 2023; reviewed compilation C2025C00148 effective 21 February 2025. No new legal event claimed.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Official current Act text, section 23(1)–(3), including scope qualifications.",
+      "relevance": "Direct relevance to Australian financial institutions and accountability maps.",
+      "impact": "Avoids treating all foreign group operations or excluded responsibilities as automatically covered.",
+      "contribution": "Qualifies existing records rather than adding a duplicate accountability duty."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Add subsection 23(2) exclusions and 23(3) foreign-branch qualification to current provision and requirement summaries.",
+    "linkedSourceIds": [
+      "au-far-act"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 86.25,
+    "evidenceUrls": [
+      "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "dta-agent-memory-followup-2026-10-12",
+    "title": "DTA agentic guidance: test what survives workflow shutdown",
+    "eventKey": "dta-agent-memory-shutdown-question",
+    "url": "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+    "scope": "Original Atlas discussion follow-up grounded in AGT.2.1, AGT.3.4, AGT.8.1 and existing Criterion 147. Government guidance; no private-sector duty or implementation claim.",
+    "publicationDate": "2026-06-04",
+    "dateBasis": "Issuer landing records LAST UPDATED 4 June 2026; preserve update-date basis.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+      "relevance": "Concrete executive and assurance question about persistent state and recovery.",
+      "impact": "Connects stopping execution with memory, pending work, retention and shared resources.",
+      "contribution": "Distinct from existing credential revocation and general stop/retirement questions; proposes a follow-up rather than another generic main prompt."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Add a scoped follow-up and evidence request to the existing DTA discussion card; source criteria and Atlas question remain distinct.",
+    "linkedSourceIds": [
+      "dta-agentic-addendum"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 90.0,
+    "evidenceUrls": [
+      "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "asd-board-date-reconciliation-2026-10-12-batch-2",
+    "title": "ASD board guidance: distinguish original month from webpage date",
+    "eventKey": "asd-board-date-reconciliation",
+    "url": "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "ASD/AICD original seven-page PDF cover and current official publication page.",
+    "scope": "Original PDF first-publication month and current portal publication date. Exact original day is not independently established; no assertion that 5 August is false.",
+    "publicationDate": null,
+    "dateBasis": "PDF page 1: first published August 2026. Webpage: published/reviewed 8 September 2026. Exact original day unknown.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD/AICD original seven-page PDF cover and current official publication page.",
+      "relevance": "Recency and provenance visible to all Atlas audiences.",
+      "impact": "Prevents later portal date becoming apparent new guidance and removes unsupported day precision.",
+      "contribution": "Resolves document-versus-page date basis left deferred in batch 1."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Prefer supported publication month 2026-08, annotate 8 September webpage date separately, and preserve historical 5 August value in the research audit trail.",
+    "linkedSourceIds": [
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "supersedesId": "asd-board-date-reconciliation-2026-10-12",
+    "weightedScore": 80.0,
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "ai-verify-tool-scope-2026-10-12",
+    "eventKey": "ai-verify-framework-and-tool-scope",
+    "title": "AI Verify: distinguish framework and technical testing tools",
+    "url": "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/",
+    "discovered": "2026-10-12",
+    "sourceType": "testing-tool",
+    "authorityNote": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+    "scope": "Declared public metadata/overview only. Framework covers traditional and GenAI; AI Verify Toolkit technical tests are for traditional ML; Project Moonshot is a separate LLM testing toolkit. No software operation, test algorithm or published crosswalk validation.",
+    "publicationDate": null,
+    "dateBasis": "Original launch 25 May 2022; framework update 29 May 2025. No newly issued October release asserted.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+      "relevance": "Directly informs which evidence process to request for different AI system types.",
+      "impact": "Prevents one toolkit label implying the same technical test suite applies to all models.",
+      "contribution": "Clarifies the existing source and links; no new model benchmark or effectiveness claim."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Clarify summary and point readers to the specific framework/tool pages while retaining evidence-input, voluntary status.",
+    "linkedSourceIds": [
+      "singapore-ai-verify"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+    "evidenceUrls": [
+      "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/"
+    ],
+    "weightedScore": 78.75,
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "imda-agentic-may-update-2026-10-12",
+    "eventKey": "imda-agentic-framework-update-20260520",
+    "title": "IMDA: add the May 2026 update alongside the January launch",
+    "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai",
+    "discovered": "2026-10-12",
+    "sourceType": "framework",
+    "authorityNote": "IMDA original indexed factsheet and official programme index support the historical May update.",
+    "scope": "Official indexed public announcement/overview of May update, not a current full-framework version check. Live IMDA pages/PDF blocked automated requests. Case-study operational claims not admitted.",
+    "publicationDate": "2026-05-20",
+    "dateBasis": "Official factsheet dated/last updated 20 May 2026; January launch remains 22 January. Indexed material is months old, so no latest-edition-as-of-October claim.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "IMDA original indexed factsheet and official programme index support the historical May update.",
+      "relevance": "Agentic governance reference directly relevant to autonomy, multi-agent and external-agent decisions.",
+      "impact": "Prevents the January-only overview omitting a substantiated subsequent update.",
+      "contribution": "New edition-history metadata for an existing source; does not duplicate the four dimensions or admit vendor cases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Record the May update and official v1.5 programme-index label with an access caveat; require current PDF confirmation before a whole-edition or current-status claim.",
+    "linkedSourceIds": [
+      "imda-agentic-framework"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+    "evidenceUrls": [
+      "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai"
+    ],
+    "weightedScore": 90.0,
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
   }
 ]

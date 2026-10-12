@@ -126,12 +126,12 @@ const coreInstruments: SourceRecord[] = [
     ],
   },
   {
-    id: 'singapore-ai-verify', title: 'AI Verify Testing Framework and Toolkit', shortTitle: 'AI Verify', issuer: 'Infocomm Media Development Authority and AI Verify Foundation', jurisdiction: 'Singapore - voluntary global reference', region: 'Singapore', authorityClass: 'testing-tool', authorityNote: "Voluntary technical reference", status: 'living', published: '2022', lastVerified: '2026-08-31',
-    officialUrl: 'https://www.imda.gov.sg/about-imda/emerging-technologies-and-research/artificial-intelligence',
-    summary: 'Testing framework and open-source toolkit combining governance-process checks with technical tests for traditional and generative AI systems.', applicability: 'Voluntary testing resource. Test outputs are evidence inputs, not certification or an assurance opinion.', sectors: ['Cross-sector'],
+    id: 'singapore-ai-verify', title: 'AI Verify Testing Framework and Toolkit', shortTitle: 'AI Verify', issuer: 'Infocomm Media Development Authority and AI Verify Foundation', jurisdiction: 'Singapore - voluntary global reference', region: 'Singapore', authorityClass: 'testing-tool', authorityNote: "Voluntary technical reference", status: 'living', published: '2022', lastVerified: '2026-10-12',
+    officialUrl: 'https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/',
+    summary: 'A governance testing framework for traditional and generative AI, supported by process checks and distinct technical tools: AI Verify Toolkit for traditional ML and Project Moonshot for LLM applications.', applicability: 'Voluntary testing resource. Test outputs are evidence inputs, not certification or an assurance opinion.', sectors: ['Cross-sector'],
     conceptIds: ['evaluation', 'fairness-bias', 'transparency-disclosure', 'human-oversight', 'reliability', 'evidence-quality'], detailAvailability: 'public-summary',
     provisions: [
-      { id: 'ai-verify-principles', ref: 'Testing framework', title: 'Governance and technical testing', summary: 'Maps governance principles to process checks and measurable technical tests.', conceptIds: ['evaluation', 'evidence-quality', 'fairness-bias', 'reliability'] },
+      { id: 'ai-verify-principles', sourceUrl: 'https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/', reviewedAt: '2026-10-12', note: 'Public framework and companion-tool overviews reviewed; no software or test algorithms were run. The framework page links to AI Verify Toolkit and Project Moonshot.', ref: 'Testing framework', title: 'Governance and technical testing', summary: 'Maps governance principles to process checks and technical testing, using AI Verify Toolkit for traditional ML and the separate Project Moonshot toolkit for LLM applications.', conceptIds: ['evaluation', 'evidence-quality', 'fairness-bias', 'reliability'] },
     ],
   },
   {
