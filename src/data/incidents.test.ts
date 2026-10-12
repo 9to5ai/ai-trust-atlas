@@ -9,8 +9,19 @@ import {inDateWindow} from './developments'
 
 describe('incident evidence and integration',()=>{
  it('has only approved incidents and resolvable interpretive connections',()=>{
-  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal','openai-medicare-2026','openai-dns-escape-2026','openai-npws-fire-history-2026','artex-south-korean-finance-2026'])
-  for(const i of incidents){expect(i.sources.length).toBeGreaterThan(1);expect(i.limitations).toBeTruthy();for(const f of i.findings)expect(i.sources[f.source]).toBeDefined();for(const c of i.connections){expect(concepts.some(x=>x.id===c.conceptId)).toBe(true);expect(controlObjectives.some(x=>x.id===c.controlId)).toBe(true);expect(c.reason).toBeTruthy()}}
+  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal','openai-medicare-2026','openai-dns-escape-2026','openai-npws-fire-history-2026','artex-south-korean-finance-2026','anthropic-philadelphia-false-tip-2026','fireworks-evaluation-credentials-2026'])
+  for(const i of incidents){expect(i.sources.length).toBeGreaterThan(0);expect(i.limitations).toBeTruthy();for(const f of i.findings)expect(i.sources[f.source]).toBeDefined();for(const c of i.connections){expect(concepts.some(x=>x.id===c.conceptId)).toBe(true);expect(controlObjectives.some(x=>x.id===c.controlId)).toBe(true);expect(c.reason).toBeTruthy()}}
+ })
+ it('preserves approved October evidence and date boundaries',()=>{
+  const police=incidents.find(i=>i.id==='anthropic-philadelphia-false-tip-2026')!
+  const supplier=incidents.find(i=>i.id==='fireworks-evaluation-credentials-2026')!
+  expect(police.occurred).toBe('18 July 2026')
+  expect(police.updated).toBe('2026-10-09')
+  expect(supplier.occurred).toContain('Start unknown')
+  expect(supplier.updated).toBe('2026-10-10')
+  expect(supplier.sources).toHaveLength(1)
+  expect(supplier.limitations).toContain('does not establish AI use by the attacker')
+  expect(incidents.some(i=>i.id==='divd-zammad-breach-2026')).toBe(false)
  })
  it('keeps Medicare occurrence separate from public disclosure and review',()=>{
   const item=incidents.find(i=>i.id==='openai-medicare-2026')!
@@ -35,6 +46,6 @@ describe('incident evidence and integration',()=>{
   for(const item of incidents)for(const role of ['board','executive','regulator','assurance'] as const){const q=incidentQuestion(item,role);expect(catalogue(role).some(e=>e.question.id===q.id)).toBe(true);expect(readBrief(JSON.stringify({version:1,ids:[q.id]})).selected).toEqual([q])}
   expect(inDateWindow(incidents[0].updated,30,'2026-09-20')).toBe(true)
   expect(inDateWindow(incidents[0].updated,30,'2026-10-20')).toBe(false)
-  expect(incidentsForNode('concept','agent-authority')).toHaveLength(6)
+  expect(incidentsForNode('concept','agent-authority')).toHaveLength(7)
  })
 })

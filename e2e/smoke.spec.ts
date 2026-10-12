@@ -161,3 +161,14 @@ test('ARTEX incident exposes source and uncertainty on shared link', async ({pag
  await expect(details.getByRole('link',{name:/CrowdStrike: ARTEX campaign investigation/})).toBeVisible()
  await expect(details).toContainText('full autonomy')
 })
+
+for (const item of [
+ {id:'anthropic-philadelphia-false-tip-2026',name:'Philadelphia false police tip',source:'Philadelphia Police: false online tip'},
+ {id:'fireworks-evaluation-credentials-2026',name:'Fireworks credential exposure',source:'Fireworks: October security incident'},
+]) test(`October approved incident: ${item.name}`, async ({page,isMobile}) => {
+ await page.goto(`/universe?incidents=1#/incident/${item.id}`)
+ if(isMobile) await page.getByRole('button',{name:new RegExp(`${item.name} Read details`)}).click()
+ const details=page.getByLabel('Selected node details')
+ await details.getByText('Sources and limits',{exact:true}).click()
+ await expect(details.getByRole('link',{name:new RegExp(item.source)})).toBeVisible()
+})
