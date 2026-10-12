@@ -742,15 +742,15 @@ const baseUseCases:UseCase[] = [
   "sector": "Financial services",
   "status": "Production",
   "evidence": "Company-reported",
-  "reported": "Undated operator service page",
-  "published": null,
-  "reviewed": "2026-10-08",
+  "reported": "25 September 2026 announcement; Singapore service page undated",
+  "published": "2026-09-25",
+  "reviewed": "2026-10-12",
   "summary": "DBS reports Joy retrieving corporate account information for authenticated customers in Singapore.",
   "before": "Customers navigate banking screens or contact support for account information.",
   "actions": "Retrieves balances, recent transactions and selected digital-form status through conversation in DBS IDEAL.",
   "human": "DBS says requests are initiated by authenticated customers. Human live chat is offered during weekday business hours.",
   "value": "DBS describes more convenient account enquiries; no quantified workflow benefit is disclosed.",
-  "limitations": "Publication, update and exact deployment dates are unknown. Active adoption and independently measured accuracy are not established. Guidance about transfers or user roles does not establish execution authority; payment initiation and account changes are excluded. Authentication alone is not evidence of account-level permission enforcement.",
+  "limitations": "The publication date refers to DBS’s 25 September 2026 announcement of a progressive Hong Kong rollout from 26 September, not the Singapore deployment. Singapore operating scope is supported by its undated service page; that page’s publication/update dates and the exact Singapore deployment date remain unknown. Active adoption and independently measured accuracy are not established. Guidance about transfers or user roles does not establish execution authority; payment initiation and account changes are excluded. Authentication alone is not evidence of account-level permission enforcement.",
   "topics": [
     "security",
     "agentic",
@@ -758,8 +758,12 @@ const baseUseCases:UseCase[] = [
   ],
   "sources": [
     {
-      "title": "DBS · Joy service page",
+      "title": "DBS · Singapore Joy service page (undated)",
       "url": "https://www.dbs.com.sg/sme/dbsjoy"
+    },
+    {
+      "title": "DBS · Hong Kong Joy rollout announcement, 25 September 2026",
+      "url": "https://www.dbs.com/NewsPrinter.page?locale=en&newsId=mu8oh90k"
     }
   ],
   "connections": [

@@ -47,5 +47,10 @@ describe('production use case evidence and navigation',()=>{
   expect(useCases.filter(i=>i.published&&inDateWindow(i.published,30,'2026-09-22')).map(i=>i.id)).toEqual(['ibm-eps-regression-tests'])
   expect(useCases.filter(i=>i.published&&inDateWindow(i.published,90,'2026-09-22')).map(i=>i.id)).toEqual(['bofa-erica','ibm-eps-regression-tests'])
   expect(useCases.find(i=>i.id==='cba-fraud-agent')?.published).toBeNull()
+  const joy=useCases.find(i=>i.id==='dbs-joy-account-enquiries')!
+  expect(inDateWindow(joy.published!,30,'2026-10-12')).toBe(true)
+  expect(inDateWindow(joy.published!,30,'2026-09-24')).toBe(false)
+  expect(joy.sources).toHaveLength(2)
+  expect(joy.limitations).toContain('not the Singapore deployment')
  })
 })
