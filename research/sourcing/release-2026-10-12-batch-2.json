@@ -1,0 +1,122 @@
+{
+  "release": "Approved source refinements 2026-10-12",
+  "baselineCommit": "d3def461f61e2f947382339c74f4a9430a505427",
+  "baselineDeployment": "dpl_ChFQXxtZGLkuyFdX7fUrE7k5JC5b",
+  "approved": "2026-10-12",
+  "approvalBasis": "User Approved; six proposals from proposed-refresh-2026-10-12-batch-2.json only",
+  "approvedCandidateIds": [
+    "ai-verify-tool-scope-2026-10-12",
+    "asd-board-date-reconciliation-2026-10-12-batch-2",
+    "dta-agent-memory-followup-2026-10-12",
+    "far-s23-scope-2026-10-12",
+    "imda-agentic-may-update-2026-10-12",
+    "pra-ss123-scope-2026-10-12"
+  ],
+  "appliedTargets": [
+    [
+      "far-s23-key-personnel",
+      "req-far-s23-coverage"
+    ],
+    "uk-pra-ss1-23.applicability",
+    "imda-agentic-framework edition-history/overview metadata",
+    "singapore-ai-verify summary and primary project links",
+    [
+      "asd-frontier-board.published",
+      "asd-board-guidance.published",
+      "source dateBasis note"
+    ],
+    "Existing dta-agentic-guidance card follow-up/evidence request; no new development event"
+  ],
+  "researchArtifacts": {
+    "inventory-2026-10-12.json": "815a051d1aea01aaa7113e39482c457a3bf59e7fb32dabf7a7c496c8af49ad98",
+    "inventory-2026-10-12-batch-2.json": "1339d2c17f5557a52c7b824bb5aed1c40b246c75e87e9daf6a514013e81178e6",
+    "run-2026-10-12-batch-2.json": "1af750c40618885df8213bddd815004b9c4bb31da306d9a98e2b2379c4f60d7e",
+    "candidate-decisions-2026-10-12-batch-2.json": "b9061c6b56fcd7ae165ebff03987f77a8a1a54a2c937f7e9c7010fd0faa3d74d",
+    "proposed-refresh-2026-10-12-batch-2.json": "82e88433afafc6024c49ae02e3d5642617b164a47ecb8dc12dcd9b7e1f23af1b"
+  },
+  "ledgerAppend": [
+    "owasp-aisvs-stable-101-metadata-2026-10-12",
+    "sr26-authority-reader-clarification-2026-10-12",
+    "dta-v2-derived-horizon-2026-10-12",
+    "asd-official-url-relocation-2026-10-12",
+    "mit-incident-database-methods-20261008-2026-10-12",
+    "eo14434-terminology-20260929-2026-10-12",
+    "asd-board-date-reconciliation-2026-10-12",
+    "owasp-aisvs-101-requirements-migration-2026-10-12",
+    "asic-ai-inquiry-submission-20260914-2026-10-12",
+    "mit-risk-repository-count-reconciliation-2026-10-12",
+    "pra-ss123-scope-2026-10-12",
+    "far-s23-scope-2026-10-12",
+    "dta-agent-memory-followup-2026-10-12",
+    "asd-board-date-reconciliation-2026-10-12-batch-2",
+    "ai-verify-tool-scope-2026-10-12",
+    "imda-agentic-may-update-2026-10-12"
+  ],
+  "unapprovedCandidateIds": [
+    "owasp-aisvs-stable-101-metadata-2026-10-12",
+    "sr26-authority-reader-clarification-2026-10-12",
+    "dta-v2-derived-horizon-2026-10-12",
+    "asd-official-url-relocation-2026-10-12",
+    "mit-incident-database-methods-20261008-2026-10-12",
+    "eo14434-terminology-20260929-2026-10-12",
+    "asd-board-date-reconciliation-2026-10-12",
+    "owasp-aisvs-101-requirements-migration-2026-10-12",
+    "asic-ai-inquiry-submission-20260914-2026-10-12",
+    "mit-risk-repository-count-reconciliation-2026-10-12"
+  ],
+  "publicationBoundary": "Unapproved decisions are carried in the research ledger only; their proposed corpus edits are not applied. Earlier ASD deferred decision is retained as reassessment history.",
+  "coverage": {
+    "status": "INCOMPLETE",
+    "completed": 14,
+    "notReviewed": 122,
+    "activeOverdue30Days": 22,
+    "originalPendingDatesPreserved": true,
+    "discoveryRegisterDatesAdvanced": false
+  },
+  "limitations": [
+    "FAR selected section review does not complete the whole Act/rules check.",
+    "IMDA historical May announcement only; current edition remains unverified.",
+    "AI Verify public framework/tool overviews only; no software operation or algorithms validated.",
+    "DTA pending-work reconciliation is an Atlas question, not a universal queue-deletion duty; retention and shared resources constrain cleanup.",
+    "ASD historical 2026-08-05 value is preserved in proposal audit history; exact day not independently disproved."
+  ],
+  "rights": "Original short synopses/questions and public source links only. Full source snapshots remain private.",
+  "validation": {
+    "unitTests": {
+      "passed": 198,
+      "files": 36
+    },
+    "browserSuite": {
+      "passed": 36,
+      "skipped": 4,
+      "viewports": [
+        "desktop",
+        "mobile"
+      ]
+    },
+    "targetedBrowserChecks": {
+      "passed": 16,
+      "browserErrors": 0,
+      "viewports": [
+        "desktop",
+        "mobile"
+      ]
+    },
+    "build": "passed",
+    "firstLoadGzipKB": 379.7,
+    "firstLoadBudgetKB": 380,
+    "webglGzipKB": 153.7,
+    "practiceGate": "No gated text in 48 public files",
+    "diffCheck": "passed",
+    "sourceReviewCheck": {
+      "status": "INCOMPLETE",
+      "missing": [],
+      "unreviewed": 122,
+      "validationErrors": []
+    },
+    "preservation": "Source identities, unrelated sources/requirements/developments and all use cases unchanged from live baseline.",
+    "hostedChecks": "Pending",
+    "liveVerification": "Pending"
+  },
+  "supportingImplementation": "Month-only publication dates retain month precision in briefing and timeline. A date window includes a month only if the whole month falls inside it. Licence page loads on demand to stay within existing bundle budget."
+}

@@ -5,7 +5,7 @@ import { FIN_URLS } from '../deepening/financial'
 
 type Draft = Omit<Requirement, 'reviewedAt' | 'editorialStatus' | 'sourceUrl'>
 const draft = (sourceUrl: string, items: Draft[]): Requirement[] =>
-  items.map((item) => ({ ...item, sourceUrl, reviewedAt: '2026-09-25', editorialStatus: 'draft' }))
+  items.map((item) => ({ ...item, sourceUrl, reviewedAt: item.id === 'req-far-s23-coverage' ? '2026-10-12' : '2026-09-25', editorialStatus: item.id === 'req-far-s23-coverage' ? 'reviewed' : 'draft' }))
 
 /* SS1/23 paragraph 1.5: the policy took effect on 17 May 2024. */
 const ss123 = draft(FIN_URLS.ss123, [
@@ -302,9 +302,9 @@ const far = draft(FIN_URLS.far, [
     id: 'req-far-s23-coverage',
     instrumentId: 'au-far-act',
     provisionId: 'far-s23-key-personnel',
-    ref: 'Section 23(1)',
+    ref: 'Section 23(1)–(3)',
     title: 'Cover all operations with accountable persons',
-    summary: 'Accountable entities must ensure their accountable persons’ responsibilities cover all parts of the relevant group’s operations and every prescribed responsibility, and that no accountable person is unregistered or disqualified.',
+    summary: 'Accountable entities must cover group operations and prescribed responsibilities with accountable persons, excluding regulator-specified responsibilities. For foreign entities, coverage is limited to Australian branches and relevant prescribed responsibilities. Persons must be registered and not disqualified.',
     addressees: ['regulated-entity'],
     modality: 'must',
     conceptIds: ['senior-accountability', 'accountability'],

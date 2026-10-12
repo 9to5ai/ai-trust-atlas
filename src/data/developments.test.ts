@@ -2,7 +2,22 @@ import { describe, expect, it } from 'vitest'
 import { developments, filterDevelopments, inDateWindow } from './developments'
 import { instruments } from './instruments'
 import { domains } from './concepts'
+import { timelineEvents } from './timeline'
+import { formatEventDate } from '../lib/horizon'
 describe('briefing dates and references', () => {
+  it('preserves month-only publication precision without false window membership', () => {
+    expect(inDateWindow('2026-08', 30, '2026-09-08')).toBe(false)
+    expect(inDateWindow('2026-08', 90, '2026-09-08')).toBe(true)
+    expect(inDateWindow('2026-08', 90, '2026-08-20')).toBe(false)
+    expect(inDateWindow('2026-08', 31, '2026-09-01')).toBe(false)
+    expect(inDateWindow('2026-08', 32, '2026-09-01')).toBe(true)
+    expect(inDateWindow('2026-13', 90, '2026-09-08')).toBe(false)
+    expect(inDateWindow('2026-02-30', 90, '2026-03-08')).toBe(false)
+    const event = timelineEvents.find(item => item.id === 'development:asd-board-guidance')!
+    expect(event.precision).toBe('month')
+    expect(formatEventDate(event)).toBe('Aug 2026')
+    expect(developments.find(item => item.id === 'asd-board-guidance')?.published).toBe('2026-08')
+  })
   it('uses publication date, excludes future and invalid dates, and handles exact window boundaries', () => {
     expect(inDateWindow('2026-08-10', 30, '2026-09-08')).toBe(true)
     expect(inDateWindow('2026-08-09', 30, '2026-09-08')).toBe(false)

@@ -8,9 +8,11 @@ const draftSections = (sourceUrl: string, items: Draft[]): SourceProvision[] =>
   items.map((item) => ({
     ...item,
     sourceUrl,
-    reviewedAt: '2026-09-25',
-    editorialStatus: 'draft',
-    note: 'Draft prepared for editorial review. Original synopsis; confirm scope and edition against the issuer’s current text before relying on it.',
+    reviewedAt: item.id === 'far-s23-key-personnel' ? '2026-10-12' : '2026-09-25',
+    editorialStatus: item.id === 'far-s23-key-personnel' ? 'reviewed' : 'draft',
+    note: item.id === 'far-s23-key-personnel'
+      ? 'Section 23(1)–(3) reviewed 12 October 2026 in compilation C2025C00148. Original synopsis; concept mappings are Atlas interpretation. The complete Act and subordinate rules have not been reverified.'
+      : 'Draft prepared for editorial review. Original synopsis; confirm scope and edition against the issuer’s current text before relying on it.',
   }))
 
 export const FIN_URLS = {
@@ -259,9 +261,9 @@ export const financialSections: Record<string, SourceProvision[]> = {
     },
     {
       id: 'far-s23-key-personnel',
-      ref: 'Section 23',
+      ref: 'Section 23(1)–(3)',
       title: 'Key personnel obligations',
-      summary: 'Accountable entities must ensure their accountable persons’ responsibilities together cover every part of the group’s operations and each prescribed responsibility, and that no accountable person is unregistered or disqualified.',
+      summary: 'Accountable entities must ensure their accountable persons’ responsibilities together cover every part of the group’s operations and each prescribed responsibility, and that no accountable person is unregistered or disqualified. Responsibility coverage is subject to regulator-excluded responsibilities under section 23(2). For foreign accountable entities, section 23(3) applies coverage to their branches operating in Australia and relevant prescribed responsibilities.',
       conceptIds: ['senior-accountability', 'accountability', 'decision-rights'],
       granularity: 'section',
     },
