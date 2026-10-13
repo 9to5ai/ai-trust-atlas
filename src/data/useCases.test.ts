@@ -9,8 +9,8 @@ import {searchObjects} from '../lib/workspace'
 import {inDateWindow} from './developments'
 
 describe('production use case evidence and navigation',()=>{
- it('has nineteen distinct production cases covering six workflows and valid evidence connections',()=>{
-  expect(useCases).toHaveLength(19);expect(new Set(useCases.map(i=>i.id)).size).toBe(19)
+ it('has twenty distinct production cases covering six workflows and valid evidence connections',()=>{
+  expect(useCases).toHaveLength(20);expect(new Set(useCases.map(i=>i.id)).size).toBe(20)
   expect(new Set(useCases.map(i=>i.workflow)).size).toBe(Object.keys(useCaseWorkflows).length)
   expect(useCases.filter(i=>i.sector==='Financial services')).toHaveLength(11)
   expect(useCases.filter(i=>['Commonwealth Bank','NAB','Suncorp','IAG','Services Australia'].includes(i.company))).toHaveLength(5)

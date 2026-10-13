@@ -805,6 +805,74 @@ const baseUseCases:UseCase[] = [
       "followUp": "Can the evidence distinguish stale data from an incorrect generated answer?"
     }
   }
+},
+{
+  "id": "chrobinson-order-data-correction",
+  "company": "C.H. Robinson",
+  "title": "Correcting incomplete order data",
+  "workflow": "operations",
+  "sector": "Retail & logistics",
+  "status": "Production",
+  "evidence": "Company-reported",
+  "reported": "6 October 2026",
+  "published": "2026-10-06",
+  "reviewed": "2026-10-14",
+  "summary": "C.H. Robinson reports Lean AI Planner correcting incomplete order data across its logistics network before shipment execution.",
+  "before": "Orders with missing information waited in a queue for manual correction.",
+  "actions": "Identifies missing fields, evaluates customer rules and shipping history, sources corrections, updates orders and records the reason.",
+  "human": "The operator describes unresolved corrections escalating to a C.H. Robinson team member; routine human preapproval is not specified.",
+  "value": "C.H. Robinson reports average correction time falling from 2,275 minutes to one minute, with 95% success.",
+  "limitations": "Deployment and source-update dates are unknown. The population, observation period and success definition are unclear. Elapsed queue time is not staff labour saved; the account does not establish causal gains, downstream error rates or independent verification. Scope is C.H. Robinson’s managed order-data workflow, separate from its shipment-message agents. Connections below are Atlas interpretations, not verified operator controls.",
+  "topics": [
+    "agentic",
+    "data",
+    "testing"
+  ],
+  "sources": [
+    {
+      "title": "C.H. Robinson · Lean AI Planner order-data account, 6 October 2026",
+      "url": "https://www.chrobinson.com/en-us/resources/blog/how-lean-ai-planner-solves-supply-chain-master-data-problem/"
+    }
+  ],
+  "connections": [
+    {
+      "conceptId": "traceability",
+      "controlId": "records-traceability",
+      "reason": "AI-written fields may become authoritative downstream inputs; preserve originals, correction evidence and subsequent use."
+    },
+    {
+      "conceptId": "agent-authority",
+      "controlId": "agent-runtime-constraints",
+      "reason": "Limit which fields AI may change and escalate consequential ambiguity before execution."
+    },
+    {
+      "conceptId": "evaluation",
+      "controlId": "fit-for-purpose-evaluation",
+      "reason": "Test field correctness and shipment consequences separately from correction speed."
+    }
+  ],
+  "prompts": {
+    "board": {
+      "text": "Which incorrect data changes could create material customer or operational harm?",
+      "askFor": "Risk appetite, accountable owner, loss scenarios and escalation thresholds.",
+      "followUp": "Which errors would require suspension of automated corrections?"
+    },
+    "executive": {
+      "text": "How are conflicting customer rules resolved, and when must the agent stop?",
+      "askFor": "Field permission matrix, source precedence, exception queues and rollback procedures.",
+      "followUp": "Can a correction be reversed before dependent shipment actions occur?"
+    },
+    "regulator": {
+      "text": "Can a disputed shipment be reconstructed from the original order through every correction?",
+      "askFor": "Timestamped original and corrected records, source evidence, agent version and human interventions.",
+      "followUp": "Who is accountable when an inferred value causes a shipment error?"
+    },
+    "assurance": {
+      "text": "Does claimed success mean a correct field or merely a completed workflow?",
+      "askFor": "Sampled corrections and rejected proposals, error definitions, denominators, downstream incidents and independent re-performance.",
+      "followUp": "Do independent samples reproduce the reported success rate?"
+    }
+  }
 }
 ]
 const assuranceFor=(id:string)=>assuranceUseCasePrompts[id]??reviewUseCaseAssurancePrompts[id]
