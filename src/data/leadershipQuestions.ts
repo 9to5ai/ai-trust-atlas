@@ -720,6 +720,15 @@ const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questi
     "askFor": "Readiness assessment, funded priorities and delegated authorities.",
     "followUp": "Which critical action is delayed by a resource or authority constraint?"
   },
+  "fsb-ai-practices-final": {
+    "questions": {
+      "board": "How does our AI strategy balance the risks of adopting AI against the risks of not adopting it?",
+      "executive": "Which AI use cases need changed controls or records after our assessment of the final FSB practices?",
+      "regulator": "How are materiality and risk assessed separately, including combinations of agent permissions?"
+    },
+    "askFor": "A proportionate assessment of the final practices, accountable owners, lifecycle records, permission reviews and independently corroborated action traces.",
+    "followUp": "Which claim about an agent’s behaviour relies only on its own explanation rather than evidence of what it did?"
+  },
   "fsb-ai-practices-consultation": {
     "questions": {
       "board": "Where does our AI governance fall short of a coherent organisation-wide approach?",

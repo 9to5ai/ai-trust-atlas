@@ -83,9 +83,9 @@ export const legalEffectById: Record<string, LegalEffect> = Object.fromEntries([
   ...effect(`nist-ai-rmf nist-genai-profile iso-42001 iso-23894 iso-42005 iso-38507 iso-5338 iso-42006 oecd-ai-principles unesco-ai-ethics singapore-ai-verify
     owasp-agent-control-standard owasp-aisvs nist-aite au-ai-adoption-guidance dta-agentic-addendum dta-ai-technical-standard asd-secure-ai-development asd-ai-supply-chain
     asd-frontier-board asd-unexpected-agent-actions asd-ai-enabled-attacks asd-agentic-harnesses eu-gpai-code mas-feat mas-mindforge imda-agentic-framework csa-aicm-1-1
-    nist-ai-rmf-playbook nist-sp-800-218a c2pa-2-4 enisa-ai-cyber-framework uk-aisi-inspect aicpa-soc2-tsc aicd-hti-director-guide`, 'voluntary'),
+    nist-ai-rmf-playbook nist-sp-800-218a c2pa-2-4 enisa-ai-cyber-framework uk-aisi-inspect aicpa-soc2-tsc aicd-hti-director-guide fsb-ai-sound-practices`, 'voluntary'),
   ...effect(`nist-agent-security-responses mitre-atlas owasp-genai-crosswalk nist-critical-infrastructure-concept nist-tevv-athlon nist-public-ai-documentation
-    edpb-anonymisation-2026 asic-rep-798 uk-ai-white-paper mas-ai-mrm fsb-ai-stability fsb-ai-sound-practices mit-ai-risk-mitigations nist-adversarial-ml
+    edpb-anonymisation-2026 asic-rep-798 uk-ai-white-paper mas-ai-mrm fsb-ai-stability mit-ai-risk-mitigations nist-adversarial-ml
     nist-synthetic-content owasp-llm-top-10 owasp-agentic-top-10 au-national-ai-plan oaic-adm-transparency treasury-ai-acl-review iosco-ai-toolkit
     iais-ai-application-paper fca-mills-review eba-ai-act-mapping boe-fsif-ai japan-fsa-ai-discussion-paper`, 'informational'),
 ])
@@ -105,6 +105,7 @@ export const issuerTypeFor = (issuer: string): IssuerType => issuerRules.find(([
 
 /* Earlier versions a source replaces when the earlier version is not itself in the corpus. */
 export const supersededVersions: Record<string, PriorVersion[]> = {
+  'fsb-ai-sound-practices': [{ title: 'June 2026 consultation report', url: 'https://www.fsb.org/2026/06/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-consultation-report/', note: 'Published 10 June 2026; comments closed 22 July. Replaced by the final report on 15 October 2026. The consultation development remains in Atlas history.' }],
   'mas-airm-guidelines-cp': [{title: 'Consultation paper P017-2025 (13 November 2025)', note: 'Closed 31 January 2026; final guidelines and consultation response published 7 October 2026. Stable Atlas record ID retained for existing links.', url: 'https://www.mas.gov.sg/publications/consultations/2025/consultation-paper-on-guidelines-on-artificial-intelligence-risk-management'}],
   'oaic-adm-transparency': [{title: 'ADM transparency consultation issues paper (18 May 2026)', note: 'Consultation closed 15 June 2026; issued Chapter 1 guidance v2.0 published 30 September 2026.', url: 'https://www.oaic.gov.au/engage-with-us/consultations/consultation-on-guidance-for-transparency-in-automated-decision-making'}],
   'au-ai-adoption-guidance': [{ title: 'Voluntary AI Safety Standard (September 2024)', note: 'The ten guardrails were consolidated into the six essential practices of the Guidance for AI Adoption.', url: 'https://www.industry.gov.au/publications/voluntary-ai-safety-standard' }],

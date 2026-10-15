@@ -147,6 +147,7 @@ export const assuranceDevelopmentQuestions: Record<string, string> = {
   'apra-frontier-speech': 'Can we evidence where offshore frontier model dependencies sit, and does current assurance coverage extend to them?',
   'csa-aicm-11': 'Could the matrix’s audit guidance support our test procedures, and how would we map it to our own control criteria?',
   'five-eyes-frontier-statement': 'How would we verify that foundational cyber controls are operating, rather than accepting a readiness self-assessment?',
+  'fsb-ai-practices-final': 'Can we trace an AI agent’s material actions to its identity, authorised tools and accountable human oversight?',
   'fsb-ai-practices-consultation': 'If these practices were used as criteria, which could we test with existing evidence and which are too broad to audit?',
   'dta-agentic-guidance': 'Which requirements in the agentic addendum produce records that an auditor could inspect and test?',
   'acs-release': 'Would runtime hooks of this kind produce logs reliable enough to support testing of agent control operation?',

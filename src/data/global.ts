@@ -1,3 +1,4 @@
+import { fsbFinal } from './fsbFinal'
 import { makeInstrument } from './makeInstrument.js'
 
 export const globalInstruments = [
@@ -79,12 +80,7 @@ export const globalInstruments = [
     conceptIds: ['systemic-risk', 'third-party-risk', 'ai-security', 'reliability', 'data-governance', 'incident-response'], detailAvailability: 'full-public-text',
     provisions: [{ id: 'fsb-vulnerabilities', ref: 'AI-related vulnerabilities', title: 'System-level transmission channels', summary: 'Examines concentration, interconnectedness, correlated behaviour, cyber, model/data risk and disinformation.', conceptIds: ['systemic-risk', 'third-party-risk', 'ai-security', 'reliability'] }],
   }),
-  makeInstrument({
-    id: 'fsb-ai-sound-practices', title: 'Sound Practices for Responsible Adoption of AI - Consultation Report', shortTitle: 'FSB AI Consultation', issuer: 'Financial Stability Board', jurisdiction: 'Global financial sector', region: 'Global', authorityClass: 'policy-guidance', authorityNote: "Consultation proposal; not final guidance", status: 'closed-consultation', published: '2026-06-10', effective: 'Final report expected October 2026', officialUrl: 'https://www.fsb.org/2026/06/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-consultation-report/',
-    summary: 'Twelve proposed organisation-wide and lifecycle practices for responsible AI adoption in finance.', applicability: 'Closed consultation, expressly not an international standard. Final content may change.', sectors: ['Financial services'],
-    conceptIds: ['accountability', 'materiality', 'lifecycle-governance', 'risk-treatment', 'third-party-risk', 'continuous-monitoring', 'agent-authority'], detailAvailability: 'full-public-text',
-    provisions: [{ id: 'fsb-proposed-practices', ref: 'Twelve proposed practices', title: 'Governance and lifecycle adoption', summary: 'Proposes strategy, governance, proportional lifecycle controls and attention to generative, agentic and third-party risk.', conceptIds: ['accountability', 'materiality', 'lifecycle-governance', 'third-party-risk', 'agent-authority'] }],
-  }),
+  fsbFinal,
   makeInstrument({
     id: 'unesco-ai-ethics', title: 'Recommendation on the Ethics of Artificial Intelligence', shortTitle: 'UNESCO AI Ethics', issuer: 'UNESCO General Conference', jurisdiction: 'UNESCO member states', region: 'Global', authorityClass: 'policy-guidance', authorityNote: "Guidance; see scope below", status: 'active', published: '2021-11-23', officialUrl: 'https://www.unesco.org/en/artificial-intelligence/recommendation-ethics',
     summary: 'Global human-rights-centred ethical framework with values, principles and policy-action areas.', applicability: 'Non-binding normative recommendation. It is broader than organisational AI risk management.', sectors: ['Cross-sector', 'Government'],

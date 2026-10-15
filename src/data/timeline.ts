@@ -58,7 +58,6 @@ export const curatedEvents: TimelineEvent[] = [
   curated({ id: 'cps230-existing-contracts', date: '2026-07-01', kind: 'transition-ends', certainty: 'enacted', title: 'CPS 230: pre-existing service-provider arrangements', summary: 'Service-provider requirements reach pre-existing contractual arrangements (at the earlier of renewal or this date).', instrumentId: 'apra-cps-230', provisionIds: ['cps230-provider'] }),
   curated({ id: 'au-privacy-adm', date: '2026-12-10', kind: 'applies', certainty: 'scheduled', title: 'Privacy Act: automated-decision transparency', summary: 'Privacy policies must describe the use of personal information in substantially automated decisions that significantly affect individuals.', instrumentId: 'au-privacy-act', provisionIds: ['au-privacy-app1-adm'] }),
   curated({ id: 'osfi-e23-effective', date: '2027-05-01', kind: 'in-force', certainty: 'scheduled', title: 'OSFI Guideline E-23 takes effect', summary: 'Canada’s model risk management guideline, covering AI and machine-learning models, takes effect for federally regulated institutions.', instrumentId: 'osfi-e23' }),
-  curated({ id: 'fsb-sound-practices-final', date: '2026-10', precision: 'month', kind: 'expected', certainty: 'expected', title: 'FSB: final report on AI sound practices expected', summary: 'The Financial Stability Board has indicated a final report following consultation.', instrumentId: 'fsb-ai-sound-practices' }),
   curated({ id: 'iia-gias-effective', date: '2025-01-09', kind: 'in-force', certainty: 'enacted', title: 'IIA Global Internal Audit Standards take effect', summary: 'New internal audit standards apply to functions conforming with the IIA framework.', instrumentId: 'iia-gias' }),
 ]
 
@@ -74,7 +73,8 @@ export const derivedEvents: TimelineEvent[] = instruments.flatMap((instrument) =
   return events
 })
 
-export const developmentEvents: TimelineEvent[] = developments.map((item) => ({
+// Some release cards share the source publication event; avoid a second timeline entry.
+export const developmentEvents: TimelineEvent[] = developments.filter(item => item.timeline !== false).map((item) => ({
   id: `development:${item.id}`,
   date: item.published,
   precision: precisionOf(item.published) ?? 'year',
