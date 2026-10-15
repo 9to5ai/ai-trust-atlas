@@ -1,0 +1,238 @@
+{
+  "date": "2026-10-15",
+  "reviewer": "Codex",
+  "baselineCommit": "18641a6d81c1189659201b2d0a37435e0a2d6581",
+  "baselineDeployment": "dpl_2ym3g47dSBB4KXJgvnmSHSDc66Ya",
+  "approval": "User requested Add to atlas for the linked final report on 15 October 2026. Authorises this source update and its directly supported publication, concepts and role questions; other proposals remain pending.",
+  "candidate": {
+    "id": "fsb-sound-practices-final-2026-10-15",
+    "title": "FSB final sound practices for responsible AI adoption",
+    "url": "https://www.fsb.org/uploads/P151026-1.pdf",
+    "discovered": "2026-10-15",
+    "eventKey": "fsb-sound-practices-final-20261015",
+    "sourceType": "policy-guidance",
+    "authorityNote": "FSB original final report and issuer publication page; non-binding practices, not an international standard.",
+    "scope": "Global financial institutions; proportionate governance and lifecycle toolkit. Emerging agentic practices were not fully consulted on. No local applicability, compliance or operating-effectiveness conclusion.",
+    "publicationDate": "2026-10-15",
+    "dateBasis": "Printed cover and official final-report landing page; distinct from June consultation, July closing date and review/addition dates.",
+    "reviewed": "2026-10-15",
+    "reviewedAtUtc": "2026-10-15T09:51:18.478232+00:00",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Responsible issuing body; final report, status and date verified directly.",
+      "relevance": "Cross-sector financial-services toolkit directly addressed to boards and senior management.",
+      "impact": "Finalises the existing consultation record and adds specific agent-control, traceability and supplier considerations.",
+      "contribution": "Final status and more specific implementation passages extend the existing source without a duplicate permanent node."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "User-directed, evidence-gated update to the existing FSB source with 12 navigable practices, bounded Atlas connections, a dated final-release card and four audience prompts.",
+    "linkedSourceIds": [
+      "fsb-ai-sound-practices"
+    ],
+    "publicationApproval": "approved",
+    "approved": "2026-10-15",
+    "approvalBasis": "Direct user instruction: Add to atlas: https://www.fsb.org/uploads/P151026-1.pdf",
+    "supportingCheckIds": [
+      "source:fsb-ai-sound-practices"
+    ],
+    "evidenceUrls": [
+      "https://www.fsb.org/uploads/P151026-1.pdf",
+      "https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-final-report/",
+      "https://www.fsb.org/uploads/P151026-2.pdf",
+      "https://www.fsb.org/terms_conditions/"
+    ],
+    "evidenceScope": "Reviewed all 75 pages of the final report and seven-page consultation-response overview via extracted text; visually inspected the annex (printed p.65) and agentic control passage (p.52). Confirmed date/status and non-binding scope against the issuing body. Existing source transitions from June consultation to final; 12 practices, four audiences and one publication event. Reported case studies and underlying cited research are not independently verified; no case admissions. No clause-by-clause redline of the June PDF was performed. Changes attributed to FSB response note, not an independent complete edition diff."
+  },
+  "changedSourceIds": [
+    "fsb-ai-sound-practices"
+  ],
+  "preservedIdentifiers": [
+    "fsb-ai-sound-practices",
+    "fsb-proposed-practices",
+    "fsb-ai-practices-consultation"
+  ],
+  "newPracticeIds": [
+    "fsb-sound-practice-1",
+    "fsb-sound-practice-2",
+    "fsb-sound-practice-3",
+    "fsb-sound-practice-4",
+    "fsb-sound-practice-5",
+    "fsb-sound-practice-6",
+    "fsb-sound-practice-7",
+    "fsb-sound-practice-8",
+    "fsb-sound-practice-9",
+    "fsb-sound-practice-10",
+    "fsb-sound-practice-11",
+    "fsb-sound-practice-12"
+  ],
+  "newDevelopmentId": "fsb-ai-practices-final",
+  "sourceDates": {
+    "priorConsultationPublished": "2026-06-10",
+    "consultationClosed": "2026-07-22",
+    "finalPublished": "2026-10-15",
+    "reviewed": "2026-10-15",
+    "addedToAtlas": "2026-10-15",
+    "bindingCommencement": null
+  },
+  "evidence": {
+    "finalReport": {
+      "url": "https://www.fsb.org/uploads/P151026-1.pdf",
+      "pages": 75,
+      "sha256": "a167cd37396216f4b454dfe74adca4804506aa93ef6ef7a1a7f82c6341887d46"
+    },
+    "consultationResponse": {
+      "url": "https://www.fsb.org/uploads/P151026-2.pdf",
+      "pages": 7,
+      "sha256": "010a31562496fbcc3d39d4bdf0a890d4b718300214329eb42b549188f27aaf4d"
+    },
+    "visualSpotChecks": [
+      "Final report printed p.65 (PDF p.69): all 12 practices",
+      "Final report printed p.52 (PDF p.56): agentic human oversight and deterministic controls"
+    ]
+  },
+  "comparisonBoundary": "Compared final report with the compiled consultation synopsis and expected-date milestone. Consultation changes are attributed to FSB response note. No independent complete June-to-October redline.",
+  "mappingBoundary": "Practice/document-to-concept links are Atlas synthesis with final-report citations, review dates and inference depth; controls/risk paths remain interpreted candidate connections. No new requirement record, binding obligation, equivalence, compliance, effectiveness or assurance conclusion.",
+  "relatedSources": [
+    "apra-ai-letter-2026",
+    "fsb-ai-stability",
+    "japan-fsa-ai-discussion-paper"
+  ],
+  "historicalBoundary": "June consultation card and date retained; expected final milestone removed; final publication appears once in timeline while a separate news card links to the same source.",
+  "caseBoundary": "Illustrative, often anonymous reported case studies are not independent production-use-case or incident admission evidence. Existing cases remain unchanged.",
+  "rights": "FSB terms permit attributed non-commercial copying/linking. Only short original Atlas synopses, questions and links are published; no report text, figures or full snapshots rehosted. FSB retains rights to its material.",
+  "coverage": {
+    "retainedChecks": 136,
+    "currentRequiredChecks": 135,
+    "completed": 15,
+    "notReviewed": 121,
+    "reviewedThisRun": 1,
+    "activeOverdue30Days": 22,
+    "activeOverdueCheckIds": [
+      "source:mitre-atlas",
+      "source:au-corporations-act",
+      "source:au-asic-act",
+      "source:au-far-act",
+      "source:eu-gdpr",
+      "source:eu-dora",
+      "source:eu-gpai-code",
+      "source:mas-ai-mrm",
+      "source:mas-mindforge",
+      "source:imda-agentic-framework",
+      "source:unesco-ai-ethics",
+      "source:coe-ai-convention",
+      "source:nist-adversarial-ml",
+      "source:nist-sp-800-218a",
+      "source:nist-synthetic-content",
+      "source:owasp-llm-top-10",
+      "source:owasp-agentic-top-10",
+      "source:owasp-aisvs",
+      "source:c2pa-2-4",
+      "source:enisa-ai-cyber-framework",
+      "publisher:imda",
+      "publisher:mas"
+    ],
+    "activeReviewAgeOrProxyOver30Days": 38,
+    "activeReviewAgeOrProxyOver30DayCheckIds": [
+      "source:mitre-atlas",
+      "source:edpb-anonymisation-2026",
+      "source:au-corporations-act",
+      "source:au-asic-act",
+      "source:au-far-act",
+      "source:eu-gdpr",
+      "source:eu-dora",
+      "source:eu-gpai-code",
+      "source:uk-ai-white-paper",
+      "source:uk-ico-ai-guidance",
+      "source:mas-ai-mrm",
+      "source:mas-mindforge",
+      "source:imda-agentic-framework",
+      "source:fsb-ai-stability",
+      "source:unesco-ai-ethics",
+      "source:coe-ai-convention",
+      "source:mit-ai-risk-mitigations",
+      "source:nist-adversarial-ml",
+      "source:nist-sp-800-218a",
+      "source:nist-synthetic-content",
+      "source:owasp-llm-top-10",
+      "source:owasp-agentic-top-10",
+      "source:owasp-aisvs",
+      "source:c2pa-2-4",
+      "source:enisa-ai-cyber-framework",
+      "source:uk-aisi-inspect",
+      "publisher:asd",
+      "publisher:dta",
+      "publisher:edpb",
+      "publisher:fsb",
+      "publisher:mit",
+      "publisher:imda",
+      "publisher:mas",
+      "topic:2",
+      "topic:5",
+      "topic:6",
+      "topic:9",
+      "topic:10"
+    ],
+    "ageBoundary": "Pending-age counts use original pending dates. Review-age/proxy counts retain recorded substantive dates or explicitly labelled corpus-verification proxies; proxies are not independently revalidated."
+  },
+  "wholeRunStatus": "INCOMPLETE",
+  "inventory": "inventory-2026-10-15-fsb-final.json",
+  "inventorySha256": "a42fd63c7ffbb0882faffff56016267bd6a493681f02ec85185dd5a19c36bade",
+  "discoveryReviewDatesAdvanced": false,
+  "validation": {
+    "unitTests": {
+      "passed": 203,
+      "files": 37
+    },
+    "browserSuite": {
+      "passed": 40,
+      "skipped": 4,
+      "viewports": [
+        "desktop",
+        "mobile"
+      ]
+    },
+    "questions": "568 Atlas cards and 26 developments, all four audiences",
+    "build": "passed",
+    "firstLoadGzipKB": 384.2,
+    "firstLoadBudgetKB": 385,
+    "practiceGate": "No gated text in 48 public files",
+    "diffCheck": "passed",
+    "preservation": "All source identities, unrelated compiled sources, prior developments, requirements, incidents and production cases match current live baseline 18641a6.",
+    "sourceReviewCheck": {
+      "status": "INCOMPLETE",
+      "missing": [],
+      "notReviewed": 121,
+      "validationErrors": []
+    },
+    "targetedBrowserChecks": {
+      "passed": 8,
+      "viewports": [
+        "desktop",
+        "mobile"
+      ],
+      "browserErrors": 0,
+      "scope": [
+        "Final non-binding status and consultation history",
+        "All 12 practices and linked reasoning qualification",
+        "Publication date, all four audience questions and source journey",
+        "Browser runtime"
+      ]
+    },
+    "hostedChecks": "pending",
+    "liveVerification": "pending"
+  }
+}

@@ -2298,5 +2298,58 @@
     "weightedScore": 90.0,
     "approved": "2026-10-12",
     "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "fsb-sound-practices-final-2026-10-15",
+    "title": "FSB final sound practices for responsible AI adoption",
+    "url": "https://www.fsb.org/uploads/P151026-1.pdf",
+    "discovered": "2026-10-15",
+    "eventKey": "fsb-sound-practices-final-20261015",
+    "sourceType": "policy-guidance",
+    "authorityNote": "FSB original final report and issuer publication page; non-binding practices, not an international standard.",
+    "scope": "Global financial institutions; proportionate governance and lifecycle toolkit. Emerging agentic practices were not fully consulted on. No local applicability, compliance or operating-effectiveness conclusion.",
+    "publicationDate": "2026-10-15",
+    "dateBasis": "Printed cover and official final-report landing page; distinct from June consultation, July closing date and review/addition dates.",
+    "reviewed": "2026-10-15",
+    "reviewedAtUtc": "2026-10-15T09:51:18.478232+00:00",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Responsible issuing body; final report, status and date verified directly.",
+      "relevance": "Cross-sector financial-services toolkit directly addressed to boards and senior management.",
+      "impact": "Finalises the existing consultation record and adds specific agent-control, traceability and supplier considerations.",
+      "contribution": "Final status and more specific implementation passages extend the existing source without a duplicate permanent node."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "User-directed, evidence-gated update to the existing FSB source with 12 navigable practices, bounded Atlas connections, a dated final-release card and four audience prompts.",
+    "linkedSourceIds": [
+      "fsb-ai-sound-practices"
+    ],
+    "publicationApproval": "approved",
+    "approved": "2026-10-15",
+    "approvalBasis": "Direct user instruction: Add to atlas: https://www.fsb.org/uploads/P151026-1.pdf",
+    "supportingCheckIds": [
+      "source:fsb-ai-sound-practices"
+    ],
+    "evidenceUrls": [
+      "https://www.fsb.org/uploads/P151026-1.pdf",
+      "https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-final-report/",
+      "https://www.fsb.org/uploads/P151026-2.pdf",
+      "https://www.fsb.org/terms_conditions/"
+    ],
+    "evidenceScope": "Reviewed all 75 pages of the final report and seven-page consultation-response overview via extracted text; visually inspected the annex (printed p.65) and agentic control passage (p.52). Confirmed date/status and non-binding scope against the issuing body. Existing source transitions from June consultation to final; 12 practices, four audiences and one publication event. Reported case studies and underlying cited research are not independently verified; no case admissions. No clause-by-clause redline of the June PDF was performed. Changes attributed to FSB response note, not an independent complete edition diff."
   }
 ]

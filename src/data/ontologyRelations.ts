@@ -24,7 +24,7 @@ export const ontologyRelations: InstrumentRelation[] = [
   { id: 'acl-review-national-plan', sourceId: 'treasury-ai-acl-review', targetId: 'au-national-ai-plan', type: 'evidence-base-for', explanation: 'The review’s finding that existing consumer law can adapt to AI is consistent with the Plan’s reliance on existing laws.', ...synthesis },
   { id: 'spf-cps234', sourceId: 'au-scams-prevention-framework', targetId: 'apra-cps-234', type: 'co-applies-with', explanation: 'For banks, duties to prevent, detect and disrupt scams sit alongside information-security obligations.', ...synthesis },
   { id: 'naic-iais', sourceId: 'naic-ai-model-bulletin', targetId: 'iais-ai-application-paper', type: 'aligns-with', explanation: 'Both apply existing insurance governance and fair-treatment expectations to insurers’ AI systems.', ...synthesis },
-  { id: 'japan-fsa-fsb', sourceId: 'japan-fsa-ai-discussion-paper', targetId: 'fsb-ai-sound-practices', type: 'complements', explanation: 'A national supervisor’s discussion points alongside the FSB’s proposed cross-border sound practices.', ...synthesis },
+  { id: 'japan-fsa-fsb', sourceId: 'japan-fsa-ai-discussion-paper', targetId: 'fsb-ai-sound-practices', type: 'complements', explanation: 'A national supervisor’s discussion points alongside the FSB’s final, non-binding cross-border sound practices.', ...synthesis },
 ]
 
 /* More specific relationship types for links previously recorded as "complements". */
