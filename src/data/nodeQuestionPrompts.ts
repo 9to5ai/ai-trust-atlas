@@ -1,5 +1,5 @@
 import type { Audience, CoreAudience } from './leadershipQuestions'
-import { assuranceControlQuestions, assuranceRiskQuestions, assuranceSourceQuestions } from './assuranceQuestions'
+import { assuranceControlQuestions, assuranceRiskQuestions, assuranceSourceQuestions, assuranceProvisionQuestions } from './assuranceQuestions'
 
 // Original Atlas discussion prompts. These explore the existing catalogue;
 // they are not quotations, regulatory findings or new source-verification claims.
@@ -63,6 +63,7 @@ const authoredControlQuestions: Record<string, Record<CoreAudience, string>> = {
 }
 
 const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
+  'nist-sp-800-218a': roles("Where does our development-security evidence end and operational oversight begin?", "Which companion SSDF practices and separate operational controls support this use case?", "Has the organisation clearly separated the profile\u2019s development scope from operating-system obligations?"),
   'nist-agent-identity-comments': roles('Where does our accountability stop when autonomous work crosses organisational boundaries?', 'Which enforcement component rejects an agent action beyond its delegated authority?', 'Show the principal and delegation evidence behind a consequential agent action.'),
   'asic-market-integrity-rules': roles('Who owns approval and escalation for automated strategies that can affect market integrity?', 'What evidence shows that trading algorithms are tested, governed and monitored before and after material change?', 'Which registered rule provisions govern a covered participant’s system, algorithm and order-entry arrangements?'),
   'apra-cps-230': roles('Could our critical operations stay within agreed tolerances if an AI provider failed?', 'Have AI dependencies been included in continuity exercises and material service-provider reviews?', 'What evidence supports the entity’s treatment of AI dependencies in critical operations?'),
@@ -80,3 +81,18 @@ const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
 export const riskQuestions = withAssurance(authoredRiskQuestions, assuranceRiskQuestions)
 export const controlQuestions = withAssurance(authoredControlQuestions, assuranceControlQuestions)
 export const sourceQuestions = withAssurance(authoredSourceQuestions, assuranceSourceQuestions)
+
+// Original questions for the approved, selected source sections only.
+const authoredProvisionQuestions: Record<string, Record<CoreAudience, string>> = {
+  "eu-ai-act-4": {
+    "board": "How do we judge whether AI learning measures suit the decisions our people make?",
+    "executive": "How are literacy measures adapted to staff background, use context and affected people?",
+    "regulator": "Does the Article 4 evidence show measures to support literacy without inventing an individual guarantee?"
+  },
+  "owasp-llm-risks": {
+    "board": "Which material protections would still hold if hidden instructions and workflow rules became visible?",
+    "executive": "Where is security-critical logic outside the model rather than dependent on context secrecy?",
+    "regulator": "How is privilege separation maintained independently of model-visible policy instructions?"
+  }
+}
+export const provisionQuestions = withAssurance(authoredProvisionQuestions, assuranceProvisionQuestions)

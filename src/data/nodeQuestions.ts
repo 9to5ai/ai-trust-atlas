@@ -5,7 +5,7 @@ import { controlFamilies, controlObjectives } from './controls'
 import { instruments } from './instruments'
 import { MIT_RISK_SOURCE_URL, riskDomains, riskSubdomains } from './mitRiskTaxonomy'
 import { conceptPrompts, questionsForContext, type Audience, type Question } from './leadershipQuestions'
-import { controlQuestions, riskQuestions, sourceQuestions, type RoleQuestions } from './nodeQuestionPrompts'
+import { controlQuestions, riskQuestions, sourceQuestions, provisionQuestions, type RoleQuestions } from './nodeQuestionPrompts'
 import type { AuthorityClass, GraphNodeKind, Instrument, SourceProvision } from '../types'
 
 const roles = (board: string, executive: string, regulator: string, assurance: string): RoleQuestions => ({ board, executive, regulator, assurance })
@@ -66,7 +66,7 @@ function questionsForSource(source: Instrument, audience: Audience, section?: So
   const kind = section ? 'provision' : 'instrument'
   const id = section?.id ?? source.id
   const context = section ? `${source.shortTitle} · ${section.ref}: ${section.title}` : source.shortTitle
-  const curated = !section ? sourceQuestions[source.id] : undefined
+  const curated = section ? provisionQuestions[section.id] : sourceQuestions[source.id]
   const conceptIds = sourceConcepts(source, section)
   if (curated) {
     const preferred = followOnConcepts[source.id]
@@ -85,11 +85,11 @@ function questionsForSource(source: Instrument, audience: Audience, section?: So
     })]
   }).slice(0, curated ? 1 : 2)
   const targeted = curated ? [make(kind, id, 'focus', audience, {
-    context, text: curated[audience], basis: source.summary,
+    context, text: curated[audience], basis: section?.summary ?? source.summary,
     why: `This question explores the implications of ${source.shortTitle} for the organisation’s AI use. ${source.authorityNote}`,
     askFor: `The relevant assessment and decisions for ${source.shortTitle}, with named owners, supporting records and unresolved findings.`,
     followUp: roles('Which gap needs the board’s attention rather than routine management action?', 'What remains untested or unowned, and when will it be addressed?', 'Which part of the organisation’s account is least supported by evidence?', 'Which part of management\'s account could we not re-perform or corroborate with independent evidence?')[audience],
-    sources: sourceRefs(source),
+    sources: sourceRefs(source, section),
   })] : []
   return [...targeted, ...mapped, scopeQuestion(source, audience, section)]
 }

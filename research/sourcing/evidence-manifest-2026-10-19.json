@@ -1,0 +1,485 @@
+{
+  "date": "2026-10-19",
+  "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+  "reviewer": "Codex",
+  "baselineCommit": "eb72f4171edd36e0f37bbe15c174c19b89c9c4a6",
+  "privateSnapshots": [
+    {
+      "file": "nist218a.pdf",
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+      "finalUrl": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+      "bytes": 650661,
+      "sha256": "e088c8bc75716824dae7c36a987f408364638561d381ed001b5c12254a7b10d8",
+      "contentType": "application/pdf",
+      "retrievedAtUtc": "2026-10-18T19:57:53.165609+00:00"
+    },
+    {
+      "file": "owasp-llm2026.pdf",
+      "url": "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+      "finalUrl": "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+      "bytes": 2402520,
+      "sha256": "ef87993a4e50ae9d83b41ff7a3d3e6320a82dfa8d4ec6bf98d0ce264b2e6108e",
+      "contentType": "application/pdf",
+      "retrievedAtUtc": "2026-10-18T19:57:54.854014+00:00"
+    },
+    {
+      "file": "owasp-agentic2026.pdf",
+      "url": "https://genai.owasp.org/download/52117/?tmstv=1765059207",
+      "finalUrl": "https://genai.owasp.org/download/52117/?tmstv=1765059207",
+      "bytes": 1274186,
+      "sha256": "a2db94cd00b08e0b3a5e5b619afe024bdbcd74503111085705e4f3dd886fcb5c",
+      "contentType": "application/pdf",
+      "retrievedAtUtc": "2026-10-18T19:57:54.975286+00:00"
+    },
+    {
+      "file": "aisvs-readme.md",
+      "url": "https://raw.githubusercontent.com/OWASP/AISVS/main/README.md",
+      "finalUrl": "https://raw.githubusercontent.com/OWASP/AISVS/main/README.md",
+      "bytes": 10482,
+      "sha256": "68453014cf6186aebfd6a7dcc81a88f6036986481e2f9a81fe0f69a74fbcf75d",
+      "contentType": "text/plain; charset=utf-8",
+      "retrievedAtUtc": "2026-10-18T19:57:51.037360+00:00"
+    },
+    {
+      "file": "mit-risks.html",
+      "url": "https://airisk.mit.edu/risks",
+      "finalUrl": "https://airisk.mit.edu/risks",
+      "bytes": 95607,
+      "sha256": "6bc38abf7be1d2a635f2a03f5fd8f7f834f62acc33dcd9d4f2bd2e64d710a67b",
+      "contentType": "text/html; charset=utf-8",
+      "retrievedAtUtc": "2026-10-18T19:57:51.142537+00:00"
+    },
+    {
+      "file": "mit-mitigations.html",
+      "url": "https://airisk.mit.edu/ai-risk-mitigations",
+      "finalUrl": "https://airisk.mit.edu/ai-risk-mitigations",
+      "bytes": 81505,
+      "sha256": "af2f3feadcdf13655427611603578e9ecfaaa722c5e87c39d108b2a3741c0d1c",
+      "contentType": "text/html; charset=utf-8",
+      "retrievedAtUtc": "2026-10-18T19:57:51.415383+00:00"
+    },
+    {
+      "file": "ec-panel.html",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/commission-holds-special-meeting-scientific-panel-frontier-ai-safety-and-risks",
+      "finalUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-holds-special-meeting-scientific-panel-frontier-ai-safety-and-risks",
+      "bytes": 50647,
+      "sha256": "f586983fc97c1e77637ee26351d44ce75c58a9734672985f8a638222461a8f64",
+      "contentType": "text/html; charset=UTF-8",
+      "retrievedAtUtc": "2026-10-18T19:57:55.850677+00:00"
+    },
+    {
+      "file": "ec-meeting-report.html",
+      "url": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+      "finalUrl": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+      "bytes": 49021,
+      "sha256": "5883865ea1253244e8a07ec3488dae605a72090424c6281c963bc9c386be632a",
+      "retrievedAtUtc": "2026-10-18T20:06:58.841920+00:00",
+      "note": "Retrieval snapshot; substantive scope separately recorded in evidence manifest."
+    },
+    {
+      "file": "eu-amendment.html",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+      "finalUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+      "bytes": 609284,
+      "sha256": "a2ce1dc05097f289d756b219cfb065f89835a628f36d9170bad850fc2338593d",
+      "retrievedAtUtc": "2026-10-18T20:07:00.952588+00:00",
+      "note": "Retrieval snapshot; substantive scope separately recorded in evidence manifest."
+    },
+    {
+      "file": "ec-rights.html",
+      "url": "https://digital-strategy.ec.europa.eu/en/pages/legal-notice",
+      "finalUrl": "https://digital-strategy.ec.europa.eu/en/pages/legal-notice",
+      "bytes": 63260,
+      "sha256": "f4a39b121d8bfb652e07b4f7a54e3a88795176e54e03ce546fe449c00c5cd768",
+      "retrievedAtUtc": "2026-10-18T20:06:58.879495+00:00",
+      "note": "Retrieval snapshot; substantive scope separately recorded in evidence manifest."
+    },
+    {
+      "file": "mas-speech.html",
+      "url": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+      "finalUrl": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+      "bytes": 853816,
+      "sha256": "d423744bdf2eae85ecb97aa6d68b274d6a7178b70eb47e592dde83a712992933",
+      "retrievedAtUtc": "2026-10-18T20:06:58.581374+00:00",
+      "note": "Retrieval snapshot; substantive scope separately recorded in evidence manifest."
+    },
+    {
+      "file": "aivf-accreditation.html",
+      "url": "https://aiverifyfoundation.sg/ai-assurance/tester-accreditation/",
+      "finalUrl": "https://aiverifyfoundation.sg/ai-assurance/tester-accreditation/",
+      "bytes": 156306,
+      "sha256": "7599810a6a0ee0bf4543b74fb647caca60988c98881f3f7a470558b9faa637aa",
+      "retrievedAtUtc": "2026-10-18T20:07:04.481834+00:00",
+      "note": "Retrieval snapshot; substantive scope separately recorded in evidence manifest."
+    }
+  ],
+  "browserEvidence": {
+    "IMDA": "Rendered full14 October release and latest10 index; plain [Link] placeholders had no href; web retriever bot-check was resolved by ordinary in-app browser without solving CAPTCHA.",
+    "MAS": "Rendered date-descending index and AI in Finance10/26 results; known7 October guidelines missing from topic filter.",
+    "ASIC": "Rendered latest newsroom rows after text-retrieval shell."
+  },
+  "reviewedChecks": [
+    {
+      "id": "source:eu-ai-act",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+        "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+      ],
+      "evidenceScope": "Selected authentic amendment Article 1(5), Article 1(40), amendment entry-into-force Article 4; compared compiled Article 4 synopsis, existing requirement and timeline.",
+      "note": "Material consistency correction: requirement already uses amended support-development duty; source synopsis still uses ensure-sufficient-level wording. High-risk dates already correct, no duplicate date proposal.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Complete remaining current consolidated Act and amendment comparison; preserve October 5 original pending date. Apply only the selected synopsis correction after approval."
+    },
+    {
+      "id": "source:iso-23894",
+      "result": "unchanged",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/77304.html"
+      ],
+      "evidenceScope": "Entire official public metadata/overview page, status, edition/date, scope abstract and copyright limitations only; no purchased text or sample ingested.",
+      "note": "Edition 1 February 2023; public abstract, published status/lifecycle and 26-page metadata match risk-management overview. Licensed full text, clause-level assertions and technical mappings not assessed.",
+      "fullDeclaredScopeCompleted": true,
+      "pendingSince": null,
+      "nextAction": null
+    },
+    {
+      "id": "source:csa-aicm-1-1",
+      "result": "unchanged",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://cloudsecurityalliance.org/artifacts/ai-controls-matrix-v1-1"
+      ],
+      "evidenceScope": "Full public release overview/metadata: 22 June 2026, 247 objectives/18 domains, five pillars, role guidance and named crosswalks; download access/login boundary.",
+      "note": "Matches declared metadata-only record. Licensed detailed catalogue/crosswalks, role guides and questionnaires are unreviewed; no rights or assurance inference from download availability.",
+      "fullDeclaredScopeCompleted": true,
+      "pendingSince": null,
+      "nextAction": null
+    },
+    {
+      "id": "source:mit-ai-risk-mitigations",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://airisk.mit.edu/ai-risk-mitigations"
+      ],
+      "evidenceScope": "Selected public landing, taxonomy metadata and FAQ: 831 statements/13 documents, four categories/23 subcategories, manual extraction/classification limits, no effectiveness/difficulty/interactions classification. Underlying Airtable records not revalidated.",
+      "note": "No new count or date correction. Published July 2025 date correction retained; qualitative framework count is not efficacy or organisation risk coverage.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-21",
+      "nextAction": "Reconcile underlying database rows, provenance/date/licence and retained taxonomy; keep September 21 original pending date."
+    },
+    {
+      "id": "source:iso-38507",
+      "result": "unchanged",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/56641.html"
+      ],
+      "evidenceScope": "Entire official public metadata/overview page, status, edition/date, scope abstract and copyright limitations only; no purchased text or sample ingested.",
+      "note": "Edition 1 April 2022; governing-body audience, public abstract, published status/lifecycle and 28-page metadata match overview. Licensed full text, clause-level assertions and technical mappings not assessed.",
+      "fullDeclaredScopeCompleted": true,
+      "pendingSince": null,
+      "nextAction": null
+    },
+    {
+      "id": "source:iso-5338",
+      "result": "unchanged",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.iso.org/standard/81118.html"
+      ],
+      "evidenceScope": "Entire official public metadata/overview page, status, edition/date, scope abstract and copyright limitations only; no purchased text or sample ingested.",
+      "note": "Edition 1 December 2023; public lifecycle-process abstract, published status and 39-page metadata match overview. Licensed full text, clause-level assertions and technical mappings not assessed.",
+      "fullDeclaredScopeCompleted": true,
+      "pendingSince": null,
+      "nextAction": null
+    },
+    {
+      "id": "source:nist-ai-rmf-playbook",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://airc.nist.gov/airmf-resources/playbook/"
+      ],
+      "evidenceScope": "Current complete landing introduction, status banner and download choices. Four detailed functions and downloaded full playbook not reviewed.",
+      "note": "Voluntary suggested actions, not a checklist; AI RMF revision pending and Playbook update follows it, consistent with existing source. No new source date inferred.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Review all four function action sets and dated audit log/download version; preserve October 5 pending date."
+    },
+    {
+      "id": "source:nist-sp-800-218a",
+      "result": "changed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+        "https://csrc.nist.gov/pubs/sp/800/218/a/final"
+      ],
+      "evidenceScope": "Entire 30-page final PDF: front matter, sections 1–3, complete PO/PS/PW/RV table, references/glossary; issuer final status/history. Scope p.2 visually checked.",
+      "note": "Source record needs explicit SSDF 1.1 companion and development-only boundary; current PS.1 draft synopsis substantively matches. No new edition or efficacy claim.",
+      "fullDeclaredScopeCompleted": true,
+      "pendingSince": null,
+      "nextAction": null
+    },
+    {
+      "id": "source:owasp-llm-top-10",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+        "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/"
+      ],
+      "evidenceScope": "Selected report pages 1–9 and entire LLM08 pages 46–49; TOC confirms 122-page document. Broader context than system prompts: retrieved policy, developer messages and tool schemas. No complete category/mapping/incident-classifier validation.",
+      "note": "Existing August release card retained. Selected LLM08 content supports bounded enrichment; report retains date placeholders. Full 122 pages and source-authored mappings/ranking validation remain outstanding.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Complete all remaining ten-category content and appendix/mapping comparison; preserve 10 September pending date. Keep incident/classifier claims source-reported."
+    },
+    {
+      "id": "source:owasp-agentic-top-10",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+        "https://genai.owasp.org/download/52117/?tmstv=1765059207"
+      ],
+      "evidenceScope": "Official landing/date; 57-page PDF licence, TOC, leaders letter and ASI09 pp.33–35; all10 entries listed but not all substantively reviewed.",
+      "note": "Confirms existing threat-taxonomy/date and distinction between persuasive rationales and independent checks. No duplicated FSB action-trace question proposed; cases remain examples, no incident admission.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Complete all ten entries, remaining appendices and current mappings. Retain original September 10 pending date."
+    },
+    {
+      "id": "source:owasp-aisvs",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://github.com/OWASP/AISVS",
+        "https://raw.githubusercontent.com/OWASP/AISVS/main/README.md"
+      ],
+      "evidenceScope": "Original README version table, stable/developing distinction, twelve chapter titles, identifier/versioning policy and CC BY-SA licence.",
+      "note": "Stable 1.01 metadata correction and full requirement migration are already pending candidates from October 12; not duplicated. No all-requirement/ID migration performed.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Resolve frozen 1.0-to-1.01 requirements/IDs/levels and release date; retain September 10 pending date."
+    },
+    {
+      "id": "source:uk-aisi-inspect",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.aisi.gov.uk/blog/open-sourcing-our-testing-framework-inspect",
+        "https://inspect.aisi.org.uk/"
+      ],
+      "evidenceScope": "Issuer blog renders brief original synopsis only; current Inspect documentation landing core dataset/solver/scorer description located, not complete dynamic original article or current software/version behaviour.",
+      "note": "Existing evaluation-tool synopsis broadly consistent, but incomplete evidence does not support unchanged/full review. No assurance conclusion from a score or framework.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-21",
+      "nextAction": "Finish original source and relevant docs/version comparison using authorised browser; do not treat tool use as validated or reset September 21 pending date."
+    },
+    {
+      "id": "publisher:apra",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.apra.gov.au/news-and-publications"
+      ],
+      "evidenceScope": "Latest10 public index entries30 September–16 October and targeted AI query. Annual-report/September trustee proposals identified; linked full reports not assessed.",
+      "note": "No new Atlas AI rule inferred from absence in initial results; relevant underlying reports still need inspection.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Review relevant full annual-report AI passages and applicable policy release documents; preserve October5 pending date."
+    },
+    {
+      "id": "publisher:asic",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.asic.gov.au/newsroom",
+        "https://www.asic.gov.au/about-asic/news-centre/speeches/trust-transparency-and-the-future-of-financial-reporting"
+      ],
+      "evidenceScope": "Rendered newsroom latest/publications/views plus targeted AI query.14 October financial-reporting speech identified; underlying speech and full historical results not reviewed.",
+      "note": "No unchanged claim. Current newsroom URL relocation is recorded as discovery access, not a corpus edit or recency event.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Inspect financial-reporting speech AI passages and finish due releases/results; preserve original pending date."
+    },
+    {
+      "id": "publisher:nist",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.nist.gov/super-intelligence",
+        "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+        "https://airc.nist.gov/airmf-resources/playbook/"
+      ],
+      "evidenceScope": "Current SI topic landing, official SP800-218A record and Playbook landing; targeted official October query.",
+      "note": "EO14434 terminology development is already a pending candidate. No historical report rename or new RMF edition inferred.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Finish due linked original publications and technical document comparisons; preserve original pending date."
+    },
+    {
+      "id": "publisher:ec",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+        "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+        "https://digital-strategy.ec.europa.eu/en/pages/legal-notice"
+      ],
+      "evidenceScope": "Current AI Act policy/release index, full12 October panel meeting report and9 October announcement; authentic selected omnibus paragraphs and legal reuse notice.",
+      "note": "Five regional high-risk/transparency dates already represented; no duplicate omnibus event. Meeting report is an individually ready development, but index-wide linked-document check remains incomplete.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-10-05",
+      "nextAction": "Complete due AI policy releases and linked primary documents beyond the selected panel/amendment; preserve original pending date."
+    },
+    {
+      "id": "publisher:fsb",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.fsb.org/policy_areas/financial-innovation/",
+        "https://www.fsb.org/2026/10/fsb-finalises-sound-practices-for-the-responsible-adoption-of-artificial-intelligence-ai/"
+      ],
+      "evidenceScope": "Financial Innovation index through15 October; final AI practices/response/pressrelease entries identified and checked against published Atlas15 October receipt.12 October Chair letter not read.",
+      "note": "Final AI event already published and not duplicated; broader due publisher scope remains incomplete.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-22",
+      "nextAction": "Read12 October Chair letter and finish relevant release period. Keep September22 original pending date."
+    },
+    {
+      "id": "publisher:mit",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://airisk.mit.edu/risks"
+      ],
+      "evidenceScope": "Selected public landing, causal/domain taxonomy metadata and FAQ; header 1700+/74 versus FAQ 1600+/65; original linked Google Sheet/OneDrive retrieval not successful in web reader.",
+      "note": "Count reconciliation remains deferred, not a new October correction; no frequency, likelihood, causal effect or exposure inference.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-22",
+      "nextAction": "Retrieve current official database via authorised public export and reconcile row/source counts/version and licence; retain original pending date."
+    },
+    {
+      "id": "publisher:imda",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+        "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches",
+        "https://aiverifyfoundation.sg/tester-accreditation",
+        "https://www.imda.gov.sg/terms-of-use",
+        "https://aiverifyfoundation.sg/ai-assurance/tester-accreditation/"
+      ],
+      "evidenceScope": "Rendered public index latest10 entries (27 August–16 October) and entire 14 October joint release including14 numbered paragraphs; no CAPTCHA solved. Starter-kit references render plain [Link] placeholders with no link target. Entire AI Verify Foundation accreditation-programme overview and IMDA terms read in ordinary browser. Programme excludes deployment/integration changes and post-assessment changes; accreditation does not eliminate residual risk.",
+      "note": "Announcement verified. Underlying starter kit and accreditation assessment materials not substantively checked. No firm endorsement, certification of systems or completed FAIRS report claimed. Public-use/deep-link rights under IMDA terms remain unresolved; announcement candidate is deferred on rights. Initial programme navigation timed out but content loaded on inspection; not an unavailable-source claim.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Resolve public-use rights; retrieve original starter kit beyond placeholders and compare methods. Preserve September10 pending date."
+    },
+    {
+      "id": "publisher:mas",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+        "https://www.mas.gov.sg/news",
+        "https://www.mas.gov.sg/news?page=1&focus_areas=AI%20in%20Finance",
+        "https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions"
+      ],
+      "evidenceScope": "Rendered latest news and AI in Finance filtered results10/26; entire 9 October speech and final-guidelines landing. AI topic filter omits known7 October final guidelines, so cannot certify whole discovery coverage.",
+      "note": "Final guidelines are already published in Atlas. Speech identifies SAFR1.1 and reference code; paper/repository/date/licence outstanding. Other September speeches not substantively checked.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Cross-check unfiltered releases/consultation indexes, complete relevant September releases and inspect SAFR1.1 plus official code/licence; retain September 10 pending date."
+    },
+    {
+      "id": "topic:10",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+        "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+        "https://www.weforum.org/publications/ai-agents-in-action-a-playbook-for-trusted-adoption-authorization-and-scaling",
+        "https://www.aisi.gov.uk/research/uk-aisi-alignment-evaluation-case-study"
+      ],
+      "evidenceScope": "Exact configured agent-autonomy/oversight/deployment/evaluation query with11–19 October discovery window; original WEF May26 overview and AISI research abstract opened, EC/IMDA primary accounts substantively inspected. Search results include older material and cannot establish original dates without opening.",
+      "note": "Outside-register WEF/AISI leads retained as unreviewed paper follow-ups; no vendor survey, incident or production-use-case admission. Search is not proof of corpus completeness.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-22",
+      "nextAction": "Inspect full AISI report/date and WEF paper/licence if distinct lasting value; complete remaining relevant primary results before advancing topic date."
+    },
+    {
+      "id": "source:enisa-ai-cyber-framework",
+      "result": "not reviewed",
+      "reviewed": "2026-10-19",
+      "reviewedAtUtc": "2026-10-18T20:09:34.597013+00:00",
+      "reviewer": "Codex",
+      "evidenceUrls": [
+        "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai",
+        "https://www.enisa.europa.eu/sites/default/files/publications/Multilayer%20Framework%20for%20Good%20Cybersecurity%20Practices%20for%20AI.pdf"
+      ],
+      "evidenceScope": "Official landing and PDF front matter/contents/legal notice, June2023, three-layer framework metadata;46-page body/survey/annexes not read.",
+      "note": "Three-layer overview remains supported in selected metadata. Complete framework and underlying evidence not assessed; no unchanged/full-review inference.",
+      "fullDeclaredScopeCompleted": false,
+      "pendingSince": "2026-09-10",
+      "nextAction": "Read all framework layers, survey methods and annexes; preserve10 September pending date."
+    }
+  ],
+  "rights": "Original factual synopses/links only. Licensed ISO full text never retrieved. CSA detailed catalogue not inspected. OWASP PDFs privately retained; CC BY-SA limits recorded. EU CC BY4.0 attribution and authentic Official Journal status distinguished. IMDA publication/deep-link terms unresolved; candidate deferred on rights. AI Verify Foundation programme overview inspected, not individual assessments.",
+  "assuranceRelevance": "High: amended legal synopsis consistency, testing boundaries, internal model governance, trajectory evidence and evaluator scope.",
+  "marketRelevance": "Source-reported IMDA accreditation programme may shape buyer due-diligence expectations; accreditation is not evidence that a customer system is effective or assured. No endorsement or competitor-capability validation.",
+  "outsideRegisterLeads": {
+    "WEF": "Official26 May2026 overview opened, paper not reviewed; older item, not a new October development.",
+    "AISI": "Original alignment-research abstract opened; complete paper, date and methods not reviewed; no general safety conclusion."
+  },
+  "finalisedAtUtc": "2026-10-18T20:09:05.120109+00:00"
+}

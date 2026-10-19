@@ -112,6 +112,7 @@ export const assuranceControlQuestions: Record<string, string> = {
 }
 
 export const assuranceSourceQuestions: Record<string, string> = {
+  "nist-sp-800-218a": "Does the evidence set explicitly identify lifecycle stages outside the profile?",
   'nist-agent-identity-comments': 'Can sampled delegation chains demonstrate independently enforced authorization limits?',
   'asic-market-integrity-rules': 'Can a reviewer trace the test result, approval, deployment and monitoring record for each algorithm within the covered market-participant scope?',
   'apra-cps-230': 'Which CPS 230 requirements would serve as criteria for AI dependencies, and what testing evidence covers the period?',
@@ -127,6 +128,7 @@ export const assuranceSourceQuestions: Record<string, string> = {
 }
 
 export const assuranceDevelopmentQuestions: Record<string, string> = {
+  "ec-frontier-panel-response-2026": "Can the investigation distinguish observed actions, model explanations and facts it cannot establish?",
   'mas-ai-risk-guidelines-final': 'Can sampled supplier services be reconciled to the AI inventory, risk assessment and evidence supporting control choices?',
   'oaic-adm-guidance-issued': 'Does sampled workflow evidence support the recorded APP 1.7 scope assessment and proposed disclosures?',
   'nist-agent-identity-comments': 'Do tests demonstrate delegated credential scope, expiry and revocation across the full chain?',
@@ -224,4 +226,10 @@ export const assuranceIncidentPrompts: Record<string, AssurancePrompt> = {
     askFor: 'The maintainer advisory, vendor remediation confirmation, our connector scope settings and our own assistant-to-production access tests.',
     followUp: 'When did we last test our own assistant connector scopes and revocation, and who performed the test?',
   },
+}
+
+// Selected section prompts retain the section’s own source citation.
+export const assuranceProvisionQuestions: Record<string, string> = {
+  "eu-ai-act-4": "Does our testing assess the amended duty rather than the superseded wording?",
+  "owasp-llm-risks": "Can an adversarial test expose hidden context while confirming that deterministic permission checks still block unauthorised actions?"
 }
