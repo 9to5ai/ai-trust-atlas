@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-19",
+  "reviewer": "Codex",
+  "baselineCommit": "eb72f4171edd36e0f37bbe15c174c19b89c9c4a6",
+  "statusCommand": {
+    "exitCode": 0,
+    "ledgerEntries": 64,
+    "validationErrors": []
+  },
+  "checkCommand": {
+    "exitCode": 1,
+    "status": "INCOMPLETE",
+    "missing": [],
+    "unreviewed": 117,
+    "expectedCoverageFailure": true,
+    "validationErrors": []
+  },
+  "proposals": {
+    "proposalIdsAndFourAudiences": "passed",
+    "originalPendingDatesAndHistoricalRows": "passed",
+    "proposalCount": 4,
+    "unpublished": true
+  },
+  "unitTests": {
+    "exitCode": 0,
+    "passed": 203,
+    "files": 37
+  },
+  "build": {
+    "exitCode": 0,
+    "questionCoverage": "568 Atlas cards and26 developments; all four audiences",
+    "firstLoadGzipKB": 384.2,
+    "budgetKB": 385,
+    "practiceGate": "no gated text in48 public files",
+    "warnings": [
+      "Existing Vite chunk-size advisory; unchanged bundle gate passed."
+    ]
+  },
+  "applicationAndApiTreeMatchesCurrentMain": true,
+  "inventorySha256": "4f509aec24a47247be428d6ad206748e2288329283aaf01eee01b63bdd82d561",
+  "priorRunSha256": "555d0e8b2631f79fe864c15cf3e6cb3ab611d0335bc4c6b12c38384a36697c0c",
+  "discoveryRegisterDatesAdvanced": [],
+  "notRun": "Browser E2E not rerun: research-only records and proposals; application source unchanged.",
+  "publication": "No corpus edits, commit, push, merge, deploy or publish."
+}

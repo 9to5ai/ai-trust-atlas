@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-19",
+  "baselineCommit": "eb72f4171edd36e0f37bbe15c174c19b89c9c4a6",
+  "approval": "User approved the four ready proposals; scoped implementation and release authorised.",
+  "approvedCandidateIds": [
+    "eu-art4-summary-alignment-2026-10-19",
+    "ec-scientific-panel-response-20261012-2026-10-19",
+    "nist218a-scope-clarification-2026-10-19",
+    "owasp-hidden-context-scope-2026-10-19"
+  ],
+  "excludedCandidateIds": [
+    "imda-ai-safety-initiatives-20261014-2026-10-19",
+    "mas-safr11-followup-2026-10-19"
+  ],
+  "wholeRunStatus": "INCOMPLETE",
+  "notReviewed": 117,
+  "activeOverdue30Days": 21,
+  "sourceReviewLimitations": "Selected EU/OWASP summaries only; full Act/category reviews stay pending. NIST full30-page final profile reviewed. EC is an issuer report, not independent incident evidence or new law.",
+  "publicationDates": "EU amendment July2026; NIST July2024; OWASP August2026; EC meeting9 October/report12 October.19 October is editorial review/addition only.",
+  "roleQuestions": "Selected Article4 and OWASP section prompts plus NIST source prompt; one EC development with all four audiences. All other authored prompts retained.",
+  "mappingPolicy": "Existing concept IDs and mappings retained. No new source, requirement, control, risk, incident or production-use-case admitted.",
+  "inventorySha256": "4f509aec24a47247be428d6ad206748e2288329283aaf01eee01b63bdd82d561",
+  "discoveryRegisterDatesAdvanced": [],
+  "validation": {
+    "unitTests": {
+      "passed": 207,
+      "files": 38
+    },
+    "localBrowserSuite": {
+      "passed": 40,
+      "skipped": 4
+    },
+    "targetedDesktopMobileChecks": {
+      "passed": 10,
+      "browserErrors": 0
+    },
+    "preservation": "All unrelated source records, requirements, incidents, use cases, previous developments and source/provision identities/concept links preserved.",
+    "sourceCoverage": {
+      "status": "INCOMPLETE",
+      "missing": [],
+      "notReviewed": 117,
+      "validationErrors": []
+    },
+    "bundle": {
+      "baselineKB": 384.2,
+      "currentKB": 385.8,
+      "firstLoadBudgetKB": 386,
+      "previousBudgetKB": 385,
+      "reason": "Four approved source changes and their audience prompts add 1.6 KB gzip; budget increased by 1 KB, with WebGL budget unchanged190 KB."
+    },
+    "hostedAndLive": "pending; local checks are not a production verification claim"
+  },
+  "sourceRevalidation": {
+    "EC": "Same visible text as retained19 October official report; HTML nonce/markup changed.",
+    "EU": "Fresh web request was blocked/empty; approved review relies on the authentic Official Journal snapshot substantively inspected and retained19 October, with selected provisions and exact scope. No claim of a fresh complete Act review."
+  }
+}

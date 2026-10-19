@@ -1,0 +1,2660 @@
+[
+  {
+    "id": "nist-agent-security-responses",
+    "title": "Security Considerations for AI Agents: Summary Analysis of RFI Responses",
+    "url": "https://www.nist.gov/publications/summary-analysis-responses-request-information-regarding-security-considerations-ai",
+    "discovered": "2026-09-10",
+    "eventKey": "nist-agent-security-responses",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Official abstract reviewed. Findings describe consultation responses, not a representative survey or validation of individual mitigations.",
+    "publicationDate": "2026-05-18",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Official abstract reviewed. Findings describe consultation responses, not a representative survey or validation of individual mitigations.",
+      "impact": "Lasting reference value: Summarises consultation responses on AI agent threats, adaptations to cybersecurity practices and proposed roles for government.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Lasting reference value: Summarises consultation responses on AI agent threats, adaptations to cybersecurity practices and proposed roles for government.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "oaic-commercial-ai",
+    "title": "Guidance on privacy and the use of commercially available AI products",
+    "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products",
+    "discovered": "2026-09-10",
+    "eventKey": "oaic-commercial-ai",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Official takeaways and quick reference reviewed; updated 17 January 2025. Read with the Privacy Act and APP guidelines. This summary is not a full review of every guidance section.",
+    "publicationDate": "2024-10-21",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Official takeaways and quick reference reviewed; updated 17 January 2025. Read with the Privacy Act and APP guidelines. This summary is not a full review of every guidance section.",
+      "impact": "Lasting reference value: Explains privacy considerations when choosing and using AI products, including personal information in inputs and outputs, due diligence, notices and human oversight.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Lasting reference value: Explains privacy considerations when choosing and using AI products, including personal information in inputs and outputs, due diligence, notices and human oversight.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "apra-super-ceo-september",
+    "title": "Superannuation CEOs focus on crisis exercises and shared dependencies",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-and-asic-host-superannuation-ceo-roundtables-june-2026",
+    "discovered": "2026-09-10",
+    "eventKey": "apra-super-ceo-september",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian superannuation boards and executives.",
+    "publicationDate": "2026-09-01",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian superannuation boards and executives.",
+      "impact": "Sector-specific crisis and supplier lessons; link to CPS 230 without adding another permanent announcement node.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "Sector-specific crisis and supplier lessons; link to CPS 230 without adding another permanent announcement node.",
+    "linkedSourceIds": [
+      "apra-cps-230"
+    ]
+  },
+  {
+    "id": "correct-nist-critical-infrastructure-concept",
+    "title": "Concept Note: AI RMF Profile on Trustworthy AI in Critical Infrastructure",
+    "url": "https://www.nist.gov/programs-projects/concept-note-ai-rmf-profile-trustworthy-ai-critical-infrastructure",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-nist-critical-infrastructure-concept",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"published\": \"2026-04-06\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"published\": \"2026-04-06\"}",
+    "linkedSourceIds": [
+      "nist-critical-infrastructure-concept"
+    ]
+  },
+  {
+    "id": "correct-uk-ai-white-paper",
+    "title": "A Pro-Innovation Approach to AI Regulation",
+    "url": "https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach/white-paper",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-uk-ai-white-paper",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"summary\": \"A 2023 policy paper proposing five cross-sector principles and a non-statutory approach through existing UK regulators.\", \"authorityNote\": \"Historical policy proposal; not a statement of the complete current UK regulatory position.\", \"effective\": \"Paper updated 2023-08-03\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"summary\": \"A 2023 policy paper proposing five cross-sector principles and a non-statutory approach through existing UK regulators.\", \"authorityNote\": \"Historical policy proposal; not a statement of the complete current UK regulatory position.\", \"effective\": \"Paper updated 2023-08-03\"}",
+    "linkedSourceIds": [
+      "uk-ai-white-paper"
+    ]
+  },
+  {
+    "id": "correct-uk-ico-ai-guidance",
+    "title": "Guidance on AI and Data Protection",
+    "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/",
+    "discovered": "2026-09-10",
+    "eventKey": "correct-uk-ico-ai-guidance",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Existing record clarification; does not claim the whole source has been reverified.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Existing record clarification; does not claim the whole source has been reverified.",
+      "impact": "{\"authorityNote\": \"Regulator guidance under review following the Data (Use and Access) Act; check current ICO updates.\", \"summary\": \"Explains AI and UK data protection. The ICO flags this guidance as under review following legislative changes.\"}",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "{\"authorityNote\": \"Regulator guidance under review following the Data (Use and Access) Act; check current ICO updates.\", \"summary\": \"Explains AI and UK data protection. The ICO flags this guidance as under review following legislative changes.\"}",
+    "linkedSourceIds": [
+      "uk-ico-ai-guidance"
+    ]
+  },
+  {
+    "id": "mas-safr-lead",
+    "title": "Safeguards for Agentic Finance at Runtime",
+    "url": "https://www.mas.gov.sg/publications/monographs-or-information-paper/2026/safeguards-for-agentic-finance-at-runtime",
+    "discovered": "2026-09-10",
+    "eventKey": "mas-safr-lead",
+    "sourceType": "framework",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Financial institutions using autonomous agents.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": null,
+    "reviewer": "",
+    "reviewDepth": "unreviewed",
+    "gates": {
+      "provenance": false,
+      "evidence": false,
+      "rights": false,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 0,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Financial institutions using autonomous agents.",
+      "impact": "Official page returns maintenance; secondary reporting is a lead only.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Official page returns maintenance; secondary reporting is a lead only.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "parliament-ai-inquiry-lead",
+    "title": "Joint Select Committee on Artificial Intelligence",
+    "url": "https://www.aph.gov.au/Parliamentary_Business/Committees/Joint/Artificial_Intelligence",
+    "discovered": "2026-09-10",
+    "eventKey": "parliament-ai-inquiry-lead",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian policy and regulatory audiences.",
+    "publicationDate": null,
+    "dateBasis": "Unknown; not inferred",
+    "reviewed": null,
+    "reviewer": "",
+    "reviewDepth": "unreviewed",
+    "gates": {
+      "provenance": false,
+      "evidence": false,
+      "rights": false,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 0,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian policy and regulatory audiences.",
+      "impact": "Search index shows an August inquiry, but direct official page returns 403. Confirm current inquiry details before adding.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Search index shows an August inquiry, but direct official page returns 403. Confirm current inquiry details before adding.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "apra-super-ceo-duplicate",
+    "title": "APRA super CEO roundtable media release",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-and-asic-host-super-ceos-discuss-frontier-ai-cyber-and-operational",
+    "discovered": "2026-09-10",
+    "eventKey": "apra-super-ceo-duplicate",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuing body on its remit; document status is retained.",
+    "scope": "Australian superannuation.",
+    "publicationDate": "2026-09-01",
+    "dateBasis": "Official publication date",
+    "reviewed": "2026-09-10",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 1,
+      "contribution": 0
+    },
+    "scoreReasons": {
+      "authority": "Original issuing body on its remit; document status is retained.",
+      "relevance": "Australian superannuation.",
+      "impact": "Duplicate announcement; use the original published roundtable notes instead.",
+      "contribution": "Distinct original source or correction; announcements about the same event consolidated."
+    },
+    "relevantBindingChange": false,
+    "decision": "exclude",
+    "reason": "Duplicate announcement; use the original published roundtable notes instead.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-au-national-ai-plan",
+    "title": "National AI Plan",
+    "url": "https://www.industry.gov.au/publications/national-ai-plan",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "au-national-ai-plan",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Government policy; not legislation",
+    "scope": "Australia. Sets government direction. It creates no obligations itself; sector laws, regulator guidance and any future amendments do.",
+    "publicationDate": "2025-12-02",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Government policy; not legislation",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The Australian Government’s plan to capture AI opportunities, spread the benefits and keep Australians safe. It relies on existing laws and sector regulators, voluntary guidance and a new AI Safety Institute rather than a standalone AI Act.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "au-national-ai-plan"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-apra-cpg-230",
+    "title": "Prudential Practice Guide CPG 230 Operational Risk Management",
+    "url": "https://www.apra.gov.au/operational-risk-management",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-cpg-230",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Prudential practice guidance; not binding, but shows how APRA expects CPS 230 to be met",
+    "scope": "Australia - APRA-regulated entities. Guidance for APRA-regulated entities. It explains better practice; the binding requirements are in CPS 230.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2026-04; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Prudential practice guidance; not binding, but shows how APRA expects CPS 230 to be met",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "APRA’s guidance on meeting CPS 230: operational risk frameworks, critical operations, tolerance levels, business continuity and management of material service providers. Updated alongside the 2026 CPS 230 amendments.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "apra-cpg-230"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-oaic-genai-training",
+    "title": "Guidance on privacy and developing and training generative AI models",
+    "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-developing-and-training-generative-ai-models",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "oaic-genai-training",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulator guidance on applying the Privacy Act",
+    "scope": "Australia. Applies to APP entities that develop AI models or provide personal information to developers. The companion guide covers using commercial AI products.",
+    "publicationDate": "2024-10-21",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator guidance on applying the Privacy Act",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "How the Australian Privacy Principles apply when organisations design, train, fine-tune or supply data for generative AI models, including scraped and third-party datasets.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "oaic-genai-training"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-oaic-adm-transparency",
+    "title": "Guidance on transparency in automated decision-making: issues paper",
+    "url": "https://www.oaic.gov.au/engage-with-us/consultations/consultation-on-guidance-for-transparency-in-automated-decision-making",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "oaic-adm-transparency",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulator consultation; final guidance pending",
+    "scope": "Australia. Consultation closed 15 June 2026. Replace this record with the final guidance when the OAIC publishes it.",
+    "publicationDate": "2026-05-18",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator consultation; final guidance pending",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The OAIC’s consultation on guidance for the new APP 1 automated decision-making obligation. From 10 December 2026, privacy policies must describe personal information used in, and decisions made by, computer programs that could significantly affect individuals.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "oaic-adm-transparency"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-aicd-hti-director-guide",
+    "title": "A Director’s Guide to AI Governance (Version 2)",
+    "url": "https://www.aicd.com.au/news-media/research-and-reports/a-directors-guide-to-ai-governance.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "aicd-hti-director-guide",
+    "sourceType": "framework",
+    "authorityNote": "Industry guidance for directors; not regulatory",
+    "scope": "Australia. Practical guidance for boards. It does not change directors’ legal duties, which come from the Corporations Act and general law.",
+    "publicationDate": "2026-06-29",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Industry guidance for directors; not regulatory",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Board-level guidance on overseeing AI: strategy and opportunity, accountability, risk, people and stakeholder impact. Version 2 updates the 2024 guide for agentic AI and maturing governance practice, with an SME and not-for-profit checklist.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "aicd-hti-director-guide"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-asic-rg-234",
+    "title": "Regulatory Guide 234 Advertising financial products and services (including credit)",
+    "url": "https://www.asic.gov.au/regulatory-resources/find-a-document/regulatory-guides/rg-234-advertising-financial-products-and-services-including-credit",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "asic-rg-234",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Regulatory guidance on existing misleading-conduct laws",
+    "scope": "Australia - promoters and publishers of financial products and credit. Guidance on obligations not to mislead under the ASIC Act and Corporations Act. It consolidates the withdrawn RG 53 on past performance.",
+    "publicationDate": "2026-06-09",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulatory guidance on existing misleading-conduct laws",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "ASIC’s first rewrite of its advertising guidance since 2012. It applies whatever the technology, including AI-generated content, and cautions against overstating what AI-enabled tools can do.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "asic-rg-234"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-dta-ai-technical-standard",
+    "title": "Australian Government AI technical standard",
+    "url": "https://www.digital.gov.au/policy/ai/AI-technical-standard",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "dta-ai-technical-standard",
+    "sourceType": "standard",
+    "authorityNote": "Non-legislative technical standard for government agencies",
+    "scope": "Australia - Commonwealth agencies. Written for Commonwealth agencies under the AI policy. Private organisations can use it as a reference for control design.",
+    "publicationDate": "2025-07-31",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Non-legislative technical standard for government agencies",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Lifecycle requirements for AI systems used by Australian Government agencies: 42 statements and 148 implementation criteria from design through to decommissioning.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "dta-ai-technical-standard"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-nsw-ai-assessment-framework",
+    "title": "NSW Artificial Intelligence Assessment Framework",
+    "url": "https://www.digital.nsw.gov.au/policy/artificial-intelligence/ai-governance-assurance-and-frameworks/nsw-ai-assessment-framework",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "nsw-ai-assessment-framework",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Mandatory for NSW Government agencies under Circular DCS-2026-02",
+    "scope": "Australia - NSW Government agencies. Binding on NSW Government agencies through policy. A useful reference for other organisations’ risk triage.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2026-01; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Mandatory for NSW Government agencies under Circular DCS-2026-02",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "The self-assessment every NSW Government agency must apply to AI use across the lifecycle. The 2026 revision is faster, aligned to standards and covers generative AI, with higher-risk uses referred to an AI Review Committee.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "nsw-ai-assessment-framework"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-treasury-ai-acl-review",
+    "title": "Review of AI and the Australian Consumer Law: final report",
+    "url": "https://treasury.gov.au/publication/p2025-702329",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "treasury-ai-acl-review",
+    "sourceType": "research-database",
+    "authorityNote": "Government review; recommendations, not law",
+    "scope": "Australia. Policy findings. Any amendments would require separate legislation.",
+    "publicationDate": "2025-10-03",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Government review; recommendations, not law",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Finds the Australian Consumer Law broadly able to protect consumers of AI-enabled goods and services, and proposes targeted clarifications such as who counts as a manufacturer in AI supply chains.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "treasury-ai-acl-review"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-au-scams-prevention-framework",
+    "title": "Scams Prevention Framework Act 2025",
+    "url": "https://www.legislation.gov.au/C2025A00015/asmade/text",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "au-scams-prevention-framework",
+    "sourceType": "law",
+    "authorityNote": "Legislation; obligations apply to designated sectors through rules and codes",
+    "scope": "Australia - designated sectors. Applies to sectors designated by the Minister, with detail set by rules and sector codes.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-02; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Legislation; obligations apply to designated sectors through rules and codes",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "Requires regulated businesses, starting with banks, telcos and some digital platforms, to take reasonable steps to prevent, detect, report, disrupt and respond to scams, with penalties of up to $50 million. AI-enabled impersonation raises the bar for what counts as reasonable.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "au-scams-prevention-framework"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-apra-cpg-234",
+    "title": "Prudential Practice Guide CPG 234 Information Security",
+    "url": "https://www.apra.gov.au/practice-guides/cpg-234",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-cpg-234",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Prudential practice guidance; not binding",
+    "scope": "Australia - APRA-regulated entities. Guidance for APRA-regulated entities. The binding requirements are in CPS 234.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2019-06; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Prudential practice guidance; not binding",
+      "relevance": "Australia coverage for the Atlas's priority audiences.",
+      "impact": "APRA’s guidance on implementing CPS 234: information security roles, capability, controls, testing, incident management and assurance, including over third parties.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "apra-cpg-234"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-mas-airm-guidelines-cp",
+    "title": "Consultation Paper on Guidelines on Artificial Intelligence Risk Management",
+    "url": "https://www.mas.gov.sg/-/media/mas-media-library/publications/consultations/bd/2025/final_consultation_paper_on_guidelines_on_ai_risk_management_forrelease.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "mas-airm-guidelines-cp",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Proposed supervisory guidelines; final version pending",
+    "scope": "Singapore - all financial institutions. Consultation closed 31 January 2026. MAS said in August 2026 the guidelines would be finalised soon; update this record when they are.",
+    "publicationDate": "2025-11-13",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Proposed supervisory guidelines; final version pending",
+      "relevance": "Singapore coverage for the Atlas's priority audiences.",
+      "impact": "Proposed MAS expectations for how every financial institution governs AI, including generative and agentic AI: board and senior management oversight, an AI inventory with risk materiality, lifecycle controls and the capability to manage AI.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "mas-airm-guidelines-cp"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-iosco-ai-toolkit",
+    "title": "Supervisory Toolkit for AI Use in Capital Markets: Final Report",
+    "url": "https://www.iosco.org/library/pubdocs/pdf/IOSCOPD823.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iosco-ai-toolkit",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Non-binding supervisory toolkit for member regulators",
+    "scope": "International - securities regulators. Written for regulators, but shows firms what supervisors are likely to ask. It is not a binding standard.",
+    "publicationDate": "2026-05-25",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Non-binding supervisory toolkit for member regulators",
+      "relevance": "Global coverage for the Atlas's priority audiences.",
+      "impact": "Practical, lifecycle-wide tools for securities regulators supervising firms’ AI, from traditional machine learning to generative and agentic AI. Builds on IOSCO’s March 2025 report on AI use cases, risks and challenges.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "iosco-ai-toolkit"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-iais-ai-application-paper",
+    "title": "Application Paper on the supervision of artificial intelligence",
+    "url": "https://www.iais.org/uploads/2025/07/Application-Paper-on-the-supervision-of-artificial-intelligence.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iais-ai-application-paper",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory guidance on applying the Insurance Core Principles",
+    "scope": "International - insurance supervisors. Guidance for supervisors, applied proportionately. It does not create new standards.",
+    "publicationDate": "2025-07-02",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory guidance on applying the Insurance Core Principles",
+      "relevance": "Global coverage for the Atlas's priority audiences.",
+      "impact": "How insurance supervisors and insurers apply existing Insurance Core Principles to AI: governance and accountability, robustness and security, transparency and explainability, and fairness to customers.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "iais-ai-application-paper"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-eiopa-ai-opinion",
+    "title": "Opinion on Artificial Intelligence governance and risk management",
+    "url": "https://www.eiopa.europa.eu/publications/opinion-artificial-intelligence-governance-and-risk-management_en",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "eiopa-ai-opinion",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory opinion addressed to national authorities",
+    "scope": "European Union - insurance. Interpretive guidance for supervisors; it introduces no new rules. High-risk life and health pricing systems fall under the AI Act instead.",
+    "publicationDate": "2025-08-06",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory opinion addressed to national authorities",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "Explains how existing insurance law (Solvency II, IDD, DORA) applies to AI systems that are not prohibited or high-risk under the AI Act: risk-based governance, fairness, data, documentation, explainability and human oversight.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "eiopa-ai-opinion"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-fca-mills-review",
+    "title": "The Mills Review: the long-term impact of AI on retail financial services",
+    "url": "https://www.fca.org.uk/publications/calls-input/review-long-term-impact-ai-retail-financial-services-mills-review",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "fca-mills-review",
+    "sourceType": "research-database",
+    "authorityNote": "Regulator-commissioned review; recommendations, not rules",
+    "scope": "United Kingdom. Sets direction for FCA policy. Existing rules such as the Consumer Duty continue to apply to AI.",
+    "publicationDate": "2026-07-06",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Regulator-commissioned review; recommendations, not rules",
+      "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
+      "impact": "Looks at how AI could reshape retail financial services by 2030, including AI agents acting for consumers, and sets seven priority recommendations for the FCA’s response.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "fca-mills-review"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-hkma-genai-consumer-protection",
+    "title": "Consumer Protection in respect of Use of Generative Artificial Intelligence",
+    "url": "https://brdr.hkma.gov.hk/eng/doc-ldg/docId/20241107-1-EN",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "hkma-genai-consumer-protection",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory circular to authorized institutions",
+    "scope": "Hong Kong - authorized institutions. Applies to authorized institutions in Hong Kong using GenAI with customers.",
+    "publicationDate": "2024-08-19",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory circular to authorized institutions",
+      "relevance": "Hong Kong coverage for the Atlas's priority audiences.",
+      "impact": "Guiding principles for banks using generative AI in customer-facing applications, extending the HKMA’s 2019 big data and AI principles: governance, fairness, transparency, data protection, output monitoring and human review.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "hkma-genai-consumer-protection"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-sfc-genai-circular",
+    "title": "Circular to licensed corporations: Use of generative AI language models",
+    "url": "https://apps.sfc.hk/edistributionWeb/gateway/EN/circular/doc?refNo=24EC55",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "sfc-genai-circular",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory circular to licensed corporations",
+    "scope": "Hong Kong - licensed corporations. Applies to SFC-licensed corporations using AI language models in regulated activities.",
+    "publicationDate": "2024-11-12",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Supervisory circular to licensed corporations",
+      "relevance": "Hong Kong coverage for the Atlas's priority audiences.",
+      "impact": "Expectations for licensed corporations using generative AI language models, built or bought: senior management oversight, model risk management, cyber security and data, and third-party risk, with extra safeguards for high-risk uses such as investment advice.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "sfc-genai-circular"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-naic-ai-model-bulletin",
+    "title": "Model Bulletin: Use of Artificial Intelligence Systems by Insurers",
+    "url": "https://content.naic.org/sites/default/files/legal-adoption-map-ai-model-bulletin.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "naic-ai-model-bulletin",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Model bulletin; effect depends on each state’s adoption",
+    "scope": "United States - adopting states. Applies in states that issue it. Other states rely on existing insurance law or their own AI rules.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2023-12; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Model bulletin; effect depends on each state’s adoption",
+      "relevance": "United States coverage for the Atlas's priority audiences.",
+      "impact": "Expects insurers to run a written AI systems program covering governance, risk management, internal controls and third-party systems, so AI-supported decisions comply with unfair-trade and unfair-discrimination laws. About 25 states and territories had adopted it by mid-2026.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "naic-ai-model-bulletin"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-eba-ai-act-mapping",
+    "title": "AI Act implications for the EU banking and payments sector",
+    "url": "https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "eba-ai-act-mapping",
+    "sourceType": "research-database",
+    "authorityNote": "Supervisory analysis; not guidelines",
+    "scope": "European Union - banking and payments. Analysis to support consistent supervision; it does not change obligations.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-11; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory analysis; not guidelines",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "Maps AI Act high-risk requirements, especially for creditworthiness assessment and credit scoring, against EU banking and payments law. Finds no significant contradictions and no immediate need for new EBA guidelines.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "eba-ai-act-mapping"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-esma-ai-statement",
+    "title": "Public Statement on AI and investment services",
+    "url": "https://www.esma.europa.eu/document/public-statement-ai-and-investment-services",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "esma-ai-statement",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Supervisory statement on MiFID II obligations",
+    "scope": "European Union - investment firms. Initial guidance for firms providing investment services to retail clients.",
+    "publicationDate": "2024-05-30",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory statement on MiFID II obligations",
+      "relevance": "Europe coverage for the Atlas's priority audiences.",
+      "impact": "How MiFID II obligations apply when investment firms use AI with retail clients: acting in clients’ best interests, clear disclosure of AI use, management accountability, and ongoing checks on AI-produced information.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "esma-ai-statement"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-boe-fsif-ai",
+    "title": "Financial Stability in Focus: Artificial intelligence in the financial system",
+    "url": "https://www.bankofengland.co.uk/financial-stability-in-focus/2025/april-2025",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "boe-fsif-ai",
+    "sourceType": "research-database",
+    "authorityNote": "Central bank analysis; not rules",
+    "scope": "United Kingdom. Macroprudential analysis that informs Bank of England and PRA supervision.",
+    "publicationDate": null,
+    "dateBasis": "Official publication month 2025-04; day not stated",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Central bank analysis; not rules",
+      "relevance": "United Kingdom coverage for the Atlas's priority audiences.",
+      "impact": "Sets out four channels through which AI could affect financial stability: banks’ and insurers’ core decisions, financial markets, operational reliance on AI service providers, and AI-enabled cyber threats.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "boe-fsif-ai"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-japan-fsa-ai-discussion-paper",
+    "title": "AI Discussion Paper: Preliminary Discussion Points for Promoting the Sound Utilization of AI in the Financial Sector",
+    "url": "https://www.fsa.go.jp/en/news/2026/20260303/aidp.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "japan-fsa-ai-discussion-paper",
+    "sourceType": "research-database",
+    "authorityNote": "Supervisory discussion paper; not rules",
+    "scope": "Japan. Discussion points informed by a public-private forum; not binding guidance.",
+    "publicationDate": "2025-03-04",
+    "dateBasis": "Official publication date",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Supervisory discussion paper; not rules",
+      "relevance": "Japan coverage for the Atlas's priority audiences.",
+      "impact": "The FSA’s supervisory stance on AI in finance, encouraging adoption while addressing governance, risk management and how existing rules apply. It highlights the “risk of inaction” from falling behind.",
+      "contribution": "Fills a gap identified in the completeness review."
+    },
+    "decision": "include",
+    "reason": "Owner-approved addition from the 2026-09-24 completeness review (Australian depth and global financial regulators); see research/sourcing/2026-09-24-completeness-review.md.",
+    "linkedSourceIds": [
+      "japan-fsa-ai-discussion-paper"
+    ]
+  },
+  {
+    "id": "review-2026-09-24-retire-apra-frontier-speech-2026",
+    "title": "Reassess apra-frontier-speech-2026 as a permanent source",
+    "url": "https://www.apra.gov.au/news-and-publications/apra-member-therese-mccarthy-hockeys-remarks-2026-afia-risk-summit",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-frontier-speech-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A speech; kept as a What’s new item linked to the APRA AI letter.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A speech; kept as a What’s new item linked to the APRA AI letter. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-apra-asic-frontier-roundtables-2026",
+    "title": "Reassess apra-asic-frontier-roundtables-2026 as a permanent source",
+    "url": "https://www.apra.gov.au/news-and-publications/insights-apra-asic-industry-roundtables",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "apra-asic-frontier-roundtables-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "Roundtable findings; kept as a What’s new item linked to the ASIC and APRA letters. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-fsb-frontier-letter-2026",
+    "title": "Reassess fsb-frontier-letter-2026 as a permanent source",
+    "url": "https://www.fsb.org/2026/08/fsb-chairs-letter-to-g20-finance-ministers-and-central-bank-governors-august-2026/",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "fsb-frontier-letter-2026",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A covering letter; kept as a What’s new item linked to the FSB sound-practices consultation. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-five-eyes-frontier-statement",
+    "title": "Reassess five-eyes-frontier-statement as a permanent source",
+    "url": "https://www.cyber.gov.au/about-us/view-all-content/news/five-eyes-cyber-security-agencies-statement",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "five-eyes-frontier-statement",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "development-only",
+    "reason": "A joint statement; kept as a What’s new item linked to the ASD–AICD frontier AI board guide. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "review-2026-09-24-retire-iso-tr-24028",
+    "title": "Reassess iso-tr-24028 as a permanent source",
+    "url": "https://www.iso.org/standard/77608.html",
+    "discovered": "2026-09-24",
+    "reviewed": "2026-09-24",
+    "reviewer": "Claude (owner-approved 2026-09-24)",
+    "relevantBindingChange": false,
+    "eventKey": "iso-tr-24028",
+    "sourceType": "reassessment",
+    "authorityNote": "Existing record reassessed",
+    "scope": "Permanent Library record",
+    "publicationDate": null,
+    "dateBasis": "Not applicable",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 1
+    },
+    "scoreReasons": {
+      "authority": "Unchanged",
+      "relevance": "Unchanged",
+      "impact": "A 2020 overview report superseded in practice by ISO/IEC 42001, 23894 and 42005; low decision value.",
+      "contribution": "Duplicates a development card or newer standards."
+    },
+    "decision": "exclude",
+    "reason": "A 2020 overview report superseded in practice by ISO/IEC 42001, 23894 and 42005; low decision value. Owner-approved 2026-09-24.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "oaic-adm-final-guidance-2026-10-05",
+    "title": "OAIC publishes APP 1 automated-decision transparency guidance",
+    "url": "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-guidelines/chapter-1-app-1-open-and-transparent-management-of-personal-information",
+    "discovered": "2026-10-05",
+    "eventKey": "oaic-adm-transparency",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+    "scope": "Replace the existing issues-paper record with issued regulator guidance, preserving consultation history. Guidance supports the existing 10 December 2026 obligation; the September event is guidance publication, not a new statute or a finding of applicability.",
+    "publicationDate": "2026-09-30",
+    "dateBasis": "Explicit date on official publication page; not review date",
+    "reviewed": "2026-10-05",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Privacy regulator on its remit",
+      "relevance": "Direct Australian cross-sector governance relevance",
+      "impact": "Changes imminent transparency preparation and source status",
+      "contribution": "Final guidance replaces consultation-stage reference"
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Replace the existing issues-paper record with issued regulator guidance, preserving consultation history. Guidance supports the existing 10 December 2026 obligation; the September event is guidance publication, not a new statute or a finding of applicability.",
+    "linkedSourceIds": [
+      "oaic-adm-transparency",
+      "au-privacy-act"
+    ],
+    "supersedesId": "review-2026-09-24-oaic-adm-transparency"
+  },
+  {
+    "id": "nist-agent-identity-summary-2026-10-05",
+    "title": "NCCoE summarises agent identity and authorization consultation",
+    "url": "https://pages.nist.gov/nccoe-ai-identity/summary-of-comments.html",
+    "discovered": "2026-10-05",
+    "eventKey": "nist-nccoe-agent-identity-comments-2026-09-29",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+    "scope": "Propose a scoped research reference and associated development. Consultation findings are distinct from the broader CAISI security RFI report. Retain lack of technical consensus and prospective implementation status; no new control requirement inferred.",
+    "publicationDate": "2026-09-29",
+    "dateBasis": "Explicit date on official publication page; not review date",
+    "reviewed": "2026-10-05",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "NIST owns the consultation synthesis",
+      "relevance": "Relevant to agent ownership and access governance",
+      "impact": "Sharpens delegation and authorization questions",
+      "contribution": "Distinct identity-specific synthesis, absent from live corpus"
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Propose a scoped research reference and associated development. Consultation findings are distinct from the broader CAISI security RFI report. Retain lack of technical consensus and prospective implementation status; no new control requirement inferred.",
+    "linkedSourceIds": []
+  },
+  {
+    "id": "mit-mitigation-date-2026-10-05",
+    "title": "Correct MIT mitigation research publication date",
+    "url": "https://airisk.mit.edu/blog/mapping-ai-risk-mitigations",
+    "discovered": "2026-10-05",
+    "eventKey": "mit-mitigation-publication-date-2025",
+    "sourceType": "research-database",
+    "authorityNote": "Original issuer authoritative for its own publication and stated scope; no independent effectiveness conclusion.",
+    "scope": "Correct published 2026 to original research date 2025-07-28 with date basis. Preserve living database status and existing counts pending row-level review; do not imply an October research release.",
+    "publicationDate": "2025-07-28",
+    "dateBasis": "Explicit date on official publication page; not review date",
+    "reviewed": "2026-10-05",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original research publisher dates its post",
+      "relevance": "Source provenance matters to Atlas users",
+      "impact": "Metadata correction only",
+      "contribution": "Resolves live date discrepancy"
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Correct published 2026 to original research date 2025-07-28 with date basis. Preserve living database status and existing counts pending row-level review; do not imply an October research release.",
+    "linkedSourceIds": [
+      "mit-ai-risk-mitigations"
+    ]
+  },
+  {
+    "id": "mas-airm-final-2026-10-08",
+    "title": "Guidelines on Artificial Intelligence Risk Management for Financial Institutions",
+    "url": "https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions",
+    "discovered": "2026-10-08",
+    "reviewed": "2026-10-08",
+    "reviewer": "Codex",
+    "relevantBindingChange": false,
+    "eventKey": "mas-airm-guidelines-cp",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Final supervisory guidelines; phased implementation in 2027 and 2028",
+    "scope": "Supervisory expectations, not a standalone AI statute. Application depends on the institution and its AI use; basic governance is conditional on the material-impact test in paragraph 2.3. Review covers publication, timing and selected paragraphs 1.2–1.8, 2.1–2.5, 3.1–3.6, 4.1–4.13 and 5.1–5.11 and 5.18–5.26; not every lifecycle subsection or the consultation response.",
+    "publicationDate": "2026-10-07",
+    "dateBasis": "Official final guideline, publication page and release",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Primary financial regulator final guidance",
+      "relevance": "Financial-sector governance and assurance audience",
+      "impact": "Two implementation milestones replace pending consultation status",
+      "contribution": "Final proportionality, supplier and governance clarification"
+    },
+    "decision": "include",
+    "reason": "User requested update; final status, dates and selected passages verified. Original synopses and official links only.",
+    "linkedSourceIds": [
+      "mas-airm-guidelines-cp"
+    ],
+    "supersedesId": "review-2026-09-24-mas-airm-guidelines-cp"
+  },
+  {
+    "id": "owasp-aisvs-stable-101-metadata-2026-10-12",
+    "title": "AISVS: correct stable-version status while retaining 1.0 references",
+    "url": "https://github.com/OWASP/AISVS",
+    "discovered": "2026-10-12",
+    "eventKey": "owasp-aisvs-stable-101-metadata",
+    "sourceType": "policy-guidance",
+    "authorityNote": "OWASP official repository and release policy; voluntary technical reference.",
+    "scope": "Publisher stable-version declaration only; no 1.01 requirements migration.",
+    "publicationDate": null,
+    "dateBasis": "Exact 1.01 release date not established; observed stable declaration on review date, not a publication date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "OWASP official repository and release policy; voluntary technical reference.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Replace the stale description of 1.01 as in progress. Keep Atlas 1.0 titles and requirement references until a frozen-edition comparison.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Replace the stale description of 1.01 as in progress. Keep Atlas 1.0 titles and requirement references until a frozen-edition comparison.",
+    "linkedSourceIds": [
+      "owasp-aisvs"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://github.com/OWASP/AISVS"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "sr26-authority-reader-clarification-2026-10-12",
+    "title": "SR 26-2: make non-binding status explicit in the reader",
+    "url": "https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf",
+    "discovered": "2026-10-12",
+    "eventKey": "sr26-authority-reader-clarification",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Federal Reserve original interagency guidance, section I and footnote 1; no enforceable standards established by this guidance.",
+    "scope": "US supervisory guidance, principally banks above $30bn; statutory obligations and unsafe/unsound-practice powers remain distinct.",
+    "publicationDate": "2026-04-17",
+    "dateBasis": "Issuer publication date, unchanged.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Federal Reserve original interagency guidance, section I and footnote 1; no enforceable standards established by this guidance.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Existing requirement records already describe non-enforceable guidance. Align the source-level authority note; do not add duplicate requirements or treat excluded GenAI/agentic systems as covered.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Existing requirement records already describe non-enforceable guidance. Align the source-level authority note; do not add duplicate requirements or treat excluded GenAI/agentic systems as covered.",
+    "linkedSourceIds": [
+      "us-sr-26-2"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.federalreserve.gov/supervisionreg/srletters/SR2602a1.pdf"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "dta-v2-derived-horizon-2026-10-12",
+    "title": "DTA v2.0: surface the existing implementation milestone in the horizon",
+    "url": "https://www.digital.gov.au/sites/default/files/documents/2025-12/Policy%20for%20the%20responsible%20use%20of%20AI%20in%20Government%202.0_0.pdf",
+    "discovered": "2026-10-12",
+    "eventKey": "dta-v2-derived-horizon",
+    "sourceType": "policy-guidance",
+    "authorityNote": "DTA mandatory government policy within its stated entity scope; technical standard recommendation remains distinct.",
+    "scope": "Non-corporate Commonwealth entities, subject to defence/intelligence carve-outs; no private-sector applicability inference.",
+    "publicationDate": "2025-12-01",
+    "dateBasis": "Policy publication; 15 December 2026 is Atlas arithmetic from the effective date plus 12 months, not a new issuer publication.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "DTA mandatory government policy within its stated entity scope; technical standard recommendation remains distinct.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Existing requirements already cover owners, register, operations, training and assessment. Add only a derived horizon entry for 15 December 2026; retain the separate 30 April 2027 existing-use assessment deadline.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Existing requirements already cover owners, register, operations, training and assessment. Add only a derived horizon entry for 15 December 2026; retain the separate 30 April 2027 existing-use assessment deadline.",
+    "linkedSourceIds": [
+      "dta-ai-policy"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.digital.gov.au/sites/default/files/documents/2025-12/Policy%20for%20the%20responsible%20use%20of%20AI%20in%20Government%202.0_0.pdf"
+    ],
+    "weightedScore": 78.75
+  },
+  {
+    "id": "asd-official-url-relocation-2026-10-12",
+    "title": "ASD: repair three canonical source links without resetting dates",
+    "url": "https://www.cyber.gov.au/publication/guidelines-for-secure-ai-system-development",
+    "discovered": "2026-10-12",
+    "eventKey": "asd-official-url-relocation",
+    "sourceType": "policy-guidance",
+    "authorityNote": "ASD original public publication pages and observed official redirects.",
+    "scope": "Official source/provision/development URL correction only; no new source edition or mapping claim.",
+    "publicationDate": null,
+    "dateBasis": "Relocation event date unknown; original publication dates retained.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD original public publication pages and observed official redirects.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Update secure-development, supply-chain and frontier-board URLs to current official publication paths. Retain the board original date pending document-date reconciliation.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Update secure-development, supply-chain and frontier-board URLs to current official publication paths. Retain the board original date pending document-date reconciliation.",
+    "linkedSourceIds": [
+      "asd-secure-ai-development",
+      "asd-ai-supply-chain",
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/publication/guidelines-for-secure-ai-system-development"
+    ],
+    "weightedScore": 80.0
+  },
+  {
+    "id": "mit-incident-database-methods-20261008-2026-10-12",
+    "title": "MIT: incident-database evidence needs denominators and classification context",
+    "url": "https://airisk.mit.edu/blog/preliminary-findings-on-how-ai-incident-databases-are-used",
+    "discovered": "2026-10-12",
+    "eventKey": "mit-incident-database-methods-20261008",
+    "sourceType": "research-database",
+    "authorityNote": "Original MIT project research account; executive findings, limitations and methods assessed, not every table or dataset.",
+    "scope": "Preliminary qualitative research: 45 practitioners across 20 countries, only two deployers; not representative risk frequencies or proven recommendations.",
+    "publicationDate": "2026-10-08",
+    "dateBasis": "Article publication date on MIT project website.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 4
+    },
+    "scoreReasons": {
+      "authority": "Original MIT project research account; executive findings, limitations and methods assessed, not every table or dataset.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Add a bounded research development and original discussion prompts about denominators and coding uncertainty. Do not admit incidents or infer mitigation effectiveness.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 4/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "Add a bounded research development and original discussion prompts about denominators and coding uncertainty. Do not admit incidents or infer mitigation effectiveness.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://airisk.mit.edu/blog/preliminary-findings-on-how-ai-incident-databases-are-used"
+    ],
+    "weightedScore": 86.25
+  },
+  {
+    "id": "eo14434-terminology-20260929-2026-10-12",
+    "title": "US executive terminology change: preserve historical source identities",
+    "url": "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/",
+    "discovered": "2026-10-12",
+    "eventKey": "eo14434-terminology-20260929",
+    "sourceType": "policy-guidance",
+    "authorityNote": "White House operative executive order, sections 1–4, with NIST implementation evidence.",
+    "scope": "US executive communications/non-statutory documents within lawful scope; historical regulations, contracts and statutory terminology are not automatically replaced.",
+    "publicationDate": "2026-09-29",
+    "dateBasis": "Executive Order 14434 publication date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 2,
+      "impact": 1,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "White House operative executive order, sections 1–4, with NIST implementation evidence.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 2/4; prioritisation does not establish applicability.",
+      "impact": "Record the terminology direction and NIST discovery-page relocation. Preserve historical AI RMF/Playbook titles, version pins and dates; no new private-sector AI control duty inferred.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": true,
+    "decision": "development-only",
+    "reason": "Record the terminology direction and NIST discovery-page relocation. Preserve historical AI RMF/Playbook titles, version pins and dates; no new private-sector AI control duty inferred.",
+    "linkedSourceIds": [
+      "nist-ai-rmf",
+      "nist-ai-rmf-playbook"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/"
+    ],
+    "weightedScore": 58.75
+  },
+  {
+    "id": "asd-board-date-reconciliation-2026-10-12",
+    "title": "ASD board guidance: reconcile portal and original publication dates",
+    "url": "https://www.cyber.gov.au/publication/frontier-ai-cyber-threat-considerations-for-boards-of-directors",
+    "discovered": "2026-10-12",
+    "eventKey": "asd-board-date-reconciliation",
+    "sourceType": "policy-guidance",
+    "authorityNote": "ASD primary page supports current portal metadata, not yet the original document date.",
+    "scope": "Portal date 8 September 2026 versus Atlas original date 5 August 2026; original PDF not retrieved.",
+    "publicationDate": null,
+    "dateBasis": "Conflicting original/portal publication date bases unresolved.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD primary page supports current portal metadata, not yet the original document date.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Retrieve the original dated PDF or announcement before changing original publication date or recency.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Retrieve the original dated PDF or announcement before changing original publication date or recency.",
+    "linkedSourceIds": [
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/publication/frontier-ai-cyber-threat-considerations-for-boards-of-directors"
+    ],
+    "weightedScore": 72.5
+  },
+  {
+    "id": "owasp-aisvs-101-requirements-migration-2026-10-12",
+    "title": "AISVS 1.01 requirements migration remains deferred",
+    "url": "https://github.com/OWASP/AISVS/blob/main/RELEASE.md",
+    "discovered": "2026-10-12",
+    "eventKey": "owasp-aisvs-101-requirements-migration",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Official OWASP release policy and repository metadata; CC BY-SA 4.0 requirements need version and rights discipline.",
+    "scope": "Version-specific requirements, identifiers and levels; frozen 1.0/1.01 comparison outstanding.",
+    "publicationDate": null,
+    "dateBasis": "Exact release date unknown.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Official OWASP release policy and repository metadata; CC BY-SA 4.0 requirements need version and rights discipline.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Version links could not be retrieved. Release policy permits material requirement changes; do not relabel 1.0 mappings as 1.01.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 3/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Version links could not be retrieved. Release policy permits material requirement changes; do not relabel 1.0 mappings as 1.01.",
+    "linkedSourceIds": [
+      "owasp-aisvs"
+    ],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://github.com/OWASP/AISVS/blob/main/RELEASE.md"
+    ],
+    "weightedScore": 82.5
+  },
+  {
+    "id": "asic-ai-inquiry-submission-20260914-2026-10-12",
+    "title": "ASIC parliamentary AI submission: retain inaccessible lead",
+    "url": "https://www.asic.gov.au/about-asic/corporate-publications/public-submissions",
+    "discovered": "2026-10-12",
+    "eventKey": "asic-ai-inquiry-submission-20260914",
+    "sourceType": "research-database",
+    "authorityNote": "ASIC original submissions index; content evidence remains unavailable.",
+    "scope": "Official submission listing only; substantive submission not retrieved.",
+    "publicationDate": "2026-09-14",
+    "dateBasis": "ASIC official submissions index lists this date.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASIC original submissions index; content evidence remains unavailable.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 4/4; prioritisation does not establish applicability.",
+      "impact": "Parliament DocumentStore retrieval failed; read the complete original submission before assessing distinct contribution.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Parliament DocumentStore retrieval failed; read the complete original submission before assessing distinct contribution.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.asic.gov.au/about-asic/corporate-publications/public-submissions"
+    ],
+    "weightedScore": 80.0
+  },
+  {
+    "id": "mit-risk-repository-count-reconciliation-2026-10-12",
+    "title": "MIT repository count reconciliation remains outstanding",
+    "url": "https://airisk.mit.edu/risks",
+    "discovered": "2026-10-12",
+    "eventKey": "mit-risk-repository-count-reconciliation",
+    "sourceType": "research-database",
+    "authorityNote": "MIT project landing page only; record counts are not exposure or likelihood measures.",
+    "scope": "Project landing header and FAQ differ; underlying rows not audited.",
+    "publicationDate": null,
+    "dateBasis": "No new dataset publication date established.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "metadata",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "MIT project landing page only; record counts are not exposure or likelihood measures.",
+      "relevance": "Relevance to Atlas governance, executive or assurance audiences within the stated scope. Factor 3/4; prioritisation does not establish applicability.",
+      "impact": "Header states 1700+ risks / 74 frameworks while FAQ retains 1600+ / 65. Reconcile current dataset rows and dates before any Atlas count correction.",
+      "contribution": "Distinct correction or finding checked against current corpus and published decision ledger; no claim of a newly issued requirement. Factor 2/4."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Header states 1700+ risks / 74 frameworks while FAQ retains 1600+ / 65. Reconcile current dataset rows and dates before any Atlas count correction.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://airisk.mit.edu/risks"
+    ],
+    "weightedScore": 65.0
+  },
+  {
+    "id": "pra-ss123-scope-2026-10-12",
+    "title": "PRA SS1/23: name the internal-model approval scope",
+    "eventKey": "pra-ss123-scope-clarification",
+    "url": "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "PRA original statement paragraphs 1.2–1.3 and landing scope directly support this qualification.",
+    "scope": "UK-incorporated banks, building societies and PRA-designated investment firms with specified internal-model capital approval. Excluded firms may find the principles useful; this does not expand their supervisory scope.",
+    "publicationDate": "2023-05-17",
+    "dateBasis": "Original publication on issuer landing; current edition published/effective 23 April 2026. PDF cover dated 16 April 2026 is recorded separately.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "PRA original statement paragraphs 1.2–1.3 and landing scope directly support this qualification.",
+      "relevance": "Financial-services readers can otherwise overread the generic UK-firms applicability field.",
+      "impact": "Makes the addressee gate visible before users infer applicability.",
+      "contribution": "Narrow correction to source reader; existing principles are not duplicated."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Clarify the current applicability text with the approval condition and exclusions; keep original and edition/effective dates distinct.",
+    "linkedSourceIds": [
+      "uk-pra-ss1-23"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 86.25,
+    "evidenceUrls": [
+      "https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/supervisory-statement/2026/liaf0126app5.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "far-s23-scope-2026-10-12",
+    "title": "FAR section 23: preserve exclusions and foreign-branch scope",
+    "eventKey": "far-section23-scope-qualification",
+    "url": "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "Official current Act text, section 23(1)–(3), including scope qualifications.",
+    "scope": "Existing section 23 summaries only; regulator-excluded responsibilities and foreign-accountable-entity Australian branch rule. Minister/regulator rules and complete Act amendment history remain outside this selected check.",
+    "publicationDate": null,
+    "dateBasis": "Act originally 2023; reviewed compilation C2025C00148 effective 21 February 2025. No new legal event claimed.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Official current Act text, section 23(1)–(3), including scope qualifications.",
+      "relevance": "Direct relevance to Australian financial institutions and accountability maps.",
+      "impact": "Avoids treating all foreign group operations or excluded responsibilities as automatically covered.",
+      "contribution": "Qualifies existing records rather than adding a duplicate accountability duty."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Add subsection 23(2) exclusions and 23(3) foreign-branch qualification to current provision and requirement summaries.",
+    "linkedSourceIds": [
+      "au-far-act"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 86.25,
+    "evidenceUrls": [
+      "https://www.legislation.gov.au/C2023A00067/2025-02-21/2025-02-21/text/original/pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "dta-agent-memory-followup-2026-10-12",
+    "title": "DTA agentic guidance: test what survives workflow shutdown",
+    "eventKey": "dta-agent-memory-shutdown-question",
+    "url": "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+    "scope": "Original Atlas discussion follow-up grounded in AGT.2.1, AGT.3.4, AGT.8.1 and existing Criterion 147. Government guidance; no private-sector duty or implementation claim.",
+    "publicationDate": "2026-06-04",
+    "dateBasis": "Issuer landing records LAST UPDATED 4 June 2026; preserve update-date basis.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "DTA original guidance: governed memory, fail-safes, monitoring and individual/shared resource retirement.",
+      "relevance": "Concrete executive and assurance question about persistent state and recovery.",
+      "impact": "Connects stopping execution with memory, pending work, retention and shared resources.",
+      "contribution": "Distinct from existing credential revocation and general stop/retirement questions; proposes a follow-up rather than another generic main prompt."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Add a scoped follow-up and evidence request to the existing DTA discussion card; source criteria and Atlas question remain distinct.",
+    "linkedSourceIds": [
+      "dta-agentic-addendum"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "weightedScore": 90.0,
+    "evidenceUrls": [
+      "https://www.digital.gov.au/sites/default/files/documents/2026-06/Addendum-Agentic-AI.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "asd-board-date-reconciliation-2026-10-12-batch-2",
+    "title": "ASD board guidance: distinguish original month from webpage date",
+    "eventKey": "asd-board-date-reconciliation",
+    "url": "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf",
+    "sourceType": "policy-guidance",
+    "discovered": "2026-10-12",
+    "authorityNote": "ASD/AICD original seven-page PDF cover and current official publication page.",
+    "scope": "Original PDF first-publication month and current portal publication date. Exact original day is not independently established; no assertion that 5 August is false.",
+    "publicationDate": null,
+    "dateBasis": "PDF page 1: first published August 2026. Webpage: published/reviewed 8 September 2026. Exact original day unknown.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "ASD/AICD original seven-page PDF cover and current official publication page.",
+      "relevance": "Recency and provenance visible to all Atlas audiences.",
+      "impact": "Prevents later portal date becoming apparent new guidance and removes unsupported day precision.",
+      "contribution": "Resolves document-versus-page date basis left deferred in batch 1."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Prefer supported publication month 2026-08, annotate 8 September webpage date separately, and preserve historical 5 August value in the research audit trail.",
+    "linkedSourceIds": [
+      "asd-frontier-board"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T01:37:52.303628+00:00",
+    "supersedesId": "asd-board-date-reconciliation-2026-10-12",
+    "weightedScore": 80.0,
+    "evidenceUrls": [
+      "https://www.cyber.gov.au/sites/default/files/2026-09/frontier_ai_cyber_threat_considerations_for_boards_of_directors.pdf"
+    ],
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "ai-verify-tool-scope-2026-10-12",
+    "eventKey": "ai-verify-framework-and-tool-scope",
+    "title": "AI Verify: distinguish framework and technical testing tools",
+    "url": "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/",
+    "discovered": "2026-10-12",
+    "sourceType": "testing-tool",
+    "authorityNote": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+    "scope": "Declared public metadata/overview only. Framework covers traditional and GenAI; AI Verify Toolkit technical tests are for traditional ML; Project Moonshot is a separate LLM testing toolkit. No software operation, test algorithm or published crosswalk validation.",
+    "publicationDate": null,
+    "dateBasis": "Original launch 25 May 2022; framework update 29 May 2025. No newly issued October release asserted.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Official AI Verify Foundation framework and both companion tool overviews; claims about capabilities remain publisher-reported.",
+      "relevance": "Directly informs which evidence process to request for different AI system types.",
+      "impact": "Prevents one toolkit label implying the same technical test suite applies to all models.",
+      "contribution": "Clarifies the existing source and links; no new model benchmark or effectiveness claim."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Clarify summary and point readers to the specific framework/tool pages while retaining evidence-input, voluntary status.",
+    "linkedSourceIds": [
+      "singapore-ai-verify"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+    "evidenceUrls": [
+      "https://aiverifyfoundation.sg/tools/ai-verify-testing-framework/"
+    ],
+    "weightedScore": 78.75,
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "imda-agentic-may-update-2026-10-12",
+    "eventKey": "imda-agentic-framework-update-20260520",
+    "title": "IMDA: add the May 2026 update alongside the January launch",
+    "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai",
+    "discovered": "2026-10-12",
+    "sourceType": "framework",
+    "authorityNote": "IMDA original indexed factsheet and official programme index support the historical May update.",
+    "scope": "Official indexed public announcement/overview of May update, not a current full-framework version check. Live IMDA pages/PDF blocked automated requests. Case-study operational claims not admitted.",
+    "publicationDate": "2026-05-20",
+    "dateBasis": "Official factsheet dated/last updated 20 May 2026; January launch remains 22 January. Indexed material is months old, so no latest-edition-as-of-October claim.",
+    "reviewed": "2026-10-12",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "IMDA original indexed factsheet and official programme index support the historical May update.",
+      "relevance": "Agentic governance reference directly relevant to autonomy, multi-agent and external-agent decisions.",
+      "impact": "Prevents the January-only overview omitting a substantiated subsequent update.",
+      "contribution": "New edition-history metadata for an existing source; does not duplicate the four dimensions or admit vendor cases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Record the May update and official v1.5 programme-index label with an access caveat; require current PDF confirmation before a whole-edition or current-status claim.",
+    "linkedSourceIds": [
+      "imda-agentic-framework"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-12T08:14:32.442455+00:00",
+    "evidenceUrls": [
+      "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/updated-model-ai-governance-framework-for-agentic-ai"
+    ],
+    "weightedScore": 90.0,
+    "approved": "2026-10-12",
+    "approvalBasis": "User Approved in dedicated Sources & developments task; six batch-2 proposals only"
+  },
+  {
+    "id": "fsb-sound-practices-final-2026-10-15",
+    "title": "FSB final sound practices for responsible AI adoption",
+    "url": "https://www.fsb.org/uploads/P151026-1.pdf",
+    "discovered": "2026-10-15",
+    "eventKey": "fsb-sound-practices-final-20261015",
+    "sourceType": "policy-guidance",
+    "authorityNote": "FSB original final report and issuer publication page; non-binding practices, not an international standard.",
+    "scope": "Global financial institutions; proportionate governance and lifecycle toolkit. Emerging agentic practices were not fully consulted on. No local applicability, compliance or operating-effectiveness conclusion.",
+    "publicationDate": "2026-10-15",
+    "dateBasis": "Printed cover and official final-report landing page; distinct from June consultation, July closing date and review/addition dates.",
+    "reviewed": "2026-10-15",
+    "reviewedAtUtc": "2026-10-15T09:51:18.478232+00:00",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Responsible issuing body; final report, status and date verified directly.",
+      "relevance": "Cross-sector financial-services toolkit directly addressed to boards and senior management.",
+      "impact": "Finalises the existing consultation record and adds specific agent-control, traceability and supplier considerations.",
+      "contribution": "Final status and more specific implementation passages extend the existing source without a duplicate permanent node."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "User-directed, evidence-gated update to the existing FSB source with 12 navigable practices, bounded Atlas connections, a dated final-release card and four audience prompts.",
+    "linkedSourceIds": [
+      "fsb-ai-sound-practices"
+    ],
+    "publicationApproval": "approved",
+    "approved": "2026-10-15",
+    "approvalBasis": "Direct user instruction: Add to atlas: https://www.fsb.org/uploads/P151026-1.pdf",
+    "supportingCheckIds": [
+      "source:fsb-ai-sound-practices"
+    ],
+    "evidenceUrls": [
+      "https://www.fsb.org/uploads/P151026-1.pdf",
+      "https://www.fsb.org/2026/10/sound-practices-for-responsible-adoption-of-artificial-intelligence-ai-final-report/",
+      "https://www.fsb.org/uploads/P151026-2.pdf",
+      "https://www.fsb.org/terms_conditions/"
+    ],
+    "evidenceScope": "Reviewed all 75 pages of the final report and seven-page consultation-response overview via extracted text; visually inspected the annex (printed p.65) and agentic control passage (p.52). Confirmed date/status and non-binding scope against the issuing body. Existing source transitions from June consultation to final; 12 practices, four audiences and one publication event. Reported case studies and underlying cited research are not independently verified; no case admissions. No clause-by-clause redline of the June PDF was performed. Changes attributed to FSB response note, not an independent complete edition diff."
+  },
+  {
+    "id": "eu-art4-summary-alignment-2026-10-19",
+    "title": "Align Article 4 synopsis with the amended AI literacy duty",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+    "discovered": "2026-10-19",
+    "eventKey": "eu-ai-act-art4-amended-synopsis-alignment",
+    "sourceType": "law",
+    "authorityNote": "Authentic Official Journal text supports the exact amended duty and express no-guarantee qualification.",
+    "scope": "Selected Article 4 synopsis correction only. Regulation 2026/1744 Article 1(5) replaces Article 4; Article 4 of the amendment governs entry into force. Existing Atlas requirement already reflects the replacement. No complete AI Act review.",
+    "publicationDate": "2026-07-24",
+    "dateBasis": "Official Journal publication 24 July 2026; amendment dated 8 July; entry into force 27 July. This is an existing-law correction, not an October legal event.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Authentic Official Journal text supports the exact amended duty and express no-guarantee qualification.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": true,
+    "decision": "include",
+    "reason": "Replace outdated ensure-a-sufficient-level wording in eu-ai-act-4; retain its stable ID and align with req-euaia-art4-ai-literacy. Preserve historical original-duty date. Do not add a duplicate timeline event.",
+    "linkedSourceIds": [
+      "eu-ai-act"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:eu-ai-act",
+      "publisher:ec"
+    ],
+    "evidenceUrls": [
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+      "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 92.5
+  },
+  {
+    "id": "imda-ai-safety-initiatives-20261014-2026-10-19",
+    "title": "IMDA announces agentic testing, tester accreditation and frontier resilience initiatives",
+    "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+    "discovered": "2026-10-19",
+    "eventKey": "imda-ai-safety-initiatives-20261014",
+    "sourceType": "policy-guidance",
+    "authorityNote": "IMDA and AI Verify Foundation jointly issued the release; directly authoritative for announced programme design and status.",
+    "scope": "Issuer announcement only: four testing steps and agent trajectories; AI TAP accreditation of testing firms for one year; FAIRS taskforce and planned first-half-2027 report. The starter-kit detail, accreditation assessments and operating effectiveness are not verified. AI Verify Foundation programme overview independently confirms 12-month accreditation, documented scope, exclusions for deployment/integration risks and post-assessment changes; no individual firm assessment inspected.",
+    "publicationDate": "2026-10-14",
+    "dateBasis": "Publication and last-updated date shown in the rendered official release; event also 14 October. Future report timing remains planned.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": false,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "IMDA and AI Verify Foundation jointly issued the release; directly authoritative for announced programme design and status.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Announcement and scope verified, but proposed public reuse/deep-link rights are not resolved under the observed IMDA terms. Retain as a high-priority private lead, not a publication-ready candidate.",
+    "linkedSourceIds": [
+      "imda-agentic-framework",
+      "singapore-ai-verify"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:imda",
+      "topic:10"
+    ],
+    "evidenceUrls": [
+      "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+      "https://aiverifyfoundation.sg/tester-accreditation",
+      "https://www.imda.gov.sg/terms-of-use",
+      "https://aiverifyfoundation.sg/ai-assurance/tester-accreditation/"
+    ],
+    "rightsScope": "IMDA terms read in rendered browser: clauses6–9 restrict reuse and clauses23–25 restrict deep linking, with overlapping wording. No permission or broad public-publication grant established. Retain this as private factual research; resolve the proposed public use through permission or a clearly authorised alternative primary publication. No report text, figures, logo or site design may be copied.",
+    "weightedScore": 90.0
+  },
+  {
+    "id": "ec-scientific-panel-response-20261012-2026-10-19",
+    "title": "EU AI Office response highlights internal-model testing and monitorability",
+    "url": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+    "discovered": "2026-10-19",
+    "eventKey": "ec-ai-scientific-panel-special-meeting-20261009",
+    "sourceType": "policy-guidance",
+    "authorityNote": "European Commission first-party account of its own investigation actions and the scientific panel recommendations.",
+    "scope": "Full official meeting report: Commission-reported serious-incident reports and information requests; chair recommendations concerning internal development/test deployments, investigation capability, coordination and monitorability. Underlying incidents/reports not independently inspected.",
+    "publicationDate": "2026-10-12",
+    "dateBasis": "Article publication 12 October; meeting 9 October; page updated 13 October. Earlier announcement has conflicting date signals and is not the event-date authority.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "European Commission first-party account of its own investigation actions and the scientific panel recommendations.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "One bounded development under existing EU AI Act/GPAI sources. Label investigation activity and recommendations separately from enacted requirements. No incident admission or new duty.",
+    "linkedSourceIds": [
+      "eu-ai-act",
+      "eu-gpai-code"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:ec",
+      "topic:10"
+    ],
+    "evidenceUrls": [
+      "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+      "https://digital-strategy.ec.europa.eu/en/news/commission-holds-special-meeting-scientific-panel-frontier-ai-safety-and-risks",
+      "https://digital-strategy.ec.europa.eu/en/pages/legal-notice"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 90.0
+  },
+  {
+    "id": "nist218a-scope-clarification-2026-10-19",
+    "title": "Make SP 800-218A development-only scope explicit",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+    "discovered": "2026-10-19",
+    "eventKey": "nist218a-development-scope-clarification",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original NIST final profile, scope paragraph and table directly support the narrow correction.",
+    "scope": "Final July 2024 profile, entire 30-page PDF and official status landing. Section 1.2 excludes deployment/operation and most data-governance lifecycle; sections 1.1 and 2 require use with SSDF 1.1. Existing PS.1 draft synopsis checked against table. External references not separately validated.",
+    "publicationDate": "2024-07-26",
+    "dateBasis": "Official publication history final 26 July 2024; cover month July. No new 2026 edition inferred.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original NIST final profile, scope paragraph and table directly support the narrow correction.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Replace ambiguous does-not-by-itself-cover-deployment phrasing with the actual out-of-scope boundary and companion-standard prerequisite. No new source or development event.",
+    "linkedSourceIds": [
+      "nist-sp-800-218a"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:nist-sp-800-218a"
+    ],
+    "evidenceUrls": [
+      "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+      "https://csrc.nist.gov/pubs/sp/800/218/a/final"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 78.75
+  },
+  {
+    "id": "owasp-hidden-context-scope-2026-10-19",
+    "title": "Explain hidden-context exposure without treating prompts as an access boundary",
+    "url": "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+    "discovered": "2026-10-19",
+    "eventKey": "owasp-llm2026-hidden-context-source-enrichment",
+    "sourceType": "research-database",
+    "authorityNote": "OWASP is authoritative for its community taxonomy and advice, not population incident frequency, exposure or effectiveness.",
+    "scope": "Selected report pages 1–9 and entire LLM08 pages 46–49; TOC confirms 122-page document. Broader context than system prompts: retrieved policy, developer messages and tool schemas. No complete category/mapping/incident-classifier validation.",
+    "publicationDate": "2026-08-03",
+    "dateBasis": "Official release landing dated 3 August 2026. PDF cover/revision history retain release-date placeholders; do not use PDF metadata or review date as publication.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "OWASP is authoritative for its community taxonomy and advice, not population incident frequency, exposure or effectiveness.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Enrich existing OWASP source section and its evidence follow-up; no new October news item, imported ranking, risk count or proven-control relationship.",
+    "linkedSourceIds": [
+      "owasp-llm-top-10"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:owasp-llm-top-10"
+    ],
+    "evidenceUrls": [
+      "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+      "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/"
+    ],
+    "rightsScope": "Report is CC BY-SA 4.0. Proposed original factual synopsis and link only; no reproduced catalogue, matrix, figures or long adapted text. Any later adaptation must separately satisfy attribution/share-alike.",
+    "weightedScore": 78.75
+  },
+  {
+    "id": "mas-safr11-followup-2026-10-19",
+    "title": "Verify SAFR 1.1 and its reference implementation before admission",
+    "url": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+    "discovered": "2026-10-19",
+    "eventKey": "mas-safr-1-1-review",
+    "sourceType": "framework",
+    "authorityNote": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+    "scope": "Speech paragraphs 39–45 only. MAS reports SAFR 1.1 and an open-source reference implementation. White paper version, release date, repository ownership/licence and implementation behaviour not inspected.",
+    "publicationDate": null,
+    "dateBasis": "Speech dated 9 October 2026; paper/repository described as recent. Do not infer their release dates.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Carry the existing SAFR admission lead forward with a distinct version lead. Retrieve the paper and official repository, compare versions and inspect licence before any permanent-source proposal.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:mas"
+    ],
+    "evidenceUrls": [
+      "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 90.0
+  }
+]

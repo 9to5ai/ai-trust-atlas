@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-19",
+  "reviewer": "Codex",
+  "baselineCommit": "eb72f4171edd36e0f37bbe15c174c19b89c9c4a6",
+  "status": "PROPOSALS ONLY — NOT APPROVED OR PUBLISHED",
+  "coverageStatus": "INCOMPLETE",
+  "rankingPolicy": {
+    "authority": 30,
+    "audienceRelevance": 30,
+    "decisionImpact": 25,
+    "distinctContribution": 15,
+    "bindingChanges": "Mandatory review regardless of attention score"
+  },
+  "proposals": [
+    {
+      "candidateId": "eu-art4-summary-alignment-2026-10-19",
+      "supportingCheckIds": [
+        "source:eu-ai-act",
+        "publisher:ec"
+      ],
+      "disposition": "include",
+      "publicationApproval": "pending",
+      "attentionScore": 92.5,
+      "relevantBindingChange": true,
+      "proposedEdit": {
+        "target": "src/data/draftProvisions.ts :: eu-ai-act-4",
+        "summary": "Providers and deployers take measures to support the development of AI literacy among staff and others operating AI on their behalf, taking account of their background, use context and affected people. This duty does not require guaranteeing any individual a particular level of literacy.",
+        "ref": "Article 4(1), as replaced by Regulation (EU) 2026/1744, Article 1(5)",
+        "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+        "retain": [
+          "eu-ai-act-4",
+          "req-euaia-art4-ai-literacy",
+          "historical application date and current amended requirement"
+        ],
+        "eventPolicy": "Correction only; no new October legal event. Retain draft status until scoped editorial approval."
+      },
+      "affectedSourceIds": [
+        "eu-ai-act"
+      ],
+      "affectedConceptIds": [
+        "competence",
+        "accountability"
+      ],
+      "affectedRiskScope": "Relevant candidate risk paths only; no exposure/likelihood, applicability, implementation, mitigation or assurance status inferred.",
+      "affectedControlIds": [
+        "competence-challenge"
+      ],
+      "mappingTreatment": "Retain existing interpreted paths; no new equivalence/compliance/effectiveness assertion. Any later new link needs explicit predicate, rationale, citation, basis, confidence, mapping version, review date and inference depth.",
+      "roleQuestions": {
+        "Board": "How do we judge whether AI learning measures suit the decisions our people make?",
+        "Executive": "How are literacy measures adapted to staff background, use context and affected people?",
+        "Regulator": "Does the Article 4 evidence show measures to support literacy without inventing an individual guarantee?",
+        "Assurance": "Does our testing assess the amended duty rather than the superseded wording?"
+      },
+      "evidenceUrls": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+        "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+      ],
+      "evidenceScope": "Selected Article 4 synopsis correction only. Regulation 2026/1744 Article 1(5) replaces Article 4; Article 4 of the amendment governs entry into force. Existing Atlas requirement already reflects the replacement. No complete AI Act review.",
+      "limitations": "Selected authentic replacement only; remaining Act review stays incomplete. Current requirement already correct; avoid duplicating it.",
+      "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished."
+    },
+    {
+      "candidateId": "imda-ai-safety-initiatives-20261014-2026-10-19",
+      "supportingCheckIds": [
+        "publisher:imda",
+        "topic:10"
+      ],
+      "disposition": "defer",
+      "publicationApproval": "pending",
+      "attentionScore": 90.0,
+      "relevantBindingChange": false,
+      "proposedEdit": {
+        "target": "src/data/developments.ts :: new consolidated IMDA card",
+        "published": "2026-10-14",
+        "status": "Announced guidance and testing programmes; taskforce report planned",
+        "summary": "IMDA and AI Verify Foundation announced an agentic-testing starter kit, a programme accrediting testing firms for one year, and an ICM-sector frontier-AI taskforce. The release describes a cycle of risk selection, realistic tests, log analysis and continued monitoring/retesting.",
+        "implication": "Atlas interpretation: examine actions and handoffs through an agent workflow, document testing blind spots and distinguish tester accreditation from evidence about a particular system.",
+        "futureStatus": "FAIRS report expected in first half2027, not published findings.",
+        "permanentSourceDecision": "None in this subset; detailed starter kit not yet inspected."
+      },
+      "affectedSourceIds": [
+        "imda-agentic-framework",
+        "singapore-ai-verify"
+      ],
+      "affectedConceptIds": [
+        "evaluation",
+        "continuous-monitoring",
+        "agent-authority",
+        "evidence-quality"
+      ],
+      "affectedRiskScope": "Relevant candidate risk paths only; no exposure/likelihood, applicability, implementation, mitigation or assurance status inferred.",
+      "affectedControlIds": [
+        "fit-for-purpose-evaluation",
+        "third-party-assessment",
+        "agent-runtime-constraints"
+      ],
+      "mappingTreatment": "Retain existing interpreted paths; no new equivalence/compliance/effectiveness assertion. Any later new link needs explicit predicate, rationale, citation, basis, confidence, mapping version, review date and inference depth.",
+      "roleQuestions": {
+        "Board": "What can an accredited tester establish about our particular agent deployment, and what remains untested?",
+        "Executive": "Which trajectory, tool-use and handoff tests would reveal failures hidden by a correct final answer?",
+        "Regulator": "How are agent-testing blind spots handled when the evaluator has only black-box access?",
+        "Assurance": "Can another reviewer reproduce the test and trace the actions, tool calls and human handoffs behind its result?"
+      },
+      "evidenceUrls": [
+        "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+        "https://aiverifyfoundation.sg/tester-accreditation"
+      ],
+      "evidenceScope": "Issuer announcement only: four testing steps and agent trajectories; AI TAP accreditation of testing firms for one year; FAIRS taskforce and planned first-half-2027 report. The starter-kit detail, accreditation assessments and operating effectiveness are not verified.",
+      "limitations": "Release only; kit links are plain placeholders, detailed methods and actual accreditation assessments not reviewed. Names/claims remain source-reported. No accreditation equals system assurance inference. Public use/deep-link rights unresolved under observed IMDA terms. Full programme overview checked, but not individual firm assessments.",
+      "rightsScope": "IMDA terms read in rendered browser: clauses6–9 restrict reuse and clauses23–25 restrict deep linking, with overlapping wording. No permission or broad public-publication grant established. Retain this as private factual research; resolve the proposed public use through permission or a clearly authorised alternative primary publication. No report text, figures, logo or site design may be copied.",
+      "publicationReadiness": "NOT READY — rights gate unresolved"
+    },
+    {
+      "candidateId": "ec-scientific-panel-response-20261012-2026-10-19",
+      "supportingCheckIds": [
+        "publisher:ec",
+        "topic:10"
+      ],
+      "disposition": "development-only",
+      "publicationApproval": "pending",
+      "attentionScore": 90.0,
+      "relevantBindingChange": false,
+      "proposedEdit": {
+        "target": "src/data/developments.ts :: EU scientific-panel response",
+        "published": "2026-10-12",
+        "eventDate": "2026-10-09",
+        "status": "Investigation activity and expert recommendations",
+        "summary": "The Commission reported receiving serious-incident reports and requesting information on security practices. Its scientific-panel leadership recommended attention to internal development/testing, investigation capability and model monitorability.",
+        "implication": "Atlas interpretation: include internal research deployments in risk decisions and preserve evidence needed to investigate model behaviour. These recommendations do not themselves introduce new legal duties.",
+        "permanentSourceDecision": "No new node; link existing EU AI Act/GPAI references."
+      },
+      "affectedSourceIds": [
+        "eu-ai-act",
+        "eu-gpai-code"
+      ],
+      "affectedConceptIds": [
+        "evaluation",
+        "continuous-monitoring",
+        "incident-response",
+        "auditability"
+      ],
+      "affectedRiskScope": "Relevant candidate risk paths only; no exposure/likelihood, applicability, implementation, mitigation or assurance status inferred.",
+      "affectedControlIds": [
+        "records-traceability",
+        "fit-for-purpose-evaluation",
+        "incident-response-reporting"
+      ],
+      "mappingTreatment": "Retain existing interpreted paths; no new equivalence/compliance/effectiveness assertion. Any later new link needs explicit predicate, rationale, citation, basis, confidence, mapping version, review date and inference depth.",
+      "roleQuestions": {
+        "Board": "Who accepts the risk of powerful models used internally before a product is released?",
+        "Executive": "Which training or architecture changes reduce our ability to detect and reconstruct unwanted behaviour?",
+        "Regulator": "Which records could substantiate an internal-model incident report and its remaining uncertainties?",
+        "Assurance": "Can the investigation distinguish observed actions, model explanations and facts it cannot establish?"
+      },
+      "evidenceUrls": [
+        "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+        "https://digital-strategy.ec.europa.eu/en/news/commission-holds-special-meeting-scientific-panel-frontier-ai-safety-and-risks",
+        "https://digital-strategy.ec.europa.eu/en/pages/legal-notice"
+      ],
+      "evidenceScope": "Full official meeting report: Commission-reported serious-incident reports and information requests; chair recommendations concerning internal development/test deployments, investigation capability, coordination and monitorability. Underlying incidents/reports not independently inspected.",
+      "limitations": "Commission-reported investigation activities, not independently established details of underlying incidents. Recommendations are not new rules; no separate incident admission.",
+      "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished."
+    },
+    {
+      "candidateId": "nist218a-scope-clarification-2026-10-19",
+      "supportingCheckIds": [
+        "source:nist-sp-800-218a"
+      ],
+      "disposition": "include",
+      "publicationApproval": "pending",
+      "attentionScore": 78.75,
+      "relevantBindingChange": false,
+      "proposedEdit": {
+        "target": "src/data/standards.ts :: nist-sp-800-218a.applicability",
+        "text": "Voluntary cybersecurity guidance for AI model development, to be used with SSDF 1.1. Deployment and operation of AI systems, and most of the data-governance lifecycle, are outside this profile’s scope.",
+        "retain": [
+          "NIST publication month July2024",
+          "existing PS.1 draft synopsis and identifiers"
+        ],
+        "eventPolicy": "Scope correction only; no2026 publication event."
+      },
+      "affectedSourceIds": [
+        "nist-sp-800-218a"
+      ],
+      "affectedConceptIds": [
+        "secure-development",
+        "lifecycle-governance",
+        "documentation"
+      ],
+      "affectedRiskScope": "Relevant candidate risk paths only; no exposure/likelihood, applicability, implementation, mitigation or assurance status inferred.",
+      "affectedControlIds": [
+        "secure-ai-development"
+      ],
+      "mappingTreatment": "Retain existing interpreted paths; no new equivalence/compliance/effectiveness assertion. Any later new link needs explicit predicate, rationale, citation, basis, confidence, mapping version, review date and inference depth.",
+      "roleQuestions": {
+        "Board": "Where does our development-security evidence end and operational oversight begin?",
+        "Executive": "Which companion SSDF practices and separate operational controls support this use case?",
+        "Regulator": "Has the organisation clearly separated the profile’s development scope from operating-system obligations?",
+        "Assurance": "Does the evidence set explicitly identify lifecycle stages outside the profile?"
+      },
+      "evidenceUrls": [
+        "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+        "https://csrc.nist.gov/pubs/sp/800/218/a/final"
+      ],
+      "evidenceScope": "Final July 2024 profile, entire 30-page PDF and official status landing. Section 1.2 excludes deployment/operation and most data-governance lifecycle; sections 1.1 and 2 require use with SSDF 1.1. Existing PS.1 draft synopsis checked against table. External references not separately validated.",
+      "limitations": "The publication and complete table were reviewed, not operation of a particular organisation or every cited external source.",
+      "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished."
+    },
+    {
+      "candidateId": "owasp-hidden-context-scope-2026-10-19",
+      "supportingCheckIds": [
+        "source:owasp-llm-top-10"
+      ],
+      "disposition": "include",
+      "publicationApproval": "pending",
+      "attentionScore": 78.75,
+      "relevantBindingChange": false,
+      "proposedEdit": {
+        "target": "src/data/standards.ts :: existing OWASP LLM source section/follow-up",
+        "synopsis": "Hidden-context exposure includes disclosure or reconstruction of system and developer instructions, retrieved policy context and tool schemas. Keep credentials outside model context and enforce critical permissions independently of the model.",
+        "sourceLocator": "LLM08:2026, pp.46–49; mitigation discussion p.48",
+        "sourceUrl": "https://genai.owasp.org/download/56857/?tmstv=1785822482#page=48",
+        "eventPolicy": "Enrich existing August2026 source; no October development or ranking/incident-frequency claim."
+      },
+      "affectedSourceIds": [
+        "owasp-llm-top-10"
+      ],
+      "affectedConceptIds": [
+        "ai-security",
+        "access-control",
+        "runtime-guardrails"
+      ],
+      "affectedRiskScope": "Relevant candidate risk paths only; no exposure/likelihood, applicability, implementation, mitigation or assurance status inferred.",
+      "affectedControlIds": [
+        "least-privilege-access",
+        "agent-runtime-constraints"
+      ],
+      "mappingTreatment": "Retain existing interpreted paths; no new equivalence/compliance/effectiveness assertion. Any later new link needs explicit predicate, rationale, citation, basis, confidence, mapping version, review date and inference depth.",
+      "roleQuestions": {
+        "Board": "Which material protections would still hold if hidden instructions and workflow rules became visible?",
+        "Executive": "Where is security-critical logic outside the model rather than dependent on context secrecy?",
+        "Regulator": "How is privilege separation maintained independently of model-visible policy instructions?",
+        "Assurance": "Can an adversarial test expose hidden context while confirming that deterministic permission checks still block unauthorised actions?"
+      },
+      "evidenceUrls": [
+        "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+        "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/"
+      ],
+      "evidenceScope": "Selected report pages 1–9 and entire LLM08 pages 46–49; TOC confirms 122-page document. Broader context than system prompts: retrieved policy, developer messages and tool schemas. No complete category/mapping/incident-classifier validation.",
+      "limitations": "Selected LLM08 only; complete ten-category report/mappings remain not reviewed. Date placeholders remain disclosed. Later adaptations must meet CC BY-SA terms.",
+      "rightsScope": "Report is CC BY-SA 4.0. Proposed original factual synopsis and link only; no reproduced catalogue, matrix, figures or long adapted text. Any later adaptation must separately satisfy attribution/share-alike."
+    }
+  ],
+  "deferred": [
+    {
+      "id": "mas-safr11-followup-2026-10-19",
+      "title": "Verify SAFR 1.1 and its reference implementation before admission",
+      "url": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+      "discovered": "2026-10-19",
+      "eventKey": "mas-safr-1-1-review",
+      "sourceType": "framework",
+      "authorityNote": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+      "scope": "Speech paragraphs 39–45 only. MAS reports SAFR 1.1 and an open-source reference implementation. White paper version, release date, repository ownership/licence and implementation behaviour not inspected.",
+      "publicationDate": null,
+      "dateBasis": "Speech dated 9 October 2026; paper/repository described as recent. Do not infer their release dates.",
+      "reviewed": "2026-10-19",
+      "reviewer": "Codex",
+      "reviewDepth": "overview",
+      "gates": {
+        "provenance": true,
+        "evidence": false,
+        "rights": true,
+        "scopeAndStatus": false
+      },
+      "scores": {
+        "authority": 4,
+        "relevance": 4,
+        "impact": 3,
+        "contribution": 3
+      },
+      "scoreReasons": {
+        "authority": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+        "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+        "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+        "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+      },
+      "relevantBindingChange": false,
+      "decision": "defer",
+      "reason": "Carry the existing SAFR admission lead forward with a distinct version lead. Retrieve the paper and official repository, compare versions and inspect licence before any permanent-source proposal.",
+      "linkedSourceIds": [],
+      "publicationApproval": "pending",
+      "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+      "supportingCheckIds": [
+        "publisher:mas"
+      ],
+      "evidenceUrls": [
+        "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance"
+      ],
+      "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+      "weightedScore": 90.0
+    }
+  ],
+  "deduplicated": [
+    "Published FSB final report15 October",
+    "Published MAS final guidelines7 October and existing phases",
+    "Published EU high-risk timetable",
+    "Pending AISVS stable metadata and migration candidates",
+    "Pending NIST EO14434 terminology event",
+    "Existing MIT count-reconciliation/date candidates"
+  ],
+  "rollingCoverage": {
+    "retainedChecks": 136,
+    "currentRequiredChecks": 135,
+    "completed": 19,
+    "notReviewed": 117,
+    "fullDeclaredChecksCompletedThisRun": 5,
+    "activePendingOver30Days": 21,
+    "overduePendingCheckIds": [
+      "source:mitre-atlas",
+      "source:au-corporations-act",
+      "source:au-asic-act",
+      "source:au-far-act",
+      "source:eu-gdpr",
+      "source:eu-dora",
+      "source:eu-gpai-code",
+      "source:mas-ai-mrm",
+      "source:mas-mindforge",
+      "source:imda-agentic-framework",
+      "source:unesco-ai-ethics",
+      "source:coe-ai-convention",
+      "source:nist-adversarial-ml",
+      "source:nist-synthetic-content",
+      "source:owasp-llm-top-10",
+      "source:owasp-agentic-top-10",
+      "source:owasp-aisvs",
+      "source:c2pa-2-4",
+      "source:enisa-ai-cyber-framework",
+      "publisher:imda",
+      "publisher:mas"
+    ],
+    "activeReviewAgeOrProxyOver30Days": 35,
+    "maxOriginalPendingAgeDays": 39,
+    "reviewAgeProxyWarning": "Review-age/proxy counts are distinct from original pending age and do not revalidate old evidence.",
+    "checksAssessedInWholeOrPartThisRun": 22,
+    "newlyResolvedPendingChecksThisRun": 4
+  },
+  "readyCandidateIds": [
+    "eu-art4-summary-alignment-2026-10-19",
+    "ec-scientific-panel-response-20261012-2026-10-19",
+    "nist218a-scope-clarification-2026-10-19",
+    "owasp-hidden-context-scope-2026-10-19"
+  ],
+  "deferredCandidateIds": [
+    "imda-ai-safety-initiatives-20261014-2026-10-19",
+    "mas-safr11-followup-2026-10-19"
+  ]
+}

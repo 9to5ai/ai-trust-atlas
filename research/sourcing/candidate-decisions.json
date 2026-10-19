@@ -2351,5 +2351,318 @@
       "https://www.fsb.org/terms_conditions/"
     ],
     "evidenceScope": "Reviewed all 75 pages of the final report and seven-page consultation-response overview via extracted text; visually inspected the annex (printed p.65) and agentic control passage (p.52). Confirmed date/status and non-binding scope against the issuing body. Existing source transitions from June consultation to final; 12 practices, four audiences and one publication event. Reported case studies and underlying cited research are not independently verified; no case admissions. No clause-by-clause redline of the June PDF was performed. Changes attributed to FSB response note, not an independent complete edition diff."
+  },
+  {
+    "id": "eu-art4-summary-alignment-2026-10-19",
+    "title": "Align Article 4 synopsis with the amended AI literacy duty",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+    "discovered": "2026-10-19",
+    "eventKey": "eu-ai-act-art4-amended-synopsis-alignment",
+    "sourceType": "law",
+    "authorityNote": "Authentic Official Journal text supports the exact amended duty and express no-guarantee qualification.",
+    "scope": "Selected Article 4 synopsis correction only. Regulation 2026/1744 Article 1(5) replaces Article 4; Article 4 of the amendment governs entry into force. Existing Atlas requirement already reflects the replacement. No complete AI Act review.",
+    "publicationDate": "2026-07-24",
+    "dateBasis": "Official Journal publication 24 July 2026; amendment dated 8 July; entry into force 27 July. This is an existing-law correction, not an October legal event.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 4,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Authentic Official Journal text supports the exact amended duty and express no-guarantee qualification.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": true,
+    "decision": "include",
+    "reason": "Replace outdated ensure-a-sufficient-level wording in eu-ai-act-4; retain its stable ID and align with req-euaia-art4-ai-literacy. Preserve historical original-duty date. Do not add a duplicate timeline event.",
+    "linkedSourceIds": [
+      "eu-ai-act"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:eu-ai-act",
+      "publisher:ec"
+    ],
+    "evidenceUrls": [
+      "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744",
+      "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 92.5,
+    "approved": "2026-10-19",
+    "approvalBasis": "User approved the four ready proposals in the19 October review; IMDA and SAFR remain excluded."
+  },
+  {
+    "id": "imda-ai-safety-initiatives-20261014-2026-10-19",
+    "title": "IMDA announces agentic testing, tester accreditation and frontier resilience initiatives",
+    "url": "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+    "discovered": "2026-10-19",
+    "eventKey": "imda-ai-safety-initiatives-20261014",
+    "sourceType": "policy-guidance",
+    "authorityNote": "IMDA and AI Verify Foundation jointly issued the release; directly authoritative for announced programme design and status.",
+    "scope": "Issuer announcement only: four testing steps and agent trajectories; AI TAP accreditation of testing firms for one year; FAIRS taskforce and planned first-half-2027 report. The starter-kit detail, accreditation assessments and operating effectiveness are not verified. AI Verify Foundation programme overview independently confirms 12-month accreditation, documented scope, exclusions for deployment/integration risks and post-assessment changes; no individual firm assessment inspected.",
+    "publicationDate": "2026-10-14",
+    "dateBasis": "Publication and last-updated date shown in the rendered official release; event also 14 October. Future report timing remains planned.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": false,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "IMDA and AI Verify Foundation jointly issued the release; directly authoritative for announced programme design and status.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Announcement and scope verified, but proposed public reuse/deep-link rights are not resolved under the observed IMDA terms. Retain as a high-priority private lead, not a publication-ready candidate.",
+    "linkedSourceIds": [
+      "imda-agentic-framework",
+      "singapore-ai-verify"
+    ],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:imda",
+      "topic:10"
+    ],
+    "evidenceUrls": [
+      "https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/new-initiatives-to-strengthen-ai-safety-and-resilience",
+      "https://aiverifyfoundation.sg/tester-accreditation",
+      "https://www.imda.gov.sg/terms-of-use",
+      "https://aiverifyfoundation.sg/ai-assurance/tester-accreditation/"
+    ],
+    "rightsScope": "IMDA terms read in rendered browser: clauses6–9 restrict reuse and clauses23–25 restrict deep linking, with overlapping wording. No permission or broad public-publication grant established. Retain this as private factual research; resolve the proposed public use through permission or a clearly authorised alternative primary publication. No report text, figures, logo or site design may be copied.",
+    "weightedScore": 90.0
+  },
+  {
+    "id": "ec-scientific-panel-response-20261012-2026-10-19",
+    "title": "EU AI Office response highlights internal-model testing and monitorability",
+    "url": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+    "discovered": "2026-10-19",
+    "eventKey": "ec-ai-scientific-panel-special-meeting-20261009",
+    "sourceType": "policy-guidance",
+    "authorityNote": "European Commission first-party account of its own investigation actions and the scientific panel recommendations.",
+    "scope": "Full official meeting report: Commission-reported serious-incident reports and information requests; chair recommendations concerning internal development/test deployments, investigation capability, coordination and monitorability. Underlying incidents/reports not independently inspected.",
+    "publicationDate": "2026-10-12",
+    "dateBasis": "Article publication 12 October; meeting 9 October; page updated 13 October. Earlier announcement has conflicting date signals and is not the event-date authority.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "European Commission first-party account of its own investigation actions and the scientific panel recommendations.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "development-only",
+    "reason": "One bounded development under existing EU AI Act/GPAI sources. Label investigation activity and recommendations separately from enacted requirements. No incident admission or new duty.",
+    "linkedSourceIds": [
+      "eu-ai-act",
+      "eu-gpai-code"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:ec",
+      "topic:10"
+    ],
+    "evidenceUrls": [
+      "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel",
+      "https://digital-strategy.ec.europa.eu/en/news/commission-holds-special-meeting-scientific-panel-frontier-ai-safety-and-risks",
+      "https://digital-strategy.ec.europa.eu/en/pages/legal-notice"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 90.0,
+    "approved": "2026-10-19",
+    "approvalBasis": "User approved the four ready proposals in the19 October review; IMDA and SAFR remain excluded."
+  },
+  {
+    "id": "nist218a-scope-clarification-2026-10-19",
+    "title": "Make SP 800-218A development-only scope explicit",
+    "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+    "discovered": "2026-10-19",
+    "eventKey": "nist218a-development-scope-clarification",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Original NIST final profile, scope paragraph and table directly support the narrow correction.",
+    "scope": "Final July 2024 profile, entire 30-page PDF and official status landing. Section 1.2 excludes deployment/operation and most data-governance lifecycle; sections 1.1 and 2 require use with SSDF 1.1. Existing PS.1 draft synopsis checked against table. External references not separately validated.",
+    "publicationDate": "2024-07-26",
+    "dateBasis": "Official publication history final 26 July 2024; cover month July. No new 2026 edition inferred.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original NIST final profile, scope paragraph and table directly support the narrow correction.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Replace ambiguous does-not-by-itself-cover-deployment phrasing with the actual out-of-scope boundary and companion-standard prerequisite. No new source or development event.",
+    "linkedSourceIds": [
+      "nist-sp-800-218a"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:nist-sp-800-218a"
+    ],
+    "evidenceUrls": [
+      "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf",
+      "https://csrc.nist.gov/pubs/sp/800/218/a/final"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 78.75,
+    "approved": "2026-10-19",
+    "approvalBasis": "User approved the four ready proposals in the19 October review; IMDA and SAFR remain excluded."
+  },
+  {
+    "id": "owasp-hidden-context-scope-2026-10-19",
+    "title": "Explain hidden-context exposure without treating prompts as an access boundary",
+    "url": "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+    "discovered": "2026-10-19",
+    "eventKey": "owasp-llm2026-hidden-context-source-enrichment",
+    "sourceType": "research-database",
+    "authorityNote": "OWASP is authoritative for its community taxonomy and advice, not population incident frequency, exposure or effectiveness.",
+    "scope": "Selected report pages 1–9 and entire LLM08 pages 46–49; TOC confirms 122-page document. Broader context than system prompts: retrieved policy, developer messages and tool schemas. No complete category/mapping/incident-classifier validation.",
+    "publicationDate": "2026-08-03",
+    "dateBasis": "Official release landing dated 3 August 2026. PDF cover/revision history retain release-date placeholders; do not use PDF metadata or review date as publication.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "OWASP is authoritative for its community taxonomy and advice, not population incident frequency, exposure or effectiveness.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Enrich existing OWASP source section and its evidence follow-up; no new October news item, imported ranking, risk count or proven-control relationship.",
+    "linkedSourceIds": [
+      "owasp-llm-top-10"
+    ],
+    "publicationApproval": "approved",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "source:owasp-llm-top-10"
+    ],
+    "evidenceUrls": [
+      "https://genai.owasp.org/download/56857/?tmstv=1785822482",
+      "https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/"
+    ],
+    "rightsScope": "Report is CC BY-SA 4.0. Proposed original factual synopsis and link only; no reproduced catalogue, matrix, figures or long adapted text. Any later adaptation must separately satisfy attribution/share-alike.",
+    "weightedScore": 78.75,
+    "approved": "2026-10-19",
+    "approvalBasis": "User approved the four ready proposals in the19 October review; IMDA and SAFR remain excluded."
+  },
+  {
+    "id": "mas-safr11-followup-2026-10-19",
+    "title": "Verify SAFR 1.1 and its reference implementation before admission",
+    "url": "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance",
+    "discovered": "2026-10-19",
+    "eventKey": "mas-safr-1-1-review",
+    "sourceType": "framework",
+    "authorityNote": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+    "scope": "Speech paragraphs 39–45 only. MAS reports SAFR 1.1 and an open-source reference implementation. White paper version, release date, repository ownership/licence and implementation behaviour not inspected.",
+    "publicationDate": null,
+    "dateBasis": "Speech dated 9 October 2026; paper/repository described as recent. Do not infer their release dates.",
+    "reviewed": "2026-10-19",
+    "reviewer": "Codex",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": false
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "MAS original speech supports the existence claim, but is insufficient for detailed framework/code admission.",
+      "relevance": "Direct governance, financial-services or assurance relevance at the stated scope.",
+      "impact": "Corrects a misleading source boundary or changes a concrete review question; does not decide applicability or effectiveness.",
+      "contribution": "Distinct claim compared with current compiled baseline and prior decision events; historical events are not reissued as new releases."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Carry the existing SAFR admission lead forward with a distinct version lead. Retrieve the paper and official repository, compare versions and inspect licence before any permanent-source proposal.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "reviewedAtUtc": "2026-10-18T20:04:49.439687+00:00",
+    "supportingCheckIds": [
+      "publisher:mas"
+    ],
+    "evidenceUrls": [
+      "https://www.mas.gov.sg/news/speeches/2026/building-trusted-foundations-for-digital-finance"
+    ],
+    "rightsScope": "Original attributed factual synopsis and public source links only; no document or licensed control text republished.",
+    "weightedScore": 90.0
   }
 ]
