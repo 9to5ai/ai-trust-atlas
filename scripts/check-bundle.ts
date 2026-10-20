@@ -14,7 +14,8 @@ const kb = (bytes: number) => `${(bytes / 1024).toFixed(1)} KB`
 const firstLoad = initial.reduce((total, file) => total + gz(file), 0)
 const webgl = readdirSync(join(dist, 'assets')).filter((file) => file.startsWith('WebGLUniverse') && file.endsWith('.js')).reduce((total, file) => total + gz(`assets/${file}`), 0)
 // 19 October approved source corrections and audience questions: measured 385.8 KB gzip.
-const budgets = { firstLoad: 386 * 1024, webgl: 190 * 1024 }
+// Approved dashboard incident: measured first load 386.6 KB gzip.
+const budgets = { firstLoad: 388 * 1024, webgl: 190 * 1024 }
 console.log(`First load: ${kb(firstLoad)} gzip across ${initial.length} files (budget ${kb(budgets.firstLoad)}). WebGL universe: ${kb(webgl)} (budget ${kb(budgets.webgl)}).`)
 if (firstLoad > budgets.firstLoad || webgl > budgets.webgl) { console.error('Bundle budget exceeded.'); process.exit(1) }
 

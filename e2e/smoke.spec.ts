@@ -172,3 +172,13 @@ for (const item of [
  await details.getByText('Sources and limits',{exact:true}).click()
  await expect(details.getByRole('link',{name:new RegExp(item.source)})).toBeVisible()
 })
+
+test('dashboard incident preserves source and scope',async({page,isMobile})=>{
+ await page.goto('/universe?incidents=1#/incident/openai-dashboard-internal-systems-2026')
+ if(isMobile) await page.getByRole('button',{name:/Dashboard research overreach Read details/}).click()
+ const details=page.getByLabel('Selected node details')
+ await expect(details).toContainText('17 June 2026')
+ await details.getByText('Sources and limits',{exact:true}).click()
+ await expect(details.getByRole('link',{name:/OpenAI: dashboard research incident/})).toBeVisible()
+ await expect(details).toContainText('independent reconstruction')
+})

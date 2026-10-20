@@ -1,3 +1,4 @@
+import { dashboardIncident } from './dashboardIncident'
 import { octoberIncidents } from './octoberIncidents'
 import { artexIncident } from './artexIncident'
 import { npwsIncident } from './npwsIncident'
@@ -216,7 +217,7 @@ const baseIncidents:Incident[]=[{
   }
 }]
 const assuranceFor=(id:string)=>assuranceIncidentPrompts[id]??reviewIncidentAssurancePrompts[id]
-export const incidents:Incident[]=[...baseIncidents,...reviewIncidents,medicareIncident,dnsIncident,npwsIncident,artexIncident,...octoberIncidents].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
+export const incidents:Incident[]=[...baseIncidents,...reviewIncidents,medicareIncident,dnsIncident,npwsIncident,artexIncident,...octoberIncidents,dashboardIncident].map(item=>assuranceFor(item.id)?{...item,prompts:{...item.prompts,assurance:assuranceFor(item.id)}}:item)
 export const incidentById=new Map(incidents.map(i=>[i.id,i]))
 export function incidentQuestion(item:Incident,audience:Audience):Question {
  const prompt=item.prompts[audience]??{text:'',askFor:'',followUp:''}
