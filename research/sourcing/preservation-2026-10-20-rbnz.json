@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "baseline": "5c5a615b02c5ae1d950bb109901ac83fcc2d64bc",
+  "unrelatedSources": "unchanged",
+  "historicalRequirements": "unchanged",
+  "historicalDevelopments": "unchanged",
+  "allIncidentsIncludingNewDashboardCase": "unchanged",
+  "productionUseCases": "unchanged",
+  "priorRelations": "unchanged",
+  "priorMappingAssertions": "unchanged",
+  "candidateLedgerHistory": "unchanged",
+  "previousRunRows": "all 136 unchanged",
+  "addedSources": 1,
+  "addedSections": 4,
+  "addedExpectations": 4,
+  "addedDevelopments": 1,
+  "addedRelations": 1
+}

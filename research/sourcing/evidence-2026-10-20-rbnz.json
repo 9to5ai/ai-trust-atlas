@@ -1,0 +1,56 @@
+{
+  "sourceId": "nz-rbnz-fma-frontier-cyber",
+  "reviewed": "2026-10-20",
+  "reviewer": "Codex / AI Trust Atlas",
+  "originalPublication": "2026-10-15",
+  "format": "Official PDF, seven pages; cover plus printed pages1\u20136",
+  "reviewDepth": "full-text",
+  "privateEvidenceMethod": "Official PDF web extraction retained privately; original PDF bytes unavailable. No visual-layout verification claimed.",
+  "evidenceSnapshotSha256": "9b71dad5fce7c5d4120c06c5693bb055a6d41c9b4b6a9953a124587ee3ee9ef7",
+  "evidenceScope": [
+    "Complete joint remarks, key messages, substantive expectations and footnotes",
+    "Full RBNZ and FMA official announcements",
+    "RBNZ copyright/reuse conditions",
+    "Selected ASD/AICD public governance, supply-chain and recovery passages for thematic relation only"
+  ],
+  "gates": {
+    "provenance": true,
+    "evidence": true,
+    "rights": true,
+    "scopeAndStatus": true
+  },
+  "approval": "User instruction to review and add this source",
+  "controlMappings": "Atlas synthesis only; no equivalence, implementation, effectiveness, compliance or assurance conclusion",
+  "reviewLimitations": [
+    "Original PDF download blocked/stalled; official web text succeeded",
+    "Cited external research not independently validated",
+    "No institutional deployment or operating control evidence reviewed"
+  ],
+  "monitoring": {
+    "wholeRun": "INCOMPLETE",
+    "retainedPreviousRows": 136,
+    "addedReviewedRows": 1,
+    "notReviewed": 117,
+    "originalInventoryPreserved": true,
+    "discoveryDatesAdvanced": false
+  },
+  "localValidation": {
+    "testsPassed": 212,
+    "testFiles": 39,
+    "build": "passed",
+    "questionCards": 574,
+    "developments": 28,
+    "audiences": 4,
+    "firstLoadGzipKB": 389.6,
+    "previousFirstLoadGzipKB": 386.6,
+    "firstLoadBudgetKB": 390,
+    "previousFirstLoadBudgetKB": 388,
+    "webglGzipKB": 153.7,
+    "webglBudgetKB": 190
+  },
+  "initialFailuresResolved": [
+    "Question-map index signature and missing related-source relation fixed",
+    "One existing UI unit test timeout under concurrent build load; unchanged isolated full suite passed",
+    "Bundle exceeded388KB; documented source-text allowance390KB, no content/test gate removed"
+  ]
+}
