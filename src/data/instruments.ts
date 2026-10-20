@@ -1,3 +1,4 @@
+import { rbnzFrontierSource } from './rbnzFrontierCyber'
 import { octoberSources } from './octoberSources.js'
 import { assuranceInstruments } from './assurance'
 import { draftProvisions } from './draftProvisions'
@@ -146,6 +147,7 @@ const coreInstruments: SourceRecord[] = [
 ]
 
 const sourceRecords: SourceRecord[] = [
+  rbnzFrontierSource,
   ...assuranceInstruments,
   ...methodologySources,
   ...octoberSources,

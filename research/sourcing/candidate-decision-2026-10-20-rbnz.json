@@ -1,0 +1,54 @@
+{
+  "id": "rbnz-fma-frontier-cyber-20261020",
+  "title": "RBNZ/FMA supervisory expectations on frontier-AI cyber risk",
+  "url": "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/publications/speeches/2026/supervisory-expectations-on-cyber-risk-associated-with-frontier-ai.pdf",
+  "discovered": "2026-10-20",
+  "eventKey": "rbnz-fma-frontier-cyber-2026-10-15",
+  "sourceType": "policy-guidance",
+  "authorityNote": "Joint original supervisory remarks by the responsible New Zealand prudential and conduct regulators; not a new AI law.",
+  "scope": "RBNZ- and FMA-regulated entities; proportionate to business/risk. No new commencement date inferred.",
+  "publicationDate": "2026-10-15",
+  "dateBasis": "PDF cover dates delivery to 15 October; both official announcements corroborate publication that day.",
+  "reviewed": "2026-10-20",
+  "reviewer": "Codex / AI Trust Atlas",
+  "reviewDepth": "full-text",
+  "gates": {
+    "provenance": true,
+    "evidence": true,
+    "rights": true,
+    "scopeAndStatus": true
+  },
+  "scores": {
+    "authority": 4,
+    "relevance": 4,
+    "impact": 3,
+    "contribution": 3
+  },
+  "scoreReasons": {
+    "authority": "Original joint supervisors speaking within prudential and conduct remits.",
+    "relevance": "Direct New Zealand financial-sector board, executive, regulator and assurance relevance.",
+    "impact": "Changes local readiness and evidence questions; no new standalone legal duty claimed.",
+    "contribution": "Cyber themes overlap ASD/APRA/FSB; distinct lasting value is the joint NZ supervisory position, remediation/change-risk trade-off, supplier notification and exercised recovery."
+  },
+  "relevantBindingChange": false,
+  "decision": "include",
+  "reason": "User-directed admission after full seven-page substantive text review. One enduring NZ source, four selected sections and should-expectations, original role prompts, one deduplicated development; no incident/production-case admission. RBNZ terms permit accurate attributed reuse; no third-party figures, long quotes or cited research reused.",
+  "linkedSourceIds": [
+    "nz-rbnz-fma-frontier-cyber"
+  ],
+  "approval": {
+    "status": "approved",
+    "date": "2026-10-20",
+    "basis": "User instruction: Review and add to atlas"
+  },
+  "evidenceUrls": [
+    "https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/publications/speeches/2026/supervisory-expectations-on-cyber-risk-associated-with-frontier-ai.pdf",
+    "https://www.rbnz.govt.nz/news-and-events/news/2026/10/rbnz-and-fma-outline-supervisory-expectations-on-cyber-and-ai-risks",
+    "https://www.fma.govt.nz/news/all-releases/media-releases/rbnz-and-fma-outline-supervisory-expectations-on-cyber-and-ai-risk/",
+    "https://www.rbnz.govt.nz/about-our-site/terms-of-use"
+  ],
+  "reviewLimitations": [
+    "Direct curl returned403; in-app PDF download stalled and viewer was blank. Official PDF link resolved in web reader: all7 pages/259 lines reviewed. Original PDF bytes not retained; extracted source snapshot retained privately.",
+    "Linked research, model capability assessments and institutional control effectiveness not independently reviewed."
+  ]
+}
