@@ -179,8 +179,8 @@ export const assuranceUseCasePrompts: Record<string, AssurancePrompt> = {
     followUp: 'Is the quality-assurance sample selected independently of the team measured on handling time?',
   },
   'bofa-erica': {
-    text: 'Which assistant functions are in scope, and what evidence separates adoption metrics from tested customer outcomes?',
-    askFor: 'A function inventory, escalation logs, complaint samples, outcome measures and the definitions behind reported metrics.',
+    text: 'Can the published user and interaction figures be reproduced without conflating populations?',
+    askFor: 'Versioned queries, source-system lineage, denominator changes and independent sample re-performance.',
     followUp: 'Who defines a successful interaction, and has that definition changed during the period?',
   },
   'google-code-assistance': {

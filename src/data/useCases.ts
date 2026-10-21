@@ -254,15 +254,15 @@ const baseUseCases:UseCase[] = [
     "sector": "Financial services",
     "status": "Production",
     "evidence": "Company-reported",
-    "reported": "14 July 2026",
-    "published": "2026-07-14",
-    "reviewed": "2026-09-21",
+    "reported": "14 October 2026 earnings; facts page updated 14 October 2026",
+    "published": "2026-10-14",
+    "reviewed": "2026-10-21",
     "summary": "Erica provides digital financial assistance and proactive personalised insights to banking clients.",
     "before": "Customers navigate banking information and seek help with everyday finances.",
     "actions": "Provides assistance and personalised insights through the bank’s digital service.",
     "human": "The cited summary does not describe escalation thresholds or the authority to execute transactions.",
-    "value": "The bank reports more than 24.6 million clients and 3.6 billion interactions since the 2018 launch.",
-    "limitations": "Interaction volume demonstrates reported adoption, not accuracy, customer benefit or control effectiveness. The account does not establish that every Erica function uses generative AI.",
+    "value": "Bank of America reports 24.2 million active Erica users in its Q3 2026 release; its updated facts page reports 3.8 billion interactions since launch in 2018.",
+    "limitations": "The Q3 release defines the user measure as mobile and online activity across client-facing platforms powered by Erica. Historical snapshot: 14 July 2026, reviewed 21 September 2026, reported more than 24.6 million clients and 3.6 billion interactions. Differently worded user measures do not establish declining adoption. Usage counts do not establish resolution, accuracy, customer benefit, control effectiveness or generative-AI usage. Launch year is 2018; exact deployment day is unknown. Fast Facts was updated on 14 October; its original publication date is unknown. The dated earnings release supplies the publication date; its subsequent update date is unknown.",
     "topics": [
       "transparency",
       "fairness",
@@ -270,7 +270,11 @@ const baseUseCases:UseCase[] = [
     ],
     "sources": [
       {
-        "title": "Bank of America · deployment account",
+        "title": "Bank of America · Q3 earnings, 14 October 2026, Consumer Banking footnote 9",
+        "url": "https://investor.bankofamerica.com/regulatory-and-other-filings/select-sec-filings/content/0000070858-26-000481/bac09302026ex991.htm"
+      },
+      {
+        "title": "Bank of America · Fast Facts, updated 14 October 2026",
         "url": "https://newsroom.bankofamerica.com/content/newsroom/company-overview/bank-of-america-fast-facts.html"
       }
     ],
@@ -283,18 +287,18 @@ const baseUseCases:UseCase[] = [
       {
         "conceptId": "continuous-monitoring",
         "controlId": "runtime-monitoring",
-        "reason": "High-volume service requires outcome monitoring beyond interaction counts."
+        "reason": "Changing denominators can create false trends; track active users, cumulative interactions and customer outcomes separately."
       }
     ],
     "prompts": {
       "board": {
-        "text": "How do we distinguish widespread use of a banking assistant from demonstrably better customer outcomes?",
-        "askFor": "Customer outcomes, repeat contacts, unresolved cases and escalation performance.",
+        "text": "Are adoption trends comparable, and do they indicate better customer outcomes?",
+        "askFor": "Metric definitions, historical reconciliations, repeat contacts and independently sampled resolution outcomes.",
         "followUp": "Which customer harm could be hidden by a growing engagement metric?"
       },
       "executive": {
-        "text": "Which signals reveal unresolved customer needs even when conversations appear completed?",
-        "askFor": "Conversation-quality samples, abandonment and repeat-contact trends, and escalation logs.",
+        "text": "Which activity and platforms qualify a client as active?",
+        "askFor": "Inclusion rules, deduplication, observation window, platform changes and reconciliation to prior figures.",
         "followUp": "How are unresolved conversations counted?"
       },
       "regulator": {

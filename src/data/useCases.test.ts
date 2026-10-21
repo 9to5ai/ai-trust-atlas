@@ -45,7 +45,7 @@ describe('production use case evidence and navigation',()=>{
  it('restores all three roles with source references and does not manufacture recent publication dates',()=>{
   for(const item of useCases)for(const role of ['board','executive','regulator'] as const){const q=useCaseQuestion(item,role);expect(catalogue(role).some(e=>e.question.id===q.id)).toBe(true);expect(readBrief(JSON.stringify({version:1,ids:[q.id]})).selected).toEqual([q])}
   expect(useCases.filter(i=>i.published&&inDateWindow(i.published,30,'2026-09-22')).map(i=>i.id)).toEqual(['ibm-eps-regression-tests'])
-  expect(useCases.filter(i=>i.published&&inDateWindow(i.published,90,'2026-09-22')).map(i=>i.id)).toEqual(['bofa-erica','ibm-eps-regression-tests'])
+  expect(useCases.filter(i=>i.published&&inDateWindow(i.published,90,'2026-09-22')).map(i=>i.id)).toEqual(['ibm-eps-regression-tests'])
   expect(useCases.find(i=>i.id==='cba-fraud-agent')?.published).toBeNull()
   const joy=useCases.find(i=>i.id==='dbs-joy-account-enquiries')!
   expect(inDateWindow(joy.published!,30,'2026-10-12')).toBe(true)

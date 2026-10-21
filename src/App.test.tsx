@@ -251,13 +251,15 @@ describe('production use case journey',()=>{
   expect(screen.queryByRole('complementary',{name:'Selected node details'})).not.toBeInTheDocument()
  })
  it('shows use cases in the briefing by publication date and opens their details',()=>{
+  vi.spyOn(Date.prototype, 'toISOString').mockReturnValue('2026-10-21T01:00:00.000Z')
   render(<App/>)
   fireEvent.click(screen.getAllByRole('button',{name:'What’s new'})[0])
   const news=within(screen.getByRole('dialog',{name:'What’s new'}))
-  fireEvent.click(news.getByRole('button',{name:'Last 90 days'}))
+  fireEvent.click(news.getByRole('button',{name:'Last 30 days'}))
   expect(news.getByRole('heading',{name:'Everyday financial assistance'})).toBeInTheDocument()
   expect(news.queryByRole('heading',{name:'Proposing new fraud rules'})).not.toBeInTheDocument()
-  fireEvent.click(news.getByRole('button',{name:'Explore use case and questions'}))
+  const ericaCard=news.getByRole('heading',{name:'Everyday financial assistance'}).closest('article')!
+  fireEvent.click(within(ericaCard).getByRole('button',{name:'Explore use case and questions'}))
   expect(window.location.hash).toBe('#/use-case/bofa-erica')
   expect(screen.getByRole('heading',{name:'How the work changes'})).toBeInTheDocument()
  })
