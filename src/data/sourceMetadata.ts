@@ -97,7 +97,7 @@ const issuerRules: [RegExp, IssuerType][] = [
   [/ISO and IEC|IAASB|AUASB|International Organization of Securities Commissions|International Association of Insurance Supervisors|Financial Stability Board|Basel Committee/, 'standard-setter'],
   [/OECD|Organisation for Economic Co-operation|UNESCO|Council of Europe|Five Eyes/, 'intergovernmental'],
   [/Prudential Regulation Authority|Securities and Investments Commission|Information Commissioner|Superintendent of Financial Institutions|Monetary Authority|Federal Reserve|Hong Kong Monetary|Securities and Futures Commission|European Insurance|European Banking Authority|European Securities|Financial Conduct Authority|Insurance Commissioners|Financial Services Agency|Bank of England|Data Protection Board|Privacy Commissioner|Reserve Bank|Financial Services Commission/, 'regulator'],
-  [/MITRE|MIT AI Risk|University|Research/, 'research'],
+  [/Alan Turing Institute|MITRE|MIT AI Risk|University|Research/, 'research'],
   [/OWASP|Cloud Security Alliance|Coalition for Content Provenance|AI Verify Foundation/, 'industry-body'],
   [/.*/, 'government'],
 ]

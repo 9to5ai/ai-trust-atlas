@@ -1,3 +1,4 @@
+import { turingAgenticSource } from './turingAgenticAssurance'
 import { rbnzFrontierSource } from './rbnzFrontierCyber'
 import { octoberSources } from './octoberSources.js'
 import { assuranceInstruments } from './assurance'
@@ -147,6 +148,7 @@ const coreInstruments: SourceRecord[] = [
 ]
 
 const sourceRecords: SourceRecord[] = [
+  turingAgenticSource,
   rbnzFrontierSource,
   ...assuranceInstruments,
   ...methodologySources,

@@ -1,0 +1,44 @@
+{
+  "tests": "214 passed /40 files",
+  "build": "passed",
+  "sourceCheck": "INCOMPLETE,missing[],117 unreviewed; expected exit1, no validation errors",
+  "browser": {
+    "base": "http://127.0.0.1:4178",
+    "checkedAt": "2026-10-24T01:48:44.451Z",
+    "checks": 6,
+    "results": [
+      {
+        "viewport": "desktop",
+        "check": "uk-turing-agentic-assurance-synopsis-citation-four-roles-and-brief",
+        "result": "passed"
+      },
+      {
+        "viewport": "desktop",
+        "check": "turing-agentic-reading-synopsis-citation-four-roles-and-brief",
+        "result": "passed"
+      },
+      {
+        "viewport": "desktop",
+        "check": "browser-runtime",
+        "result": "passed",
+        "errors": []
+      },
+      {
+        "viewport": "mobile",
+        "check": "uk-turing-agentic-assurance-synopsis-citation-four-roles-and-brief",
+        "result": "passed"
+      },
+      {
+        "viewport": "mobile",
+        "check": "turing-agentic-reading-synopsis-citation-four-roles-and-brief",
+        "result": "passed"
+      },
+      {
+        "viewport": "mobile",
+        "check": "browser-runtime",
+        "result": "passed",
+        "errors": []
+      }
+    ]
+  }
+}
