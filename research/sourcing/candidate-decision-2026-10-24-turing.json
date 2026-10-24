@@ -1,0 +1,56 @@
+{
+  "id": "turing-agentic-assurance-20261024",
+  "title": "Turing agentic AI evaluation research reference",
+  "url": "https://www.turing.ac.uk/sites/default/files/2026-10/evaluation_for_assurance_of_agentic_ai_systems_in_financial_services_-_the_alan_turing_institute.pdf",
+  "discovered": "2026-10-24",
+  "eventKey": "turing-agentic-assurance-2026-10",
+  "sourceType": "research-database",
+  "authorityNote": "Original research publisher; not a supervisor or certification body.",
+  "scope": "Bibliographic links and independently authored Atlas questions only. Detailed report adaptation excluded.",
+  "publicationDate": null,
+  "publicationMonth": "2026-10",
+  "dateBasis": "Cover: October 2026. Day unknown; file creation is not publication.",
+  "reviewed": "2026-10-24",
+  "reviewer": "Codex / AI Trust Atlas",
+  "reviewDepth": "full-text",
+  "gates": {
+    "provenance": true,
+    "evidence": true,
+    "rights": true,
+    "scopeAndStatus": true
+  },
+  "scores": {
+    "authority": 3,
+    "relevance": 4,
+    "impact": 3,
+    "contribution": 3
+  },
+  "scoreReasons": {
+    "authority": "Original research institution with practitioner contributors, no regulatory authority.",
+    "relevance": "Direct financial-services agent evaluation relevance.",
+    "impact": "Useful deployment and evidence challenge questions; no binding change.",
+    "contribution": "Focused agent evaluation reference complements existing risk and evaluation sources."
+  },
+  "relevantBindingChange": false,
+  "decision": "include",
+  "reason": "User-directed addition. Rights pass is ONLY for bibliographic linking under publisher terms21.1 and original Atlas prompts; detailed reuse is unresolved and excluded.",
+  "linkedSourceIds": [
+    "uk-turing-agentic-assurance"
+  ],
+  "evidenceUrls": [
+    "https://www.turing.ac.uk/sites/default/files/2026-10/evaluation_for_assurance_of_agentic_ai_systems_in_financial_services_-_the_alan_turing_institute.pdf",
+    "https://www.turing.ac.uk/news/publications/evaluation-assurance-agentic-ai-systems-financial-services",
+    "https://www.turing.ac.uk/website-and-digital-platforms"
+  ],
+  "approval": {
+    "status": "approved",
+    "date": "2026-10-24",
+    "basis": "User: Add to atlas (this source only)"
+  },
+  "reviewLimitations": [
+    "No report-specific open licence located; \u00a9 The Alan Turing Institute2026. Terms10.3 restrict content reuse without licence;21.1 permits fair links with no implied endorsement.",
+    "Report text reviewed; cover/authorship/contents/Appendix45/last52 visually inspected. Cited works not independently reviewed; visual chart audit not comprehensive.",
+    "Appendix workshop n=33 (17April2026), not a representative sector survey. Institutional examples/results source-reported, not independently validated.",
+    "Publication day unknown; no day invented to qualify for recency windows."
+  ]
+}
