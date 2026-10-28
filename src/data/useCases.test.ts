@@ -9,10 +9,10 @@ import {searchObjects} from '../lib/workspace'
 import {inDateWindow} from './developments'
 
 describe('production use case evidence and navigation',()=>{
- it('has twenty distinct production cases covering six workflows and valid evidence connections',()=>{
-  expect(useCases).toHaveLength(20);expect(new Set(useCases.map(i=>i.id)).size).toBe(20)
+ it('has twenty-one distinct production cases covering six workflows and valid evidence connections',()=>{
+  expect(useCases).toHaveLength(21);expect(new Set(useCases.map(i=>i.id)).size).toBe(21)
   expect(new Set(useCases.map(i=>i.workflow)).size).toBe(Object.keys(useCaseWorkflows).length)
-  expect(useCases.filter(i=>i.sector==='Financial services')).toHaveLength(11)
+  expect(useCases.filter(i=>i.sector==='Financial services')).toHaveLength(12)
   expect(useCases.filter(i=>['Commonwealth Bank','NAB','Suncorp','IAG','Services Australia'].includes(i.company))).toHaveLength(5)
   for(const item of useCases){
    expect(item.status).toBe('Production');expect(item.evidence).toBe('Company-reported')
@@ -47,6 +47,11 @@ describe('production use case evidence and navigation',()=>{
   expect(useCases.filter(i=>i.published&&inDateWindow(i.published,30,'2026-09-22')).map(i=>i.id)).toEqual(['ibm-eps-regression-tests'])
   expect(useCases.filter(i=>i.published&&inDateWindow(i.published,90,'2026-09-22')).map(i=>i.id)).toEqual(['ibm-eps-regression-tests'])
   expect(useCases.find(i=>i.id==='cba-fraud-agent')?.published).toBeNull()
+  const mufg=useCases.find(i=>i.id==='mufg-gph-format-checks')!
+  expect(mufg.published).toBe('2026-10-13')
+  expect(mufg.reviewed).toBe('2026-10-28')
+  expect(inDateWindow(mufg.published!,30,'2026-10-28')).toBe(true)
+  expect(inDateWindow(mufg.published!,30,'2026-10-12')).toBe(false)
   const joy=useCases.find(i=>i.id==='dbs-joy-account-enquiries')!
   expect(inDateWindow(joy.published!,30,'2026-10-12')).toBe(true)
   expect(inDateWindow(joy.published!,30,'2026-09-24')).toBe(false)

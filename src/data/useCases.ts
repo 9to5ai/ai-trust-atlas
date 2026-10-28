@@ -877,6 +877,79 @@ const baseUseCases:UseCase[] = [
       "followUp": "Do independent samples reproduce the reported success rate?"
     }
   }
+},
+{
+  "id": "mufg-gph-format-checks",
+  "company": "MUFG Bank",
+  "title": "Checking remittance-file formats",
+  "workflow": "operations",
+  "sector": "Financial services",
+  "status": "Production",
+  "evidence": "Company-reported",
+  "reported": "13 October 2026",
+  "published": "2026-10-13",
+  "reviewed": "2026-10-28",
+  "summary": "Jinba checks remittance-file formats for Global Payment Hub and creates check reports.",
+  "before": "Staff check whether customer-generated remittance data can be handled by bank systems.",
+  "actions": "Automates format checks and report creation through an AI workflow; formal frontline introduction followed practical validation.",
+  "human": "Staff visually check the portion Jinba cannot check. Final file-acceptance authority is not specified.",
+  "value": "MUFG reports checking time below half its previous level and roughly 90% accuracy; neither claim is independently validated.",
+  "limitations": "Exact workflow go-live and source update dates are unknown; April 2026 refers to platform introduction. Users are domestic; broader coverage remains an ambition. The accuracy denominator, sample size, false-pass frequency and measurement period are undisclosed. It is not a payment-error rate. Payment execution authority is not established.",
+  "topics": [
+    "agentic",
+    "testing",
+    "evidence"
+  ],
+  "sources": [
+    {
+      "title": "MUFG · Jinba frontline workflow interview · 13 October 2026",
+      "url": "https://www.mufg.jp/profile/strategy/dx/articles/0144/index.html"
+    }
+  ],
+  "connections": [
+    {
+      "conceptId": "evaluation",
+      "controlId": "fit-for-purpose-evaluation",
+      "reason": "Residual manual checks require tests of unsupported cases and confident false passes."
+    },
+    {
+      "conceptId": "human-oversight",
+      "controlId": "decision-rights-approval",
+      "reason": "File acceptance needs an accountable owner and mandatory review boundaries."
+    },
+    {
+      "conceptId": "traceability",
+      "controlId": "records-traceability",
+      "reason": "Reconstruction requires the original file, workflow version and human disposition."
+    },
+    {
+      "conceptId": "agent-authority",
+      "controlId": "agent-runtime-constraints",
+      "reason": "Permission to check a file must be distinguished from permission to execute a payment."
+    }
+  ],
+  "prompts": {
+    "board": {
+      "text": "Who accepts the consequences of a false pass?",
+      "askFor": "Approved risk rationale, named owner and end-to-end error reporting.",
+      "followUp": "Which error would trigger suspension?"
+    },
+    "executive": {
+      "text": "How are unsupported formats and uncertain results routed to people?",
+      "askFor": "Coverage map, exception routing, fallback procedure and operational samples.",
+      "followUp": "Can confident but incorrect results bypass review?"
+    },
+    "regulator": {
+      "text": "Can a file-acceptance decision be reconstructed?",
+      "askFor": "Original file, versioned check report, disposition and manual approval records.",
+      "followUp": "Who authorised acceptance and on what evidence?"
+    },
+    "assurance": {
+      "text": "Does the reported percentage measure correctness or supported cases?",
+      "askFor": "Metric definition, denominator, test set, negative cases and false-pass samples.",
+      "followUp": "Does independent sampling reproduce the claimed result?"
+    }
+  }
 }
 ]
 const assuranceFor=(id:string)=>assuranceUseCasePrompts[id]??reviewUseCaseAssurancePrompts[id]
