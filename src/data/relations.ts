@@ -1,3 +1,4 @@
+import { csiroTuringRelation } from './csiroScalableOversight'
 import { assuranceRelations } from './assurance'
 import { retiredSourceIds, reviewRelations } from './reviewSources'
 import { ontologyRelations, relationTypeOverrides } from './ontologyRelations'
@@ -7,6 +8,7 @@ import type { InstrumentRelation } from '../types'
 import { expandedRelations } from './expandedRelations'
 
 const coreRelations: InstrumentRelation[] = [
+  csiroTuringRelation,
   { id: 'turing-agentic-evaluation-context', sourceId: 'uk-turing-agentic-assurance', targetId: 'uk-aisi-inspect', type: 'aligns-with', explanation: 'Atlas interpretation: the research reference and Inspect are relevant to evaluation discussions. A research report and an evaluation tool have different purposes; this link establishes no equivalent obligations or validated assurance method.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['Turing report title and Section 4 reading locator', 'Inspect public overview: evaluation tooling', 'Atlas thematic interpretation only'] },
   { id: 'nz-frontier-aligns-board-guide', sourceId: 'nz-rbnz-fma-frontier-cyber', targetId: 'asd-frontier-board', type: 'aligns-with', explanation: 'Atlas interpretation: both address board oversight of frontier-AI cyber risk and resilience. The New Zealand remarks express expectations for RBNZ/FMA-regulated entities; the Australian board guide has a separate jurisdiction and voluntary status. This thematic comparison does not establish equivalent obligations.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['RBNZ/FMA joint remarks, printed pp. 3-5 (15 October 2026)', 'ASD/AICD board guide, governance and cyber resilience themes', 'Atlas interpretation'] },
   { id: 'nist-identity-security-comments', sourceId: 'nist-agent-identity-comments', targetId: 'nist-agent-security-responses', type: 'complements', explanation: 'Atlas interpretation: NCCoE identity and delegation findings add a focused perspective to the separate CAISI agent-security consultation summary. They are distinct consultations; neither establishes implementation effectiveness.', basis: 'cross-framework-synthesis', confidence: 'medium', sourceAnchors: ['NCCoE identity summary: delegation and enforcement findings', 'CAISI agent-security response summary', 'Atlas interpretation'] },

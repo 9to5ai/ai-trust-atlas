@@ -1,3 +1,4 @@
+import { csiroOversightSourceQuestions, csiroOversightReadingQuestions, enisaLayerQuestions } from './csiroScalableOversight'
 import { TURING_AGENTIC_ID, turingAgenticSourceQuestions, turingAgenticReadingQuestions } from './turingAgenticAssurance'
 import { RBNZ_FRONTIER_ID, rbnzFrontierSourceQuestions, rbnzFrontierProvisionQuestions } from './rbnzFrontierCyber'
 import type { Audience, CoreAudience } from './leadershipQuestions'
@@ -82,7 +83,7 @@ const authoredSourceQuestions: Record<string, Record<CoreAudience, string>> = {
 
 export const riskQuestions = withAssurance(authoredRiskQuestions, assuranceRiskQuestions)
 export const controlQuestions = withAssurance(authoredControlQuestions, assuranceControlQuestions)
-export const sourceQuestions: Record<string, RoleQuestions> = { ...withAssurance(authoredSourceQuestions, assuranceSourceQuestions), [RBNZ_FRONTIER_ID]: rbnzFrontierSourceQuestions, [TURING_AGENTIC_ID]: turingAgenticSourceQuestions }
+export const sourceQuestions: Record<string, RoleQuestions> = { ...withAssurance(authoredSourceQuestions, assuranceSourceQuestions), [RBNZ_FRONTIER_ID]: rbnzFrontierSourceQuestions, [TURING_AGENTIC_ID]: turingAgenticSourceQuestions, 'au-csiro-epistemic-oversight': csiroOversightSourceQuestions }
 
 // Original questions for the approved, selected source sections only.
 const authoredProvisionQuestions: Record<string, Record<CoreAudience, string>> = {
@@ -97,4 +98,4 @@ const authoredProvisionQuestions: Record<string, Record<CoreAudience, string>> =
     "regulator": "How is privilege separation maintained independently of model-visible policy instructions?"
   }
 }
-export const provisionQuestions: Record<string, RoleQuestions> = { ...withAssurance(authoredProvisionQuestions, assuranceProvisionQuestions), ...rbnzFrontierProvisionQuestions, 'turing-agentic-reading': turingAgenticReadingQuestions }
+export const provisionQuestions: Record<string, RoleQuestions> = { ...withAssurance(authoredProvisionQuestions, assuranceProvisionQuestions), ...rbnzFrontierProvisionQuestions, 'turing-agentic-reading': turingAgenticReadingQuestions, 'csiro-oversight-reading': csiroOversightReadingQuestions, 'enisa-ai-layers': enisaLayerQuestions }

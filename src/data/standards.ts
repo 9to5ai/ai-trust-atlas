@@ -90,9 +90,24 @@ export const standardsAndTestingInstruments = [
   }),
   makeInstrument({
     id: 'enisa-ai-cyber-framework', title: 'Multilayer Framework for Good Cybersecurity Practices for AI', shortTitle: 'ENISA AI Cyber Framework', issuer: 'European Union Agency for Cybersecurity', jurisdiction: 'European Union and voluntary global reference', region: 'Europe', authorityClass: 'framework', authorityNote: "Guidance; see scope below", status: 'active', published: '2023-06-07', officialUrl: 'https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai',
-    summary: 'Layered guidance combining foundational cybersecurity, AI-specific security and sector-specific controls.', applicability: 'Official EU cybersecurity guidance, not binding law or proof of effective controls.', sectors: ['Cross-sector'],
+    summary: 'Layered guidance combining foundational cybersecurity, AI-specific security and sector-specific controls.', applicability: 'Official EU cybersecurity guidance, not binding law or proof of effective controls. Its legal and standards references reflect the report’s 2023 context; this is not a current legal assessment. Selected three-layer content reviewed 26 October 2026; the survey and annex were not fully assessed.', sectors: ['Cross-sector'],
     conceptIds: ['ai-security', 'lifecycle-governance', 'supply-chain', 'incident-response', 'risk-treatment'], detailAvailability: 'full-public-text',
-    provisions: [{ id: 'enisa-ai-layers', ref: 'Three security layers', title: 'Baseline, AI-specific and sector controls', summary: 'Connects established cyber practices to AI threats and sector context.', conceptIds: ['ai-security', 'supply-chain', 'risk-treatment'] }],
+    provisions: [{
+      "id": "enisa-ai-layers",
+      "ref": "Section 2 overview, printed pp6–7; Layers I–III in Sections 2.1–2.3",
+      "title": "Baseline, AI-specific and sector controls",
+      "summary": "Connects established cyber practices to AI threats and sector context.",
+      "sourceUrl": "https://www.enisa.europa.eu/sites/default/files/publications/Multilayer%20Framework%20for%20Good%20Cybersecurity%20Practices%20for%20AI.pdf#page=7",
+      "conceptIds": [
+        "ai-security",
+        "supply-chain",
+        "risk-treatment"
+      ],
+      "granularity": "section",
+      "reviewedAt": "2026-10-26",
+      "editorialStatus": "reviewed",
+      "note": "ENISA, 2023, CC-BY4.0. Atlas wording and concept links are interpretations; legal and standards references reflect the report’s 2023 context and do not constitute a current legal assessment."
+    }],
   }),
   makeInstrument({
     id: 'uk-aisi-inspect', title: 'Inspect AI Evaluation Framework', shortTitle: 'UK AISI Inspect', issuer: 'UK AI Security Institute', jurisdiction: 'United Kingdom and open global use', region: 'United Kingdom', authorityClass: 'testing-tool', authorityNote: "Voluntary technical reference", status: 'living', published: '2024-05', officialUrl: 'https://www.aisi.gov.uk/blog/open-sourcing-our-testing-framework-inspect',

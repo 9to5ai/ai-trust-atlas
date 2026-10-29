@@ -1,0 +1,39 @@
+{
+  "baseline": "0e614f516832fa24472619dc7c773a56595cead0",
+  "approvedCandidates": [
+    "csiro-epistemic-bibliography-20261026",
+    "enisa-layer-provenance-20261026"
+  ],
+  "localTests": {
+    "passed": 223,
+    "files": 42,
+    "maxWorkers": 2
+  },
+  "build": "passed",
+  "bundleKB": {
+    "firstLoad": 395.6,
+    "budget": 396,
+    "webgl": 153.7,
+    "webglBudget": 190
+  },
+  "browserChecks": {
+    "status": "Final combined local suite running; hosted checks pending.",
+    "previousNativeChecksPassed": 42,
+    "focusedChecksPassed": 6,
+    "expectedSkips": 4
+  },
+  "coverage": {
+    "status": "INCOMPLETE",
+    "rows": 140,
+    "priorRowsUnchanged": 139,
+    "unreviewed": 115,
+    "missing": [],
+    "schemaOrEvidenceErrors": []
+  },
+  "preservation": {
+    "protectedOriginalFiles": 107,
+    "changed": [],
+    "originalInventorySha256": "44d70fe15f8d8dd4bdad18c83c7d69c01cc9a85acd317f7692e55f4975773fb9"
+  },
+  "publication": "Pending hosted checks and production verification"
+}

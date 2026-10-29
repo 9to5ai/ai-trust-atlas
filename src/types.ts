@@ -137,6 +137,8 @@ export type SourceRecord = {
   authorityNote: string
   status: InstrumentStatus
   published: string
+  /* Suppress a derived publication event when the release date remains unresolved. */
+  publicationTimeline?: false
   effective?: string
   lastVerified: string
   officialUrl: string

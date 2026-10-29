@@ -2769,10 +2769,262 @@
       "basis": "User: Add to atlas (this source only)"
     },
     "reviewLimitations": [
-      "No report-specific open licence located; \u00a9 The Alan Turing Institute2026. Terms10.3 restrict content reuse without licence;21.1 permits fair links with no implied endorsement.",
+      "No report-specific open licence located; © The Alan Turing Institute2026. Terms10.3 restrict content reuse without licence;21.1 permits fair links with no implied endorsement.",
       "Report text reviewed; cover/authorship/contents/Appendix45/last52 visually inspected. Cited works not independently reviewed; visual chart audit not comprehensive.",
       "Appendix workshop n=33 (17April2026), not a representative sector survey. Institutional examples/results source-reported, not independently validated.",
       "Publication day unknown; no day invented to qualify for recency windows."
     ]
+  },
+  {
+    "id": "csiro-epistemic-bibliography-20261026",
+    "title": "CSIRO scalable oversight: bibliographic reference and original Atlas questions",
+    "url": "https://www.csiro.au/-/media/D61/Files/Epistemic_Safety_in_Scalable_Oversight.pdf",
+    "discovered": "2026-10-26",
+    "eventKey": "csiro-epistemic-oversight-report-2026-10",
+    "sourceType": "research-database",
+    "authorityNote": "CSIRO original research report, commissioned by Australian AISI; no regulatory authority or independent assurance opinion.",
+    "scope": "Narrow bibliography and original prompts only; cover/copyright, executive summary, selected experimental methods/results/limitations and financial examples reviewed. Not a complete 104-page mathematical/appendix review.",
+    "publicationDate": null,
+    "dateBasis": "Report cover dated 8 October 2026; landing last updated 7 October; exact publication day unresolved. Source should retain month precision and separately label document date.",
+    "reviewed": "2026-10-26",
+    "reviewer": "Codex / AI Trust Atlas",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 3,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Original research institution; results are author-reported, not independently replicated.",
+      "relevance": "Direct Australian financial-services and oversight-evidence relevance.",
+      "impact": "Changes a concrete challenge question about what an otherwise correct AI answer can omit or emphasise.",
+      "contribution": "Distinct bounded reference alongside Turing; no new risk taxonomy or unsupported production claims."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Ready ONLY for bibliographic metadata, official links and independently authored questions. CSIRO copyright page and report reserve adaptation rights; no report synopsis, formal framework, chart, benchmark figures, case-study narrative or derived method is proposed for public reuse.",
+    "linkedSourceIds": [],
+    "publicationApproval": "User approved 28 October 2026; only the two ready proposals in the 26 October response.",
+    "evidenceUrls": [
+      "https://www.csiro.au/-/media/D61/Files/Epistemic_Safety_in_Scalable_Oversight.pdf",
+      "https://www.csiro.au/en/research/technology-space/ai/Scalable-AI-Oversight",
+      "https://www.industry.gov.au/publications/epistemic-safety-scalable-oversight",
+      "https://www.csiro.au/en/about/Policies/Legal/Copyright"
+    ],
+    "supportingCheckIds": [
+      "topic:8",
+      "topic:10"
+    ],
+    "documentDate": "2026-10-08",
+    "publicationMonth": "2026-10",
+    "rightsScope": "Bibliographic identification/linking and original Atlas prompts only. Detailed adaptation not cleared.",
+    "reviewLimitations": [
+      "Report cover 8 October; CSIRO landing last updated 7 October; announcement month October. No exact release day inferred.",
+      "Controlled AI-verifier proof of concept, not demonstrated human effects or deployment prevalence. Strongest cross-dataset setting directly changes trainer objective; transcript-only results vary.",
+      "Selected report pages: PDF 1–5, 7–10, 39–42, 50–51, 55–57, 65–68. Mathematical proofs, complete results, benchmarks/code/licences not independently validated.",
+      "Sector scenarios are illustrative; no incident or production-use-case admission."
+    ]
+  },
+  {
+    "id": "enisa-layer-provenance-20261026",
+    "title": "ENISA three-layer reference: precise citation and historical legal context",
+    "url": "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai",
+    "discovered": "2026-10-26",
+    "eventKey": "enisa-three-layer-atlas-provenance-20261026",
+    "sourceType": "framework",
+    "authorityNote": "ENISA original voluntary guidance, 2023; not current law or certification.",
+    "scope": "Current Atlas three-layer summary compared with report copyright, Sections 1–2.3 and conclusions. Survey/annex detail not part of the current Atlas synopsis and not fully reviewed.",
+    "publicationDate": "2023-06-07",
+    "dateBasis": "Official publication page 7 June 2023; PDF June 2023. No 2026 publication event.",
+    "reviewed": "2026-10-26",
+    "reviewer": "Codex / AI Trust Atlas",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 2,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Original issuing agency supports the layered-framework claim.",
+      "relevance": "Useful security and assurance traceability across audiences.",
+      "impact": "Improves citation precision and prevents treating 2023 legal background as current requirements.",
+      "contribution": "Bounded refinement of existing record, not a new guidance event."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Add a page-specific citation to existing enisa-ai-layers and a concise 2023-context note; retain source publication 7 June 2023. Original Atlas role questions only; credit ENISA, 2023, CC-BY4.0 and label adaptation. No third-party figure or licensed-standard text reproduced.",
+    "linkedSourceIds": [
+      "enisa-ai-cyber-framework"
+    ],
+    "publicationApproval": "User approved 28 October 2026; only the two ready proposals in the 26 October response.",
+    "evidenceUrls": [
+      "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai",
+      "https://www.enisa.europa.eu/sites/default/files/publications/Multilayer%20Framework%20for%20Good%20Cybersecurity%20Practices%20for%20AI.pdf"
+    ],
+    "supportingCheckIds": [
+      "source:enisa-ai-cyber-framework"
+    ],
+    "rightsScope": "ENISA report PDF p2 explicitly CC-BY4.0, attribution and changes indicated; third-party material excluded."
+  },
+  {
+    "id": "mas-safr11-reassessment-20261026",
+    "title": "SAFR1.1 version date resolved; detailed admission remains deferred",
+    "url": "https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf",
+    "discovered": "2026-10-26",
+    "eventKey": "mas-safr-1-1-review",
+    "sourceType": "framework",
+    "authorityNote": "MAS-hosted industry white paper, not regulatory advice.",
+    "scope": "Cover/version history/disclaimer and selected implementation/escalation sections 17–19; complete 29-page paper and implementation code not reviewed.",
+    "publicationDate": "2026-10-09",
+    "dateBasis": "PDF version history expressly dates 1.1 to 9 October 2026; landing 3 July is first 1.0 date, not 1.1 publication.",
+    "reviewed": "2026-10-26",
+    "reviewer": "Codex / AI Trust Atlas",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": false,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "MAS original hosting and version history establish provenance.",
+      "relevance": "Direct financial-sector runtime authority and review relevance.",
+      "impact": "Resolves version/date ambiguity without asserting an implementation works.",
+      "contribution": "Reassesses existing 19 October lead; no duplicate admitted event."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Version history confirms 1.1 dated 9 October 2026. Landing remains dated 3 July and says reference code by request; 9 October speech previously claimed open-source implementation. Repository ownership/licence/behaviour remain unresolved. MAS terms restrict reproduction and internal-page linking without permission; do not assume open-data terms license this report.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "supersedesId": "mas-safr11-followup-2026-10-19",
+    "evidenceUrls": [
+      "https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf",
+      "https://www.mas.gov.sg/publications/monographs-or-information-paper/2026/safeguards-for-agentic-finance-at-runtime",
+      "https://www.mas.gov.sg/terms-of-use"
+    ],
+    "supportingCheckIds": [
+      "publisher:mas",
+      "topic:10"
+    ],
+    "documentVersion": "1.1",
+    "documentDate": "2026-10-09",
+    "rightsScope": "Private review only; no new public adaptation/link admission cleared."
+  },
+  {
+    "id": "csa-frontier-advisory-review-20261026",
+    "title": "Singapore frontier-AI advisory update: no verified historical delta",
+    "url": "https://www.csa.gov.sg/alerts-and-advisories/advisories/ad-2026-004/",
+    "discovered": "2026-10-26",
+    "eventKey": "csa-frontier-advisory-ad-2026-004-update-20261020",
+    "sourceType": "policy-guidance",
+    "authorityNote": "CSA original advisory; capability statements are issuer claims, not independent tests.",
+    "scope": "Complete current advisory and website terms reviewed; no earlier content snapshot to establish changed recommendations.",
+    "publicationDate": null,
+    "dateBasis": "Original date 15 April 2026; body update 20 October; footer 23 October is site-wide. Update-day content delta unresolved.",
+    "reviewed": "2026-10-26",
+    "reviewer": "Codex / AI Trust Atlas",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": false,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 2
+    },
+    "scoreReasons": {
+      "authority": "Responsible cybersecurity agency for advisory content.",
+      "relevance": "Security oversight relevance; not financial-supervisor guidance.",
+      "impact": "Potential exposure/patching attention; much overlaps ASD/RBNZ.",
+      "contribution": "Distinct Singapore authority but no substantiated new content delta."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Original 15 April 2026, explicit body last updated 20 October, site footer 23 October. These dates do not establish which advice changed. CSA terms restrict reuse and linking; permission and version comparison unresolved. No new current-week release inferred.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://www.csa.gov.sg/alerts-and-advisories/advisories/ad-2026-004/",
+      "https://www.csa.gov.sg/terms-of-use/"
+    ],
+    "supportingCheckIds": [
+      "topic:7",
+      "topic:10"
+    ],
+    "originalPublicationDate": "2026-04-15",
+    "contentUpdated": "2026-10-20"
+  },
+  {
+    "id": "treasury-oisp-proposed-rule-lead-20261026",
+    "title": "US Treasury outbound-investment proposed rule: AI-related scope requires fuller review",
+    "url": "https://public-inspection.federalregister.gov/2026-21786.pdf",
+    "discovered": "2026-10-26",
+    "eventKey": "treasury-oisp-proposal-2026-21786",
+    "sourceType": "law",
+    "authorityNote": "Original Treasury proposed rule in official public inspection and Federal Register editions; the proposal is not final law.",
+    "scope": "Public-inspection cover/background and the first two Federal Register pages, plus a search-located SI-definition passage only; complete operative definitions, exceptions, technical thresholds and the underlying COINS statute were not reviewed.",
+    "publicationDate": null,
+    "scheduledPublicationDate": "2026-10-26",
+    "dateBasis": "The official public-inspection cover schedules Federal Register publication for 26 October. This run occurs on 26 October in Sydney and 25 October UTC; no US publication time is inferred from the local review date.",
+    "reviewed": "2026-10-26",
+    "reviewer": "Codex / AI Trust Atlas",
+    "reviewDepth": "overview",
+    "gates": {
+      "provenance": true,
+      "evidence": false,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 3,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Treasury original notice and GPO copies establish the proposed rule and stated comment deadline.",
+      "relevance": "Potential relevance to covered US persons and investment structures involving specified technologies; applicability to any entity is unassessed.",
+      "impact": "May justify a distinct scoped source after review; new notification or prohibition details are not inferred.",
+      "contribution": "Distinct outbound-investment rulemaking, rather than general AI governance guidance."
+    },
+    "relevantBindingChange": false,
+    "decision": "defer",
+    "reason": "Proposal only; comments stated due 7 December 2026. Compare the complete rule, existing 31 CFR 850, proposed 851, statutory authority, transitions and exceptions before admission. No new current legal obligation or applicability conclusion. EO 14434 terminology was rechecked against official text and deduplicated against the existing 12 October decision.",
+    "linkedSourceIds": [],
+    "publicationApproval": "pending",
+    "evidenceUrls": [
+      "https://public-inspection.federalregister.gov/2026-21786.pdf",
+      "https://www.govinfo.gov/content/pkg/FR-2026-10-26/pdf/2026-21786.pdf",
+      "https://www.govinfo.gov/content/pkg/FR-2026-10-02/html/2026-20321.htm"
+    ],
+    "supportingCheckIds": [
+      "supplemental:treasury-oisp-2026-21786"
+    ],
+    "nextAction": "Review the complete operative AI/SI definitions, technology thresholds, transaction and person scope, exceptions and transition against existing 31 CFR 850 and the underlying statute; confirm publication status and date before a proposal."
   }
 ]

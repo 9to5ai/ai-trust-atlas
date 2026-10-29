@@ -1,0 +1,25 @@
+{
+  "approvedAt": "2026-10-28",
+  "authorization": "User said approved in reply to the two ready proposals.",
+  "approvedCandidateIds": [
+    "csiro-epistemic-bibliography-20261026",
+    "enisa-layer-provenance-20261026"
+  ],
+  "deferredCandidateIds": [
+    "mas-safr11-reassessment-20261026",
+    "csa-frontier-advisory-review-20261026",
+    "treasury-oisp-proposed-rule-lead-20261026"
+  ],
+  "baselineCommit": "0e614f516832fa24472619dc7c773a56595cead0",
+  "coverageStatus": "INCOMPLETE",
+  "priorUnreviewed": 114,
+  "publishedScope": "CSIRO bibliography, original questions and thematic research link; ENISA existing citation/context/questions.",
+  "publicationDatesAdvanced": false,
+  "discoveryRegisterDatesAdvanced": false,
+  "publicReportAdaptation": false,
+  "mappingVersion": "2026-10-26-proposal",
+  "proposalSha256": "2bfdc39bae71a3240ac9d2d5e51b23e6abee6ff49e7a26dbc2d834cb251af485",
+  "releaseLocalDate": "2026-10-29",
+  "previousReviewedBaseline": "24a0900c4f9f75d97ef4d0726b6e78f63f4887b1",
+  "preservedNewerContent": "Latest MUFG case and approved LiteLLM, ConnectWise and Railway incidents retained unchanged."
+}
