@@ -65,7 +65,7 @@ export const curatedEvents: TimelineEvent[] = [
 export const derivedEvents: TimelineEvent[] = instruments.flatMap((instrument) => {
   const events: TimelineEvent[] = []
   const published = precisionOf(instrument.published)
-  if (published) events.push({ id: `published:${instrument.id}`, date: instrument.published, precision: published, kind: 'published', certainty: 'enacted', title: `${instrument.shortTitle} published`, summary: instrument.summary, instrumentId: instrument.id, region: instrument.region, sourceUrl: instrument.officialUrl, editorialStatus: instrument.editorialStatus })
+  if (published && instrument.publicationTimeline !== false) events.push({ id: `published:${instrument.id}`, date: instrument.published, precision: published, kind: 'published', certainty: 'enacted', title: `${instrument.shortTitle} published`, summary: instrument.summary, instrumentId: instrument.id, region: instrument.region, sourceUrl: instrument.officialUrl, editorialStatus: instrument.editorialStatus })
   const effective = instrument.effective && precisionOf(instrument.effective) === 'day' ? instrument.effective : undefined
   if (effective && effective !== instrument.published && !curatedEvents.some((event) => event.instrumentId === instrument.id && event.date === effective)) {
     events.push({ id: `effective:${instrument.id}`, date: effective, precision: 'day', kind: 'in-force', certainty: 'enacted', title: `${instrument.shortTitle} takes effect`, summary: instrument.applicability, instrumentId: instrument.id, region: instrument.region, sourceUrl: instrument.officialUrl, editorialStatus: instrument.editorialStatus })

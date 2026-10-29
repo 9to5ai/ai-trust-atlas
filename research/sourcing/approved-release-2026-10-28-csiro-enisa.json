@@ -1,0 +1,25 @@
+{
+  "approvedAt": "2026-10-28",
+  "authorization": "User said approved in reply to the two ready proposals.",
+  "approvedCandidateIds": [
+    "csiro-epistemic-bibliography-20261026",
+    "enisa-layer-provenance-20261026"
+  ],
+  "deferredCandidateIds": [
+    "mas-safr11-reassessment-20261026",
+    "csa-frontier-advisory-review-20261026",
+    "treasury-oisp-proposed-rule-lead-20261026"
+  ],
+  "baselineCommit": "2612939e85ace913ca2539f1c8b1f00c72228383",
+  "coverageStatus": "INCOMPLETE",
+  "priorUnreviewed": 114,
+  "publishedScope": "CSIRO bibliography, original questions and thematic research link; ENISA existing citation/context/questions.",
+  "publicationDatesAdvanced": false,
+  "discoveryRegisterDatesAdvanced": false,
+  "publicReportAdaptation": false,
+  "mappingVersion": "2026-10-26-proposal",
+  "proposalSha256": "2bfdc39bae71a3240ac9d2d5e51b23e6abee6ff49e7a26dbc2d834cb251af485",
+  "releaseLocalDate": "2026-10-29",
+  "previousReviewedBaseline": "24a0900c4f9f75d97ef4d0726b6e78f63f4887b1",
+  "preservedNewerContent": "Latest main MUFG remittance-format checking case retained."
+}

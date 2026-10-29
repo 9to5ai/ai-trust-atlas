@@ -1,0 +1,40 @@
+{
+  "baseline": "2612939e85ace913ca2539f1c8b1f00c72228383",
+  "approvedCandidates": [
+    "csiro-epistemic-bibliography-20261026",
+    "enisa-layer-provenance-20261026"
+  ],
+  "localTests": {
+    "passed": 218,
+    "files": 41,
+    "maxWorkers": 2
+  },
+  "build": "passed",
+  "bundleKB": {
+    "firstLoad": 393.0,
+    "budget": 394,
+    "webgl": 153.7,
+    "webglBudget": 190
+  },
+  "browserChecks": {
+    "nativeUnchangedChecksPassed": 42,
+    "focusedChecksPassed": 6,
+    "uniquePassed": 48,
+    "expectedSkips": 4,
+    "note": "Initial new-test accessible-name and mobile brief locators corrected; all six focused tests then passed. Final hosted suite will run all checks together."
+  },
+  "coverage": {
+    "status": "INCOMPLETE",
+    "rows": 140,
+    "priorRowsUnchanged": 139,
+    "unreviewed": 115,
+    "missing": [],
+    "schemaOrEvidenceErrors": []
+  },
+  "preservation": {
+    "protectedOriginalFiles": 107,
+    "changed": [],
+    "originalInventorySha256": "44d70fe15f8d8dd4bdad18c83c7d69c01cc9a85acd317f7692e55f4975773fb9"
+  },
+  "publication": "Pending hosted checks and production verification"
+}

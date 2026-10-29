@@ -1,0 +1,130 @@
+{
+  "created": "2026-10-26",
+  "status": "PROPOSAL_ONLY",
+  "baselineCommit": "24a0900c4f9f75d97ef4d0726b6e78f63f4887b1",
+  "coverageStatus": "INCOMPLETE",
+  "readyCandidateIds": [
+    "csiro-epistemic-bibliography-20261026",
+    "enisa-layer-provenance-20261026"
+  ],
+  "unrelatedCoverageGapsDoNotBlockTheseCandidates": true,
+  "publicationApproval": "PENDING; scheduled run has no release authority",
+  "proposedEdits": [
+    {
+      "candidateId": "csiro-epistemic-bibliography-20261026",
+      "operation": "add-research-reference",
+      "sourceId": "au-csiro-epistemic-oversight",
+      "sourceType": "research-database",
+      "legalEffect": "informational",
+      "issuer": "CSIRO",
+      "title": "Epistemic Safety in Scalable Oversight",
+      "publicationPrecision": "Month: October 2026. Document cover: 8 October 2026. Exact release day unresolved.",
+      "officialUrl": "https://www.csiro.au/en/research/technology-space/ai/Scalable-AI-Oversight",
+      "summary": "October 2026 research report by CSIRO, commissioned by the Australian AI Safety Institute.",
+      "publicScope": "Bibliographic metadata, original discussion questions and a reading locator only. No adapted report narrative, figures, formulas, benchmark statistics, case-study descriptions or claim of proven control effectiveness.",
+      "provision": {
+        "id": "csiro-oversight-reading",
+        "title": "Scalable oversight — reading reference",
+        "ref": "Sections 6.1 and 6.4",
+        "sourceUrl": "https://www.csiro.au/-/media/D61/Files/Epistemic_Safety_in_Scalable_Oversight.pdf#page=39",
+        "summary": "Read the original report for its research methods and limitations. Questions and concept links here are Atlas-authored."
+      },
+      "roleQuestions": {
+        "board": "Would we make the same decision if the same verified facts were presented with a different emphasis?",
+        "executive": "Which parts of the reviewer’s evidence can be checked without relying on the AI-generated summary?",
+        "regulator": "How does the firm test whether accurate information is presented in a way that serves an undisclosed objective?",
+        "assurance": "Can we separate factual correctness from the effect that presentation has on a reviewer’s judgement?"
+      },
+      "readingRoleQuestions": {
+        "board": "Who decides which effects on customer understanding are acceptable for this AI service?",
+        "executive": "Do repeated interactions change what customers believe beyond the purpose they authorised?",
+        "regulator": "What evidence distinguishes an illustrative financial scenario from an effect measured in deployed services?",
+        "assurance": "Does the evaluation result depend on access or training control that the real threat actor would not have?"
+      },
+      "conceptIds": [
+        "evaluation",
+        "human-oversight",
+        "evidence-quality"
+      ],
+      "candidateControls": [
+        "fit-for-purpose-evaluation",
+        "records-traceability"
+      ],
+      "candidateRiskIds": [
+        "mit-risk-5-1",
+        "mit-risk-5-2",
+        "mit-risk-7-1"
+      ],
+      "mappingBoundary": "Proposed concept-mediated Atlas synthesis only. Referenced concept, control and risk IDs exist in the baseline. No source-authored crosswalk or risk likelihood/coverage inference. Controls are discussion pointers, not implementation or effectiveness mappings.",
+      "relation": {
+        "targetId": "uk-turing-agentic-assurance",
+        "type": "aligns-with",
+        "basis": "cross-framework-synthesis",
+        "confidence": "medium",
+        "explanation": "Atlas thematic link: both are research references for evaluation discussions; research scope, provenance and rights remain distinct. No equivalent methods or obligations inferred.",
+        "predicate": "aligns-with",
+        "rationale": "Atlas thematic link: both are research references for evaluation discussions; research scope, provenance and rights remain distinct. No equivalent methods or obligations inferred.",
+        "mappingVersion": "2026-10-26-proposal",
+        "verifiedAt": "2026-10-26",
+        "inferenceDepth": 1,
+        "citations": [
+          {
+            "sourceTitle": "Epistemic Safety in Scalable Oversight",
+            "url": "https://www.csiro.au/en/research/technology-space/ai/Scalable-AI-Oversight",
+            "locator": "Bibliographic title and research scope",
+            "accessedAt": "2026-10-26"
+          },
+          {
+            "sourceTitle": "Evaluation for Assurance of Agentic AI Systems in Financial Services",
+            "url": "https://www.turing.ac.uk/news/publications/evaluation-assurance-agentic-ai-systems-financial-services",
+            "locator": "Previously admitted bibliographic reference; no new detailed report review claimed",
+            "accessedAt": "2026-10-24"
+          }
+        ]
+      },
+      "eventPolicy": "No separate dated development until the exact release-date basis is resolved; the 26 October review date does not create recency."
+    },
+    {
+      "candidateId": "enisa-layer-provenance-20261026",
+      "operation": "refine-existing-provision-citation",
+      "sourceId": "enisa-ai-cyber-framework",
+      "provisionId": "enisa-ai-layers",
+      "sourceUrl": "https://www.enisa.europa.eu/sites/default/files/publications/Multilayer%20Framework%20for%20Good%20Cybersecurity%20Practices%20for%20AI.pdf#page=7",
+      "ref": "Section 2 overview, printed pp6–7; Layers I–III in Sections 2.1–2.3",
+      "summary": "Retain the existing three-layer synopsis; add a precise reading link and original role prompts.",
+      "note": "ENISA, 2023, CC-BY4.0. Atlas wording and concept links are interpretations; legal and standards references reflect the report’s 2023 context and do not constitute a current legal assessment.",
+      "roleQuestions": {
+        "board": "Which layer of the AI service has no demonstrated security owner: its host, its AI components or its sector-specific workflow?",
+        "executive": "Where have AI security tests omitted a dependency in the surrounding infrastructure?",
+        "regulator": "Can the entity distinguish its general cyber controls from the additional controls selected for this AI use?",
+        "assurance": "What evidence connects tests of individual AI components with the security of the service around them?"
+      },
+      "sourceDatePolicy": "Keep 7 June 2023. No new 2026 publication event. Do not advance source-level lastVerified for unreviewed survey or annex material.",
+      "conceptIds": [
+        "ai-security",
+        "supply-chain",
+        "risk-treatment"
+      ],
+      "candidateControls": [
+        "secure-ai-development",
+        "third-party-assessment",
+        "adversarial-security-testing"
+      ],
+      "candidateRiskIds": [
+        "mit-risk-2-2",
+        "mit-risk-7-3"
+      ],
+      "mappingBoundary": "No new direct source-to-risk/requirement or effectiveness relation."
+    }
+  ],
+  "deferredCandidateIds": [
+    "mas-safr11-reassessment-20261026",
+    "csa-frontier-advisory-review-20261026",
+    "treasury-oisp-proposed-rule-lead-20261026"
+  ],
+  "questionReview": {
+    "exactDuplicatesInCurrentSource": 0,
+    "allAudiencePrompts": 12,
+    "semanticReview": "Generic evaluation/oversight overlap retained as context. Distinct prompts target factual framing, independence of review, threat-model control, and three security layers. No new risk/control taxonomy nodes."
+  }
+}

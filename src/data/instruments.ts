@@ -1,3 +1,4 @@
+import { csiroOversightSource } from './csiroScalableOversight'
 import { turingAgenticSource } from './turingAgenticAssurance'
 import { rbnzFrontierSource } from './rbnzFrontierCyber'
 import { octoberSources } from './octoberSources.js'
@@ -148,6 +149,7 @@ const coreInstruments: SourceRecord[] = [
 ]
 
 const sourceRecords: SourceRecord[] = [
+  csiroOversightSource,
   turingAgenticSource,
   rbnzFrontierSource,
   ...assuranceInstruments,
