@@ -9,7 +9,7 @@ import {inDateWindow} from './developments'
 
 describe('incident evidence and integration',()=>{
  it('has only approved incidents and resolvable interpretive connections',()=>{
-  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal','openai-medicare-2026','openai-dns-escape-2026','openai-npws-fire-history-2026','artex-south-korean-finance-2026','anthropic-philadelphia-false-tip-2026','fireworks-evaluation-credentials-2026','openai-dashboard-internal-systems-2026'])
+  expect(incidents.map(i=>i.id)).toEqual(['hugging-face-2026','anthropic-evaluation-incidents-2026','hacktron-openai-2026','robodebt-scheme','deloitte-dewr-report-2025','air-canada-chatbot-2024','arup-deepfake-fraud-2024','dutch-childcare-benefits-scandal','openai-medicare-2026','openai-dns-escape-2026','openai-npws-fire-history-2026','artex-south-korean-finance-2026','anthropic-philadelphia-false-tip-2026','fireworks-evaluation-credentials-2026','openai-dashboard-internal-systems-2026','litellm-release-compromise-2026-10','connectwise-artex-cloud-applications-2026','railway-ai-api-key-compromise-2026'])
   for(const i of incidents){expect(i.sources.length).toBeGreaterThan(0);expect(i.limitations).toBeTruthy();for(const f of i.findings)expect(i.sources[f.source]).toBeDefined();for(const c of i.connections){expect(concepts.some(x=>x.id===c.conceptId)).toBe(true);expect(controlObjectives.some(x=>x.id===c.controlId)).toBe(true);expect(c.reason).toBeTruthy()}}
  })
  it('preserves approved October evidence and date boundaries',()=>{
