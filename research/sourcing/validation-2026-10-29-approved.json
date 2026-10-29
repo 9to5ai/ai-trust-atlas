@@ -1,27 +1,26 @@
 {
-  "baseline": "2612939e85ace913ca2539f1c8b1f00c72228383",
+  "baseline": "0e614f516832fa24472619dc7c773a56595cead0",
   "approvedCandidates": [
     "csiro-epistemic-bibliography-20261026",
     "enisa-layer-provenance-20261026"
   ],
   "localTests": {
-    "passed": 218,
-    "files": 41,
+    "passed": 223,
+    "files": 42,
     "maxWorkers": 2
   },
   "build": "passed",
   "bundleKB": {
-    "firstLoad": 393.0,
-    "budget": 394,
+    "firstLoad": 395.6,
+    "budget": 396,
     "webgl": 153.7,
     "webglBudget": 190
   },
   "browserChecks": {
-    "nativeUnchangedChecksPassed": 42,
+    "status": "Final combined local suite running; hosted checks pending.",
+    "previousNativeChecksPassed": 42,
     "focusedChecksPassed": 6,
-    "uniquePassed": 48,
-    "expectedSkips": 4,
-    "note": "Initial new-test accessible-name and mobile brief locators corrected; all six focused tests then passed. Final hosted suite will run all checks together."
+    "expectedSkips": 4
   },
   "coverage": {
     "status": "INCOMPLETE",

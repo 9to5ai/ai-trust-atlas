@@ -18,7 +18,7 @@ const webgl = readdirSync(join(dist, 'assets')).filter((file) => file.startsWith
 // 20 October RBNZ/FMA source, sections and audience questions: measured 389.6 KB gzip.
 // 24 October Turing bibliographic reference and eight original prompts: measured 390.9 KB gzip.
 // 28 October approved MUFG case: measured 391.7 KB gzip before incident additions.
-// Three approved incidents and the CSIRO/ENISA reference/questions share a 396 KB ceiling.
+// Three approved incidents plus CSIRO/ENISA reference/questions: measured 395.6 KB gzip.
 const budgets = { firstLoad: 396 * 1024, webgl: 190 * 1024 }
 console.log(`First load: ${kb(firstLoad)} gzip across ${initial.length} files (budget ${kb(budgets.firstLoad)}). WebGL universe: ${kb(webgl)} (budget ${kb(budgets.webgl)}).`)
 if (firstLoad > budgets.firstLoad || webgl > budgets.webgl) { console.error('Bundle budget exceeded.'); process.exit(1) }
