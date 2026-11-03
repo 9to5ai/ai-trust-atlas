@@ -8,10 +8,10 @@ export const lateOctoberIncidents: Incident[] = [
     "shortTitle": "LiteLLM release compromise",
     "occurred": "10–21 October 2026; exposed key dates to 27 May",
     "disclosed": "2026-10-21",
-    "updated": "2026-10-23",
+    "updated": "2026-10-30",
     "classification": "AI infrastructure supply-chain compromise",
     "summary": "LiteLLM reports that a leaked, unrevoked agent-platform key led to privileged GitHub access and a compromised release. JFrog independently identified malicious code in version 1.107.0 artifacts.",
-    "implication": "Check the software you deploy, the identities that can release it and whether exposed keys were actually revoked.",
+    "implication": "A valid signature establishes release origin, not safe contents. Test who can change the build inputs and override approvals.",
     "topics": [
       "security",
       "third-party",
@@ -27,6 +27,11 @@ export const lateOctoberIncidents: Incident[] = [
         "title": "JFrog: independent analysis of malicious wheels",
         "url": "https://research.jfrog.com/post/litellm-hijacked-again/",
         "role": "Independent artifact analysis · 21 October; updated 22 October 2026"
+      },
+      {
+        "title": "LiteLLM: October 30 security changes",
+        "url": "https://litellm.vercel.app/blog/security-changes-after-oct-21-2026",
+        "role": "Provider follow-up and commitments · 30 October 2026 · documentation mirror"
       }
     ],
     "findings": [
@@ -37,12 +42,16 @@ export const lateOctoberIncidents: Incident[] = [
       {
         "text": "JFrog found credential theft and a remote-code loader in wheels, including startup execution without importing LiteLLM. The source archive lacked the same payload files.",
         "source": 1
+      },
+      {
+        "text": "LiteLLM says the compromised pipeline built and signed the malicious release normally. Its October 30 roadmap separates completed, in-progress and planned controls.",
+        "source": 2
       }
     ],
-    "limitations": "Internal access-chain findings are provider-reported; independent artifact analysis does not independently establish that chain. Downstream victim totals and actor attribution are not established here. This is separate from the March LiteLLM compromise and does not prove autonomous AI misuse.",
-    "reviewed": "2026-10-28",
+    "limitations": "Internal access-chain findings are provider-reported; independent artifact analysis does not independently establish that chain. Downstream victim totals and actor attribution are not established here. This is separate from the March LiteLLM compromise and does not prove autonomous AI misuse. Announced controls have not been independently tested by the Atlas. The canonical follow-up URL was inaccessible; its provider documentation mirror was reviewed.",
+    "reviewed": "2026-11-03",
     "disclosureLabel": "Initial public disclosure",
-    "reviewScope": "Original accounts rechecked for approved publication on 28 October. Evidence supports the bounded findings below; underlying logs and remediation were not independently audited.",
+    "reviewScope": "October 23 investigation, independent artifact findings and October 30 provider follow-up reviewed. Remediation operating effectiveness was not independently verified.",
     "connections": [
       {
         "conceptId": "supply-chain",
@@ -71,9 +80,9 @@ export const lateOctoberIncidents: Incident[] = [
     ],
     "prompts": {
       "board": {
-        "text": "What proves our AI dependencies cannot turn one leaked credential into a trusted release?",
-        "askFor": "Dependency inventory, release assurance and privileged-access exceptions.",
-        "followUp": "Which conclusions are demonstrated, and which remain uncertain?"
+        "text": "Who can override the controls we rely on for trusted releases?",
+        "askFor": "Privileged-role exceptions and independent challenge.",
+        "followUp": "Can one identity change both release inputs and approvals?"
       },
       "executive": {
         "text": "Can we identify every deployment of an affected wheel or container?",
@@ -98,7 +107,7 @@ export const lateOctoberIncidents: Incident[] = [
     "shortTitle": "ConnectWise / ARTEX",
     "occurred": "October 2026; downstream activity reported 15 October",
     "disclosed": "2026-10-16",
-    "updated": "2026-10-27",
+    "updated": "2026-10-30",
     "classification": "Third-party compromise with reported AI-assisted follow-on activity",
     "summary": "ConnectWise confirms unauthorised access to Cloud Backup application credentials. Microsoft reports ARTEX-assisted abuse of trusted applications in customer environments.",
     "implication": "Review supplier application permissions and prove that containment removes access created inside customer environments.",
@@ -117,7 +126,12 @@ export const lateOctoberIncidents: Incident[] = [
       {
         "title": "ConnectWise: Cloud Backup advisory",
         "url": "https://www.connectwise.com/company/trust/advisories",
-        "role": "Affected provider disclosure · 16 October; updated 27 October 2026"
+        "role": "Affected provider disclosure · 16 October; restoration update 30 October 2026"
+      },
+      {
+        "title": "Huntress: evidence and limits of AI attribution",
+        "url": "https://www.huntress.com/blog/connectwise-attack-ai",
+        "role": "Separate investigator telemetry; reviewed 3 November 2026"
       }
     ],
     "findings": [
@@ -126,14 +140,18 @@ export const lateOctoberIncidents: Incident[] = [
         "source": 0
       },
       {
-        "text": "On 27 October, ConnectWise said phased restoration awaited third-party validation. It reported no indication that existing backup archives were compromised.",
+        "text": "On October 30, ConnectWise reported backup/restore availability for re-authorized tenants and restored portal/monitoring access. Reporting and notifications remained phased; re-authorization alone does not prove new backups succeeded.",
         "source": 1
+      },
+      {
+        "text": "Huntress puts confidence in LLM involvement at low to medium from its own telemetry. It does not independently confirm Microsoft’s ARTEX attribution; missing Graph logs limit its reconstruction.",
+        "source": 2
       }
     ],
     "limitations": "AI involvement and Storm-0940 attribution are Microsoft assessments. Customer-specific impacts require separate investigation. This event is distinct from the South Korean finance case; shared ARTEX tooling does not establish a common actor. Provider restoration statements are not independent assurance.",
-    "reviewed": "2026-10-28",
+    "reviewed": "2026-11-03",
     "disclosureLabel": "Initial public disclosure",
-    "reviewScope": "Original accounts rechecked for approved publication on 28 October. Evidence supports the bounded findings below; underlying logs and remediation were not independently audited.",
+    "reviewScope": "Microsoft attribution, ConnectWise October 30 restoration update and Huntress telemetry limitations reviewed. No independent recovery assurance performed.",
     "connections": [
       {
         "conceptId": "third-party-risk",
@@ -162,14 +180,14 @@ export const lateOctoberIncidents: Incident[] = [
     ],
     "prompts": {
       "board": {
-        "text": "Could a trusted supplier compromise both our access controls and recovery capability?",
-        "askFor": "Dependency scenarios and recovery exercises.",
-        "followUp": "Which conclusions are demonstrated, and which remain uncertain?"
+        "text": "What proves recovery is operational rather than merely accessible?",
+        "askFor": "Successful backup snapshots and restore-test records.",
+        "followUp": "Which tenants or capabilities remain unverified?"
       },
       "executive": {
-        "text": "Which vendor applications can change identities or permissions without a person signing in?",
-        "askFor": "Consent inventory, privilege review and service-principal audit logs.",
-        "followUp": "Which conclusions are demonstrated, and which remain uncertain?"
+        "text": "Have re-authorized tenants completed new backups?",
+        "askFor": "Tenant-by-tenant verification and unresolved gaps.",
+        "followUp": "Who checks the gap since the last successful snapshot?"
       },
       "regulator": {
         "text": "What distinguishes an attempted sign-in, successful access and verified data loss in reported impacts?",

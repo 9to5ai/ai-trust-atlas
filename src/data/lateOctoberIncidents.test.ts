@@ -5,8 +5,8 @@ import { incidentQuestion, incidentsForNode } from './incidents'
 
 describe('approved late October incident boundaries', () => {
  it('preserves source update dates separately from approval and review', () => {
-  expect(lateOctoberIncidents.map(i => i.updated)).toEqual(['2026-10-23', '2026-10-27', '2026-10-26'])
-  expect(lateOctoberIncidents.every(i => i.reviewed === '2026-10-28')).toBe(true)
+  expect(lateOctoberIncidents.map(i => i.updated)).toEqual(['2026-10-30', '2026-10-30', '2026-10-26'])
+  expect(lateOctoberIncidents.map(i => i.reviewed)).toEqual(['2026-11-03', '2026-11-03', '2026-10-28'])
   expect(lateOctoberIncidents[1].limitations).toContain('distinct from the South Korean finance case')
   expect(lateOctoberIncidents[2].limitations).toContain('provider assessments')
  })

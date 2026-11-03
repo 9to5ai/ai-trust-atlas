@@ -4,6 +4,8 @@ for (const [id, title, source] of [
  ['litellm-release-compromise-2026-10', 'LiteLLM release compromise', 'LiteLLM: corrected attack-chain investigation'],
  ['connectwise-artex-cloud-applications-2026', 'ConnectWise / ARTEX', 'Microsoft: ARTEX campaign and ConnectWise compromise'],
  ['railway-ai-api-key-compromise-2026', 'Railway credential breach', 'Railway: preliminary incident report'],
+ ['cloudflare-glm-cache-exposure-2026', 'Cloudflare cross-customer exposure', 'Cloudflare: cross-request cache exposure'],
+ ['cyberstrikeai-education-campaign-2026', 'CyberStrikeAI education campaign', 'Kaspersky: CyberStrikeAI in real-world attacks'],
 ]) {
  test(`${id} opens evidence and questions`, async ({ page, isMobile }) => {
   const errors: string[] = []
