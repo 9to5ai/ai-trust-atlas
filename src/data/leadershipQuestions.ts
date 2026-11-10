@@ -1,3 +1,4 @@
+import { auFrontierDevelopment, auFrontierDevelopmentPrompt } from './auFrontierProtections'
 import { rbnzFrontierDevelopment, rbnzFrontierDevelopmentPrompt } from './rbnzFrontierCyber'
 import { concepts } from './concepts'
 import { instruments } from './instruments'
@@ -777,7 +778,7 @@ const authoredDevelopmentPrompts: Record<string, Omit<DevelopmentPrompt, 'questi
     "followUp": "Which newly considered scenario has changed a deployment or control decision?"
   }
 }
-export const developmentPrompts: Record<string, DevelopmentPrompt> = { ...Object.fromEntries(Object.entries(authoredDevelopmentPrompts).map(([id, prompt]) => [id, { ...prompt, questions: { ...prompt.questions, assurance: assuranceDevelopmentQuestions[id] ?? '' } }])), [rbnzFrontierDevelopment.id]: rbnzFrontierDevelopmentPrompt }
+export const developmentPrompts: Record<string, DevelopmentPrompt> = { [auFrontierDevelopment.id]: auFrontierDevelopmentPrompt, ...Object.fromEntries(Object.entries(authoredDevelopmentPrompts).map(([id, prompt]) => [id, { ...prompt, questions: { ...prompt.questions, assurance: assuranceDevelopmentQuestions[id] ?? '' } }])), [rbnzFrontierDevelopment.id]: rbnzFrontierDevelopmentPrompt }
 export function questionForDevelopment(item: Development, audience: Audience): Question | undefined {
   const prompt = developmentPrompts[item.id]
   if (!prompt) return undefined

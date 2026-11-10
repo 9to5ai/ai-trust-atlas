@@ -3026,5 +3026,44 @@
       "supplemental:treasury-oisp-2026-21786"
     ],
     "nextAction": "Review the complete operative AI/SI definitions, technology thresholds, transaction and person scope, exceptions and transition against existing 31 CFR 850 and the underlying statute; confirm publication status and date before a proposal."
+  },
+  {
+    "id": "au-frontier-protections-20261110",
+    "title": "New Australian AI safety and security protections",
+    "url": "https://www.pm.gov.au/media/new-australian-ai-safety-and-security-protections",
+    "discovered": "2026-11-10",
+    "eventKey": "au-frontier-ai-protections-announced-20261110",
+    "sourceType": "policy-guidance",
+    "authorityNote": "Government policy announcement, not enacted legislation or a currently empowered regulator.",
+    "scope": "Full official media release including date, joint attribution, six-item list and forthcoming legislation/consultation; PM copyright page. No draft bill, technical evidence or effectiveness review.",
+    "publicationDate": "2026-11-10",
+    "dateBasis": "Official release date",
+    "reviewed": "2026-11-10",
+    "reviewer": "Codex",
+    "reviewDepth": "full-text",
+    "gates": {
+      "provenance": true,
+      "evidence": true,
+      "rights": true,
+      "scopeAndStatus": true
+    },
+    "scores": {
+      "authority": 4,
+      "relevance": 4,
+      "impact": 3,
+      "contribution": 3
+    },
+    "scoreReasons": {
+      "authority": "Australian Government is the original authority for its own announced legislative intentions.",
+      "relevance": "Direct Australian board, executive, regulatory and assurance relevance.",
+      "impact": "Changes legislative monitoring and potential provider/supplier scope assessments; creates no current compliance duty.",
+      "contribution": "Distinct six-area frontier-AI protection and regulator proposal; absent from current corpus."
+    },
+    "relevantBindingChange": false,
+    "decision": "include",
+    "reason": "Named user intake. Lasting policy baseline for future legislation; informational/not-in-force, original summaries under verified CC BY 4.0. Twelve distinct role prompts; one explicitly cited policy-development link to National AI Plan; no requirements or crosswalk added.",
+    "linkedSourceIds": [
+      "au-frontier-ai-protections-proposal"
+    ]
   }
 ]

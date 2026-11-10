@@ -20,7 +20,9 @@ const webgl = readdirSync(join(dist, 'assets')).filter((file) => file.startsWith
 // 28 October approved MUFG case: measured 391.7 KB gzip before incident additions.
 // Three approved incidents plus CSIRO/ENISA reference/questions: measured 395.6 KB gzip.
 // 3 November approved incident additions and two refreshes: measured 397.9 KB gzip.
-const budgets = { firstLoad: 398 * 1024, webgl: 190 * 1024 }
+// 10 November user-requested Australian frontier-AI proposal and twelve prompts:
+// approximately 399.5 KB gzip (about 1.6 KB above the 397.9 KB baseline).
+const budgets = { firstLoad: 400 * 1024, webgl: 190 * 1024 }
 console.log(`First load: ${kb(firstLoad)} gzip across ${initial.length} files (budget ${kb(budgets.firstLoad)}). WebGL universe: ${kb(webgl)} (budget ${kb(budgets.webgl)}).`)
 if (firstLoad > budgets.firstLoad || webgl > budgets.webgl) { console.error('Bundle budget exceeded.'); process.exit(1) }
 

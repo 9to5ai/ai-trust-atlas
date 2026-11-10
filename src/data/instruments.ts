@@ -1,3 +1,4 @@
+import { auFrontierSource } from './auFrontierProtections'
 import { csiroOversightSource } from './csiroScalableOversight'
 import { turingAgenticSource } from './turingAgenticAssurance'
 import { rbnzFrontierSource } from './rbnzFrontierCyber'
@@ -149,6 +150,7 @@ const coreInstruments: SourceRecord[] = [
 ]
 
 const sourceRecords: SourceRecord[] = [
+  auFrontierSource,
   csiroOversightSource,
   turingAgenticSource,
   rbnzFrontierSource,
