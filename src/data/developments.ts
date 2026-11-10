@@ -1,3 +1,4 @@
+import { auFrontierDevelopment } from './auFrontierProtections'
 import { rbnzFrontierDevelopment } from './rbnzFrontierCyber'
 import { methodologyDevelopments } from './methodologyRefresh.js'
 export type Development = {
@@ -7,6 +8,7 @@ export type Development = {
 export const briefingReview = '2026-09-08'
 // Publication dates govern the external feed. Reviews and additions never refresh an item's age.
 export const developments: Development[] = [
+  auFrontierDevelopment,
   rbnzFrontierDevelopment,
 ...methodologyDevelopments,
 {"id": "ec-frontier-panel-response-2026", "published": "2026-10-12", "reviewed": "2026-10-19", "added": "2026-10-19", "dateBasis": "Report published", "status": "Investigation activity and expert recommendations", "issuer": "European Commission", "title": "EU AI Office response highlights internal-model testing and monitorability", "summary": "In its report on the 9 October meeting, the Commission said it had received serious-incident reports and requested information on security practices. Panel leaders recommended attention to internal development/testing, investigation capability and model monitorability.", "implication": "Atlas interpretation: include internal research deployments in risk decisions and preserve evidence needed to investigate model behaviour. These recommendations do not themselves introduce new legal duties.", "question": "Who accepts the risk of powerful models used internally before a product is released?", "topics": ["governance", "lifecycle", "testing", "evidence"], "sourceId": "eu-ai-act", "backgroundSourceId": "eu-gpai-code", "url": "https://digital-strategy.ec.europa.eu/en/news/special-meeting-ai-scientific-panel"},
