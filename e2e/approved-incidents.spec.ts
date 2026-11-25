@@ -6,6 +6,8 @@ for (const [id, title, source] of [
  ['railway-ai-api-key-compromise-2026', 'Railway credential breach', 'Railway: preliminary incident report'],
  ['cloudflare-glm-cache-exposure-2026', 'Cloudflare cross-customer exposure', 'Cloudflare: cross-request cache exposure'],
  ['cyberstrikeai-education-campaign-2026', 'CyberStrikeAI education campaign', 'Kaspersky: CyberStrikeAI in real-world attacks'],
+ ['together-prompt-sample-theft-2026', 'Together AI prompt-sample theft', 'Together AI: prompt-sample incident'],
+ ['novita-minimax-routing-2026', 'Novita MiniMax routing', 'Novita: MiniMax request privacy notice'],
 ]) {
  test(`${id} opens evidence and questions`, async ({ page, isMobile }) => {
   const errors: string[] = []
